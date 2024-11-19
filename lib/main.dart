@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'presentation/views/splash_view/splash_view.dart';
+import 'presentation/views/splash/splash_view.dart';
 
 void main() {
   runApp(const MediCare());
