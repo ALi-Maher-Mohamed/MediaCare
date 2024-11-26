@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'presentation/views/splash/splash_view.dart';
+import 'package:media_care/presentation/views/Auth/login/login_view.dart';
 
 void main() {
   runApp(const MediCare());
@@ -12,7 +11,7 @@ class MediCare extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: SplashView(),
+      home: LoginView(),
     );
   }
 }
