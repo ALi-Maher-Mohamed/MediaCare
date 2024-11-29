@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:media_care/core/utlis/app_regex.dart';
 import 'package:media_care/presentation/views/Auth/login/widgets/custom_login_button.dart';
 import 'package:media_care/presentation/views/Auth/login/widgets/custom_text_form_field.dart';
+import 'package:media_care/presentation/views/home/home_view.dart';
 
 class EmailAndPasswordForm extends StatefulWidget {
   const EmailAndPasswordForm({
@@ -63,8 +64,11 @@ class _EmailAndPasswordFormState extends State<EmailAndPasswordForm> {
             CustomLoginButton(
                 onPresed: () {
                   if (formKey.currentState!.validate()) {
-                    // return ScaffoldMessenger(
-                    //     child: SnackBar(content: Text()));
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return HomeView();
+                      },
+                    ));
                   }
                 },
                 text: 'Submit')

@@ -2,23 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:media_care/core/utlis/app_color.dart';
 
 class DontHaveAccountText extends StatelessWidget {
-  const DontHaveAccountText({super.key});
+  const DontHaveAccountText(
+      {super.key,
+      required this.text,
+      required this.boldText,
+      required this.router});
+  final String text, boldText;
+  final Widget router;
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-        children: [
-          TextSpan(
-            text: 'Don\'t have an account?',
-            style: TextStyle(color: AppColors.darkGrey),
-          ),
-          TextSpan(
-            style: TextStyle(color: AppColors.primary),
-            text: ' Sign Up',
-          ),
-        ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
+            return router;
+          },
+        ));
+      },
+      child: RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: text,
+              style: TextStyle(color: AppColors.darkGrey),
+            ),
+            TextSpan(
+              style: TextStyle(color: AppColors.primary),
+              text: boldText,
+            ),
+          ],
+        ),
       ),
     );
   }

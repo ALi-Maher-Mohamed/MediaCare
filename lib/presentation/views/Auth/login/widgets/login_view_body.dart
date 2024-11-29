@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
+import 'package:media_care/presentation/views/Auth/register/regester_view.dart';
 
 import '../../../../../core/utlis/app_color.dart';
 import 'dont_have_email_password.dart';
@@ -57,7 +56,11 @@ class LoginViewBody extends StatelessWidget {
                 SizedBox(
                   height: 30,
                 ),
-                DontHaveAccountText(),
+                DontHaveAccountText(
+                  router: RegisterView(),
+                  text: "don't have Account",
+                  boldText: "Sign Up",
+                ),
               ],
             ),
           ),
