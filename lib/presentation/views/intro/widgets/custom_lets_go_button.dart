@@ -15,7 +15,7 @@ class CustomLetsGoButton extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => LoginView(),
+              builder: (context) => HomeView(),
             ));
       },
       child: Container(
