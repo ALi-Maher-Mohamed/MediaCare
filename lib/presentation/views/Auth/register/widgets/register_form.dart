@@ -24,8 +24,7 @@ class _RegisterFormState extends State<RegisterForm> {
     return Form(
       key: formKey,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           FirstAndLastNameForm(),
           SizedBox(
@@ -131,7 +130,10 @@ class _RegisterFormState extends State<RegisterForm> {
                     },
                   ));
                 }
-              })
+              }),
+          SizedBox(
+            height: 20,
+          ),
         ],
       ),
     );
