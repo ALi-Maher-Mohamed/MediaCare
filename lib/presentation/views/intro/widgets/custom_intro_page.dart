@@ -20,10 +20,7 @@ class CustomIntroPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              image,
-              height: 200,
-            ),
+            SvgPicture.asset(image, height: 150),
             SizedBox(
               height: 30,
             ),

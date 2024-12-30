@@ -1,8 +1,8 @@
-import 'package:bookly_app/core/utlis/styles.dart';
-import 'package:bookly_app/feature/search/presentation/views/widgets/custom_search_text_feild.dart';
-import 'package:bookly_app/feature/search/presentation/views/widgets/search_result_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+import 'custom_search_text_feild.dart';
+import 'search_result_list_view.dart';
 
 class SearchViewBody extends StatelessWidget {
   const SearchViewBody({super.key});
@@ -20,7 +20,6 @@ class SearchViewBody extends StatelessWidget {
           ),
           Text(
             'Search Result ',
-            style: Styles.textStyle18,
           ),
           SizedBox(
             height: 16,

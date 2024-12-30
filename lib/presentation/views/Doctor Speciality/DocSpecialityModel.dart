@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class DocSpeciality {
   String name;
   String image;

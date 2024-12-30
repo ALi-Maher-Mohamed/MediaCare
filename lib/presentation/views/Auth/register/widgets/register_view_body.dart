@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:media_care/presentation/views/Auth/login/login_view.dart';
 import 'package:media_care/presentation/views/Auth/login/widgets/dont_have_email_password.dart';
 import 'package:media_care/presentation/views/Auth/register/widgets/register_form.dart';
@@ -12,6 +11,7 @@ class RegisterViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
@@ -22,7 +22,7 @@ class RegisterViewBody extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                Align(alignment: Alignment.center, child: RegisterForm()),
+                RegisterForm(),
                 DontHaveAccountText(
                   router: LoginView(),
                   text: "Already have an Account  ",

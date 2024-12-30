@@ -58,8 +58,8 @@ class LoginViewBody extends StatelessWidget {
                 ),
                 DontHaveAccountText(
                   router: RegisterView(),
-                  text: "don't have Account",
-                  boldText: "Sign Up",
+                  text: "don't have Account ?",
+                  boldText: " Sign Up",
                 ),
               ],
             ),

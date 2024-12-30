@@ -21,7 +21,7 @@ class SplashViewBody extends StatelessWidget {
           ),
           Flexible(
             child: Image.asset(
-              'assets/animation/mediLogo.png',
+              'assets/animation/Medicare.png',
             ),
           )
         ],

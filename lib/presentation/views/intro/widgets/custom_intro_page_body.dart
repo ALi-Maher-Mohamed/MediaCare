@@ -1,9 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:media_care/core/utlis/app_color.dart';
-import 'package:media_care/core/utlis/app_images.dart';
 
 class CustomIntroPageBody extends StatelessWidget {
   const CustomIntroPageBody(
