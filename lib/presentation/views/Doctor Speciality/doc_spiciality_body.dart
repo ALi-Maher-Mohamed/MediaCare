@@ -8,7 +8,7 @@ class DocSpicalityBody extends StatelessWidget {
     required this.DocSpecialityData,
   });
 
-  final List<DocSpeciality> DocSpecialityData;
+  final List<DocSpecialityModel> DocSpecialityData;
 
   @override
   Widget build(BuildContext context) {

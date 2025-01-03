@@ -1,6 +1,6 @@
-class DocSpeciality {
+class DocSpecialityModel {
   String name;
   String image;
 
-  DocSpeciality({required this.name, required this.image});
+  DocSpecialityModel({required this.name, required this.image});
 }

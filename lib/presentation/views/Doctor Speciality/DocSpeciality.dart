@@ -8,38 +8,38 @@ class DoctorSpecialityScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DocSpecialityData = [
-      DocSpeciality(
+      DocSpecialityModel(
           name: 'ENT', image: 'assets/images/DoctorSpeciality/ENT.svg'),
-      DocSpeciality(
+      DocSpecialityModel(
           name: 'Dentistry',
           image: 'assets/images/DoctorSpeciality/Dentistry.svg'),
-      DocSpeciality(
+      DocSpecialityModel(
           name: 'Intestine',
           image: 'assets/images/DoctorSpeciality/intestine.svg'),
-      DocSpeciality(
+      DocSpecialityModel(
           name: 'Histologist',
           image: "assets/images/DoctorSpeciality/histologist.svg"),
-      DocSpeciality(
+      DocSpecialityModel(
           name: 'Hepatology',
           image: 'assets/images/DoctorSpeciality/Hepatology.svg'),
-      DocSpeciality(
+      DocSpecialityModel(
           name: 'General', image: 'assets/images/DoctorSpeciality/gen.svg'),
-      DocSpeciality(
+      DocSpecialityModel(
           name: 'Cardiologist',
           image: 'assets/images/DoctorSpeciality/cardiologist.svg'),
-      DocSpeciality(
+      DocSpecialityModel(
           name: 'Pulmonary',
           image: 'assets/images/DoctorSpeciality/pulmonary.svg'),
-      DocSpeciality(
+      DocSpecialityModel(
           name: 'Optometry',
           image: 'assets/images/DoctorSpeciality/Optometry.svg'),
-      DocSpeciality(
+      DocSpecialityModel(
           name: 'Pediatric',
           image: 'assets/images/DoctorSpeciality/Pediatric.svg'),
-      DocSpeciality(
+      DocSpecialityModel(
           name: 'Urologist',
           image: 'assets/images/DoctorSpeciality/Urologist.svg'),
-      DocSpeciality(
+      DocSpecialityModel(
           name: 'Neurologic',
           image: 'assets/images/DoctorSpeciality/Neurologic.svg'),
     ];

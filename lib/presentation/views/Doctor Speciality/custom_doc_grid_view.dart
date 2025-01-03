@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'DocSpecialityModel.dart';
+import 'doc_speciality_item.dart';
 
 class CustomDocSpicalityGridView extends StatelessWidget {
   const CustomDocSpicalityGridView({
@@ -9,7 +9,7 @@ class CustomDocSpicalityGridView extends StatelessWidget {
     required this.DocSpecialityData,
   });
 
-  final List<DocSpeciality> DocSpecialityData;
+  final List<DocSpecialityModel> DocSpecialityData;
 
   @override
   Widget build(BuildContext context) {
@@ -22,25 +22,8 @@ class CustomDocSpicalityGridView extends StatelessWidget {
       ),
       itemCount: DocSpecialityData.length,
       itemBuilder: (context, index) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundColor: Colors.grey[200],
-              child: SvgPicture.asset(
-                DocSpecialityData[index].image,
-                height: 50,
-                width: 40,
-              ),
-            ),
-            SizedBox(height: 18),
-            Text(
-              DocSpecialityData[index].name,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-            ),
-          ],
-        );
+        return DocSpecialityItem(
+            DocSpecialityData: DocSpecialityData, index: index);
       },
     );
   }

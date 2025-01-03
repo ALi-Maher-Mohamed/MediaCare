@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:media_care/presentation/views/Doctor%20Speciality/DocSpeciality.dart';
 import 'package:media_care/presentation/views/home/home_view.dart';
 import 'package:media_care/presentation/views/splash/splash_view.dart';
+import 'package:media_care/presentation/views/splash/widgets/splash_screen.dart';
+
+import 'presentation/views/search/search_view.dart';
 
 void main() {
   runApp(const MediCare());
