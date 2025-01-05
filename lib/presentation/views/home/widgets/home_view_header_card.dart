@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:media_care/presentation/views/found_disease/found_disease.dart';
 
 import '../../../../core/utlis/app_color.dart';
-import '../../Doctor Speciality/DocSpeciality.dart';
 
 class HomeViewHeaderCard extends StatelessWidget {
   const HomeViewHeaderCard({

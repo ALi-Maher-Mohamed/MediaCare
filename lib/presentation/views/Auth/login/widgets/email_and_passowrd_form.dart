@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:media_care/core/utlis/app_regex.dart';
 import 'package:media_care/presentation/views/Auth/login/widgets/custom_login_button.dart';
 import 'package:media_care/presentation/views/Auth/login/widgets/custom_text_form_field.dart';
-import 'package:media_care/presentation/views/found_disease/found_disease.dart';
 import 'package:media_care/presentation/views/home/home_view.dart';
 
 class EmailAndPasswordForm extends StatefulWidget {
@@ -67,7 +66,7 @@ class _EmailAndPasswordFormState extends State<EmailAndPasswordForm> {
                   if (formKey.currentState!.validate()) {
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
-                        return UploadScreen();
+                        return HomeView();
                       },
                     ));
                   }
