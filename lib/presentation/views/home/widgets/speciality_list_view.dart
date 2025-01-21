@@ -4,12 +4,23 @@ import '../../Doctor Speciality/DocSpecialityModel.dart';
 import '../../Doctor Speciality/doc_speciality_item.dart';
 
 class SpecialityListView extends StatelessWidget {
-  const SpecialityListView({
+  SpecialityListView({
     super.key,
-    required this.spicialty,
   });
 
-  final List<DocSpecialityModel> spicialty;
+  final List<DocSpecialityModel> spicialty = [
+    DocSpecialityModel(
+        name: 'ENT', image: 'assets/images/DoctorSpeciality/ENT.svg'),
+    DocSpecialityModel(
+        name: 'Dentistry',
+        image: 'assets/images/DoctorSpeciality/Dentistry.svg'),
+    DocSpecialityModel(
+        name: 'Intestine',
+        image: 'assets/images/DoctorSpeciality/intestine.svg'),
+    DocSpecialityModel(
+        name: 'Histologist',
+        image: "assets/images/DoctorSpeciality/histologist.svg"),
+  ];
 
   @override
   Widget build(BuildContext context) {

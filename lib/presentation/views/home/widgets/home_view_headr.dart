@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:media_care/core/utlis/app_color.dart';
 
 class HomeViewHeader extends StatelessWidget {
@@ -7,16 +8,29 @@ class HomeViewHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
           height: 10,
         ),
-        Text(
-          'Hi Ali !',
-          style: TextStyle(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Hi Ali !',
+              style: TextStyle(
+                  color: AppColors.primary,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24),
+            ),
+            IconButton(
               color: AppColors.primary,
-              fontWeight: FontWeight.bold,
-              fontSize: 24),
+              onPressed: () {
+                ZoomDrawer.of(context)!.toggle();
+              },
+              icon: Icon(Icons.menu),
+            ),
+          ],
         ),
         SizedBox(
           height: 8,

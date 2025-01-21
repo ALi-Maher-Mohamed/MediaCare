@@ -44,6 +44,7 @@ dependencies:
   google_generative_language_api: ^0.2.1
   http: null
   permission_handler: ^11.3.1
+  flutter_zoom_drawer: ^3.2.0
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/animation/
+    - assets/offers/
+    - assets/pharmacies/
     - assets/images/
     - assets/images/onboarding_images/
     - assets/
