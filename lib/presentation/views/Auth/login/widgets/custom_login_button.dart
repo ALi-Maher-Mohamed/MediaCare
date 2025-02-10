@@ -10,15 +10,15 @@ class CustomLoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
         style: ButtonStyle(
-          shape: MaterialStatePropertyAll(
+          shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
           ),
-          fixedSize: MaterialStatePropertyAll(
+          fixedSize: WidgetStatePropertyAll(
             Size(300, 60),
           ),
-          backgroundColor: MaterialStatePropertyAll(
+          backgroundColor: WidgetStatePropertyAll(
             AppColors.primary,
           ),
         ),

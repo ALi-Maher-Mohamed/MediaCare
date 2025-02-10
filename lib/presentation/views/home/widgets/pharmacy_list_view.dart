@@ -4,7 +4,7 @@ import 'package:media_care/presentation/views/home/widgets/custom_offer_item.dar
 
 class PharmacyListView extends StatelessWidget {
   PharmacyListView({super.key});
-  List<PharmacyModel> pharmacy = [
+  final List<PharmacyModel> pharmacy = [
     PharmacyModel(image: 'assets/pharmacies/abdeen.jpg', title: 'Abdeen'),
     PharmacyModel(image: 'assets/pharmacies/Diamond.jpg', title: 'Diamond'),
     PharmacyModel(

@@ -16,7 +16,6 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return ZoomDrawer(
       menuBackgroundColor: AppColors.primaryLight,
-      // menuScreenOverlayColor: Colors.transparent,
       style: DrawerStyle.defaultStyle,
       menuScreen: MenuView(),
       mainScreen: MainScreen(),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:media_care/presentation/views/splash/splash_view.dart';
-import 'package:media_care/zoom_drawer.dart';
 
 void main() async {
   // await dotenv.load();

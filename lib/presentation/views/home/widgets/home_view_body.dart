@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:media_care/presentation/views/Doctor%20Speciality/DocSpeciality.dart';
-import 'package:media_care/presentation/views/home/widgets/custom_offer_item.dart';
 import 'package:media_care/presentation/views/home/widgets/doctor_offers.dart';
 import 'package:media_care/presentation/views/home/widgets/home_view_headr.dart';
 import 'package:media_care/presentation/views/home/widgets/pharmacy_list_view.dart';

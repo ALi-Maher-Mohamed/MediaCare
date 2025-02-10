@@ -4,7 +4,7 @@ import 'package:media_care/presentation/views/home/widgets/custom_offer_item.dar
 
 class DoctorsOffers extends StatelessWidget {
   DoctorsOffers({super.key});
-  List<DocOfferModel> offers = [
+  final List<DocOfferModel> offers = [
     DocOfferModel(
       image: 'assets/offers/eye.jpg',
       title: 'Eyes',
