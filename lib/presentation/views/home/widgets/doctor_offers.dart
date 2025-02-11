@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:media_care/core/models/doc_offer_model.dart';
-import 'package:media_care/presentation/views/home/widgets/custom_offer_item.dart';
+import '../../../../core/models/doc_offer_model.dart';
+import 'custom_offer_item.dart';
 
 class DoctorsOffers extends StatelessWidget {
   DoctorsOffers({super.key});

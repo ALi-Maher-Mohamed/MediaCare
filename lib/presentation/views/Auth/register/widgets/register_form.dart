@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:media_care/core/utlis/app_regex.dart';
-import 'package:media_care/presentation/views/Auth/login/login_view.dart';
-import 'package:media_care/presentation/views/Auth/login/widgets/custom_login_button.dart';
+import '../../../../../core/utlis/app_regex.dart';
+import '../../login/login_view.dart';
+import '../../login/widgets/custom_login_button.dart';
 
 import '../../login/widgets/custom_text_form_field.dart';
 import 'first_last_names_form.dart';

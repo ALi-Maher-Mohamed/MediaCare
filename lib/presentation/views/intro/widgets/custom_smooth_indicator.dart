@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:media_care/core/utlis/app_color.dart';
-import 'package:media_care/presentation/views/intro/widgets/custom_intro_page.dart';
+import '../../../../core/utlis/app_color.dart';
+import 'custom_intro_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class CustomSmoothIndicator extends StatelessWidget {

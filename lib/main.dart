@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:media_care/presentation/views/splash/splash_view.dart';
+import 'package:media_care/zoom_drawer.dart';
+import 'presentation/views/splash/splash_view.dart';
 
 void main() async {
   // await dotenv.load();
@@ -14,7 +15,7 @@ class MediCare extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashView(),
+      home: HomeView(),
     );
   }
 }

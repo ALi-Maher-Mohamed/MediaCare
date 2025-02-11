@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:media_care/presentation/views/Auth/register/regester_view.dart';
+import '../../register/regester_view.dart';
 
 import '../../../../../core/utlis/app_color.dart';
 import 'dont_have_email_password.dart';

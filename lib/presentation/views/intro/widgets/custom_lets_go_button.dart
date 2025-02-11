@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:media_care/core/utlis/app_color.dart';
-import 'package:media_care/presentation/views/Auth/login/login_view.dart';
+import '../../../../core/utlis/app_color.dart';
+import '../../Auth/login/login_view.dart';
 
 class CustomLetsGoButton extends StatelessWidget {
   const CustomLetsGoButton({

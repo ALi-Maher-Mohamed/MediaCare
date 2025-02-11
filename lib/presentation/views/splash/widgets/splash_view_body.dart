@@ -1,7 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:media_care/presentation/views/intro/introduction_page_view.dart';
-import 'package:media_care/presentation/views/splash/widgets/splash_screen.dart';
+import '../../intro/introduction_page_view.dart';
+import 'splash_screen.dart';
 
 class SplashViewBody extends StatelessWidget {
   const SplashViewBody({

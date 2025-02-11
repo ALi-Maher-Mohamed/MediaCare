@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:media_care/presentation/views/Doctor%20Speciality/DocSpeciality.dart';
-import 'package:media_care/presentation/views/home/widgets/doctor_offers.dart';
-import 'package:media_care/presentation/views/home/widgets/home_view_headr.dart';
-import 'package:media_care/presentation/views/home/widgets/pharmacy_list_view.dart';
+import '../../Doctor%20Speciality/DocSpeciality.dart';
+import 'doctor_offers.dart';
+import 'home_view_headr.dart';
+import 'pharmacy_list_view.dart';
 
 import 'speciality_list_view.dart';
 import 'title_and_see_all.dart';

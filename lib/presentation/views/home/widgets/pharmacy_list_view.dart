@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:media_care/core/models/pharmacy_model.dart';
-import 'package:media_care/presentation/views/home/widgets/custom_offer_item.dart';
+import '../../../../core/models/pharmacy_model.dart';
+import 'custom_offer_item.dart';
 
 class PharmacyListView extends StatelessWidget {
   PharmacyListView({super.key});

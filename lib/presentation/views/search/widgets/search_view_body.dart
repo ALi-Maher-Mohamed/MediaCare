@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:media_care/presentation/views/home/widgets/custom_list_doc_item.dart';
+import '../../home/widgets/custom_list_doc_item.dart';
 
 import 'custom_search_bar.dart';
 

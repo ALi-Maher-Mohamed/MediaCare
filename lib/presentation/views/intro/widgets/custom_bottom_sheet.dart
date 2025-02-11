@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:media_care/presentation/views/intro/widgets/custom_text_button.dart';
-import 'package:media_care/presentation/views/intro/widgets/custom_intro_page.dart';
-import 'package:media_care/presentation/views/intro/widgets/custom_smooth_indicator.dart';
+import 'custom_text_button.dart';
+import 'custom_intro_page.dart';
+import 'custom_smooth_indicator.dart';
 
 class CustomButomSheet extends StatelessWidget {
   const CustomButomSheet({

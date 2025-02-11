@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:media_care/core/utlis/app_color.dart';
-import 'package:media_care/presentation/views/home/Custom_drawer_widgets/custom_drawer.dart';
-import 'package:media_care/presentation/views/home/home_view.dart';
+import 'core/utlis/app_color.dart';
+import 'presentation/views/home/Custom_drawer_widgets/custom_drawer.dart';
+import 'presentation/views/home/home_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});

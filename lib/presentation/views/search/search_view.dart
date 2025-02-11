@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:media_care/presentation/views/search/widgets/search_view_body.dart';
+import 'widgets/search_view_body.dart';
 
 import '../../../core/utlis/app_color.dart';
 

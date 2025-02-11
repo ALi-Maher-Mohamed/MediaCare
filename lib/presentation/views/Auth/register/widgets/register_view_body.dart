@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:media_care/presentation/views/Auth/login/login_view.dart';
-import 'package:media_care/presentation/views/Auth/login/widgets/dont_have_email_password.dart';
-import 'package:media_care/presentation/views/Auth/register/widgets/register_form.dart';
-import 'package:media_care/presentation/views/Auth/register/widgets/register_header.dart';
+import '../../login/login_view.dart';
+import '../../login/widgets/dont_have_email_password.dart';
+import 'register_form.dart';
+import 'register_header.dart';
 
 class RegisterViewBody extends StatelessWidget {
   const RegisterViewBody({super.key});
