@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:media_care/presentation/views/home/widgets/search_doctor_field.dart';
 import '../../Doctor%20Speciality/DocSpeciality.dart';
 import 'doctor_offers.dart';
 import 'home_view_headr.dart';
@@ -29,11 +30,12 @@ class HomeViewBody extends StatelessWidget {
                 SizedBox(
                   height: 24,
                 ),
-                SizedBox(
-                  height: 24,
-                ),
+                SearchDoctor()
               ],
             ),
+          ),
+          SizedBox(
+            height: 24,
           ),
           TitleAndSeeAll(
             onTap: () {},

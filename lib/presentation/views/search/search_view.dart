@@ -4,15 +4,26 @@ import 'widgets/search_view_body.dart';
 import '../../../core/utlis/app_color.dart';
 
 class SearchView extends StatelessWidget {
-  const SearchView({super.key});
+  SearchView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
-            backgroundColor: AppColors.primaryLight,
-            title: Text('Recommendation '),
+            leading: null,
+            backgroundColor: AppColors.primary,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  'أبحث عن دكتورك  ',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
           ),
           body: Padding(
             padding: const EdgeInsets.all(8.0),

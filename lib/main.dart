@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:media_care/zoom_drawer.dart';
-import 'presentation/views/splash/splash_view.dart';
 
 void main() async {
   // await dotenv.load();
@@ -14,6 +13,14 @@ class MediCare extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: Locale('ar'),
+      builder: (context, child) {
+        return Directionality(
+          textDirection:
+              TextDirection.ltr, // يجعل التطبيق بالكامل من اليمين لليسار
+          child: child!,
+        );
+      },
       debugShowCheckedModeBanner: false,
       home: HomeView(),
     );
