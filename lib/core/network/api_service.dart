@@ -1,14 +1,21 @@
-// import 'package:dio/dio.dart';
+import 'package:dio/dio.dart';
+import 'package:media_care/presentation/views/pharmacies/data/model/pharmacy_model.dart';
 
-// class ApiService {
-//   final _baseUrl = 'https://www.googleapis.com/books/v1/';
+class ApiService {
+  final Dio _dio = Dio();
+  final String _baseUrl = 'http://localhost:8000/api/Pharmacies';
 
-//   final Dio dio;
-//   ApiService(this.dio);
-
-//   Future<Map<String, dynamic>> get({required String endPoint}) async {
-//     var response = await dio.get('$_baseUrl$endPoint');
-
-//     return response.data;
-//   }
-// }
+  Future<List<PharmacyModel>> fetchPharmacies() async {
+    try {
+      final response = await _dio.get(_baseUrl);
+      if (response.statusCode == 200) {
+        final List data = response.data['data']['data'];
+        return data.map((json) => PharmacyModel.fromJson(json)).toList();
+      } else {
+        throw Exception('Failed to load pharmacies');
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
+    }
+  }
+}
