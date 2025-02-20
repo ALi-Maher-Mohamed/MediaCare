@@ -5,7 +5,7 @@ import 'custom_offer_item.dart';
 class PharmacyListView extends StatelessWidget {
   PharmacyListView({super.key});
   final List<PharmacyModel> pharmacy = [
-    // PharmacyModel(image: 'assets/pharmacies/abdeen.jpg', title: 'Abdeen'),
+    // PharmacyModel(),
     // PharmacyModel(image: 'assets/pharmacies/Diamond.jpg', title: 'Diamond'),
     // PharmacyModel(
     //     image: 'assets/pharmacies/IslamFathy.jpg', title: 'Eslam Fathy'),

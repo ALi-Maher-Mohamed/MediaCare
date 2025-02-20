@@ -23,8 +23,8 @@ void main() async {
           LoginCubit(loginRepo: LoginRepoImpl(ApiServiceFunctions(Dio()))),
     ),
     BlocProvider(
-        create: (context) =>
-            RegisterCubit(registerRepo: RegisterRepoImpl(ApiServiceFunctions(Dio())))),
+        create: (context) => RegisterCubit(
+            registerRepo: RegisterRepoImpl(ApiServiceFunctions(Dio())))),
   ], child: const MediCare()));
 }
 
@@ -43,7 +43,7 @@ class MediCare extends StatelessWidget {
         );
       }),
       debugShowCheckedModeBanner: false,
-      home:  RegisterView(),
+      home: HomeView(),
     );
   }
 }
