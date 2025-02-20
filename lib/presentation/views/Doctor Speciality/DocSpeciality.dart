@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:media_care/core/utils/app_color.dart';
+import '../../../core/utils/app_color.dart';
 import '../Doctor%20Speciality/doc_spiciality_body.dart';
 import 'DocSpecialityModel.dart';
 

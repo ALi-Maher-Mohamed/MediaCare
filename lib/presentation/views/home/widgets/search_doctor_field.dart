@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:media_care/core/utils/app_color.dart';
-import 'package:media_care/presentation/views/search/search_view.dart';
+import '../../../../core/utils/app_color.dart';
+import '../../search/search_view.dart';
 
 class SearchDoctor extends StatelessWidget {
   const SearchDoctor({super.key});

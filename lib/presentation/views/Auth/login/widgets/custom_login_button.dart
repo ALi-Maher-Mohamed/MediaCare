@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:media_care/core/utils/app_color.dart';
+import '../../../../../core/utils/app_color.dart';
 
 class CustomSubmitButton extends StatelessWidget {
   const CustomSubmitButton(

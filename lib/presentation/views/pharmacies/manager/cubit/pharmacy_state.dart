@@ -7,10 +7,10 @@ class PharmacyInitial extends PharmacyState {}
 
 class PharmacyLoading extends PharmacyState {}
 
-class PharmacyLoaded extends PharmacyState {
+class PharmacySuccessState extends PharmacyState {
   final List<PharmacyModel> pharmacies;
 
-  PharmacyLoaded(this.pharmacies);
+  PharmacySuccessState(this.pharmacies);
 }
 
 class PharmacyError extends PharmacyState {

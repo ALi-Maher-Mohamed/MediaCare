@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/core/utils/app_color.dart';
-import 'package:media_care/core/utils/components/validators.dart';
-import 'package:media_care/presentation/views/Auth/login/manager/login_cubit.dart';
+import '../../../../../core/utils/app_color.dart';
+import '../../../../../core/utils/components/validators.dart';
+import '../manager/login_cubit.dart';
 import 'custom_login_button.dart';
 import 'custom_text_form_field.dart';
-import '../../../../../zoom_drawer.dart';
 
 class EmailAndPasswordForm extends StatelessWidget {
   EmailAndPasswordForm({
@@ -39,8 +38,8 @@ class EmailAndPasswordForm extends StatelessWidget {
                   context.read<LoginCubit>().changeVisibility();
                 },
                 icon: Icon(
-                    data.isVisible ? Icons.visibility_off : Icons.visibility,
-                color: AppColors.primary,
+                  data.isVisible ? Icons.visibility_off : Icons.visibility,
+                  color: AppColors.primary,
                 ),
               ),
               isObscureText: context.watch<LoginCubit>().isVisible,

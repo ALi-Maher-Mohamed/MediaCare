@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:media_care/core/utils/app_images.dart';
+import '../../../../core/utils/app_images.dart';
 import 'custom_intro_page.dart';
 
 import 'custom_bottom_sheet.dart';

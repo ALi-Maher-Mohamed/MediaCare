@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:media_care/core/errors/failure.dart';
-import 'package:media_care/presentation/views/Auth/register/data/models/register_model.dart';
-import 'package:media_care/presentation/views/Auth/register/data/repo/register_repo.dart';
+import '../../../../../core/errors/failure.dart';
+import '../data/models/register_model.dart';
+import '../data/repo/register_repo.dart';
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
@@ -15,7 +15,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   final TextEditingController bithDateController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController passwordConfimController =
-  TextEditingController();
+      TextEditingController();
 
   bool isVisible = true;
   bool isVisibleConfirm = true;
@@ -37,11 +37,11 @@ class RegisterCubit extends Cubit<RegisterState> {
       );
 
       response.fold(
-            (failure) {
+        (failure) {
           isLoading = false;
           emit(RegisterErrorState(failure.errMessage));
         },
-            (data) {
+        (data) {
           isLoading = false;
           emit(RegisterSuccessState());
         },

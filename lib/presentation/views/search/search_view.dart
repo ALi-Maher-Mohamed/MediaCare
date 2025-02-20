@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:media_care/core/utils/app_color.dart';
+import '../../../core/utils/app_color.dart';
 import 'widgets/search_view_body.dart';
-
 
 class SearchView extends StatelessWidget {
   SearchView({super.key});

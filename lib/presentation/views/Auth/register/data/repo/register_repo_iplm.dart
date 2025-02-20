@@ -1,10 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:media_care/core/errors/failure.dart';
-import 'package:media_care/core/network/api_service.dart';
-import 'package:media_care/presentation/views/Auth/register/data/models/register_model.dart';
-import 'package:media_care/presentation/views/Auth/register/data/repo/register_repo.dart';
-
+import '../../../../../../core/errors/failure.dart';
+import '../../../../../../core/network/api_service.dart';
+import '../models/register_model.dart';
+import 'register_repo.dart';
 
 class RegisterRepoImpl implements RegisterRepo {
   final ApiServiceFunctions apiService;
@@ -12,12 +11,12 @@ class RegisterRepoImpl implements RegisterRepo {
   @override
   Future<Either<Failure, RegisterModel>> registerUser(
       {required name,
-        required email,
-        required phone,
-        required address,
-        required birth_date,
-        required password,
-        required password_confirmation}) async {
+      required email,
+      required phone,
+      required address,
+      required birth_date,
+      required password,
+      required password_confirmation}) async {
     try {
       var data = await apiService.post(endpoint: '/api/user/register', data: {
         "name": name,

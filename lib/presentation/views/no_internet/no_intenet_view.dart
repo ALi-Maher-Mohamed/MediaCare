@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:media_care/core/utils/app_color.dart';
+import '../../../core/utils/app_color.dart';
 
 class NoInternetView extends StatelessWidget {
   const NoInternetView({super.key});

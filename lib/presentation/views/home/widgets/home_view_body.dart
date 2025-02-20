@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/presentation/views/home/widgets/search_doctor_field.dart';
-import 'package:media_care/presentation/views/pharmacies/pharmacy_view.dart';
+import 'search_doctor_field.dart';
+import '../../pharmacies/pharmacy_view.dart';
 import '../../Doctor%20Speciality/DocSpeciality.dart';
 import '../../pharmacies/data/service/api_service.dart';
 import '../../pharmacies/manager/cubit/pharmacy_cubit.dart';
@@ -66,7 +66,8 @@ class HomeViewBody extends StatelessWidget {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return BlocProvider(
                   create: (context) =>
-                      PharmacyCubit(apiService: ApiService())..loadPharmacies(),
+                      PharmacyCubit(apiService: PharmacyService())
+                        ..loadPharmacies(),
                   child: PharmacyView(),
                 );
               }));
@@ -76,7 +77,18 @@ class HomeViewBody extends StatelessWidget {
           SizedBox(
             height: 12,
           ),
-          PharmacyListView()
+          BlocBuilder<PharmacyCubit, PharmacyState>(
+            builder: (context, state) {
+              if (state is PharmacyLoading) {
+                return Center(child: CircularProgressIndicator());
+              } else if (state is PharmacySuccessState) {
+                return PharmacyListView(pharmacy: state.pharmacies);
+              } else if (state is PharmacyError) {
+                return Center(child: Text('حدث خطاء: ${state.message}'));
+              }
+              return Center(child: Text('لا توجد بيانات متاحة'));
+            },
+          )
         ],
       ),
     );

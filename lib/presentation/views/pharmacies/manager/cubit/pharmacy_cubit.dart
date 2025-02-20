@@ -6,7 +6,7 @@ import '../../data/model/pharmacy_model.dart';
 part 'pharmacy_state.dart';
 
 class PharmacyCubit extends Cubit<PharmacyState> {
-  final ApiService apiService;
+  final PharmacyService apiService;
 
   PharmacyCubit({required this.apiService}) : super(PharmacyInitial());
 
@@ -14,7 +14,7 @@ class PharmacyCubit extends Cubit<PharmacyState> {
     emit(PharmacyLoading());
     try {
       final pharmacies = await apiService.fetchPharmacies();
-      emit(PharmacyLoaded(pharmacies));
+      emit(PharmacySuccessState(pharmacies));
     } catch (e) {
       emit(PharmacyError(e.toString()));
       print(e.toString());

@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:media_care/presentation/views/Auth/login/data/repo/login_repo.dart';
+import '../data/repo/login_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 part 'login_state.dart';
 
@@ -21,21 +20,23 @@ class LoginCubit extends Cubit<LoginState> {
     var response = await loginRepo.loginUser(
         email: emailController.text, password: passwordController.text);
     response.fold(
-          (failure) {
+      (failure) {
         isLoading = false;
         emit(LoginError(error: failure.errMessage));
       },
-          (token) {
+      (token) {
         isLoading = false;
         pref.setString("token", token.accessToken ?? "");
         emit(LoginSucess());
       },
     );
   }
+
   void changeVisibility() {
     isVisible = !isVisible; // Toggle the value
     emit(LoginChangeVisibilityState());
   }
+
   void LoginUserValidate() {
     if (loginKey.currentState!.validate()) {
       loginUser();

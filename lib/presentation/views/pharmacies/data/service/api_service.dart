@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:media_care/presentation/views/pharmacies/data/model/pharmacy_model.dart';
+import '../model/pharmacy_model.dart';
 
-class ApiService {
+class PharmacyService {
   Dio dio = Dio(BaseOptions(
     baseUrl: "http://10.0.2.2:8000", // استبدل بـ IP جهازك
-    connectTimeout: Duration(seconds: 30),
-    receiveTimeout: Duration(seconds: 30),
+    connectTimeout: Duration(seconds: 10),
+    receiveTimeout: Duration(seconds: 10),
   ));
 
   final String _baseUrl = 'http://10.0.2.2:8000/api/Pharmacies/';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:media_care/core/utils/app_color.dart';
+import '../../../../core/utils/app_color.dart';
 
 class HomeViewHeader extends StatelessWidget {
   const HomeViewHeader({super.key});

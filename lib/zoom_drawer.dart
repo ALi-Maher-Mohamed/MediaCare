@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:media_care/core/utils/app_color.dart';
+import 'core/utils/app_color.dart';
 import 'presentation/views/home/Custom_drawer_widgets/custom_drawer.dart';
 import 'presentation/views/home/home_view.dart';
 
