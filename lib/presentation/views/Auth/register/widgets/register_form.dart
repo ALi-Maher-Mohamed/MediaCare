@@ -94,7 +94,7 @@ class RegisterForm extends StatelessWidget {
             controller: data.passwordConfimController,
             suffixIcon: IconButton(
               onPressed: () {
-                context.read<RegisterCubit>().changeVisibility();
+                context.read<RegisterCubit>().changeConfirmVisibility();
               },
               icon: Icon(
                 data.isVisibleConfirm ? Icons.visibility_off : Icons.visibility,
