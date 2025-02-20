@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'pharmact_list_view.dart';
 
-import '../data/model/pharmacy_model.dart';
 import '../manager/cubit/pharmacy_cubit.dart';
 
 class PharmacyViewBody extends StatelessWidget {

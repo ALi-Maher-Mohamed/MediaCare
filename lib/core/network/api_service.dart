@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import '../../presentation/views/pharmacies/data/model/pharmacy_model.dart';
 
 class ApiServiceFunctions {
   final Dio dio;
