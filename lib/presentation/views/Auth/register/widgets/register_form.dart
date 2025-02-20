@@ -1,43 +1,40 @@
 import 'package:flutter/material.dart';
-import '../../../../../core/utlis/app_regex.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:media_care/core/utils/app_color.dart';
+import 'package:media_care/core/utils/components/validators.dart';
+import 'package:media_care/presentation/views/Auth/register/manager/register_cubit.dart';
 import '../../login/login_view.dart';
 import '../../login/widgets/custom_login_button.dart';
 
 import '../../login/widgets/custom_text_form_field.dart';
 import 'first_last_names_form.dart';
 
-class RegisterForm extends StatefulWidget {
-  const RegisterForm({
+class RegisterForm extends StatelessWidget {
+  RegisterForm({
     super.key,
   });
-
-  @override
-  State<RegisterForm> createState() => _RegisterFormState();
-}
-
-class _RegisterFormState extends State<RegisterForm> {
-  GlobalKey<FormState> formKey = GlobalKey();
-  bool isSecure = true;
-
   @override
   Widget build(BuildContext context) {
+    var data = context.read<RegisterCubit>();
     return Form(
-      key: formKey,
+      key: data.registerKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          FirstAndLastNameForm(),
+          CustomTextField(
+            inputType: TextInputType.name,
+            label: 'Full Name',
+            controller: data.nameController,
+            validator: AppValidators.validateFullName,
+          ),
           SizedBox(
             height: 20,
           ),
           CustomTextField(
+            inputType: TextInputType.emailAddress,
             label: 'Email',
-            validator: (Value) {
-              if (!AppRegex.isEmailValid(Value!)) {
-                return 'Enter a Valid Email';
-              }
-              return null;
-            },
+            controller: data.emailController,
+            validator: AppValidators.validateEmail,
           ),
           SizedBox(
             height: 20,
@@ -45,62 +42,17 @@ class _RegisterFormState extends State<RegisterForm> {
           CustomTextField(
             inputType: TextInputType.phone,
             label: 'Phone',
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'field is required';
-              } else if (!AppRegex.isPhoneNumberValid(value)) {
-                return 'Enter correct form of password';
-              }
-              return null;
-            },
+            controller: data.phoneController,
+            validator: AppValidators.validatePhoneNumber,
           ),
           SizedBox(
             height: 20,
           ),
           CustomTextField(
-            suffixIcon: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isSecure = !isSecure;
-                  });
-                },
-                child: isSecure
-                    ? Icon(Icons.visibility_off)
-                    : Icon(Icons.visibility)),
-            label: 'Password',
-            isObscureText: isSecure,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'field is required';
-              } else if (!AppRegex.isPasswordValid(value)) {
-                return 'Enter correct form of password';
-              }
-              return null;
-            },
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          CustomTextField(
-            isObscureText: isSecure,
-            suffixIcon: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isSecure = !isSecure;
-                  });
-                },
-                child: isSecure
-                    ? Icon(Icons.visibility_off)
-                    : Icon(Icons.visibility)),
-            label: 'Confirm password',
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'field is required';
-              } else if (!AppRegex.isPasswordValid(value)) {
-                return 'Enter correct form of password';
-              }
-              return null;
-            },
+            inputType: TextInputType.streetAddress,
+            label: 'Address',
+            controller: data.addressController,
+            validator: AppValidators.validateFullName,
           ),
           SizedBox(
             height: 20,
@@ -108,28 +60,58 @@ class _RegisterFormState extends State<RegisterForm> {
           CustomTextField(
             inputType: TextInputType.datetime,
             label: 'Birth date',
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'field is required';
-              } else if (!AppRegex.isDateOfBirthValid(value)) {
-                return 'Enter Invalid Date';
-              }
-              return null;
-            },
+            controller: data.bithDateController,
+            validator: AppValidators.validateFullName,
           ),
           SizedBox(
             height: 20,
           ),
-          CustomLoginButton(
+          CustomTextField(
+            //This for password
+            validator: AppValidators.validatePassword,
+            controller: data.passwordController,
+            suffixIcon: IconButton(
+              onPressed: () {
+                context.read<RegisterCubit>().changeVisibility();
+              },
+              icon: Icon(
+                data.isVisible ? Icons.visibility_off : Icons.visibility,
+                color: AppColors.primary,
+              ),
+            ),
+            isObscureText: context.watch<RegisterCubit>().isVisible,
+            label: 'Password',
+          ),
+
+          SizedBox(
+            height: 20,
+          ),
+          CustomTextField(
+            //This for password
+            validator: (value) =>
+                AppValidators.validateConfirmPassword(
+                    value, data.passwordController.text),
+            controller: data.passwordConfimController,
+            suffixIcon: IconButton(
+              onPressed: () {
+                context.read<RegisterCubit>().changeVisibility();
+              },
+              icon: Icon(
+                data.isVisibleConfirm ? Icons.visibility_off : Icons.visibility,
+                color: AppColors.primary,
+              ),
+            ),
+            isObscureText: context.watch<RegisterCubit>().isVisibleConfirm,
+            label: 'Confirm Password',
+          ),
+
+          SizedBox(
+            height: 20,
+          ),
+          CustomSubmitButton(
               text: 'Submit',
               onPresed: () {
-                if (formKey.currentState!.validate()) {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return LoginView();
-                    },
-                  ));
-                }
+                data.RegisterUserValidate();
               }),
           SizedBox(
             height: 20,

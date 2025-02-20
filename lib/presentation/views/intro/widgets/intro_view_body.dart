@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:media_care/core/utils/app_images.dart';
 import 'custom_intro_page.dart';
 
-import '../../../../core/utlis/app_images.dart';
 import 'custom_bottom_sheet.dart';
 import 'custom_lets_go_button.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
+import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/no_internet/no_intenet_view.dart';
-import '../../../core/utlis/app_color.dart';
 import 'widgets/home_view_body.dart';
 
 class MainScreen extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/utlis/app_color.dart';
+import 'package:media_care/core/utils/app_color.dart';
 
 class CustomSearchBar extends StatelessWidget {
   const CustomSearchBar({super.key});

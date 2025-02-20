@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../core/utlis/app_color.dart';
-import '../Doctor%20Speciality/DocSpecialityModel.dart';
+import 'package:media_care/core/utils/app_color.dart';
+import 'package:media_care/presentation/views/Doctor%20Speciality/DocSpecialityModel.dart';
 
 class DocSpecialityItem extends StatelessWidget {
   const DocSpecialityItem({

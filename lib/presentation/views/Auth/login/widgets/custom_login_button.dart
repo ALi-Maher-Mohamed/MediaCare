@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../../../core/utlis/app_color.dart';
+import 'package:media_care/core/utils/app_color.dart';
 
-class CustomLoginButton extends StatelessWidget {
-  const CustomLoginButton(
+class CustomSubmitButton extends StatelessWidget {
+  const CustomSubmitButton(
       {super.key, required this.text, required this.onPresed});
   final Function() onPresed;
   final String text;
