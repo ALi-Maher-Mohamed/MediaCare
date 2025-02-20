@@ -1,26 +1,21 @@
 class LoginModel {
-  final String email;
-  final String password;
-  final Data? data;
-  final int statusCode;
+  String? accessToken;
+  String? tokenType;
+  int? expiresIn;
 
-  LoginModel({
-    required this.email,
-    required this.password,
-    this.data,
-    required this.statusCode,
-  });
-}
+  LoginModel({this.accessToken, this.tokenType, this.expiresIn});
 
-class Data {
-  final String token;
+  LoginModel.fromJson(Map<String, dynamic> json) {
+    accessToken = json['access_token'];
+    tokenType = json['token_type'];
+    expiresIn = json['expires_in'];
+  }
 
-  Data({
-    required this.token,
-  });
-  factory Data.fromJson(Map<String, dynamic> json) {
-    return Data(
-      token: json['token'],
-    );
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['access_token'] = this.accessToken;
+    data['token_type'] = this.tokenType;
+    data['expires_in'] = this.expiresIn;
+    return data;
   }
 }

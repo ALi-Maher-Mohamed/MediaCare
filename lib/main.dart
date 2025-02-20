@@ -1,10 +1,27 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:media_care/observer.dart';
+import 'package:media_care/presentation/views/Auth/login/data/repo/login_repo_impl.dart';
+import 'package:media_care/presentation/views/Auth/login/login_view.dart';
+import 'package:media_care/presentation/views/Auth/login/manager/login_cubit.dart';
 import 'package:media_care/zoom_drawer.dart';
 
-void main() async {
-  // await dotenv.load();
+import 'core/network/api_service.dart';
 
-  runApp(const MediCare());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = MyBlocObserver();
+
+  runApp(MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) =>
+              LoginCubit(loginRepo: LoginRepoImpl(ApiServiceFunctions(Dio()))),
+        ),
+      ],
+      child: const MediCare()));
 }
 
 class MediCare extends StatelessWidget {
@@ -14,15 +31,14 @@ class MediCare extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       locale: Locale('ar'),
-      builder: (context, child) {
+      builder: EasyLoading.init(builder: (context, child) {
         return Directionality(
-          textDirection:
-              TextDirection.ltr, // يجعل التطبيق بالكامل من اليمين لليسار
+          textDirection: TextDirection.ltr, // يجعل التطبيق بالكامل من اليسار لليمين
           child: child!,
         );
-      },
+      }),
       debugShowCheckedModeBanner: false,
-      home: HomeView(),
+      home:const LoginView(),
     );
   }
 }
