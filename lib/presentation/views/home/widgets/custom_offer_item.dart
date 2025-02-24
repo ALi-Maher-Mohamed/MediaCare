@@ -9,8 +9,10 @@ class CustomListViewItem extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          Image.asset(
-            height: 150,
+          Image.network(
+            cacheWidth: 500,
+            cacheHeight: 500,
+            height: 100,
             image,
           ),
           SizedBox(

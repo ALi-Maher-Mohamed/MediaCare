@@ -22,7 +22,7 @@ class PharmacyViewBody extends StatelessWidget {
         } else if (state is PharmacyError) {
           return Center(child: Text('حدث خطأ: ${state.message}'));
         }
-        return Center(child: Text('لا توجد بيانات متاحة'));
+        return Center(child: Text(' لا توجد بيانات متاحة للعرض'));
       },
     );
   }
