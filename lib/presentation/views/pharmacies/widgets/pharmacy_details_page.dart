@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
-import 'package:media_care/core/utils/app_color.dart';
-import 'package:media_care/core/utils/functins/launch_url.dart';
-import 'package:media_care/presentation/views/pharmacies/data/model/pharmacy_model.dart';
+import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/functins/launch_url.dart';
+import '../data/model/pharmacy_model.dart';
 
 class PharmacyDetailsPage extends StatelessWidget {
   final PharmacyModel pharmacy;
@@ -19,7 +19,8 @@ class PharmacyDetailsPage extends StatelessWidget {
         centerTitle: true,
         title: Text(
           pharmacy.title,
-          style: TextStyle(color: AppColors.primary),
+          style:
+              TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.white,
       ),
@@ -33,38 +34,40 @@ class PharmacyDetailsPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                   child: Image.network(
                     pharmacy.image,
-                    width: 150,
-                    height: 150,
+                    width: double.infinity,
+                    height: 230,
                     fit: BoxFit.cover,
                   )),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 50),
             Text(
               "📍 الموقع: ${pharmacy.city}, ${pharmacy.area}",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 30),
             Text(
               "🛠️ الخدمة المقدمة: ${pharmacy.service}",
               style: TextStyle(fontSize: 16, color: Colors.blueGrey),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 30),
             Text(
               "⭐ التقييم: ${pharmacy.avgRate} / 5.0",
               style: TextStyle(fontSize: 16, color: Colors.amber),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 30),
             Text(
               "🚚 التوصيل: ${pharmacy.deliveryOption == 1 ? "متاح" : "غير متاح"}",
               style: TextStyle(fontSize: 16, color: Colors.green),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 30),
             Text(
               "🛡️ التأمين الصحي: ${pharmacy.insurance == 1 ? "مدعوم" : "غير مدعوم"}",
               style: TextStyle(fontSize: 16, color: Colors.red),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
             Wrap(
+              spacing: 20,
+              runSpacing: 20,
               children: [
                 ElevatedButton.icon(
                   onPressed: () => launchDialer('01278408531'),

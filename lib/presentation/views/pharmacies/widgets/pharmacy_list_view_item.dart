@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:media_care/core/utils/app_color.dart';
-import 'package:media_care/presentation/views/pharmacies/data/model/pharmacy_model.dart';
-import 'package:media_care/presentation/views/pharmacies/widgets/pharmacy_details_page.dart';
+import 'package:media_care/core/utils/functins/launch_url.dart';
+import '../../../../core/utils/app_color.dart';
+import '../data/model/pharmacy_model.dart';
+import 'pharmacy_details_page.dart';
 
 class PharmacyListViewItem extends StatelessWidget {
   const PharmacyListViewItem({
@@ -84,7 +85,7 @@ class PharmacyListViewItem extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.phone, color: AppColors.primary, size: 30),
               onPressed: () {
-                // تنفيذ الاتصال عند الضغط على الزر
+                launchDialer(pharmacy.phone);
               },
             ),
           ],

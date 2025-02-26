@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/presentation/views/pharmacies/widgets/pharmacy_details_page.dart';
+import 'package:media_care/presentation/views/home/widgets/pharmacy_list_view.dart';
 import '../../../../core/utils/app_color.dart';
 import 'search_doctor_field.dart';
 import '../../pharmacies/pharmacy_view.dart';
@@ -120,13 +120,13 @@ class HomeViewBody extends StatelessWidget {
             SizedBox(
               height: 12,
             ),
-            // BlocProvider(
-            //   create: (context) {
-            //     return PharmacyCubit(apiService: PharmacyService())
-            //       ..loadPharmacies(pageNumber: 1);
-            //   },
-            //   child: PharmacyListView(),
-            // ),
+            BlocProvider(
+              create: (context) {
+                return PharmacyCubit(apiService: PharmacyService())
+                  ..loadPharmacies(pageNumber: 1);
+              },
+              child: PharmacyListView(),
+            ),
           ],
         ),
       ]),
