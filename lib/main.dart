@@ -39,7 +39,7 @@ class MediCare extends StatelessWidget {
       locale: Locale('ar'),
       builder: EasyLoading.init(builder: (context, child) {
         return Directionality(
-          textDirection: TextDirection.ltr,
+          textDirection: TextDirection.rtl,
           // يجعل التطبيق بالكامل من اليسار لليمين
           child: child!,
         );

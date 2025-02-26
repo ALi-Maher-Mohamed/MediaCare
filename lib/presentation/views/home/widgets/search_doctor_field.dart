@@ -9,7 +9,7 @@ class SearchDoctor extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.primaryLight,
+        color: AppColors.lightGrey,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Padding(
@@ -18,9 +18,9 @@ class SearchDoctor extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              'أكتشف المزيد ',
+              ' ! أكتشف المزيد ',
               style: TextStyle(
-                  color: Colors.black,
+                  color: AppColors.primary,
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
             ),
@@ -51,7 +51,7 @@ class SearchDoctor extends StatelessWidget {
                     ),
                     Icon(
                       Icons.search,
-                      color: Colors.black,
+                      color: AppColors.primary,
                     ),
                     SizedBox(
                       width: 12,

@@ -10,7 +10,7 @@ class PharmacyCubit extends Cubit<PharmacyState> {
 
   PharmacyCubit({required this.apiService}) : super(PharmacyInitial());
 
-  Future<void> loadPharmacies() async {
+  Future<void> loadPharmacies({required int pageNumber}) async {
     emit(PharmacyLoading());
     try {
       final pharmacies = await apiService.fetchPharmacies();

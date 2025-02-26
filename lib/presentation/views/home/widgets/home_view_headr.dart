@@ -10,19 +10,15 @@ class HomeViewHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          height: 10,
-        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Hi Ali !',
-              style: TextStyle(
-                  color: AppColors.primary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24),
-            ),
+            SizedBox(
+                width: 130,
+                child: Image.asset(
+                  'assets/images/Medicare.png',
+                  height: 100,
+                )),
             IconButton(
               color: AppColors.primary,
               onPressed: () {
@@ -32,18 +28,15 @@ class HomeViewHeader extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(
-          height: 8,
-        ),
         Text(
-          '1 Jan 2025',
+          ' ${DateTime.now().day.toString()} / ${DateTime.now().month.toString()} / ${DateTime.now().year.toString()}',
           style: TextStyle(
               color: AppColors.primary.withOpacity(.8),
               fontWeight: FontWeight.bold,
-              fontSize: 12),
+              fontSize: 14),
         ),
         SizedBox(
-          height: 40,
+          height: 30,
         ),
       ],
     );

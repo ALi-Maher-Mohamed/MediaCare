@@ -4,7 +4,7 @@ import '../model/pharmacy_model.dart';
 class PharmacyService {
   Dio dio = Dio();
 
-  final String _baseUrl = 'http://10.0.2.2:8000/api/Pharmacies/';
+  final String _baseUrl = 'http://192.168.1.4:8000/api/Pharmacies/';
 
   Future<List<PharmacyModel>> fetchPharmacies() async {
     try {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../found_disease/found_disease.dart';
 
-
 class HomeViewHeaderCard extends StatelessWidget {
   const HomeViewHeaderCard({
     super.key,
@@ -12,8 +11,9 @@ class HomeViewHeaderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        border: Border.all(color: AppColors.primary),
         borderRadius: BorderRadius.circular(18),
-        color: AppColors.primaryLight,
+        color: AppColors.lightGrey,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -22,13 +22,15 @@ class HomeViewHeaderCard extends StatelessWidget {
             padding: const EdgeInsets.all(12.0),
             child: Column(
               children: [
-                Text('How are you feel ?',
+                Text('عندك سؤال عن صحتك ؟',
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
+                      color: AppColors.primary,
                     )),
-                Text('Find your needs',
+                Text('اطلع علي الاجابة ',
                     style: TextStyle(
+                      color: AppColors.primary,
                       fontWeight: FontWeight.bold,
                     )),
                 SizedBox(
@@ -51,7 +53,7 @@ class HomeViewHeaderCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 30.0, vertical: 12),
                       child: Text(
-                        'Get Started',
+                        '! اسأل الان ',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
