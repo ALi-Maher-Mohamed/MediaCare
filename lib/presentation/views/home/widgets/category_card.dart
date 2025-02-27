@@ -20,7 +20,6 @@ class CategoryCard extends StatelessWidget {
           children: [
             SvgPicture.asset(
               'assets/images/DoctorSpeciality/ENT.svg',
-              color: AppColors.primary,
             ),
             SizedBox(
               width: 12,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:media_care/core/utils/functins/launch_url.dart';
+import '../../../../core/utils/functins/launch_url.dart';
 import '../../../../core/utils/app_color.dart';
 import '../data/model/pharmacy_model.dart';
 import 'pharmacy_details_page.dart';

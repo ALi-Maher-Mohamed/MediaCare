@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/presentation/views/home/widgets/pharmacy_list_view.dart';
+import 'pharmacy_list_view.dart';
 import '../../../../core/utils/app_color.dart';
 import 'search_doctor_field.dart';
 import '../../pharmacies/pharmacy_view.dart';
