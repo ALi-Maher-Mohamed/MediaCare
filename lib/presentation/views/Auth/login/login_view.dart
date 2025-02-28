@@ -16,7 +16,7 @@ class LoginView extends StatelessWidget {
         if (state is LoginSucess) {
           EasyLoading.dismiss();
           EasyLoading.showSuccess(
-            "Login Sucess",
+            "Login Success",
           );
           Navigator.pushReplacement(
             context,

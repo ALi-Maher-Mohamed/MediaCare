@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:media_care/presentation/views/Auth/login/login_view.dart';
+import 'package:media_care/presentation/views/Auth/login/manager/login_cubit.dart';
 
 class MenuViewBody extends StatelessWidget {
   const MenuViewBody({
@@ -81,14 +84,25 @@ class MenuViewBody extends StatelessWidget {
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
-        ListTile(
-          leading: Icon(
-            Icons.logout,
-            color: Colors.black,
-          ),
-          title: Text(
-            'Logout',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        GestureDetector(
+          onTap: () {
+            context.read<LoginCubit>().logout();
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => LoginView()),
+                  (route) => false, // Remove all previous screens from the stack
+            );
+
+          },
+          child: ListTile(
+            leading: Icon(
+              Icons.logout,
+              color: Colors.black,
+            ),
+            title: Text(
+              'Logout',
+              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            ),
           ),
         ),
       ],
