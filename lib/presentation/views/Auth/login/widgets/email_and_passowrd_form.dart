@@ -16,44 +16,48 @@ class EmailAndPasswordForm extends StatelessWidget {
     var data = context.read<LoginCubit>();
     return Form(
         key: data.loginKey,
-        child: Column(
-          children: [
-            CustomTextField(
-              ////This for email
-              inputType: TextInputType.emailAddress,
-              controller: data.emailController,
-              // ignore: body_might_complete_normally_nullable
-              validator: AppValidators.validateEmail,
-              label: 'Email',
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            CustomTextField(
-              //This for password
-              validator: AppValidators.validatePassword,
-              controller: data.passwordController,
-              suffixIcon: IconButton(
-                onPressed: () {
-                  context.read<LoginCubit>().changeVisibility();
-                },
-                icon: Icon(
-                  data.isVisible ? Icons.visibility_off : Icons.visibility,
-                  color: AppColors.primary,
-                ),
+        child: AutofillGroup(
+          child: Column(
+            children: [
+              CustomTextField(
+                ////This for email
+                autofillHints: [AutofillHints.email],
+                inputType: TextInputType.emailAddress,
+                controller: data.emailController,
+                // ignore: body_might_complete_normally_nullable
+                validator: AppValidators.validateEmail,
+                label: 'Email',
               ),
-              isObscureText: context.watch<LoginCubit>().isVisible,
-              label: 'Password',
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            CustomSubmitButton(
-                onPresed: () {
-                  data.LoginUserValidate();
-                },
-                text: 'Submit')
-          ],
+              SizedBox(
+                height: 30,
+              ),
+              CustomTextField(
+                //This for password
+                autofillHints: [AutofillHints.password],
+                validator: AppValidators.validatePassword,
+                controller: data.passwordController,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    context.read<LoginCubit>().changeVisibility();
+                  },
+                  icon: Icon(
+                    data.isVisible ? Icons.visibility_off : Icons.visibility,
+                    color: AppColors.primary,
+                  ),
+                ),
+                isObscureText: context.watch<LoginCubit>().isVisible,
+                label: 'Password',
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              CustomSubmitButton(
+                  onPresed: () {
+                    data.LoginUserValidate();
+                  },
+                  text: 'Submit')
+            ],
+          ),
         ));
   }
 }

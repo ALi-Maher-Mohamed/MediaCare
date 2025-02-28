@@ -1,10 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:media_care/core/Secure%20Storage/secure_storage.dart';
-import 'package:media_care/presentation/views/Auth/login/login_view.dart';
 import '../data/repo/login_repo.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 part 'login_state.dart';
 
