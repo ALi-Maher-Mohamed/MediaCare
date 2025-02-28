@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/functins/launch_url.dart';
 import '../data/model/pharmacy_model.dart';
