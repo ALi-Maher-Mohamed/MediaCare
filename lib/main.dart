@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:media_care/presentation/views/splash/splash_view.dart';
 import 'presentation/views/Auth/login/login_view.dart';
 import 'observer.dart';
 import 'presentation/views/Auth/login/data/repo/login_repo_impl.dart';
@@ -41,7 +42,7 @@ class MediCare extends StatelessWidget {
         );
       }),
       debugShowCheckedModeBanner: false,
-      home: const LoginView(),
+      home: const SplashView(),
     );
   }
 }
