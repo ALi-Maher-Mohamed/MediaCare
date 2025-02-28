@@ -2,23 +2,19 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-<<<<<<< HEAD
-import 'package:media_care/presentation/views/splash/splash_view.dart';
-import 'presentation/views/Auth/login/login_view.dart';
-=======
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:media_care/presentation/views/Auth/login/data/repo/login_repo_impl.dart';
 import 'package:media_care/presentation/views/Auth/login/login_view.dart';
->>>>>>> 4879198f1227747f9e2178a5ab7471f319516157
-import 'observer.dart';
-import 'presentation/views/Auth/login/data/repo/login_repo_impl.dart';
-import 'presentation/views/Auth/login/manager/login_cubit.dart';
-import 'presentation/views/Auth/register/data/repo/register_repo_iplm.dart';
-import 'presentation/views/Auth/register/manager/register_cubit.dart';
-import 'presentation/views/pharmacies/data/service/api_service.dart';
-import 'presentation/views/pharmacies/manager/cubit/pharmacy_cubit.dart';
-import 'zoom_drawer.dart';
+import 'package:media_care/presentation/views/Auth/login/manager/login_cubit.dart';
+import 'package:media_care/presentation/views/Auth/register/data/repo/register_repo_iplm.dart';
+import 'package:media_care/presentation/views/Auth/register/manager/register_cubit.dart';
+import 'package:media_care/presentation/views/pharmacies/data/service/api_service.dart';
+import 'package:media_care/presentation/views/pharmacies/manager/cubit/pharmacy_cubit.dart';
+import 'package:media_care/zoom_drawer.dart';
 
 import 'core/network/api_service.dart';
+import 'observer.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,11 +56,8 @@ class MediCare extends StatelessWidget {
         );
       }),
       debugShowCheckedModeBanner: false,
-<<<<<<< HEAD
-      home: const SplashView(),
-=======
+
       home: isLoggedIn?HomeView():LoginView(),
->>>>>>> 4879198f1227747f9e2178a5ab7471f319516157
     );
   }
 }
