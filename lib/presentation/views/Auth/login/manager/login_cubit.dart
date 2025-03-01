@@ -12,9 +12,9 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit({required this.loginRepo}) : super(LoginInitial());
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  GlobalKey<FormState> loginKey = GlobalKey();
   bool isVisible = true;
   bool isLoading = false;
+  GlobalKey<FormState> loginKey = GlobalKey();
 
   Future<void> loginUser() async {
     // SharedPreferences pref = await SharedPreferences.getInstance();
@@ -30,7 +30,7 @@ class LoginCubit extends Cubit<LoginState> {
       (data) async {
         isLoading = false;
         // pref.setString("token", token.accessToken ?? "");
-        if (data.user!.emailVerifiedAt == null) {
+        if (data.user?.emailVerifiedAt == null) {
           emit(LoginError(error: 'Please verify your email before logging in'));
           return;
         }
@@ -63,8 +63,8 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<void> logout() async {
     await secureStorage.delete(key: "token");
-    emailController.clear();  // Clear email field
-    passwordController.clear();  // Clear password field/ Remove token
+    emailController.clear(); // Clear email field
+    passwordController.clear(); // Clear password field/ Remove token
     emit(LoginInitial()); // Reset login state
   }
 }

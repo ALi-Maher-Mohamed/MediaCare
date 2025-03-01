@@ -12,14 +12,14 @@ class SearchView extends StatelessWidget {
           backgroundColor: Colors.white,
           appBar: AppBar(
             leading: null,
-            backgroundColor: AppColors.primary,
+            backgroundColor: AppColors.primaryLight,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
                   'أبحث عن دكتورك  ',
                   style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                      color: AppColors.darkGrey, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
