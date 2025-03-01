@@ -14,7 +14,14 @@ import 'presentation/views/pharmacies/data/service/api_service.dart';
 import 'presentation/views/pharmacies/manager/cubit/pharmacy_cubit.dart';
 import 'zoom_drawer.dart';
 
-import 'core/network/api_service.dart';
+import 'package:media_care/presentation/views/Auth/login/data/repo/login_repo_impl.dart';
+import 'package:media_care/presentation/views/Auth/login/login_view.dart';
+import 'package:media_care/presentation/views/Auth/login/manager/login_cubit.dart';
+import 'package:media_care/presentation/views/Auth/register/data/repo/register_repo_iplm.dart';
+import 'package:media_care/presentation/views/Auth/register/manager/register_cubit.dart';
+import 'package:media_care/presentation/views/pharmacies/data/service/api_service.dart';
+import 'package:media_care/presentation/views/pharmacies/manager/cubit/pharmacy_cubit.dart';
+import 'package:media_care/zoom_drawer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -7,7 +7,7 @@ class ApiServiceFunctions {
 
   Future<Map<String, dynamic>> post(
       {required String endpoint, required Map<String, dynamic> data}) async {
-    var response = await dio.post('http://192.168.1.4:8000$endpoint',
+    var response = await dio.post('http://10.0.2.2:8000$endpoint',
         data: data, options: Options(headers: {}));
     return response.data;
   }
