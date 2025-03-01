@@ -1,15 +1,18 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:media_care/core/utils/app_color.dart';
+import 'package:media_care/presentation/views/Laboratories/Labs_view.dart';
+import 'package:media_care/presentation/views/Laboratories/data/services/laps_service.dart';
+import 'package:media_care/presentation/views/Laboratories/manager/cubit/labs_cubit.dart';
 import 'package:media_care/presentation/views/home/widgets/custom_home_feature_container.dart';
+import 'package:media_care/presentation/views/home/widgets/wrap_container_home.dart';
 import 'package:media_care/presentation/views/pharmacies/data/model/pharmacy_model.dart';
 import 'package:media_care/presentation/views/search/search_view.dart';
-import 'package:redacted/redacted.dart';
 import 'pharmacy_list_view.dart';
 import 'search_doctor_field.dart';
 import '../../pharmacies/pharmacy_view.dart';
-import '../../Doctor%20Speciality/DocSpeciality.dart';
 import '../../pharmacies/data/service/api_service.dart';
 import '../../pharmacies/manager/cubit/pharmacy_cubit.dart';
 import 'home_view_headr.dart';
@@ -27,17 +30,43 @@ class HomeViewBody extends StatefulWidget {
 }
 
 class _HomeViewBodyState extends State<HomeViewBody> {
-  late List<PharmacyModel> pharmacies;
+  // late List<PharmacyModel> pharmacies;
   int selectedIndex = 0;
   final bottomNavigationKey = GlobalKey<CurvedNavigationBarState>();
+  List<Widget> items = [
+    Icon(
+      Icons.home,
+      size: 30,
+      color: AppColors.darkGrey,
+    ),
+    FaIcon(
+      FontAwesomeIcons.hospital,
+      color: AppColors.darkGrey,
+      size: 30,
+    ),
+    Icon(
+      Icons.search,
+      size: 30,
+      color: AppColors.darkGrey,
+    ),
+    Icon(
+      Icons.person,
+      size: 30,
+      color: AppColors.darkGrey,
+    ),
+  ];
   List<Widget> widgetOptions = <Widget>[
     HomeViewBodyScreen(),
-    SearchView(),
     BlocProvider(
       create: (context) => PharmacyCubit(apiService: PharmacyService())
         ..loadPharmacies(pageNumber: 1),
       child: PharmacyView(),
-    )
+    ),
+    BlocProvider(
+      create: (context) => LaboratoryCubit(LaboratoryService()),
+      child: LaboratoryScreen(),
+    ),
+    SearchView(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -55,23 +84,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             });
           },
           index: selectedIndex,
-          items: const [
-            Icon(
-              Icons.home,
-              size: 30,
-              color: AppColors.darkGrey,
-            ),
-            Icon(
-              Icons.search,
-              size: 30,
-              color: AppColors.darkGrey,
-            ),
-            Icon(
-              Icons.person,
-              size: 30,
-              color: AppColors.darkGrey,
-            ),
-          ]),
+          items: items),
       body: widgetOptions[selectedIndex],
     );
   }
@@ -103,67 +116,7 @@ class HomeViewBodyScreen extends StatelessWidget {
         SizedBox(
           height: 24,
         ),
-
-        Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
-          alignment: WrapAlignment.spaceAround,
-          runSpacing: 10,
-          spacing: 10,
-          direction: Axis.horizontal,
-          children: [
-            CustomHomeFeatureContainer(
-              image: 'assets/pharmacies/pharmacy_icon.png',
-              text: 'الصيدلياتٍ',
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return BlocProvider(
-                    create: (context) =>
-                        PharmacyCubit(apiService: PharmacyService())
-                          ..loadPharmacies(pageNumber: 1),
-                    child: PharmacyView(),
-                    // PharmacyDetailsPage(
-                    //   index: 0,
-                    // ),
-                  );
-                }));
-              },
-            ),
-            CustomHomeFeatureContainer(
-              image: 'assets/pharmacies/labs.png',
-              text: 'المعامل ',
-            ),
-            CustomHomeFeatureContainer(
-              image: 'assets/pharmacies/doctors_icon.png',
-              text: 'الاقسام الطبية ',
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return DoctorSpecialityView();
-                }));
-              },
-            ),
-            CustomHomeFeatureContainer(
-              image: 'assets/pharmacies/blogs.jfif',
-              text: 'المقالات الطبية',
-            ),
-          ],
-        ),
-        // TitleAndSeeAll(
-        //   onTap: () {},
-        //   text: 'Top Offers',
-        // ),
-        // SizedBox(
-        //   height: 12,
-        // ),
-        // // DoctorsOffers(),
-        // TitleAndSeeAll(
-        // onTap: () {
-        //   Navigator.push(context, MaterialPageRoute(builder: (context) {
-        //     return DoctorSpecialityScreen();
-        //   }));
-        // },
-        //   text: 'Specialty list',
-        // ),
-        // SpecialityListView(),
+        CustomWrapContainersHomeView(),
         SizedBox(
           height: 12,
         ),

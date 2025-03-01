@@ -6,12 +6,17 @@ class PharmacyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
           backgroundColor: Colors.white,
           centerTitle: true,
           iconTheme: IconThemeData(color: AppColors.primary),
-          title: Text('الصيدليات', style: TextStyle(color: AppColors.primary))),
+          title: Text(
+            'الصيدليات',
+            style: TextStyle(
+                color: AppColors.primary, fontWeight: FontWeight.bold),
+          )),
       body: PharmacyViewBody(),
     );
   }

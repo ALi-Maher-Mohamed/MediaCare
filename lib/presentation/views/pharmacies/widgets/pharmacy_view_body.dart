@@ -16,6 +16,8 @@ class PharmacyViewBody extends StatelessWidget {
         if (state is PharmacyLoading) {
           return Center(child: CircularProgressIndicator());
         } else if (state is PharmacySuccessState) {
+          // var pharmacy = [...state.pharmacies];
+
           return PharmacyCardsListView(
             pharmacies: [...state.pharmacies],
           );

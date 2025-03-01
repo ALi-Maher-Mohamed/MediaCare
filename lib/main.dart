@@ -3,25 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:media_care/presentation/views/splash/splash_view.dart';
+import 'package:media_care/core/network/api_service.dart';
+import 'package:media_care/presentation/views/Laboratories/Labs_view.dart';
+import 'package:media_care/presentation/views/Laboratories/data/services/laps_service.dart';
+import 'package:media_care/presentation/views/Laboratories/manager/cubit/labs_cubit.dart';
 import 'observer.dart';
-import 'presentation/views/Auth/login/login_view.dart';
 import 'presentation/views/Auth/login/data/repo/login_repo_impl.dart';
 import 'presentation/views/Auth/login/manager/login_cubit.dart';
 import 'presentation/views/Auth/register/data/repo/register_repo_iplm.dart';
 import 'presentation/views/Auth/register/manager/register_cubit.dart';
-import 'presentation/views/pharmacies/data/service/api_service.dart';
-import 'presentation/views/pharmacies/manager/cubit/pharmacy_cubit.dart';
 import 'zoom_drawer.dart';
-
-import 'package:media_care/presentation/views/Auth/login/data/repo/login_repo_impl.dart';
-import 'package:media_care/presentation/views/Auth/login/login_view.dart';
-import 'package:media_care/presentation/views/Auth/login/manager/login_cubit.dart';
-import 'package:media_care/presentation/views/Auth/register/data/repo/register_repo_iplm.dart';
-import 'package:media_care/presentation/views/Auth/register/manager/register_cubit.dart';
-import 'package:media_care/presentation/views/pharmacies/data/service/api_service.dart';
-import 'package:media_care/presentation/views/pharmacies/manager/cubit/pharmacy_cubit.dart';
-import 'package:media_care/zoom_drawer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,19 +43,19 @@ class MediCare extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        locale: Locale('ar'),
-        builder: EasyLoading.init(builder: (context, child) {
-          return Directionality(
-            textDirection: TextDirection.ltr,
-            // يجعل التطبيق بالكامل من اليسار لليمين
-            child: child!,
-          );
-        }),
-        debugShowCheckedModeBanner: false,
-        home:
-            // isLoggedIn ?
-            HomeView()
-        // : LoginView(),
+      locale: Locale('ar'),
+      builder: EasyLoading.init(builder: (context, child) {
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          // يجعل التطبيق بالكامل من اليسار لليمين
+          child: child!,
         );
+      }),
+      debugShowCheckedModeBanner: false,
+      home:
+          // isLoggedIn ?
+          HomeView(),
+      // : LoginView(),
+    );
   }
 }

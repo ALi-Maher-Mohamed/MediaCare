@@ -17,7 +17,6 @@ class CustomSearchBar extends StatelessWidget {
         child: TextField(
           decoration: InputDecoration(
             hintText: 'ابحث باسم الدكتور او بالتخصص',
-            hintStyle: TextStyle(color: AppColors.darkGrey),
             hintTextDirection: TextDirection.rtl,
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
