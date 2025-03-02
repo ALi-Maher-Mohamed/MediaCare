@@ -7,6 +7,9 @@ import 'package:media_care/presentation/views/Auth/login/login_view.dart';
 import 'package:media_care/presentation/views/Department/data/repo/department_repo_impl.dart';
 import 'package:media_care/presentation/views/Department/manager/department_cubit.dart';
 import 'package:media_care/presentation/views/Department/widgets/department_view.dart';
+import 'package:media_care/presentation/views/Hospital/data/repo/hospital_repo_impl.dart';
+import 'package:media_care/presentation/views/Hospital/manager/hospital_cubit.dart';
+import 'package:media_care/presentation/views/Hospital/widgets/hospital_view.dart';
 import 'package:media_care/presentation/views/profile/data/repo/profile_repo_impl.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
 import 'package:media_care/presentation/views/profile/widgets/profile_ui.dart';
@@ -38,6 +41,10 @@ void main() async {
             create: (context) => DepartmentCubit(
                 departmentRepo:
                     DepartmentRepoImpl(ApiServiceFunctions(Dio())))..fetchDepartments()),
+        BlocProvider(
+            create: (context) => HospitalCubit(
+                hospitalRepo:
+                HospitalRepoImpl(ApiServiceFunctions(Dio())))..fetchHospitals()),
         BlocProvider(
             create: (context) => ProfileCubit(
                 profileRepo: ProfileRepoImpl(ApiServiceFunctions(Dio())),
