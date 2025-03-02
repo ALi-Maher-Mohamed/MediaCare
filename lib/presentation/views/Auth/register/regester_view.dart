@@ -14,7 +14,7 @@ class RegisterView extends StatelessWidget {
       listener: (context, state) {
         if (state is RegisterSuccessState) {
           EasyLoading.dismiss();
-          EasyLoading.showSuccess("Register Sucess");
+          EasyLoading.showSuccess("Register Success");
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -24,7 +24,11 @@ class RegisterView extends StatelessWidget {
         } else if (state is RegisterLoadingState) {
           EasyLoading.show(status: 'Loading...');
         } else if (state is RegisterErrorState) {
-          EasyLoading.showError(state.error);
+          if (state.error.contains("email has already been taken")) {
+            EasyLoading.showError("This email is already registered. Try another.");
+          } else {
+            EasyLoading.showError(state.error);
+          }
         }
       },
       builder: (context, state) {

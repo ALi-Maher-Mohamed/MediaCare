@@ -3,21 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:media_care/core/Secure%20Storage/secure_storage.dart';
-import 'package:media_care/presentation/views/Auth/login/login_view.dart';
-import 'package:media_care/presentation/views/profile/data/repo/profile_repo_impl.dart';
-import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
-import 'package:media_care/presentation/views/profile/widgets/profile_ui.dart';
 import 'observer.dart';
 import 'presentation/views/Auth/login/data/repo/login_repo_impl.dart';
 import 'presentation/views/Auth/login/manager/login_cubit.dart';
 import 'presentation/views/Auth/register/data/repo/register_repo_iplm.dart';
 import 'presentation/views/Auth/register/manager/register_cubit.dart';
-import 'presentation/views/pharmacies/data/service/api_service.dart';
-import 'presentation/views/pharmacies/manager/cubit/pharmacy_cubit.dart';
 import 'zoom_drawer.dart';
-
-import 'core/network/api_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,8 +18,6 @@ void main() async {
 
   runApp(MultiBlocProvider(
       providers: [
-        BlocProvider(
-            create: (context) => PharmacyCubit(apiService: PharmacyService())),
         BlocProvider(
           create: (context) =>
               LoginCubit(loginRepo: LoginRepoImpl(ApiServiceFunctions(Dio()))),
@@ -56,14 +45,13 @@ class MediCare extends StatelessWidget {
       locale: Locale('ar'),
       builder: EasyLoading.init(builder: (context, child) {
         return Directionality(
-          textDirection: TextDirection.ltr,
+          textDirection: TextDirection.rtl,
           // يجعل التطبيق بالكامل من اليسار لليمين
           child: child!,
         );
       }),
       debugShowCheckedModeBanner: false,
       home:
-      isLoggedIn?ProfileScreen():LoginView(),
     );
   }
 }
