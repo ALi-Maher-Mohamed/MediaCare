@@ -15,16 +15,5 @@ class ApiServiceFunctions {
   Future<Map<String, dynamic>> get({
     required String endpoint,
     Map<String, dynamic>? queryParams,
-    String? token
-  }) async {
-    var response = await dio.get(
-      'http://192.168.1.4:8000$endpoint',
-      queryParameters: queryParams,
-      options: Options(headers: {
-        'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json',
-      }),
-    );
-    return response.data;
   }
 }

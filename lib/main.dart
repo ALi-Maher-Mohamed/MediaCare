@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:media_care/core/network/api_service.dart';
 import 'observer.dart';
 import 'presentation/views/Auth/login/data/repo/login_repo_impl.dart';
 import 'presentation/views/Auth/login/manager/login_cubit.dart';
@@ -26,6 +25,9 @@ void main() async {
         BlocProvider(
             create: (context) => RegisterCubit(
                 registerRepo: RegisterRepoImpl(ApiServiceFunctions(Dio())))),
+        BlocProvider(
+            create: (context) => ProfileCubit(
+                profileRepo: ProfileRepoImpl(ApiServiceFunctions(Dio())), secureStorage: SecureStorage())..fetchProfile()),
       ],
       child: MediCare(
         isLoggedIn: token != null,
@@ -50,9 +52,6 @@ class MediCare extends StatelessWidget {
       }),
       debugShowCheckedModeBanner: false,
       home:
-          // isLoggedIn ?
-          HomeView(),
-      // : LoginView(),
     );
   }
 }
