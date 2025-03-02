@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:media_care/presentation/views/Auth/login/login_view.dart';
+import 'package:media_care/presentation/views/profile/data/repo/profile_repo_impl.dart';
+import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
+import 'package:media_care/presentation/views/profile/widgets/profile_ui.dart';
+import 'core/Secure Storage/secure_storage.dart';
+import 'core/network/api_service.dart';
 import 'observer.dart';
 import 'presentation/views/Auth/login/data/repo/login_repo_impl.dart';
 import 'presentation/views/Auth/login/manager/login_cubit.dart';
@@ -51,7 +57,7 @@ class MediCare extends StatelessWidget {
         );
       }),
       debugShowCheckedModeBanner: false,
-      home:
+      home:isLoggedIn?ProfileScreen():LoginView(),
     );
   }
 }

@@ -15,5 +15,17 @@ class ApiServiceFunctions {
   Future<Map<String, dynamic>> get({
     required String endpoint,
     Map<String, dynamic>? queryParams,
+    Map<String, dynamic>? headers,
+  }) async {
+    try {
+      final response = await dio.get(
+        'http://10.0.2.2:8000$endpoint', // Replace with your base URL
+        queryParameters: queryParams,
+        options: Options(headers: headers),
+      );
+      return response.data;
+    } on DioException catch (e) {
+      throw e;
+    }
   }
 }
