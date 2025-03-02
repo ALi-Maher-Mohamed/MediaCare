@@ -9,11 +9,12 @@ class CustomSearchBar extends StatelessWidget {
     return Container(
       height: 50,
       decoration: BoxDecoration(
+        border: Border.all(color: AppColors.primary),
         borderRadius: BorderRadius.circular(20),
-        color: AppColors.primaryLight,
+        color: AppColors.lightGrey,
       ),
       child: Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: const EdgeInsets.all(6.0),
         child: TextField(
           decoration: InputDecoration(
             hintText: 'ابحث باسم الدكتور او بالتخصص',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:media_care/presentation/views/search/widgets/custom_search_bar.dart';
 import 'pharmacy_list_view_item.dart';
 import '../data/model/pharmacy_model.dart';
 
@@ -26,20 +27,21 @@ class _PharmacyCardsListViewState extends State<PharmacyCardsListView> {
     List<PharmacyModel> currentPharmacies =
         widget.pharmacies.sublist(startIndex, endIndex);
 
-    return Column(
-      children: [
-        Expanded(
-          child: ListView.builder(
-            itemCount: currentPharmacies.length,
-            itemBuilder: (context, index) {
-              PharmacyModel pharmacy = currentPharmacies[index];
-              return PharmacyListViewItem(pharmacy: pharmacy);
-            },
+    return Padding(
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        children: [
+          CustomSearchBar(),
+          Expanded(
+            child: ListView.builder(
+              itemCount: currentPharmacies.length,
+              itemBuilder: (context, index) {
+                PharmacyModel pharmacy = currentPharmacies[index];
+                return PharmacyListViewItem(pharmacy: pharmacy);
+              },
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ElevatedButton(
@@ -68,8 +70,8 @@ class _PharmacyCardsListViewState extends State<PharmacyCardsListView> {
               ),
             ],
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

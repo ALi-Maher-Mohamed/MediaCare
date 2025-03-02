@@ -6,9 +6,7 @@ import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/Laboratories/Labs_view.dart';
 import 'package:media_care/presentation/views/Laboratories/data/services/laps_service.dart';
 import 'package:media_care/presentation/views/Laboratories/manager/cubit/labs_cubit.dart';
-import 'package:media_care/presentation/views/home/widgets/custom_home_feature_container.dart';
 import 'package:media_care/presentation/views/home/widgets/wrap_container_home.dart';
-import 'package:media_care/presentation/views/pharmacies/data/model/pharmacy_model.dart';
 import 'package:media_care/presentation/views/search/search_view.dart';
 import 'pharmacy_list_view.dart';
 import 'search_doctor_field.dart';
@@ -45,6 +43,11 @@ class _HomeViewBodyState extends State<HomeViewBody> {
       size: 30,
     ),
     Icon(
+      FontAwesomeIcons.flask,
+      size: 30,
+      color: AppColors.darkGrey,
+    ),
+    Icon(
       Icons.search,
       size: 30,
       color: AppColors.darkGrey,
@@ -64,9 +67,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
     ),
     BlocProvider(
       create: (context) => LaboratoryCubit(LaboratoryService()),
-      child: LaboratoryScreen(),
+      child: LaboratoryView(),
     ),
     SearchView(),
+    Center(child: Text('Profile')),
   ];
   @override
   Widget build(BuildContext context) {

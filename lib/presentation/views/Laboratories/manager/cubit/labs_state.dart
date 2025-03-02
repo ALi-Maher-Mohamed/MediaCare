@@ -2,16 +2,16 @@ import 'package:media_care/presentation/views/Laboratories/data/model/labs_model
 
 abstract class LaboratoryState {}
 
-class LaboratoryInitial extends LaboratoryState {}
+class LaboratoryInitialState extends LaboratoryState {}
 
-class LaboratoryLoading extends LaboratoryState {}
+class LaboratoryLoadingState extends LaboratoryState {}
 
-class LaboratoryLoaded extends LaboratoryState {
+class LaboratorySuccessState extends LaboratoryState {
   final List<LaboratoryModel> laboratories;
-  LaboratoryLoaded(this.laboratories);
+  LaboratorySuccessState(this.laboratories);
 }
 
-class LaboratoryError extends LaboratoryState {
+class LaboratoryFailure extends LaboratoryState {
   final String error;
-  LaboratoryError(this.error);
+  LaboratoryFailure(this.error);
 }

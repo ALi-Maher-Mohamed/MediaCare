@@ -10,6 +10,7 @@ class PharmacyView extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
           backgroundColor: Colors.white,
+          forceMaterialTransparency: true,
           centerTitle: true,
           iconTheme: IconThemeData(color: AppColors.primary),
           title: Text(

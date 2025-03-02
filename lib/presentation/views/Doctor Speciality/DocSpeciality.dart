@@ -46,6 +46,8 @@ class DoctorSpecialityView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        forceMaterialTransparency: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {

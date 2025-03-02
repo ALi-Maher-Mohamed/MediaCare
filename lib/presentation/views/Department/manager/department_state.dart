@@ -1,5 +1,3 @@
-import '../data/models/department_model.dart';
-
 abstract class DepartmentState {}
 
 class GetDepartmentInitial extends DepartmentState {}

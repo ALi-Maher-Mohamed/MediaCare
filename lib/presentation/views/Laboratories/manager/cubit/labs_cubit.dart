@@ -6,15 +6,15 @@ import 'package:media_care/presentation/views/Laboratories/manager/cubit/labs_st
 class LaboratoryCubit extends Cubit<LaboratoryState> {
   final LaboratoryService _laboratoryService;
 
-  LaboratoryCubit(this._laboratoryService) : super(LaboratoryInitial());
+  LaboratoryCubit(this._laboratoryService) : super(LaboratoryInitialState());
 
   Future<void> fetchLaboratories() async {
-    emit(LaboratoryLoading());
+    emit(LaboratoryLoadingState());
     try {
       final laboratories = await _laboratoryService.getLaboratories();
-      emit(LaboratoryLoaded(laboratories));
+      emit(LaboratorySuccessState(laboratories));
     } catch (e) {
-      emit(LaboratoryError(e.toString()));
+      emit(LaboratoryFailure(e.toString()));
     }
   }
 }
