@@ -7,7 +7,9 @@ import 'register_repo.dart';
 
 class RegisterRepoImpl implements RegisterRepo {
   final ApiServiceFunctions apiService;
+
   RegisterRepoImpl(this.apiService);
+
   @override
   Future<Either<Failure, RegisterModel>> registerUser(
       {required name,
@@ -30,6 +32,18 @@ class RegisterRepoImpl implements RegisterRepo {
       return Right(RegisterModel.fromJson(data));
     } catch (e) {
       if (e is DioException) {
+        if (e is DioException) {
+          if (e.response?.statusCode == 400) {
+            final errorResponse = e.response?.data;
+            if (errorResponse != null &&
+                errorResponse is Map<String, dynamic>) {
+              if (errorResponse.containsKey("email")) {
+                return left(ServerFailure(errorResponse["email"][0]));
+              }
+            }
+          }
+          return left(ServerFailure.fromDioError(e));
+        }
         return left(ServerFailure.fromDioError(e));
       }
       return left(ServerFailure(e.toString()));

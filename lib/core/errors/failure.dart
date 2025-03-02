@@ -47,11 +47,18 @@ class ServerFailure extends Failure {
   }
 
   // Factory method to create a ServerFailure instance from an HTTP response
+  // Factory method to create a ServerFailure instance from an HTTP response
   factory ServerFailure.fromResponse(int? statusCode, dynamic response) {
     print("API Response: $response"); // Debugging line
 
     if (response is Map<String, dynamic>) {
-      if (response.containsKey('message')) {
+      if (response.containsKey('email')) {
+        // Extract the first error message from the list
+        List<dynamic> emailErrors = response['email'];
+        if (emailErrors.isNotEmpty) {
+          return ServerFailure(emailErrors.first.toString());
+        }
+      } else if (response.containsKey('message')) {
         return ServerFailure(response['message']);
       } else if (response.containsKey('error')) {
         return ServerFailure(response['error']);
