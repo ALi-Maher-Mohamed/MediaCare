@@ -4,7 +4,7 @@ import '../../../core/utils/app_color.dart';
 import '../Doctor%20Speciality/doc_spiciality_body.dart';
 import 'DocSpecialityModel.dart';
 
-class DoctorSpecialityScreen extends StatelessWidget {
+class DoctorSpecialityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DocSpecialityData = [
@@ -46,6 +46,8 @@ class DoctorSpecialityScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        forceMaterialTransparency: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
