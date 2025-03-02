@@ -1,15 +1,31 @@
-abstract class DepartmentState {}
+import 'package:equatable/equatable.dart';
+import 'package:media_care/presentation/views/Department/data/models/department_model.dart';
 
-class GetDepartmentInitial extends DepartmentState {}
+abstract class DepartmentState extends Equatable {
+  const DepartmentState();
 
-class GetDepartmentLoading extends DepartmentState {}
-
-class GetDepartmentSuccess extends DepartmentState {
-  // final List<> departments;
-  // GetDepartmentSuccess(this.departments);
+  @override
+  List<Object> get props => [];
 }
 
-class GetDepartmentError extends DepartmentState {
-  final String error;
-  GetDepartmentError({required this.error});
+class DepartmentInitial extends DepartmentState {}
+
+class DepartmentLoading extends DepartmentState {}
+
+class DepartmentLoaded extends DepartmentState {
+  final DepartmentResponse departmentResponse;
+
+  const DepartmentLoaded(this.departmentResponse);
+
+  @override
+  List<Object> get props => [departmentResponse];
+}
+
+class DepartmentError extends DepartmentState {
+  final String message;
+
+  const DepartmentError(this.message);
+
+  @override
+  List<Object> get props => [message];
 }

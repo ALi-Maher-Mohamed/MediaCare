@@ -1,71 +1,116 @@
-class DepartmentModel {
-  bool? success;
-  String? message;
-  Data? data;
+class DepartmentResponse {
+  final bool success;
+  final String message;
+  final PaginationData data;
 
-  DepartmentModel({this.success, this.message, this.data});
+  DepartmentResponse({
+    required this.success,
+    required this.message,
+    required this.data,
+  });
 
-  DepartmentModel.fromJson(Map<String, dynamic> json) {
-    success = json['success'];
-    message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    data['message'] = this.message;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    return data;
+  factory DepartmentResponse.fromJson(Map<String, dynamic> json) {
+    return DepartmentResponse(
+      success: json['success'],
+      message: json['message'],
+      data: PaginationData.fromJson(json['data']),
+    );
   }
 }
 
+class PaginationData {
+  final int currentPage;
+  final List<Department> departments;
+  final String firstPageUrl;
+  final int from;
+  final int lastPage;
+  final String lastPageUrl;
+  final List<PaginationLink> links;
+  final String? nextPageUrl;
+  final String path;
+  final int perPage;
+  final String? prevPageUrl;
+  final int to;
+  final int total;
 
-class Data {
-  String? id;
-  String? title;
-  String? description;
-  String? icon;
+  PaginationData({
+    required this.currentPage,
+    required this.departments,
+    required this.firstPageUrl,
+    required this.from,
+    required this.lastPage,
+    required this.lastPageUrl,
+    required this.links,
+    this.nextPageUrl,
+    required this.path,
+    required this.perPage,
+    this.prevPageUrl,
+    required this.to,
+    required this.total,
+  });
 
-  Data({this.id, this.title, this.description, this.icon});
-
-  Data.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    title = json['title'];
-    description = json['description'];
-    icon = json['icon'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['icon'] = this.icon;
-    return data;
+  factory PaginationData.fromJson(Map<String, dynamic> json) {
+    return PaginationData(
+      currentPage: json['current_page'],
+      departments: (json['data'] as List)
+          .map((department) => Department.fromJson(department))
+          .toList(),
+      firstPageUrl: json['first_page_url'],
+      from: json['from'],
+      lastPage: json['last_page'],
+      lastPageUrl: json['last_page_url'],
+      links: (json['links'] as List)
+          .map((link) => PaginationLink.fromJson(link))
+          .toList(),
+      nextPageUrl: json['next_page_url'],
+      path: json['path'],
+      perPage: json['per_page'],
+      prevPageUrl: json['prev_page_url'],
+      to: json['to'],
+      total: json['total'],
+    );
   }
 }
 
-class Links {
-  String? url;
-  String? label;
-  bool? active;
+class Department {
+  final String id;
+  final String title;
+  final String description;
+  final String icon;
 
-  Links({this.url, this.label, this.active});
+  Department({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.icon,
+  });
 
-  Links.fromJson(Map<String, dynamic> json) {
-    url = json['url'];
-    label = json['label'];
-    active = json['active'];
+  factory Department.fromJson(Map<String, dynamic> json) {
+    return Department(
+      id: json['id'],
+      title: json['title'],
+      description: json['description'],
+      icon: json['icon'],
+    );
   }
+}
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['url'] = this.url;
-    data['label'] = this.label;
-    data['active'] = this.active;
-    return data;
+class PaginationLink {
+  final String? url;
+  final String label;
+  final bool active;
+
+  PaginationLink({
+    this.url,
+    required this.label,
+    required this.active,
+  });
+
+  factory PaginationLink.fromJson(Map<String, dynamic> json) {
+    return PaginationLink(
+      url: json['url'],
+      label: json['label'],
+      active: json['active'],
+    );
   }
 }

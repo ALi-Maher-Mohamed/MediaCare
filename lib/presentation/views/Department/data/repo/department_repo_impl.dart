@@ -12,15 +12,14 @@ class DepartmentRepoImpl implements DepartmentRepo {
   DepartmentRepoImpl(this.apiService);
 
   @override
-  Future<Either<Failure, DepartmentModel>> fetchDepartments({page}) async {
+  Future<Either<Failure, DepartmentResponse>> getDepartments() async {
     try {
-      var data = await apiService
-          .get(endpoint: '/api/Departments', queryParams: {"page": page});
-      return Right(DepartmentModel.fromJson(data));
+      final response = await apiService.get(endpoint: '/api/Departments');
+      final departmentResponse = DepartmentResponse.fromJson(response);
+      return Right(departmentResponse);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
     } catch (e) {
-      if (e is DioException) {
-        return Left(ServerFailure.fromDioError(e));
-      }
       return Left(ServerFailure(e.toString()));
     }
   }

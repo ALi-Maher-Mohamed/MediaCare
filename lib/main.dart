@@ -4,6 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:media_care/presentation/views/Auth/login/login_view.dart';
+import 'package:media_care/presentation/views/Department/data/repo/department_repo_impl.dart';
+import 'package:media_care/presentation/views/Department/manager/department_cubit.dart';
+import 'package:media_care/presentation/views/Department/widgets/department_view.dart';
 import 'package:media_care/presentation/views/profile/data/repo/profile_repo_impl.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
 import 'package:media_care/presentation/views/profile/widgets/profile_ui.dart';
@@ -32,8 +35,14 @@ void main() async {
             create: (context) => RegisterCubit(
                 registerRepo: RegisterRepoImpl(ApiServiceFunctions(Dio())))),
         BlocProvider(
+            create: (context) => DepartmentCubit(
+                departmentRepo:
+                    DepartmentRepoImpl(ApiServiceFunctions(Dio())))..fetchDepartments()),
+        BlocProvider(
             create: (context) => ProfileCubit(
-                profileRepo: ProfileRepoImpl(ApiServiceFunctions(Dio())), secureStorage: SecureStorage())..fetchProfile()),
+                profileRepo: ProfileRepoImpl(ApiServiceFunctions(Dio())),
+                secureStorage: SecureStorage())
+              ..fetchProfile()),
       ],
       child: MediCare(
         isLoggedIn: token != null,
@@ -57,7 +66,7 @@ class MediCare extends StatelessWidget {
         );
       }),
       debugShowCheckedModeBanner: false,
-      home:isLoggedIn?ProfileScreen():LoginView(),
+      home: isLoggedIn ? DepartmentsScreen() : LoginView(),
     );
   }
 }

@@ -3,5 +3,5 @@ import 'package:media_care/core/errors/failure.dart';
 import '../models/department_model.dart';
 
 abstract class DepartmentRepo {
-  Future<Either<Failure, DepartmentModel>> fetchDepartments({dynamic page});
+  Future<Either<Failure, DepartmentResponse>> getDepartments();
 }
