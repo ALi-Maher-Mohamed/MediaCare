@@ -29,9 +29,7 @@ class CustomWrapContainersHomeView extends StatelessWidget {
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return BlocProvider(
-                create: (context) =>
-                    PharmacyCubit(apiService: PharmacyService())
-                      ..loadPharmacies(pageNumber: 1),
+                create: (context) => PharmacyCubit(PharmacyService()),
                 child: PharmacyView(),
               );
             }));

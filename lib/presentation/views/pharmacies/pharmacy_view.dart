@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
-import '../../../core/utils/app_color.dart';
-import 'widgets/pharmacy_view_body.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:media_care/core/utils/app_color.dart';
+import 'package:media_care/presentation/views/pharmacies/data/service/api_service.dart';
+import 'package:media_care/presentation/views/pharmacies/manager/cubit/pharmacy_cubit.dart';
+import 'package:media_care/presentation/views/pharmacies/widgets/pharmacy_details_page.dart';
+import 'package:media_care/presentation/views/pharmacies/widgets/pharmacy_view_body.dart';
 
 class PharmacyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-          backgroundColor: Colors.white,
-          forceMaterialTransparency: true,
-          centerTitle: true,
-          iconTheme: IconThemeData(color: AppColors.primary),
-          title: Text(
-            'الصيدليات',
-            style: TextStyle(
-                color: AppColors.primary, fontWeight: FontWeight.bold),
-          )),
-      body: PharmacyViewBody(),
-    );
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+            forceMaterialTransparency: true,
+            centerTitle: true,
+            title: Text(
+              " الصيدليات",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: AppColors.primary),
+            ),
+            backgroundColor: Colors.white),
+        body: PharmacyViewBody());
   }
 }

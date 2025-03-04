@@ -1,0 +1,2 @@
+C:/Users/GAMA/Desktop/MediaCare/android/app/.cxx/Debug/276c4w22/x86/CMakeFiles/edit_cache.dir
+C:/Users/GAMA/Desktop/MediaCare/android/app/.cxx/Debug/276c4w22/x86/CMakeFiles/rebuild_cache.dir

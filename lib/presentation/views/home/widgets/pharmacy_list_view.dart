@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../pharmacies/manager/cubit/pharmacy_cubit.dart';
+import 'package:media_care/presentation/views/pharmacies/manager/cubit/pharmacy_cubit.dart';
 import 'custom_offer_item.dart';
 
 class PharmacyListView extends StatelessWidget {

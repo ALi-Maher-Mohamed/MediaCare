@@ -39,12 +39,12 @@ void main() async {
                 registerRepo: RegisterRepoImpl(ApiServiceFunctions(Dio())))),
         BlocProvider(
             create: (context) => DepartmentCubit(
-                departmentRepo:
-                    DepartmentRepoImpl(ApiServiceFunctions(Dio())))..fetchDepartments()),
+                departmentRepo: DepartmentRepoImpl(ApiServiceFunctions(Dio())))
+              ..fetchDepartments()),
         BlocProvider(
             create: (context) => HospitalCubit(
-                hospitalRepo:
-                HospitalRepoImpl(ApiServiceFunctions(Dio())))..fetchHospitals()),
+                hospitalRepo: HospitalRepoImpl(ApiServiceFunctions(Dio())))
+              ..fetchHospitals()),
         BlocProvider(
             create: (context) => ProfileCubit(
                 profileRepo: ProfileRepoImpl(ApiServiceFunctions(Dio())),
@@ -73,7 +73,7 @@ class MediCare extends StatelessWidget {
         );
       }),
       debugShowCheckedModeBanner: false,
-      home: isLoggedIn ? DepartmentsScreen() : LoginView(),
+      home: isLoggedIn ? DepartmentsScreen() : HomeView(),
     );
   }
 }

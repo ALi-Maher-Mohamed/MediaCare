@@ -1,22 +1,20 @@
 import 'package:dio/dio.dart';
-import '../model/pharmacy_model.dart';
+import 'package:media_care/presentation/views/pharmacies/data/model/pharmacy_pagination.dart';
 
 class PharmacyService {
-  Dio dio = Dio();
+  final Dio dio = Dio();
+  final String baseUrl = "http://192.168.1.4:8000/api/Pharmacies";
 
-  final String _baseUrl = 'http://10.0.2.2:8000/api/Pharmacies/';
-
-  Future<List<PharmacyModel>> fetchPharmacies() async {
+  Future<PaginationModel> fetchPharmacies({int page = 1}) async {
     try {
-      final response = await dio.get(_baseUrl);
+      final response = await dio.get('$baseUrl?page=$page');
       if (response.statusCode == 200) {
-        final List data = response.data['data']['data'];
-        return data.map((json) => PharmacyModel.fromJson(json)).toList();
+        return PaginationModel.fromJson(response.data['data']);
       } else {
-        throw Exception('Failed to load pharmacies');
+        throw Exception("Failed to load pharmacies");
       }
     } catch (e) {
-      throw Exception('Error: $e');
+      throw Exception("Error: $e");
     }
   }
 }

@@ -28,7 +28,7 @@ class MainScreen extends StatelessWidget {
             if (connected) {
               return BlocProvider(
                 create: (context) =>
-                    PharmacyCubit(apiService: PharmacyService()),
+                    PharmacyCubit(PharmacyService())..fetchPharmacies(),
                 child: HomeViewBody(),
               );
             } else {

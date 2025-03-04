@@ -1,23 +1,48 @@
 import 'package:bloc/bloc.dart';
+import 'package:media_care/presentation/views/pharmacies/data/model/pharmacy_model.dart';
+import 'package:media_care/presentation/views/pharmacies/data/service/api_service.dart';
 import 'package:meta/meta.dart';
-import '../../data/service/api_service.dart';
-import '../../data/model/pharmacy_model.dart';
 
 part 'pharmacy_state.dart';
 
 class PharmacyCubit extends Cubit<PharmacyState> {
-  final PharmacyService apiService;
+  final PharmacyService pharmacyService;
+  int currentPage = 1;
+  bool hasNextPage = true;
+  bool isLoading = false;
+  final Map<int, List<PharmacyModel>> cachedPages = {};
 
-  PharmacyCubit({required this.apiService}) : super(PharmacyInitial());
+  PharmacyCubit(this.pharmacyService) : super(PharmacyInitial());
 
-  Future<void> loadPharmacies({required int pageNumber}) async {
-    emit(PharmacyLoading());
+  void fetchPharmacies(
+      {bool isNextPage = false, bool isPrevPage = false}) async {
+    if (isLoading) return;
+    isLoading = true;
+
+    if (isNextPage) {
+      currentPage++;
+    } else if (isPrevPage && currentPage > 1) {
+      currentPage--;
+    }
+
+    if (cachedPages.containsKey(currentPage)) {
+      emit(PharmacySuccessState(
+          cachedPages[currentPage]!, currentPage, hasNextPage));
+      isLoading = false;
+      return;
+    }
+
     try {
-      final pharmacies = await apiService.fetchPharmacies();
-      emit(PharmacySuccessState(pharmacies));
+      final pagination =
+          await pharmacyService.fetchPharmacies(page: currentPage);
+      cachedPages[currentPage] = pagination.pharmacies;
+      hasNextPage = pagination.pharmacies.isNotEmpty;
+      emit(PharmacySuccessState(
+          pagination.pharmacies, currentPage, hasNextPage));
     } catch (e) {
       emit(PharmacyError(e.toString()));
-      print(e.toString());
+    } finally {
+      isLoading = false;
     }
   }
 }

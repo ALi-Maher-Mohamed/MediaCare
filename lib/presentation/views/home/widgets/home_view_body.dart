@@ -61,8 +61,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   List<Widget> widgetOptions = <Widget>[
     HomeViewBodyScreen(),
     BlocProvider(
-      create: (context) => PharmacyCubit(apiService: PharmacyService())
-        ..loadPharmacies(pageNumber: 1),
+      create: (context) =>
+          PharmacyCubit(PharmacyService())..fetchPharmacies(isNextPage: false),
       child: PharmacyView(),
     ),
     BlocProvider(
@@ -130,9 +130,8 @@ class HomeViewBodyScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return BlocProvider(
-                    create: (context) =>
-                        PharmacyCubit(apiService: PharmacyService())
-                          ..loadPharmacies(pageNumber: 1),
+                    create: (context) => PharmacyCubit(PharmacyService())
+                      ..fetchPharmacies(isNextPage: false),
                     child: PharmacyView(),
                   );
                 }));
@@ -144,8 +143,7 @@ class HomeViewBodyScreen extends StatelessWidget {
             ),
             BlocProvider(
               create: (context) {
-                return PharmacyCubit(apiService: PharmacyService())
-                  ..loadPharmacies(pageNumber: 1);
+                return PharmacyCubit(PharmacyService());
               },
               child: PharmacyListView(),
             ),

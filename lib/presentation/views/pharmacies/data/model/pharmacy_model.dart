@@ -1,9 +1,3 @@
-// class PharmacyModel {
-//   final String title;
-//   final String image;
-
-//   PharmacyModel({required this.title, required this.image});
-// }
 class PharmacyModel {
   final String id;
   final String title;
@@ -14,9 +8,9 @@ class PharmacyModel {
   final String area;
   final String locationUrl;
   final String whatsappLink;
-  final int deliveryOption;
-  final int insurance;
-  final String avgRate;
+  final bool deliveryOption;
+  final bool insurance;
+  final double avgRate;
 
   PharmacyModel({
     required this.id,
@@ -44,9 +38,9 @@ class PharmacyModel {
       area: json['area'],
       locationUrl: json['locationUrl'],
       whatsappLink: json['whatsappLink'],
-      deliveryOption: json['deliveryOption'],
-      insurance: json['insurence'],
-      avgRate: json['avg_rate'],
+      deliveryOption: json['deliveryOption'] == 1,
+      insurance: json['insurence'] == 1,
+      avgRate: double.tryParse(json['avg_rate'].toString()) ?? 0.0,
     );
   }
 }

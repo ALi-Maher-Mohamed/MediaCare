@@ -8,7 +8,9 @@ class PharmacyListViewItem extends StatelessWidget {
   const PharmacyListViewItem({
     super.key,
     required this.pharmacy,
+    required this.index,
   });
+  final int index;
 
   final PharmacyModel pharmacy;
 
@@ -94,3 +96,31 @@ class PharmacyListViewItem extends StatelessWidget {
     );
   }
 }
+
+// class PharmacyListViewItem extends StatelessWidget {
+//   const PharmacyListViewItem({
+//     super.key,
+//     required this.pharmacy, required this.index,
+//   });
+//   final int index;
+//   final PharmacyModel pharmacy;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return ListTile(
+//       leading: Image.network(pharmacy.image,
+//           width: 50, height: 50, fit: BoxFit.cover),
+//       title: Text(pharmacy.title),
+//       subtitle: Text("${pharmacy.city} - ${pharmacy.area}"),
+//       onTap: () {
+//         Navigator.push(
+//           context,
+//           MaterialPageRoute(
+//             builder: (context) =>
+//                 PharmacyDetailsPage(index: index, pharmacy: pharmacy),
+//           ),
+//         );
+//       },
+//     );
+//   }
+// }
