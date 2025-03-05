@@ -22,7 +22,7 @@ class PharmacyListViewItem extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) =>
-                PharmacyDetailsPage(index: 0, pharmacy: pharmacy),
+                PharmacyDetailsPage(index: index, pharmacy: pharmacy),
           ),
         );
       },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:media_care/core/utils/app_color.dart';
 
 class TitleAndSeeAll extends StatelessWidget {
   const TitleAndSeeAll({
@@ -18,13 +19,19 @@ class TitleAndSeeAll extends StatelessWidget {
         children: [
           Text(
             text,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.primary),
           ),
           GestureDetector(
             onTap: onTap,
             child: Text(
-              'See all',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              'المزيد',
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primary),
             ),
           )
         ],

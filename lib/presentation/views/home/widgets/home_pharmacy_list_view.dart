@@ -16,7 +16,7 @@ class PharmacyListView extends StatelessWidget {
         if (State is PharmacyLoading) {
           return Center(child: CircularProgressIndicator());
         } else if (State is PharmacySuccessState) {
-          var pharmacy = [...State.pharmacies];
+          final pharmacy = State.pharmacies;
           return ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: pharmacy.length,
@@ -25,6 +25,8 @@ class PharmacyListView extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8),
                 child: CustomListViewItem(
+                  index: index,
+                  pharmacy: pharmacy[index],
                   image: pharmacy[index].image,
                   title: pharmacy[index].title,
                 ),

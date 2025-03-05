@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:media_care/presentation/views/pharmacies/data/service/pharmacy_service.dart';
+import 'package:media_care/presentation/views/pharmacies/manager/cubit/pharmacy_cubit.dart';
 import 'presentation/views/Department/data/repo/department_repo_impl.dart';
 import 'presentation/views/Department/manager/department_cubit.dart';
 import 'presentation/views/Department/widgets/department_view.dart';
