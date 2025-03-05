@@ -6,14 +6,14 @@ import 'package:image_picker/image_picker.dart';
 import '../../../core/network/found_disease_serv.dart';
 import '../../../core/utils/app_color.dart';
 
-class UploadScreen extends StatefulWidget {
-  const UploadScreen({super.key});
+class FindYourDisease extends StatefulWidget {
+  const FindYourDisease({super.key});
 
   @override
-  UploadScreenState createState() => UploadScreenState();
+  FindYourDiseaseState createState() => FindYourDiseaseState();
 }
 
-class UploadScreenState extends State<UploadScreen> {
+class FindYourDiseaseState extends State<FindYourDisease> {
   File? _imageFile;
   String _symptomsText = '';
   FoundDiseaseApiModel? _apiResponse;
@@ -60,11 +60,11 @@ class UploadScreenState extends State<UploadScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        forceMaterialTransparency: true,
         backgroundColor: Colors.white,
-        title: const Text(' !أعرف مشكلتك ',
+        title: const Text(' أعرف مشكلتك !',
             style: TextStyle(
-              fontWeight: FontWeight.bold,
-            )),
+                fontWeight: FontWeight.bold, color: AppColors.primary)),
         centerTitle: true,
       ),
       body: Form(
@@ -76,7 +76,7 @@ class UploadScreenState extends State<UploadScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Card(
-                  color: AppColors.primaryLight,
+                  color: AppColors.lightGrey,
                   elevation: 3,
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -84,11 +84,14 @@ class UploadScreenState extends State<UploadScreen> {
                       children: [
                         TextButton.icon(
                           onPressed: _pickImage,
-                          icon: const Icon(Icons.image),
+                          icon: const Icon(
+                            Icons.image,
+                            color: AppColors.primary,
+                          ),
                           label: const Text('اختر ملف (اختياري)',
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           style: TextButton.styleFrom(
-                            foregroundColor: Colors.blueGrey.shade700,
+                            foregroundColor: AppColors.primary,
                           ),
                         ),
                         if (_imageFile != null)
@@ -106,8 +109,21 @@ class UploadScreenState extends State<UploadScreen> {
                         const SizedBox(height: 16),
                         TextFormField(
                           decoration: const InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: AppColors.primary)),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: AppColors.primary)),
+                            errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red)),
+                            focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red)),
                             labelText: 'اوصف الأعراض',
-                            border: OutlineInputBorder(),
+                            labelStyle: TextStyle(color: AppColors.primary),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.primary),
+                            ),
                           ),
                           maxLines: 4,
                           onChanged: (value) {
@@ -148,22 +164,27 @@ class UploadScreenState extends State<UploadScreen> {
                 const SizedBox(height: 20),
                 if (_apiResponse != null)
                   Card(
-                    color: AppColors.primaryLight,
+                    color: AppColors.lightGrey,
                     // elevation: 5,
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
-                        // crossAxisAlignment: CrossAxisAlignment.end,
-                        // mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
                             'التخصص المقترح: ${_apiResponse?.speciality}',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.primary),
                           ),
-                          Text(
-                            'النصيحة لحين الذهاب للطبيب: ${_apiResponse?.advice}',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                          if (_apiResponse?.advice != null)
+                            Text(
+                              'النصيحة لحين الذهاب للطبيب: ${_apiResponse?.advice}',
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.primary),
+                            ),
                         ],
                       ),
                     ),

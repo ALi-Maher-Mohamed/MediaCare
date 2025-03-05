@@ -41,7 +41,7 @@ class HomeViewHeaderCard extends StatelessWidget {
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
-                        return UploadScreen();
+                        return FindYourDisease();
                       },
                     ));
                   },
@@ -54,7 +54,7 @@ class HomeViewHeaderCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 30.0, vertical: 12),
                       child: Text(
-                        '! اسأل الان ',
+                        ' اسأل الان !',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
