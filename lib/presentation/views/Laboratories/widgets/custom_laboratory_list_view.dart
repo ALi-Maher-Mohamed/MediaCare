@@ -32,49 +32,66 @@ class CustomLaboratoryListView extends StatelessWidget {
             },
           ),
         ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 24),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              if (currentPage > 1)
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: StadiumBorder(
-                      side: BorderSide(color: AppColors.primary),
-                    ),
-                    backgroundColor: AppColors.lightGrey,
-                  ),
-                  onPressed: () => context
-                      .read<LaboratoryCubit>()
-                      .fetchLaboratories(isPrevPage: true),
-                  child: Text(
-                    "السابق",
-                    style: TextStyle(
-                        color: AppColors.primary, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              if (hasNextPage)
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: StadiumBorder(
-                      side: BorderSide(color: AppColors.primary),
-                    ),
-                    backgroundColor: AppColors.lightGrey,
-                  ),
-                  onPressed: () => context
-                      .read<LaboratoryCubit>()
-                      .fetchLaboratories(isNextPage: true),
-                  child: Text(
-                    "التالي",
-                    style: TextStyle(
-                        color: AppColors.primary, fontWeight: FontWeight.bold),
-                  ),
-                ),
-            ],
-          ),
-        ),
+        LaboratoryListViewFooter(
+            currentPage: currentPage, hasNextPage: hasNextPage),
       ],
+    );
+  }
+}
+
+class LaboratoryListViewFooter extends StatelessWidget {
+  const LaboratoryListViewFooter({
+    super.key,
+    required this.currentPage,
+    required this.hasNextPage,
+  });
+
+  final int currentPage;
+  final bool hasNextPage;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 24),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          if (currentPage > 1)
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: StadiumBorder(
+                  side: BorderSide(color: AppColors.primary),
+                ),
+                backgroundColor: AppColors.lightGrey,
+              ),
+              onPressed: () => context
+                  .read<LaboratoryCubit>()
+                  .fetchLaboratories(isPrevPage: true),
+              child: Text(
+                "السابق",
+                style: TextStyle(
+                    color: AppColors.primary, fontWeight: FontWeight.bold),
+              ),
+            ),
+          if (hasNextPage)
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: StadiumBorder(
+                  side: BorderSide(color: AppColors.primary),
+                ),
+                backgroundColor: AppColors.lightGrey,
+              ),
+              onPressed: () => context
+                  .read<LaboratoryCubit>()
+                  .fetchLaboratories(isNextPage: true),
+              child: Text(
+                "التالي",
+                style: TextStyle(
+                    color: AppColors.primary, fontWeight: FontWeight.bold),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }

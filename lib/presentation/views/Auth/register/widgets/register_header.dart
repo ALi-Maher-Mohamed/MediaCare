@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../../core/utils/app_color.dart';
 
 class RegisterHeader extends StatelessWidget {

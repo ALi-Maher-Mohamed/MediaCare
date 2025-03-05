@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../login/login_view.dart';
 import '../../login/widgets/dont_have_email_password.dart';
 import 'register_form.dart';

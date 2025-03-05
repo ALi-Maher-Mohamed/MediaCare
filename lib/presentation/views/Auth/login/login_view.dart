@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'manager/login_cubit.dart';
-import '../../../../zoom_drawer.dart';
 
+import '../../../../zoom_drawer.dart';
+import 'manager/login_cubit.dart';
 import 'widgets/login_view_body.dart';
 
 class LoginView extends StatelessWidget {

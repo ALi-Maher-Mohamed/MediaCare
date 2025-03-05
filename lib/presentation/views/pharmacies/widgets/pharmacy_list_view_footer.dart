@@ -33,7 +33,7 @@ class PharmacyListViewFooter extends StatelessWidget {
                         color: AppColors.primary, fontWeight: FontWeight.bold),
                   ),
                 ),
-              if (state.hasNextPage)
+              if (state.hasMore)
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: StadiumBorder(

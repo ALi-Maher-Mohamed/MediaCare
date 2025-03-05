@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_offline/flutter_offline.dart';
-import '../pharmacies/data/service/pharmacy_service.dart';
-import '../pharmacies/manager/cubit/pharmacy_cubit.dart';
+
 import '../../../core/utils/app_color.dart';
 import '../no_internet/no_intenet_view.dart';
+import '../pharmacies/data/service/pharmacy_service.dart';
+import '../pharmacies/manager/cubit/pharmacy_cubit.dart';
 import 'widgets/home_view_body.dart';
 
 class MainScreen extends StatelessWidget {

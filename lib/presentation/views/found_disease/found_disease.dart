@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../core/utils/app_color.dart';
+
 import '../../../core/network/found_disease_serv.dart';
+import '../../../core/utils/app_color.dart';
 
 class UploadScreen extends StatefulWidget {
   const UploadScreen({super.key});

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/widgets/custom_shimmer_list_view.dart';
+import 'package:shimmer/shimmer.dart';
 import '../data/services/laps_service.dart';
 import '../manager/cubit/labs_cubit.dart';
 import '../manager/cubit/labs_state.dart';
@@ -29,7 +32,11 @@ class LaboratoryViewBody extends StatelessWidget {
               hasNextPage: state.hasMore,
             );
           }
-          return Container();
+          return Shimmer.fromColors(
+            baseColor: AppColors.primary,
+            highlightColor: Colors.white,
+            child: CustomShimmerListView(),
+          );
         },
       ),
     );

@@ -10,9 +10,13 @@ class PharmacyLoading extends PharmacyState {}
 class PharmacySuccessState extends PharmacyState {
   final List<PharmacyModel> pharmacies;
   final int currentPage;
-  final bool hasNextPage;
+  final bool hasMore;
 
-  PharmacySuccessState(this.pharmacies, this.currentPage, this.hasNextPage);
+  PharmacySuccessState({
+    required this.pharmacies,
+    required this.currentPage,
+    required this.hasMore,
+  });
 }
 
 class PharmacyError extends PharmacyState {

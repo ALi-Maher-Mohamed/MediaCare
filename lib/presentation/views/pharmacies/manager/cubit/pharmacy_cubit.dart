@@ -1,15 +1,15 @@
 import 'package:bloc/bloc.dart';
-import '../../data/model/pharmacy_model.dart';
 import '../../data/service/pharmacy_service.dart';
 import 'package:meta/meta.dart';
+import '../../data/model/pharmacy_model.dart';
 
 part 'pharmacy_state.dart';
 
 class PharmacyCubit extends Cubit<PharmacyState> {
   final PharmacyService pharmacyService;
   int currentPage = 1;
-  bool hasNextPage = true;
   bool isLoading = false;
+  bool hasMore = true;
   final Map<int, List<PharmacyModel>> cachedPages = {};
 
   PharmacyCubit(this.pharmacyService) : super(PharmacyInitial());
@@ -20,6 +20,10 @@ class PharmacyCubit extends Cubit<PharmacyState> {
     isLoading = true;
 
     if (isNextPage) {
+      if (!hasMore) {
+        isLoading = false;
+        return; // منع الانتقال لصفحة فارغة
+      }
       currentPage++;
     } else if (isPrevPage && currentPage > 1) {
       currentPage--;
@@ -27,7 +31,10 @@ class PharmacyCubit extends Cubit<PharmacyState> {
 
     if (cachedPages.containsKey(currentPage)) {
       emit(PharmacySuccessState(
-          cachedPages[currentPage]!, currentPage, hasNextPage));
+        pharmacies: cachedPages[currentPage]!,
+        currentPage: currentPage,
+        hasMore: hasMore,
+      ));
       isLoading = false;
       return;
     }
@@ -35,10 +42,15 @@ class PharmacyCubit extends Cubit<PharmacyState> {
     try {
       final pagination =
           await pharmacyService.fetchPharmacies(page: currentPage);
+      hasMore = pagination
+          .pharmacies.isNotEmpty; // تحديد ما إذا كانت هناك بيانات جديدة
       cachedPages[currentPage] = pagination.pharmacies;
-      hasNextPage = pagination.pharmacies.isNotEmpty;
+
       emit(PharmacySuccessState(
-          pagination.pharmacies, currentPage, hasNextPage));
+        pharmacies: pagination.pharmacies,
+        currentPage: currentPage,
+        hasMore: hasMore,
+      ));
     } catch (e) {
       emit(PharmacyError(e.toString()));
     } finally {
