@@ -1,17 +1,24 @@
-import 'package:media_care/presentation/views/Laboratories/data/model/labs_model/data.dart';
+import '../../data/model/labs_model/data.dart';
 
 abstract class LaboratoryState {}
 
-class LaboratoryInitialState extends LaboratoryState {}
+class LaboratoryInitial extends LaboratoryState {}
 
-class LaboratoryLoadingState extends LaboratoryState {}
+class LaboratoryLoading extends LaboratoryState {}
 
 class LaboratorySuccessState extends LaboratoryState {
   final List<LaboratoryModel> laboratories;
-  LaboratorySuccessState(this.laboratories);
+  final int currentPage;
+  final bool hasMore;
+
+  LaboratorySuccessState({
+    required this.laboratories,
+    required this.currentPage,
+    required this.hasMore,
+  });
 }
 
-class LaboratoryFailure extends LaboratoryState {
-  final String error;
-  LaboratoryFailure(this.error);
+class LaboratoryError extends LaboratoryState {
+  final String message;
+  LaboratoryError(this.message);
 }

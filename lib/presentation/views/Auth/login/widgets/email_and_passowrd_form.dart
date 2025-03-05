@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/presentation/views/Auth/login/manager/login_cubit.dart';
+import '../manager/login_cubit.dart';
 import '../../../../../core/utils/app_color.dart';
 import '../../../../../core/utils/components/validators.dart';
 import 'custom_login_button.dart';

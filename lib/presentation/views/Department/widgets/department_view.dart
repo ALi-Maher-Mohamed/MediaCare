@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/presentation/views/Department/manager/department_cubit.dart';
-import 'package:media_care/presentation/views/Department/manager/department_state.dart';
-
-import '../data/repo/department_repo_impl.dart';
+import '../manager/department_cubit.dart';
+import '../manager/department_state.dart';
 
 class DepartmentsScreen extends StatelessWidget {
   const DepartmentsScreen({Key? key}) : super(key: key);

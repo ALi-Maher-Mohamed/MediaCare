@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/core/utils/app_color.dart';
-import 'package:media_care/presentation/views/pharmacies/data/model/pharmacy_model.dart';
-import 'package:media_care/presentation/views/pharmacies/manager/cubit/pharmacy_cubit.dart';
+import '../../../../core/utils/app_color.dart';
+import '../manager/cubit/pharmacy_cubit.dart';
 
 class PharmacyListViewFooter extends StatelessWidget {
   const PharmacyListViewFooter({super.key});

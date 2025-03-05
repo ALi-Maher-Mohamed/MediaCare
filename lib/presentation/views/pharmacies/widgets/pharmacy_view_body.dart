@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/presentation/views/pharmacies/data/model/pharmacy_model.dart';
-import 'package:media_care/presentation/views/pharmacies/data/service/api_service.dart';
-import 'package:media_care/presentation/views/pharmacies/manager/cubit/pharmacy_cubit.dart';
-import 'package:media_care/presentation/views/pharmacies/widgets/pharmact_list_view.dart';
-import 'package:media_care/presentation/views/pharmacies/widgets/pharmacy_details_page.dart';
+import '../data/service/pharmacy_service.dart';
+import '../manager/cubit/pharmacy_cubit.dart';
+import 'pharmact_list_view.dart';
 
 class PharmacyViewBody extends StatelessWidget {
   const PharmacyViewBody({

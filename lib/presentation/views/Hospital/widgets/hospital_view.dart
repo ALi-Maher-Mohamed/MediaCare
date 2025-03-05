@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/presentation/views/Hospital/manager/hospital_cubit.dart';
-import 'package:media_care/presentation/views/Hospital/manager/hospital_state.dart';
+import '../manager/hospital_cubit.dart';
+import '../manager/hospital_state.dart';
 
 class HospitalsScreen extends StatelessWidget {
   const HospitalsScreen({Key? key}) : super(key: key);
@@ -35,13 +35,16 @@ class HospitalsScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 final hospital = hospitals[index];
                 return ListTile(
-                  leading: hospital.image ,
-                  title: Text(hospital.title ?? 'No Title'), // Handle null title
+                  leading: hospital.image,
+                  title:
+                      Text(hospital.title ?? 'No Title'), // Handle null title
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(hospital.service ?? 'No Service'), // Handle null service
-                      Text(hospital.address ?? 'No Address'), // Handle null address
+                      Text(hospital.service ??
+                          'No Service'), // Handle null service
+                      Text(hospital.address ??
+                          'No Address'), // Handle null address
                       Text(hospital.phone ?? 'No Phone'), // Handle null phone
                     ],
                   ),

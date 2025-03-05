@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:media_care/presentation/views/Auth/login/login_view.dart';
-import 'package:media_care/presentation/views/Auth/login/manager/login_cubit.dart';
+import '../../Auth/login/login_view.dart';
+import '../../Auth/login/manager/login_cubit.dart';
 
 class MenuViewBody extends StatelessWidget {
   const MenuViewBody({
@@ -90,9 +90,8 @@ class MenuViewBody extends StatelessWidget {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => LoginView()),
-                  (route) => false, // Remove all previous screens from the stack
+              (route) => false, // Remove all previous screens from the stack
             );
-
           },
           child: ListTile(
             leading: Icon(
@@ -101,7 +100,8 @@ class MenuViewBody extends StatelessWidget {
             ),
             title: Text(
               'Logout',
-              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
           ),
         ),

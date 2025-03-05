@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:media_care/presentation/views/pharmacies/data/model/pharmacy_pagination.dart';
+import '../model/pharmacy_pagination.dart';
 
 class PharmacyService {
   final Dio dio = Dio();

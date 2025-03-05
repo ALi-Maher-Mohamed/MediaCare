@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
-import 'package:media_care/presentation/views/profile/manager/profile_state.dart';
+import '../manager/profile_cubit.dart';
+import '../manager/profile_state.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);

@@ -34,7 +34,7 @@ class LaboratoryModel {
       area: json['area'],
       locationUrl: json['locationUrl'],
       whatsappLink: json['whatsappLink'],
-      avgRate: double.tryParse(json['avg_rate'] ?? '0.0') ?? 0.0,
+      avgRate: double.tryParse(json['avg_rate'].toString()) ?? 0.0,
     );
   }
 }

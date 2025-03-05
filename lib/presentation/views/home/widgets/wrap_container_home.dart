@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/presentation/views/Doctor%20Speciality/DocSpeciality.dart';
-import 'package:media_care/presentation/views/Laboratories/Labs_view.dart';
-import 'package:media_care/presentation/views/Laboratories/data/services/laps_service.dart';
-import 'package:media_care/presentation/views/Laboratories/manager/cubit/labs_cubit.dart';
-import 'package:media_care/presentation/views/home/widgets/custom_home_feature_container.dart';
-import 'package:media_care/presentation/views/pharmacies/data/service/api_service.dart';
-import 'package:media_care/presentation/views/pharmacies/manager/cubit/pharmacy_cubit.dart';
-import 'package:media_care/presentation/views/pharmacies/pharmacy_view.dart';
+import '../../Doctor%20Speciality/DocSpeciality.dart';
+import '../../Laboratories/Labs_view.dart';
+import '../../Laboratories/data/services/laps_service.dart';
+import '../../Laboratories/manager/cubit/labs_cubit.dart';
+import 'custom_home_feature_container.dart';
+import '../../pharmacies/data/service/pharmacy_service.dart';
+import '../../pharmacies/manager/cubit/pharmacy_cubit.dart';
+import '../../pharmacies/pharmacy_view.dart';
 
 class CustomWrapContainersHomeView extends StatelessWidget {
   const CustomWrapContainersHomeView({

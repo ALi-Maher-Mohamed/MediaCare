@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:media_care/presentation/views/pharmacies/data/model/pharmacy_model.dart';
-import 'package:media_care/presentation/views/pharmacies/data/service/api_service.dart';
+import '../../data/model/pharmacy_model.dart';
+import '../../data/service/pharmacy_service.dart';
 import 'package:meta/meta.dart';
 
 part 'pharmacy_state.dart';

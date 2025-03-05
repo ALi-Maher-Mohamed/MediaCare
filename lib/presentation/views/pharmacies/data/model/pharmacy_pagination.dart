@@ -1,4 +1,4 @@
-import 'package:media_care/presentation/views/pharmacies/data/model/pharmacy_model.dart';
+import 'pharmacy_model.dart';
 
 class PaginationModel {
   final int currentPage;

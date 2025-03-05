@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:media_care/core/utils/app_color.dart';
-import 'package:media_care/core/utils/functins/launch_url.dart';
-import 'package:media_care/presentation/views/Laboratories/data/model/labs_model/data.dart';
+import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/functins/launch_url.dart';
+import '../data/model/labs_model/data.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LaboratoryDetailsPage extends StatelessWidget {

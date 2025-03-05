@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:media_care/core/errors/failure.dart';
-import 'package:media_care/core/network/api_service.dart';
+import '../../../../../core/errors/failure.dart';
+import '../../../../../core/network/api_service.dart';
 
 import '../models/department_model.dart';
 import 'department_repo.dart';

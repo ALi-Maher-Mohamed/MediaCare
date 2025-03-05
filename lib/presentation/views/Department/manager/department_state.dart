@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:media_care/presentation/views/Department/data/models/department_model.dart';
+import '../data/models/department_model.dart';
 
 abstract class DepartmentState extends Equatable {
   const DepartmentState();

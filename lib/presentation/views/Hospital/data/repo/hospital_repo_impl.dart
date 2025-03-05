@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:media_care/core/errors/failure.dart';
-import 'package:media_care/core/network/api_service.dart';
-import 'package:media_care/presentation/views/Hospital/data/models/hospital_model.dart';
-import 'package:media_care/presentation/views/Hospital/data/repo/hospital_repo.dart';
+import '../../../../../core/errors/failure.dart';
+import '../../../../../core/network/api_service.dart';
+import '../models/hospital_model.dart';
+import 'hospital_repo.dart';
 
 class HospitalRepoImpl implements HospitalRepo {
   final ApiServiceFunctions apiService;

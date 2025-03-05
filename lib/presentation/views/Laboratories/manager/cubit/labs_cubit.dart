@@ -1,20 +1,51 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/presentation/views/Laboratories/data/services/laps_service.dart';
-import 'package:media_care/presentation/views/Laboratories/manager/cubit/labs_state.dart';
+import '../../data/model/labs_model/data.dart';
+import '../../data/services/laps_service.dart';
+import 'labs_state.dart';
 
 class LaboratoryCubit extends Cubit<LaboratoryState> {
-  final LaboratoryService _laboratoryService;
+  final LaboratoryService laboratoryService;
+  int currentPage = 1;
+  bool hasMore = true;
+  bool isLoading = false;
+  final Map<int, List<LaboratoryModel>> cachedPages = {};
 
-  LaboratoryCubit(this._laboratoryService) : super(LaboratoryInitialState());
+  LaboratoryCubit(this.laboratoryService) : super(LaboratoryInitial());
 
-  Future<void> fetchLaboratories() async {
-    emit(LaboratoryLoadingState());
+  void fetchLaboratories(
+      {bool isNextPage = false, bool isPrevPage = false}) async {
+    if (isLoading) return;
+    isLoading = true;
+
+    if (isNextPage) {
+      currentPage++;
+    } else if (isPrevPage && currentPage > 1) {
+      currentPage--;
+    }
+
+    if (cachedPages.containsKey(currentPage)) {
+      emit(LaboratorySuccessState(
+        laboratories: cachedPages[currentPage]!,
+        currentPage: currentPage,
+        hasMore: hasMore,
+      ));
+      isLoading = false;
+      return;
+    }
+
     try {
-      final laboratories = await _laboratoryService.getLaboratories();
-      emit(LaboratorySuccessState(laboratories));
+      final pagination = await laboratoryService.fetchLaboratories(currentPage);
+      cachedPages[currentPage] = pagination.laboratories;
+      hasMore = pagination.laboratories.isNotEmpty;
+      emit(LaboratorySuccessState(
+        laboratories: pagination.laboratories,
+        currentPage: currentPage,
+        hasMore: hasMore,
+      ));
     } catch (e) {
-      emit(LaboratoryFailure(e.toString()));
+      emit(LaboratoryError(e.toString()));
+    } finally {
+      isLoading = false;
     }
   }
 }

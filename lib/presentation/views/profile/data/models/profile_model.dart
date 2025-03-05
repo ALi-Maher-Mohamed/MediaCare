@@ -1,11 +1,11 @@
 class UserModel {
   String? id;
-  Null? googleId;
-  Null? avatar;
+  Null googleId;
+  Null avatar;
   String? name;
   String? email;
   String? emailVerifiedAt;
-  Null? verificationTokenExpiresAt;
+  Null verificationTokenExpiresAt;
   String? phone;
   String? address;
   String? birthDate;
@@ -17,20 +17,20 @@ class UserModel {
 
   UserModel(
       {this.id,
-        this.googleId,
-        this.avatar,
-        this.name,
-        this.email,
-        this.emailVerifiedAt,
-        this.verificationTokenExpiresAt,
-        this.phone,
-        this.address,
-        this.birthDate,
-        this.role,
-        this.points,
-        this.lastVisit,
-        this.createdAt,
-        this.updatedAt});
+      this.googleId,
+      this.avatar,
+      this.name,
+      this.email,
+      this.emailVerifiedAt,
+      this.verificationTokenExpiresAt,
+      this.phone,
+      this.address,
+      this.birthDate,
+      this.role,
+      this.points,
+      this.lastVisit,
+      this.createdAt,
+      this.updatedAt});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];

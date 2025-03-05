@@ -1,12 +1,8 @@
+import 'pharmacy_list_view_footer.dart';
+import 'pharmacy_list_view_item.dart';
+import '../../search/widgets/custom_search_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/core/utils/app_color.dart';
-import 'package:media_care/presentation/views/pharmacies/data/model/pharmacy_model.dart';
-import 'package:media_care/presentation/views/pharmacies/manager/cubit/pharmacy_cubit.dart';
-import 'package:media_care/presentation/views/pharmacies/widgets/pharmacy_details_page.dart';
-import 'package:media_care/presentation/views/pharmacies/widgets/pharmacy_list_view_footer.dart';
-import 'package:media_care/presentation/views/pharmacies/widgets/pharmacy_list_view_item.dart';
-import 'package:media_care/presentation/views/search/widgets/custom_search_bar.dart';
+import '../data/model/pharmacy_model.dart';
 
 class CustomPharmacyListView extends StatelessWidget {
   const CustomPharmacyListView({

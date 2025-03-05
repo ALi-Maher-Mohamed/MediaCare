@@ -31,19 +31,19 @@ class Data {
   String? id;
   String? title;
   String? service;
-  Null? image;
+  Null image;
   String? phone;
   String? address;
   String? locationUrl;
 
   Data(
       {this.id,
-        this.title,
-        this.service,
-        this.image,
-        this.phone,
-        this.address,
-        this.locationUrl});
+      this.title,
+      this.service,
+      this.image,
+      this.phone,
+      this.address,
+      this.locationUrl});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];

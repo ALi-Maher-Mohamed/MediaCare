@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:media_care/presentation/views/profile/data/models/profile_model.dart';
+import '../data/models/profile_model.dart';
 
 abstract class ProfileState extends Equatable {
   const ProfileState();

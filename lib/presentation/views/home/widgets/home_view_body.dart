@@ -2,16 +2,16 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:media_care/core/utils/app_color.dart';
-import 'package:media_care/presentation/views/Laboratories/Labs_view.dart';
-import 'package:media_care/presentation/views/Laboratories/data/services/laps_service.dart';
-import 'package:media_care/presentation/views/Laboratories/manager/cubit/labs_cubit.dart';
-import 'package:media_care/presentation/views/home/widgets/wrap_container_home.dart';
-import 'package:media_care/presentation/views/search/search_view.dart';
+import '../../../../core/utils/app_color.dart';
+import '../../Laboratories/Labs_view.dart';
+import '../../Laboratories/data/services/laps_service.dart';
+import '../../Laboratories/manager/cubit/labs_cubit.dart';
+import 'wrap_container_home.dart';
+import '../../search/search_view.dart';
 import 'pharmacy_list_view.dart';
 import 'search_doctor_field.dart';
 import '../../pharmacies/pharmacy_view.dart';
-import '../../pharmacies/data/service/api_service.dart';
+import '../../pharmacies/data/service/pharmacy_service.dart';
 import '../../pharmacies/manager/cubit/pharmacy_cubit.dart';
 import 'home_view_headr.dart';
 import 'title_and_see_all.dart';
@@ -66,7 +66,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
       child: PharmacyView(),
     ),
     BlocProvider(
-      create: (context) => LaboratoryCubit(LaboratoryService()),
+      create: (context) =>
+          LaboratoryCubit(LaboratoryService())..fetchLaboratories(),
       child: LaboratoryView(),
     ),
     SearchView(),
