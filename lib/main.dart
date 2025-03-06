@@ -3,16 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:media_care/presentation/views/pharmacies/data/service/pharmacy_service.dart';
-import 'package:media_care/presentation/views/pharmacies/manager/cubit/pharmacy_cubit.dart';
-import 'presentation/views/Department/data/repo/department_repo_impl.dart';
-import 'presentation/views/Department/manager/department_cubit.dart';
-import 'presentation/views/Department/widgets/department_view.dart';
-import 'presentation/views/Hospital/data/repo/hospital_repo_impl.dart';
-import 'presentation/views/Hospital/manager/hospital_cubit.dart';
-import 'presentation/views/profile/data/repo/profile_repo_impl.dart';
-import 'presentation/views/profile/manager/profile_cubit.dart';
-import 'core/Secure Storage/secure_storage.dart';
+import 'package:media_care/presentation/views/Auth/login/login_view.dart';
+import 'package:media_care/presentation/views/Department/data/repo/department_repo_impl.dart';
+import 'package:media_care/presentation/views/Department/manager/department_cubit.dart';
+import 'package:media_care/presentation/views/Hospital/data/repo/hospital_repo_impl.dart';
+import 'package:media_care/presentation/views/Hospital/manager/hospital_cubit.dart';
 import 'core/network/api_service.dart';
 import 'observer.dart';
 import 'presentation/views/Auth/login/data/repo/login_repo_impl.dart';
@@ -38,17 +33,12 @@ void main() async {
                 registerRepo: RegisterRepoImpl(ApiServiceFunctions(Dio())))),
         BlocProvider(
             create: (context) => DepartmentCubit(
-                departmentRepo: DepartmentRepoImpl(ApiServiceFunctions(Dio())))
-              ..fetchDepartments()),
+                departmentRepo:
+                    DepartmentRepoImpl(ApiServiceFunctions(Dio())))..fetchDepartments()),
         BlocProvider(
             create: (context) => HospitalCubit(
-                hospitalRepo: HospitalRepoImpl(ApiServiceFunctions(Dio())))
-              ..fetchHospitals()),
-        BlocProvider(
-            create: (context) => ProfileCubit(
-                profileRepo: ProfileRepoImpl(ApiServiceFunctions(Dio())),
-                secureStorage: SecureStorage())
-              ..fetchProfile()),
+                hospitalRepo:
+                HospitalRepoImpl(ApiServiceFunctions(Dio())))..fetchHospitals()),
       ],
       child: MediCare(
         isLoggedIn: token != null,
@@ -72,7 +62,7 @@ class MediCare extends StatelessWidget {
         );
       }),
       debugShowCheckedModeBanner: false,
-      home: isLoggedIn ? DepartmentsScreen() : HomeView(),
+      home: isLoggedIn ? HomeView() : LoginView(),
     );
   }
 }
