@@ -6,13 +6,14 @@ import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/Laboratories/Labs_view.dart';
 import 'package:media_care/presentation/views/Laboratories/data/services/laps_service.dart';
 import 'package:media_care/presentation/views/Laboratories/manager/cubit/labs_cubit.dart';
+import 'package:media_care/presentation/views/home/widgets/home_pharmacy_list_view.dart';
 import 'package:media_care/presentation/views/home/widgets/wrap_container_home.dart';
+import 'package:media_care/presentation/views/pharmacies/data/service/pharmacy_service.dart';
 import 'package:media_care/presentation/views/profile/profile_ui.dart';
 import 'package:media_care/presentation/views/search/search_view.dart';
-import 'pharmacy_list_view.dart';
+
 import 'search_doctor_field.dart';
 import '../../pharmacies/pharmacy_view.dart';
-import '../../pharmacies/data/service/api_service.dart';
 import '../../pharmacies/manager/cubit/pharmacy_cubit.dart';
 import 'home_view_headr.dart';
 import 'title_and_see_all.dart';
@@ -62,8 +63,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   List<Widget> widgetOptions = <Widget>[
     HomeViewBodyScreen(),
     BlocProvider(
-      create: (context) => PharmacyCubit(apiService: PharmacyService())
-        ..loadPharmacies(pageNumber: 1),
+      create: (context) => PharmacyCubit(PharmacyService())..fetchPharmacies(),
       child: PharmacyView(),
     ),
     BlocProvider(
@@ -132,8 +132,7 @@ class HomeViewBodyScreen extends StatelessWidget {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return BlocProvider(
                     create: (context) =>
-                        PharmacyCubit(apiService: PharmacyService())
-                          ..loadPharmacies(pageNumber: 1),
+                        PharmacyCubit(PharmacyService())..fetchPharmacies(),
                     child: PharmacyView(),
                   );
                 }));
@@ -145,8 +144,7 @@ class HomeViewBodyScreen extends StatelessWidget {
             ),
             BlocProvider(
               create: (context) {
-                return PharmacyCubit(apiService: PharmacyService())
-                  ..loadPharmacies(pageNumber: 1);
+                return PharmacyCubit(PharmacyService())..fetchPharmacies();
               },
               child: PharmacyListView(),
             ),
