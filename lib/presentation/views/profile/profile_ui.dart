@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_care/core/Secure%20Storage/secure_storage.dart';
 import 'package:media_care/core/network/api_service.dart';
+import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_state.dart';
 import 'package:media_care/presentation/views/profile/widgets/avatar_and_name.dart';
@@ -19,6 +20,7 @@ class ProfileScreen extends StatelessWidget {
       )..fetchProfile(),
       child: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           leading: Icon(
             Icons.arrow_back_ios,
             color: Colors.white,
@@ -30,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
             fontWeight: FontWeight.w600,
             fontSize: 20,
           ),
-          backgroundColor: Colors.blue,
+          backgroundColor: AppColors.primaryLight,
         ),
         backgroundColor: Colors.white,
         body: BlocConsumer<ProfileCubit, ProfileState>(
