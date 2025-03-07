@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:media_care/core/utils/app_color.dart';
 
 class FieldData extends StatelessWidget {
-  FieldData({required this.title, super.key,required this.data});
+  FieldData({required this.title, super.key, required this.data});
 
-  String? title;
-  String? data;
+  final String? title;
+  final String? data;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class FieldData extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-             '$title',
+            '$title',
             style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.bold,

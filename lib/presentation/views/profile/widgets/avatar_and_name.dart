@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AvatarAndName extends StatelessWidget {
-  AvatarAndName({required this.name,required this.image,super.key});
-  String? name;
-  String? image;
+  AvatarAndName({required this.name, required this.image, super.key});
+  final String? name;
+  final String? image;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -27,12 +27,11 @@ class AvatarAndName extends StatelessWidget {
               backgroundColor: Colors.white,
               child: CircleAvatar(
                 radius: 60,
-                backgroundImage: NetworkImage(
-                    '$image'),
+                backgroundImage: NetworkImage('$image'),
               ),
             ),
             const SizedBox(height: 5),
-             Text(
+            Text(
               '$name',
               style: TextStyle(
                   fontSize: 20,
@@ -40,7 +39,6 @@ class AvatarAndName extends StatelessWidget {
                   color: Colors.white),
             ),
             const SizedBox(height: 5),
-
           ],
         ),
       ],
