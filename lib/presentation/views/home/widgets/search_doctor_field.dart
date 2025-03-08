@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../search/search_view.dart';
 
@@ -15,17 +16,17 @@ class SearchDoctor extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              ' ! أكتشف المزيد ',
+              '  أكتشف المزيد !',
               style: TextStyle(
                   color: AppColors.primary,
-                  fontSize: 20,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(
-              height: 12,
+              height: 12.h,
             ),
             GestureDetector(
               onTap: () {
@@ -34,28 +35,30 @@ class SearchDoctor extends StatelessWidget {
                 }));
               },
               child: Container(
-                height: 50,
+                height: 50.h,
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.primary),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    SizedBox(
+                      width: 12.w,
+                    ),
                     Text(
                       'ابحث بالتخصص او باسم الدكتور',
-                      style: TextStyle(color: AppColors.primary),
+                      style:
+                          TextStyle(color: AppColors.primary, fontSize: 14.sp),
                     ),
-                    SizedBox(
-                      width: 12,
-                    ),
+                    Spacer(),
                     Icon(
                       Icons.search,
                       color: AppColors.primary,
                     ),
                     SizedBox(
-                      width: 12,
-                    ),
+                      width: 12.w,
+                    )
                   ],
                 ),
               ),

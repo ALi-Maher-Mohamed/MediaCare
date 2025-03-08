@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/app_color.dart';
 
@@ -31,7 +32,9 @@ class CustomHomeFeatureContainer extends StatelessWidget {
             Text(
               text,
               style: TextStyle(
-                  fontWeight: FontWeight.bold, color: AppColors.primary),
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primary,
+                  fontSize: 14.sp),
             ),
           ],
         ),

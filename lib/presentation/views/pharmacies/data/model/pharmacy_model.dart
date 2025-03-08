@@ -2,7 +2,7 @@ class PharmacyModel {
   final String id;
   final String title;
   final String service;
-  final String image;
+  final String? image;
   final String phone;
   final String city;
   final String area;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/app_color.dart';
 import '../../found_disease/found_disease.dart';
@@ -25,17 +26,18 @@ class HomeViewHeaderCard extends StatelessWidget {
               children: [
                 Text('عندك سؤال عن صحتك ؟',
                     style: TextStyle(
-                      fontSize: 22,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
                       color: AppColors.primary,
                     )),
                 Text('اطلع علي الاجابة ',
                     style: TextStyle(
+                      fontSize: 18.sp,
                       color: AppColors.primary,
                       fontWeight: FontWeight.bold,
                     )),
                 SizedBox(
-                  height: 12,
+                  height: 12.h,
                 ),
                 GestureDetector(
                   onTap: () {
@@ -56,6 +58,7 @@ class HomeViewHeaderCard extends StatelessWidget {
                       child: Text(
                         ' اسأل الان !',
                         style: TextStyle(
+                          fontSize: 14.sp,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
@@ -70,16 +73,16 @@ class HomeViewHeaderCard extends StatelessWidget {
             clipBehavior: Clip.none,
             children: [
               Container(
-                height: 100,
-                width: 100,
+                height: 100.h,
+                width: 100.w,
               ),
               Positioned(
                 top: -90,
                 left: 0,
                 right: 0,
                 child: Container(
-                  height: 220,
-                  width: 150,
+                  height: 180.h,
+                  width: 150.w,
                   child: Image.asset(
                     'assets/images/doc0.png',
                   ),

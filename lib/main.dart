@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:media_care/presentation/views/Auth/login/login_view.dart';
 import 'package:media_care/presentation/views/Department/data/repo/department_repo_impl.dart';
@@ -33,12 +34,12 @@ void main() async {
                 registerRepo: RegisterRepoImpl(ApiServiceFunctions(Dio())))),
         BlocProvider(
             create: (context) => DepartmentCubit(
-                departmentRepo:
-                    DepartmentRepoImpl(ApiServiceFunctions(Dio())))..fetchDepartments()),
+                departmentRepo: DepartmentRepoImpl(ApiServiceFunctions(Dio())))
+              ..fetchDepartments()),
         BlocProvider(
             create: (context) => HospitalCubit(
-                hospitalRepo:
-                HospitalRepoImpl(ApiServiceFunctions(Dio())))..fetchHospitals()),
+                hospitalRepo: HospitalRepoImpl(ApiServiceFunctions(Dio())))
+              ..fetchHospitals()),
       ],
       child: MediCare(
         isLoggedIn: token != null,
@@ -52,17 +53,22 @@ class MediCare extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      locale: Locale('ar'),
-      builder: EasyLoading.init(builder: (context, child) {
-        return Directionality(
-          textDirection: TextDirection.rtl,
-          // يجعل التطبيق بالكامل من اليسار لليمين
-          child: child!,
-        );
-      }),
-      debugShowCheckedModeBanner: false,
-      home: isLoggedIn ? HomeView() : LoginView(),
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) => MaterialApp(
+        locale: Locale('ar'),
+        builder: EasyLoading.init(builder: (context, child) {
+          return Directionality(
+            textDirection: TextDirection.rtl,
+            // يجعل التطبيق بالكامل من اليسار لليمين
+            child: child!,
+          );
+        }),
+        debugShowCheckedModeBanner: false,
+        home: isLoggedIn ? HomeView() : HomeView(),
+      ),
     );
   }
 }

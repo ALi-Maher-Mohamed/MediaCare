@@ -33,7 +33,8 @@ class PharmacyDetailsPage extends StatelessWidget {
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
                   child: Image.network(
-                    pharmacy.image,
+                    pharmacy.image ??
+                        'https://cdn4.vectorstock.com/i/1000x1000/62/78/error-sign-icon-image-vector-16746278.jpg',
                     width: double.infinity,
                     height: 230,
                     fit: BoxFit.cover,

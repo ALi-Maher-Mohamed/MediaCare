@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_care/core/utils/app_color.dart';
 import '../../pharmacies/manager/cubit/pharmacy_cubit.dart';
 import 'custom_offer_item.dart';
 
@@ -10,7 +12,7 @@ class PharmacyListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 210,
+      height: 210.h,
       child:
           BlocBuilder<PharmacyCubit, PharmacyState>(builder: (context, State) {
         if (State is PharmacyLoading) {
@@ -27,14 +29,19 @@ class PharmacyListView extends StatelessWidget {
                 child: CustomListViewItem(
                   index: index,
                   pharmacy: pharmacy[index],
-                  image: pharmacy[index].image,
+                  image: pharmacy[index].image ??
+                      'https://cdn4.vectorstock.com/i/1000x1000/62/78/error-sign-icon-image-vector-16746278.jpg',
                   title: pharmacy[index].title,
                 ),
               );
             },
           );
         } else {
-          return Center(child: Text(' لا توجد بيانات متاحة للعرض'));
+          return Center(
+              child: Text(
+            ' لا توجد بيانات متاحة للعرض',
+            style: TextStyle(color: AppColors.primary, fontSize: 18.sp),
+          ));
         }
       }),
     );

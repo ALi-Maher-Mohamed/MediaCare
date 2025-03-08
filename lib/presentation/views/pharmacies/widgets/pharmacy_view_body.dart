@@ -21,6 +21,7 @@ class PharmacyViewBody extends StatelessWidget {
           if (state is PharmacyLoading && (state is! PharmacySuccessState)) {
             return Center(child: CircularProgressIndicator());
           } else if (state is PharmacyError) {
+            print(state.message);
             return Center(child: Text(state.message));
           } else if (state is PharmacySuccessState) {
             return CustomPharmacyListView(

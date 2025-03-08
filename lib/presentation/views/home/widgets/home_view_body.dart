@@ -1,6 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/Laboratories/Labs_view.dart';
@@ -112,18 +113,18 @@ class HomeViewBodyScreen extends StatelessWidget {
               HomeViewHeader(),
               HomeViewHeaderCard(),
               SizedBox(
-                height: 24,
+                height: 24.h,
               ),
               SearchDoctor()
             ],
           ),
         ),
         SizedBox(
-          height: 24,
+          height: 24.h,
         ),
         CustomWrapContainersHomeView(),
         SizedBox(
-          height: 12,
+          height: 18.h,
         ),
         Column(
           children: [
@@ -140,7 +141,7 @@ class HomeViewBodyScreen extends StatelessWidget {
               text: 'Top Pharmacies',
             ),
             SizedBox(
-              height: 12,
+              height: 12.h,
             ),
             BlocProvider(
               create: (context) {

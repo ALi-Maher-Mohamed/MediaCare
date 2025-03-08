@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Doctor%20Speciality/DocSpeciality.dart';
 import '../../Laboratories/Labs_view.dart';
 import '../../Laboratories/data/services/laps_service.dart';
@@ -19,8 +20,8 @@ class CustomWrapContainersHomeView extends StatelessWidget {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       alignment: WrapAlignment.spaceAround,
-      runSpacing: 10,
-      spacing: 10,
+      runSpacing: 10.h,
+      spacing: 10.w,
       direction: Axis.horizontal,
       children: [
         CustomHomeFeatureContainer(

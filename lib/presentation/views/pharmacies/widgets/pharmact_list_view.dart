@@ -1,3 +1,6 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_care/core/utils/app_color.dart';
+
 import 'pharmacy_list_view_footer.dart';
 
 import 'pharmacy_list_view_item.dart';
