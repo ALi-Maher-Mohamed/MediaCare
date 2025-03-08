@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../Doctor%20Speciality/DocSpeciality.dart';
+import 'package:media_care/presentation/views/Department/widgets/department_view.dart';
 import '../../Laboratories/Labs_view.dart';
 import '../../Laboratories/data/services/laps_service.dart';
 import '../../Laboratories/manager/cubit/labs_cubit.dart';
@@ -52,7 +52,7 @@ class CustomWrapContainersHomeView extends StatelessWidget {
           text: 'الاقسام الطبية ',
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return DoctorSpecialityView();
+              return DepartmentsView();
             }));
           },
         ),

@@ -1,5 +1,3 @@
-import 'package:media_care/presentation/views/Department/data/models/department_model.dart';
-
 class DepartmentDetailsModel {
   final bool success;
   final String message;
@@ -26,6 +24,7 @@ class DepartmentDetails {
   final int careCentersCount;
   final int doctorsCount;
   final List<Hospital> hospitals;
+  final List<CareCenter> careCenters;
   final List<Doctor> doctors;
   final List<Tip> tips;
 
@@ -35,6 +34,7 @@ class DepartmentDetails {
     required this.careCentersCount,
     required this.doctorsCount,
     required this.hospitals,
+    required this.careCenters,
     required this.doctors,
     required this.tips,
   });
@@ -48,10 +48,33 @@ class DepartmentDetails {
       hospitals: (json['hospitals']['data'] as List)
           .map((item) => Hospital.fromJson(item))
           .toList(),
+      careCenters: (json['care_centers']['data'] as List)
+          .map((item) => CareCenter.fromJson(item))
+          .toList(),
       doctors: (json['doctors']['data'] as List)
           .map((item) => Doctor.fromJson(item))
           .toList(),
       tips: (json['tips'] as List).map((item) => Tip.fromJson(item)).toList(),
+    );
+  }
+}
+
+class Department {
+  final String id;
+  final String title;
+  final String description;
+
+  Department({
+    required this.id,
+    required this.title,
+    required this.description,
+  });
+
+  factory Department.fromJson(Map<String, dynamic> json) {
+    return Department(
+      id: json['id'],
+      title: json['title'],
+      description: json['description'],
     );
   }
 }
@@ -83,6 +106,47 @@ class Hospital {
 
   factory Hospital.fromJson(Map<String, dynamic> json) {
     return Hospital(
+      id: json['id'],
+      title: json['title'],
+      service: json['service'],
+      image: json['image'],
+      phone: json['phone'],
+      address: json['address'],
+      locationUrl: json['locationUrl'],
+      startAt: json['pivot']['start_at'],
+      endAt: json['pivot']['end_at'],
+      appPrice: json['pivot']['app_price'],
+    );
+  }
+}
+
+class CareCenter {
+  final String id;
+  final String title;
+  final String service;
+  final String? image;
+  final String phone;
+  final String address;
+  final String locationUrl;
+  final String startAt;
+  final String endAt;
+  final String appPrice;
+
+  CareCenter({
+    required this.id,
+    required this.title,
+    required this.service,
+    this.image,
+    required this.phone,
+    required this.address,
+    required this.locationUrl,
+    required this.startAt,
+    required this.endAt,
+    required this.appPrice,
+  });
+
+  factory CareCenter.fromJson(Map<String, dynamic> json) {
+    return CareCenter(
       id: json['id'],
       title: json['title'],
       service: json['service'],
