@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_care/core/utils/app_color.dart';
 
 class CategoryButton extends StatelessWidget {
   final String title;
@@ -18,18 +20,18 @@ class CategoryButton extends StatelessWidget {
       splashColor: Colors.transparent,
       onTap: onTap,
       child: Container(
-        height: 40,
-        width: 106,
-        margin: EdgeInsets.symmetric(horizontal: 15),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        height: 40.h,
+        margin: EdgeInsets.symmetric(horizontal: 15.w),
+        padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 10.w),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.blue : Colors.grey[300],
+          color: isSelected ? AppColors.primary : Colors.grey[300],
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
           title,
           textAlign: TextAlign.center,
           style: TextStyle(
+            fontSize: 16.sp,
             color: isSelected ? Colors.white : Colors.black,
             fontWeight: FontWeight.bold,
           ),

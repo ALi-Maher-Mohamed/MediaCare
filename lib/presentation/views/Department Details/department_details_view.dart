@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_care/core/network/api_service.dart';
+import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/Department%20Details/data/repo/department_details_repo_impl.dart';
 import 'package:media_care/presentation/views/Department%20Details/manager/department_details_cubit.dart';
 import 'package:media_care/presentation/views/Department%20Details/manager/department_details_state.dart';
@@ -25,41 +26,58 @@ class DepartmentDetailsScreen extends StatelessWidget {
       child: BlocBuilder<DepartmentDetailsCubit, DepartmentDetailsState>(
         builder: (context, state) {
           if (state is DepartmentDetailsLoading) {
-            return Center(child: CircularProgressIndicator());
+            return Container(
+              color: Colors.white,
+              child: Center(
+                  child: CircularProgressIndicator(
+                backgroundColor: Colors.white,
+                color: AppColors.primary,
+              )),
+            );
           } else if (state is DepartmentDetailsLoaded) {
             String selectedCategory = state.selectedCategory;
 
             return Scaffold(
+              backgroundColor: Colors.white,
               appBar: AppBar(
-                title: Text('$title'),
+                centerTitle: true,
+                forceMaterialTransparency: true,
+                iconTheme: IconThemeData(color: AppColors.primary),
+                title: Text(
+                  '$title',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: AppColors.primary),
+                ),
               ),
               body: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CategoryButton(
-                        title: "المستشفيات",
-                        isSelected: selectedCategory == "المستشفيات",
-                        onTap: () => context
-                            .read<DepartmentDetailsCubit>()
-                            .filterDepartmentData("المستشفيات"),
-                      ),
-                      CategoryButton(
-                        title: "المراكز",
-                        isSelected: selectedCategory == "المراكز",
-                        onTap: () => context
-                            .read<DepartmentDetailsCubit>()
-                            .filterDepartmentData("المراكز"),
-                      ),
-                      CategoryButton(
-                        title: "الأطباء",
-                        isSelected: selectedCategory == "الأطباء",
-                        onTap: () => context
-                            .read<DepartmentDetailsCubit>()
-                            .filterDepartmentData("الأطباء"),
-                      ),
-                    ],
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        CategoryButton(
+                          title: "المستشفيات",
+                          isSelected: selectedCategory == "المستشفيات",
+                          onTap: () => context
+                              .read<DepartmentDetailsCubit>()
+                              .filterDepartmentData("المستشفيات"),
+                        ),
+                        CategoryButton(
+                          title: "المراكز",
+                          isSelected: selectedCategory == "المراكز",
+                          onTap: () => context
+                              .read<DepartmentDetailsCubit>()
+                              .filterDepartmentData("المراكز"),
+                        ),
+                        CategoryButton(
+                          title: "الأطباء",
+                          isSelected: selectedCategory == "الأطباء",
+                          onTap: () => context
+                              .read<DepartmentDetailsCubit>()
+                              .filterDepartmentData("الأطباء"),
+                        ),
+                      ],
+                    ),
                   ),
                   Expanded(
                     child: ListView(
