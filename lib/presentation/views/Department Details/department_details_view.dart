@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_care/core/network/api_service.dart';
 import 'package:media_care/core/utils/app_color.dart';
+import 'package:media_care/presentation/views/Department%20Details/data/models/department_details_model.dart';
 import 'package:media_care/presentation/views/Department%20Details/data/repo/department_details_repo_impl.dart';
 import 'package:media_care/presentation/views/Department%20Details/manager/department_details_cubit.dart';
 import 'package:media_care/presentation/views/Department%20Details/manager/department_details_state.dart';
 import 'package:media_care/presentation/views/Department%20Details/widgets/FilterButton.dart';
+import 'package:media_care/presentation/views/Department%20Details/widgets/care_center_card.dart';
+import 'package:media_care/presentation/views/Department%20Details/widgets/doctor_card.dart';
+import 'package:media_care/presentation/views/Department%20Details/widgets/hospital_card.dart';
 
 class DepartmentDetailsScreen extends StatelessWidget {
   final String departmentID;
@@ -82,10 +86,19 @@ class DepartmentDetailsScreen extends StatelessWidget {
                   Expanded(
                     child: ListView(
                       children: state.filteredData.map((item) {
-                        return ListTile(
-                          title: Text(item
-                              .title), // Ensure `item` has a `title` property
-                        );
+                        if (item.runtimeType == Hospital) {
+                          return HospitalCard(
+                              hospital:
+                                  item as Hospital); // قم بإنشاء HospitalCard
+                        } else if (item.runtimeType == CareCenter) {
+                          return CareCenterCard(
+                              careCenter: item
+                                  as CareCenter); // قم بإنشاء CareCenterCard
+                        } else if (item.runtimeType == Doctor) {
+                          return DoctorCard(doctor: item as Doctor);
+                        } else {
+                          return Container(); // Fallback في حالة وجود نوع غير معروف
+                        }
                       }).toList(),
                     ),
                   ),
