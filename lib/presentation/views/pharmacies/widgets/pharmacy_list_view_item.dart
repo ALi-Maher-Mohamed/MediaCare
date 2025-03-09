@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_care/core/utils/widgets/clip_path.dart';
 import '../../../../core/utils/functins/launch_url.dart';
 import '../../../../core/utils/app_color.dart';
 import '../data/model/pharmacy_model.dart';
@@ -250,26 +251,5 @@ class CustomCard extends StatelessWidget {
               )),
       ]),
     );
-  }
-}
-
-class ContainerClipper extends CustomClipper<Path> {
-  var path = Path();
-  @override
-  Path getClip(Size size) {
-    path.lineTo(0, size.height - 150);
-    path.quadraticBezierTo(size.width * 0.05, size.height - 75, size.width * .5,
-        size.height - 100);
-    path.quadraticBezierTo(
-        size.width * 0.8, size.height - 100, size.width, size.height - 100);
-
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return true;
   }
 }
