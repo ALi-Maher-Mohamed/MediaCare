@@ -3,7 +3,9 @@ import '../model/pharmacy_pagination.dart';
 
 class PharmacyService {
   final Dio dio = Dio();
-  final String baseUrl = "http://192.168.1.4:8000/api/Pharmacies";
+  //Ali Maher BaseUrl --> http://192.168.1.4:8000
+  //Ahmed Mansour BaseUrl --> http://10.0.2.2:8000
+  final String baseUrl = "http://10.0.2.2:8000/api/Pharmacies";
 
   Future<PaginationModel> fetchPharmacies({int page = 1}) async {
     try {
