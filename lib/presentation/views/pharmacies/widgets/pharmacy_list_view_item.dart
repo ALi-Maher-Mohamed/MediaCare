@@ -27,7 +27,7 @@ class PharmacyListViewItem extends StatelessWidget {
             ),
           );
         },
-        child: CustomCard2(pharmacy: pharmacy));
+        child: CustomCard(pharmacy: pharmacy));
   }
 }
 
@@ -147,7 +147,7 @@ class CustomCard extends StatelessWidget {
           child: Container(
             height: 200.h,
             width: double.infinity,
-            color: AppColors.primaryLight,
+            color: AppColors.primary2,
           ),
         ),
         Column(
@@ -159,50 +159,95 @@ class CustomCard extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
-                color: AppColors.darkGrey,
+                color: Colors.white,
               ),
             ),
+            SizedBox(height: 20.h),
+            ClipRRect(
+                borderRadius: BorderRadius.circular(55),
+                child: pharmacy.image == null
+                    ? Image.asset(
+                        width: 90.w,
+                        height: 90.h,
+                        fit: BoxFit.cover,
+                        'assets/pharmacies/pharmacy_icon.png')
+                    : Image.network(
+                        pharmacy.image!,
+                        width: 90.w,
+                        height: 90.h,
+                        fit: BoxFit.cover,
+                      )),
             SizedBox(height: 20.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                IconButton(
-                  icon: Icon(Icons.phone, color: Colors.green, size: 50),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: Size(100.w, 35.h),
+                    backgroundColor: AppColors.primary2,
+                  ),
+                  child: Icon(Icons.location_on, color: Colors.white, size: 30),
                   onPressed: () {
-                    launchDialer(pharmacy.phone);
+                    launchCustomUrl(context, '${pharmacy.locationUrl}');
                   },
                 ),
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(40),
-                    child: pharmacy.image == null
-                        ? Image.asset(
-                            width: 90.w,
-                            height: 90.h,
-                            fit: BoxFit.cover,
-                            'assets/pharmacies/pharmacy_icon.png')
-                        : Image.network(
-                            pharmacy.image!,
-                            width: 90.w,
-                            height: 90.h,
-                            fit: BoxFit.cover,
-                          )),
-                IconButton(
-                  icon: Icon(Icons.location_on, color: Colors.green, size: 50),
-                  onPressed: () {},
-                ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(100.w, 35.h),
+                      backgroundColor: AppColors.primary2,
+                    ),
+                    child: Text('المزيد',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.sp,
+                        )),
+                    onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PharmacyDetailsPage(
+                                index: 0, pharmacy: pharmacy),
+                          ),
+                        )),
               ],
-            ),
-            SizedBox(height: 30.h),
-            Text(
-              pharmacy.area,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 22.sp,
-                color: AppColors.darkGrey,
-              ),
             ),
           ],
         ),
+        Positioned(
+          right: 20.w,
+          bottom: 40.h,
+          child: Text(' ${pharmacy.city} - ${pharmacy.area}',
+              style: TextStyle(color: AppColors.darkGrey, fontSize: 14.sp)),
+        ),
+        if (pharmacy.deliveryOption == 1)
+          Positioned(
+              left: 20.w,
+              bottom: 70.h,
+              child: Container(
+                height: 30.h,
+                width: 90.w,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 6,
+                      spreadRadius: 2,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Text(
+                  ' نوصيل 🚓',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primary2,
+                  ),
+                ),
+              )),
       ]),
     );
   }
@@ -212,11 +257,11 @@ class ContainerClipper extends CustomClipper<Path> {
   var path = Path();
   @override
   Path getClip(Size size) {
-    path.lineTo(0, size.height - 120);
-    path.quadraticBezierTo(size.width * 0.25, size.height - 75, size.width * .5,
-        size.height - 110);
+    path.lineTo(0, size.height - 150);
+    path.quadraticBezierTo(size.width * 0.05, size.height - 75, size.width * .5,
+        size.height - 100);
     path.quadraticBezierTo(
-        size.width * 0.8, size.height - 100, size.width, size.height - 80);
+        size.width * 0.8, size.height - 100, size.width, size.height - 100);
 
     path.lineTo(size.width, 0);
     path.close();

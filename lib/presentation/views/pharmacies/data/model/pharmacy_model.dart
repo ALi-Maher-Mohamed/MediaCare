@@ -8,7 +8,7 @@ class PharmacyModel {
   final String area;
   final String locationUrl;
   final String whatsappLink;
-  final bool deliveryOption;
+  final int deliveryOption;
   final bool insurance;
   final double avgRate;
 
@@ -38,7 +38,7 @@ class PharmacyModel {
       area: json['area'],
       locationUrl: json['locationUrl'],
       whatsappLink: json['whatsappLink'],
-      deliveryOption: json['deliveryOption'] == 1,
+      deliveryOption: json['deliveryOption'],
       insurance: json['insurence'] == 1,
       avgRate: double.tryParse(json['avg_rate'].toString()) ?? 0.0,
     );
