@@ -1,5 +1,8 @@
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:media_care/core/errors/failure.dart';
 import 'package:media_care/presentation/views/pharmacies/data/model/pharmacy_model.dart';
+
 import 'pharmacy_repo.dart';
 
 class PharmacyRepoImpl implements PharmacyRepo {
@@ -8,7 +11,8 @@ class PharmacyRepoImpl implements PharmacyRepo {
   PharmacyRepoImpl(this._dio);
 
   @override
-  Future<List<PharmacyModel>> getPharmacies({int page = 1}) async {
+  Future<Either<Failure, List<PharmacyModel>>> getPharmacies(
+      {int page = 1}) async {
     try {
       final response = await _dio.get(
         'http://192.168.1.4:8000/api/Pharmacies',
@@ -18,16 +22,25 @@ class PharmacyRepoImpl implements PharmacyRepo {
         final Map<String, dynamic> jsonResponse = response.data;
         if (jsonResponse['success'] == true) {
           final List<dynamic> data = jsonResponse['data']['data'];
-          return data.map((json) => PharmacyModel.fromJson(json)).toList();
+          final pharmacies =
+              data.map((json) => PharmacyModel.fromJson(json)).toList();
+          return Right(pharmacies);
         } else {
-          throw Exception(
-              jsonResponse['message'] ?? 'Failed to load pharmacies');
+          // نستخدم ServerFailure.fromResponse لتحويل استجابة الـ API الفاشلة
+          return Left(
+              ServerFailure.fromResponse(response.statusCode, jsonResponse));
         }
       } else {
-        throw Exception('Failed to load pharmacies');
+        // نستخدم ServerFailure.fromResponse لأخطاء الحالة غير 200
+        return Left(
+            ServerFailure.fromResponse(response.statusCode, response.data));
       }
+    } on DioException catch (e) {
+      // نستخدم ServerFailure.fromDioError لتحويل أخطاء Dio
+      return Left(ServerFailure.fromDioError(e));
     } catch (e) {
-      throw Exception('Error fetching pharmacies: $e');
+      // أي خطأ غير متوقع
+      return Left(ServerFailure('Unexpected Error: $e'));
     }
   }
 }

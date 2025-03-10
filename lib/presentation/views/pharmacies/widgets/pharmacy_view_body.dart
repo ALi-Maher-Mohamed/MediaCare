@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_care/core/utils/app_color.dart';
-import 'package:media_care/presentation/views/pharmacies/widgets/pharmact_list_view.dart';
+import 'package:media_care/presentation/views/pharmacies/widgets/pharmacy_list_view.dart';
 
 import '../manager/cubit/pharmacy_cubit.dart';
 
@@ -41,7 +41,7 @@ class pharmacyViewBody extends StatelessWidget {
           } else if (state is PharmacyErrorState) {
             return ErrorText(message: state.message);
           }
-          return const Center(child: Text('Press to load pharmacies'));
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );

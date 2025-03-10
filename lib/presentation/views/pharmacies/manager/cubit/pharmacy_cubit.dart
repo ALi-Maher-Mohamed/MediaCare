@@ -19,19 +19,21 @@ class PharmacyCubit extends Cubit<PharmacyState> {
       emit(PharmacyLoadingState());
     }
 
-    try {
-      final pharmacies = await pharmacyRepo.getPharmacies(page: currentPage);
-      if (isLoadMore) {
-        final currentPharmacies = (state as PharmacySuccessState).pharmacies;
-        emit(PharmacySuccessState([...currentPharmacies, ...pharmacies]));
-      } else {
-        emit(PharmacySuccessState(pharmacies));
-      }
-
-      hasMore = pharmacies.length == 6;
-      if (hasMore) currentPage++;
-    } catch (e) {
-      emit(PharmacyErrorState(e.toString()));
-    }
+    final result = await pharmacyRepo.getPharmacies(page: currentPage);
+    result.fold(
+      (failure) => emit(PharmacyErrorState(
+          failure.errMessage)), // نستخدم errMessage من Failure
+      (pharmacies) {
+        if (isLoadMore) {
+          final currentPharmacies = (state as PharmacySuccessState).pharmacies;
+          emit(PharmacySuccessState([...currentPharmacies, ...pharmacies]));
+        } else {
+          emit(PharmacySuccessState(pharmacies));
+        }
+        hasMore =
+            pharmacies.length == 6; // افتراض أن per_page = 6 هو الحد الأقصى
+        if (hasMore) currentPage++;
+      },
+    );
   }
 }

@@ -13,7 +13,6 @@ class PharmacyListViewItem extends StatelessWidget {
     required this.index,
   });
   final int index;
-
   final PharmacyModel pharmacy;
 
   @override
