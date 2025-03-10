@@ -22,19 +22,20 @@ class LaboratoryModel {
     required this.whatsappLink,
     required this.avgRate,
   });
-
   factory LaboratoryModel.fromJson(Map<String, dynamic> json) {
     return LaboratoryModel(
-      id: json['id'],
-      title: json['title'],
-      service: json['service'],
-      image: json['image'],
-      phone: json['phone'],
-      city: json['city'],
-      area: json['area'],
-      locationUrl: json['locationUrl'],
-      whatsappLink: json['whatsappLink'],
-      avgRate: double.tryParse(json['avg_rate'].toString()) ?? 0.0,
+      id: json['id'] ?? '',
+      title: json['title'] ?? 'Unknown',
+      service: json['service'] ?? 'No Service Provided',
+      image: json['image'] ?? '',
+      phone: json['phone'] ?? 'No Phone',
+      city: json['city'] ?? 'Unknown City',
+      area: json['area'] ?? 'Unknown Area',
+      locationUrl: json['locationUrl'] ?? '',
+      whatsappLink: json['whatsappLink'] ?? '',
+      avgRate: (json['avg_rate'] != null)
+          ? double.tryParse(json['avg_rate'].toString()) ?? 0.0
+          : 0.0, // تفادي null
     );
   }
 }

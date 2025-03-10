@@ -5,12 +5,14 @@ class PharmacyService {
   final Dio dio = Dio();
   //Ali Maher BaseUrl --> http://192.168.1.4:8000
   //Ahmed Mansour BaseUrl --> http://10.0.2.2:8000
-  final String baseUrl = "http://10.0.2.2:8000/api/Pharmacies";
+  final String baseUrl = "http://192.168.1.4:8000/api/Pharmacies";
 
   Future<PaginationModel> fetchPharmacies({int page = 1}) async {
     try {
       final response = await dio.get('$baseUrl?page=$page');
       if (response.statusCode == 200) {
+        print('Raw API Response: ${response.data}');
+
         return PaginationModel.fromJson(response.data['data']);
       } else {
         throw Exception("Failed to load pharmacies");

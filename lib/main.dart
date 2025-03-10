@@ -8,6 +8,7 @@ import 'package:media_care/presentation/views/Department/data/repo/department_re
 import 'package:media_care/presentation/views/Department/manager/department_cubit.dart';
 import 'package:media_care/presentation/views/Hospital/data/repo/hospital_repo_impl.dart';
 import 'package:media_care/presentation/views/Hospital/manager/hospital_cubit.dart';
+import 'package:media_care/presentation/views/Laboratories/data/services/laps_service.dart';
 import 'core/network/api_service.dart';
 import 'observer.dart';
 import 'presentation/views/Auth/login/data/repo/login_repo_impl.dart';
@@ -18,6 +19,10 @@ import 'zoom_drawer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final service = LaboratoryService();
+  final result = await service.fetchLaboratories(1);
+
+  print('Test API call: ${result.laboratories}');
   final secureStorage = const FlutterSecureStorage();
   String? token = await secureStorage.read(key: "token");
   Bloc.observer = MyBlocObserver();
