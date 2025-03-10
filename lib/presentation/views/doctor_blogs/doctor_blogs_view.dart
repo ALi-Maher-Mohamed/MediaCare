@@ -1,4 +1,5 @@
 // view/doctor_blogs_view.dart
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_care/presentation/views/doctor_blogs/data/models/doctor_blogs_model.dart';
@@ -14,7 +15,8 @@ class DoctorBlogsView extends StatelessWidget {
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: BlocProvider(
-          create: (context) => DoctorBlogsCubit(BlogsRepoImpl())..fetchBlogs(),
+          create: (context) =>
+              DoctorBlogsCubit(BlogsRepoImpl(Dio()))..fetchBlogs(),
           child: BlocBuilder<DoctorBlogsCubit, BlogState>(
             builder: (context, state) {
               if (state is BlogLoading) {
