@@ -27,13 +27,13 @@ class CategoryButton extends StatelessWidget {
           color: isSelected ? AppColors.primary : Colors.grey[300],
           borderRadius: BorderRadius.circular(20),
         ),
-        child: Text(
-          title,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 16.sp,
-            color: isSelected ? Colors.white : Colors.black,
-            fontWeight: FontWeight.bold,
+        child: FittedBox(
+          child: Text(
+            title,
+            style: TextStyle(
+              color: isSelected ? Colors.white : Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

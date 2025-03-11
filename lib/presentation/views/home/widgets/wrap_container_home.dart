@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,12 +7,12 @@ import 'package:media_care/presentation/views/Department/widgets/department_view
 import 'package:media_care/presentation/views/doctor_blogs/data/repos/doctor_blogs_repo.dart';
 import 'package:media_care/presentation/views/doctor_blogs/doctor_blogs_view.dart';
 import 'package:media_care/presentation/views/doctor_blogs/manager/cubit/blogs_cubit.dart';
-import '../../Doctor%20Speciality/DocSpeciality.dart';
+import 'package:media_care/presentation/views/pharmacies/data/repos/pharmacy_repo.dart';
+import 'package:media_care/presentation/views/pharmacies/data/repos/pharmacy_repo_impl.dart';
 import '../../Laboratories/Labs_view.dart';
 import '../../Laboratories/data/services/laps_service.dart';
 import '../../Laboratories/manager/cubit/labs_cubit.dart';
 import 'custom_home_feature_container.dart';
-import '../../pharmacies/data/service/pharmacy_service.dart';
 import '../../pharmacies/manager/cubit/pharmacy_cubit.dart';
 import '../../pharmacies/pharmacy_view.dart';
 
@@ -35,7 +36,7 @@ class CustomWrapContainersHomeView extends StatelessWidget {
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return BlocProvider(
-                create: (context) => PharmacyCubit(PharmacyService()),
+                create: (context) => PharmacyCubit(PharmacyRepoImpl(Dio())),
                 child: PharmacyView(),
               );
             }));

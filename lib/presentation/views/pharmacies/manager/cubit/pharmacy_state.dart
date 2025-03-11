@@ -1,26 +1,19 @@
 part of 'pharmacy_cubit.dart';
 
-@immutable
 abstract class PharmacyState {}
 
 class PharmacyInitial extends PharmacyState {}
 
-class PharmacyLoading extends PharmacyState {}
+class PharmacyLoadingState extends PharmacyState {}
 
 class PharmacySuccessState extends PharmacyState {
   final List<PharmacyModel> pharmacies;
-  final int currentPage;
-  final bool hasMore;
 
-  PharmacySuccessState({
-    required this.pharmacies,
-    required this.currentPage,
-    required this.hasMore,
-  });
+  PharmacySuccessState(this.pharmacies);
 }
 
-class PharmacyError extends PharmacyState {
+class PharmacyErrorState extends PharmacyState {
   final String message;
 
-  PharmacyError(this.message);
+  PharmacyErrorState(this.message);
 }

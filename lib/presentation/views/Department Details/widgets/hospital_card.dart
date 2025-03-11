@@ -32,12 +32,13 @@ class HospitalCard extends StatelessWidget {
           child: Container(
             height: 200.h,
             width: double.infinity,
-            color: AppColors.primary2,
+            color: AppColors.primary,
           ),
         ),
         Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            SizedBox(height: 10.h),
             FaIcon(
               FontAwesomeIcons.hospital,
               color: Colors.white,
@@ -94,7 +95,7 @@ class HospitalCard extends StatelessWidget {
                   FaIcon(
                     FontAwesomeIcons.moneyBill,
                     size: 16,
-                    color: AppColors.primary2,
+                    color: AppColors.primary,
                   ),
                   Spacer(
                     flex: 1,
@@ -113,7 +114,7 @@ class HospitalCard extends StatelessWidget {
                   FaIcon(
                     FontAwesomeIcons.phone,
                     size: 16,
-                    color: AppColors.primary2,
+                    color: AppColors.primary,
                   ),
                 ],
               ),
@@ -140,7 +141,7 @@ class HospitalCard extends StatelessWidget {
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   fixedSize: Size(270.w, 35.h),
-                  backgroundColor: AppColors.primary2,
+                  backgroundColor: AppColors.primary,
                 ),
                 child: FaIcon(
                   FontAwesomeIcons.locationDot,

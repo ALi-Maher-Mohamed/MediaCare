@@ -42,7 +42,7 @@ class _DepartmentsViewState extends State<DepartmentsView> {
           ),
           titleTextStyle: TextStyle(
             color: Color(0xff0dcaf0),
-            fontSize: 20,
+            fontSize: 20.sp,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -58,7 +58,10 @@ class _DepartmentsViewState extends State<DepartmentsView> {
             if (state is DepartmentInitial) {
               return Center(child: Text('Initial state'));
             } else if (state is DepartmentLoading) {
-              return Center(child: CircularProgressIndicator());
+              return Center(
+                  child: CircularProgressIndicator(
+                color: AppColors.primary,
+              ));
             } else if (state is DepartmentLoaded) {
               final departments = state.departmentResponse.data.departments;
               return DepartmentGridBody(departments: departments);

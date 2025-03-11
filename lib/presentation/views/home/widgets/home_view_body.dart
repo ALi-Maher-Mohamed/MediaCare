@@ -1,4 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +10,7 @@ import 'package:media_care/presentation/views/Laboratories/data/services/laps_se
 import 'package:media_care/presentation/views/Laboratories/manager/cubit/labs_cubit.dart';
 import 'package:media_care/presentation/views/home/widgets/home_pharmacy_list_view.dart';
 import 'package:media_care/presentation/views/home/widgets/wrap_container_home.dart';
-import 'package:media_care/presentation/views/pharmacies/data/service/pharmacy_service.dart';
+import 'package:media_care/presentation/views/pharmacies/data/repos/pharmacy_repo_impl.dart';
 import 'package:media_care/presentation/views/profile/profile_ui.dart';
 import 'package:media_care/presentation/views/search/search_view.dart';
 
@@ -31,7 +32,6 @@ class HomeViewBody extends StatefulWidget {
 }
 
 class _HomeViewBodyState extends State<HomeViewBody> {
-  // late List<PharmacyModel> pharmacies;
   int selectedIndex = 0;
   final bottomNavigationKey = GlobalKey<CurvedNavigationBarState>();
   List<Widget> items = [
@@ -64,7 +64,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   List<Widget> widgetOptions = <Widget>[
     HomeViewBodyScreen(),
     BlocProvider(
-      create: (context) => PharmacyCubit(PharmacyService())..fetchPharmacies(),
+      create: (context) =>
+          PharmacyCubit(PharmacyRepoImpl(Dio()))..fetchPharmacies(),
       child: PharmacyView(),
     ),
     BlocProvider(
@@ -132,8 +133,8 @@ class HomeViewBodyScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return BlocProvider(
-                    create: (context) =>
-                        PharmacyCubit(PharmacyService())..fetchPharmacies(),
+                    create: (context) => PharmacyCubit(PharmacyRepoImpl(Dio()))
+                      ..fetchPharmacies(),
                     child: PharmacyView(),
                   );
                 }));
@@ -142,12 +143,6 @@ class HomeViewBodyScreen extends StatelessWidget {
             ),
             SizedBox(
               height: 12.h,
-            ),
-            BlocProvider(
-              create: (context) {
-                return PharmacyCubit(PharmacyService())..fetchPharmacies();
-              },
-              child: PharmacyListView(),
             ),
           ],
         ),

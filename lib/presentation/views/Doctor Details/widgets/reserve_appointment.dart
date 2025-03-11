@@ -146,17 +146,14 @@ class BookingDetailsScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Expanded(
-              // Prevent overflow
-              child: Text(
-                'اخـتــــــــار ميعاد الــحــجــز',
-                overflow: TextOverflow.visible, // Ensures text wraps
-                softWrap: true, // Allows text to break lines
-                style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black), // Adjust font size if needed
-              ),
+            child: Text(
+              'اخـتــــــــار ميعاد الــحــجــز',
+              overflow: TextOverflow.visible, // Ensures text wraps
+              softWrap: true, // Allows text to break lines
+              style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black), // Adjust font size if needed
             ),
           ),
           Divider(
@@ -264,16 +261,14 @@ class BookingDetailsScreen extends StatelessWidget {
           Divider(thickness: 1.5),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Expanded(
-              child: Text(
-                'الحجز مسبقا و الدخول بأسبقية الحضور',
-                overflow: TextOverflow.visible,
-                softWrap: true,
-                style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff595965)),
-              ),
+            child: Text(
+              'الحجز مسبقا و الدخول بأسبقية الحضور',
+              overflow: TextOverflow.visible,
+              softWrap: true,
+              style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xff595965)),
             ),
           ),
           Divider(
