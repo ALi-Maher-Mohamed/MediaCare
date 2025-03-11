@@ -15,9 +15,9 @@ class DepartmentItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(25),
+      margin: EdgeInsets.all(25.sp),
       color: AppColors.primaryLight,
-      //Color(0xff0dcaf0),
+      // Color(0xff0dcaf0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),

@@ -20,7 +20,7 @@ class ApiServiceFunctions {
   }) async {
     try {
       final response = await dio.get(
-        'http://10.0.2.2:8000$endpoint', // Replace with your base URL
+        'http://192.168.1.4:8000$endpoint', // Replace with your base URL
         queryParameters: queryParams,
         options: Options(headers: headers),
       );

@@ -62,7 +62,7 @@ class PharmacyDetailsPage extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             Text(
-              "🛡️ التأمين الصحي: ${pharmacy.insurance == 1 ? "مدعوم" : "غير مدعوم"}",
+              "🛡️ التأمين الصحي: ${pharmacy.insurence == 1 ? "مدعوم" : "غير مدعوم"}",
               style: TextStyle(fontSize: 16, color: Colors.red),
             ),
             const SizedBox(height: 30),
