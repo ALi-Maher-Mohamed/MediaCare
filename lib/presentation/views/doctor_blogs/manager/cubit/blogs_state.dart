@@ -4,14 +4,14 @@ abstract class BlogState {}
 
 class BlogInitial extends BlogState {}
 
-class BlogLoading extends BlogState {}
+class BlogLoadingState extends BlogState {}
 
-class BlogLoaded extends BlogState {
+class BlogSuccessState extends BlogState {
   final List<Blog> blogs;
-  BlogLoaded(this.blogs);
+  BlogSuccessState(this.blogs);
 }
 
-class BlogError extends BlogState {
+class BlogErrorState extends BlogState {
   final String message;
-  BlogError(this.message);
+  BlogErrorState(this.message);
 }

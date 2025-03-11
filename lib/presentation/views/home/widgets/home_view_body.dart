@@ -144,13 +144,6 @@ class HomeViewBodyScreen extends StatelessWidget {
             SizedBox(
               height: 12.h,
             ),
-            BlocProvider(
-              create: (context) {
-                return PharmacyCubit(PharmacyRepoImpl(Dio()))
-                  ..fetchPharmacies();
-              },
-              child: PharmacyListView(),
-            ),
           ],
         ),
       ]),
