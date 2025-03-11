@@ -9,7 +9,7 @@ class BlogsRepoImpl implements BlogsRepo {
   @override
   Future<BlogResponse> fetchBlogs() async {
     try {
-      final response = await _dio.get('http://192.168.1.4:8000/api/Blogs_Web');
+      final response = await _dio.get('http://10.0.2.2:8000/api/Blogs_Web');
       if (response.statusCode == 200) {
         return BlogResponse.fromJson(response.data);
       } else {

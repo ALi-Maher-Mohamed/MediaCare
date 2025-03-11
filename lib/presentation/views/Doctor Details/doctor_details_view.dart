@@ -6,6 +6,10 @@ import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/data/repo/doctor_details_repo_impl.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/manager/cubit/doctor_details_cubit.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/manager/cubit/doctor_details_state.dart';
+import 'package:media_care/presentation/views/Doctor%20Details/widgets/doctor_data.dart';
+import 'package:media_care/presentation/views/Doctor%20Details/widgets/empty_space.dart';
+import 'package:media_care/presentation/views/Doctor%20Details/widgets/more_info_doctor.dart';
+import 'package:media_care/presentation/views/Doctor%20Details/widgets/reserve_appointment.dart';
 
 class DoctorDetailsView extends StatelessWidget {
   final String doctorID;
@@ -15,6 +19,8 @@ class DoctorDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        shadowColor: Colors.white,
         centerTitle: true,
         title: Text(
           'Doctor Details',
@@ -37,10 +43,11 @@ class DoctorDetailsView extends StatelessWidget {
               return Container(
                 color: Colors.white,
                 child: Center(
-                    child: CircularProgressIndicator(
-                  backgroundColor: Colors.white,
-                  color: AppColors.primary,
-                )),
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.white,
+                    color: AppColors.primary,
+                  ),
+                ),
               );
             }
             if (state is DoctorDetailsError) {
@@ -49,10 +56,36 @@ class DoctorDetailsView extends StatelessWidget {
               );
             }
             if (state is DoctorDetailsLoaded) {
-              return Column(
-                children: [
-                  Text('${state.DoctorDetails.data?.birthDate}'),
-                ],
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    DoctorData(
+                      fname: state.DoctorDetails.data?.fName,
+                      lname: state.DoctorDetails.data?.lName,
+                      image: state.DoctorDetails.data?.image,
+                      phone: state.DoctorDetails.data?.phone,
+                      title: state.DoctorDetails.data?.title,
+                      facebookLink: state.DoctorDetails.data?.facebookLink,
+                      specialization: state.DoctorDetails.data?.specializations,
+                      whatsappLink: state.DoctorDetails.data?.whatsappLink,
+                    ),
+                    EmptySpace(),
+                    MoreInfoDoctor(
+                      moreInfoAboutDoctor:
+                          state.DoctorDetails.data?.infoAboutDoctor,
+                    ),
+                    EmptySpace(),
+                    BookingDetailsScreen(
+                      app_price: state.DoctorDetails.data?.appPrice,
+                      homeOption: state.DoctorDetails.data?.homeOption,
+                      clinicTitle: state.DoctorDetails.data?.clinics?[0].title,
+                      clinicAddress:
+                          state.DoctorDetails.data?.clinics?[0].address,
+                      appointment: state.DoctorDetails.data?.appointments,
+                      doctorDetailsModel: state.DoctorDetails,
+                    ), // Fixed widget
+                  ],
+                ),
               );
             }
             return Center(child: Text('Unknown state')); // Fallback
