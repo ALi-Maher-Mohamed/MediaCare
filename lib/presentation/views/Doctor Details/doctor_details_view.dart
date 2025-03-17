@@ -83,6 +83,9 @@ class DoctorDetailsView extends StatelessWidget {
                           state.DoctorDetails.data?.clinics?[0].address,
                       appointment: state.DoctorDetails.data?.appointments,
                       doctorDetailsModel: state.DoctorDetails,
+                      full_name: '${state.DoctorDetails.data?.fName}'
+                          '${state.DoctorDetails.data?.lName}',
+                      // appointment_time: state.DoctorDetails.data?.appointments,
                     ), // Fixed widget
                   ],
                 ),

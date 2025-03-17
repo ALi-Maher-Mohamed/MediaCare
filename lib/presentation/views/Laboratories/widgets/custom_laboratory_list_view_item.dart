@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/core/utils/widgets/clip_path.dart';
-import 'package:media_care/presentation/views/pharmacies/widgets/pharmacy_list_view_item.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/functins/launch_url.dart';
 import '../data/model/labs_model/data.dart';

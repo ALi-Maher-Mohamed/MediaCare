@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dartz/dartz.dart';
-import '../../../../core/Secure%20Storage/secure_storage.dart';
+import '../../../../core/SharedPref/shared_pref.dart';
 import '../../../../core/errors/failure.dart';
 import '../data/models/profile_model.dart';
 import '../data/repo/profile_repo_impl.dart';
@@ -8,15 +8,17 @@ import 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   final ProfileRepoImpl profileRepo;
-  final SecureStorage secureStorage;
+  // final SecureStorage secureStorage;
+  String? userId;
 
-  ProfileCubit({required this.profileRepo, required this.secureStorage})
-      : super(ProfileInitial());
+  ProfileCubit({
+    required this.profileRepo,
+  }) : super(ProfileInitial());
 
   Future<void> fetchProfile() async {
     emit(ProfileLoading());
     try {
-      String? token = await secureStorage.getToken();
+      String? token = await SharedPreference().getToken();
       print('token = $token');
       if (token == null) {
         emit(ProfileError('No token found'));
@@ -24,10 +26,10 @@ class ProfileCubit extends Cubit<ProfileState> {
       }
       Either<Failure, UserModel> result =
           await profileRepo.getAccount(token: token);
-      result.fold(
-        (failure) => emit(ProfileError(failure.errMessage)),
-        (user) => emit(ProfileLoaded(user)),
-      );
+      result.fold((failure) => emit(ProfileError(failure.errMessage)), (user) {
+        userId = user.id;
+        emit(ProfileLoaded(user));
+      });
     } catch (e) {
       emit(ProfileError(e.toString()));
     }

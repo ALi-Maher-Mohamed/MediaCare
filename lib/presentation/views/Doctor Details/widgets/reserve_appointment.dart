@@ -5,15 +5,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/data/models/doctor_detail_model.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/manager/cubit/doctor_details_cubit.dart';
+import 'package:media_care/presentation/views/Doctor%20Details/widgets/dialog.dart';
+import 'package:media_care/presentation/views/Reservation/manager/cubit/reservation_cubit.dart';
+import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
+// import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
 
 class BookingDetailsScreen extends StatelessWidget {
   final String? app_price;
+  final String? full_name;
   final int? homeOption;
   final String? clinicTitle;
   final String? clinicAddress;
   final List<Appointment>? appointment;
   final DoctorDetailsModel? doctorDetailsModel;
   BookingDetailsScreen({
+    this.full_name,
     this.app_price,
     this.homeOption,
     this.clinicTitle,
@@ -26,6 +32,11 @@ class BookingDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var data = context.read<DoctorDetailsCubit>();
+    var profileCubit =
+        context.watch<ProfileCubit>(); // Get ProfileCubit instance
+    String? userId =
+        profileCubit.userId; // Get stored user ID// Get stored user ID
+    // var user = context.read<ProfileCubit>();
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -60,7 +71,6 @@ class BookingDetailsScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10.h),
-
           Text(
             'احجز كشف طبي',
             style: TextStyle(
@@ -231,23 +241,62 @@ class BookingDetailsScreen extends StatelessWidget {
                         physics: AlwaysScrollableScrollPhysics(),
                         itemCount: appointment?.length,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 18, vertical: 5),
-                            child: Container(
-                              padding: EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                '${appointment?[index].startAt?.substring(0, 5)} مساءً - ${appointment?[index].endAt?.substring(0, 5)} مساءً',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
+                          return InkWell(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 18, vertical: 5),
+                              child: Container(
+                                padding: EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: appointment?[index].isBooked == 1
+                                      ? Colors.grey[200]
+                                      : Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Text(
+                                  '${appointment?[index].startAt?.substring(0, 5)} مساءً - ${appointment?[index].endAt?.substring(0, 5)} مساءً',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
                                     fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500),
+                                    fontWeight: FontWeight.w500,
+                                    decoration:
+                                        appointment?[index].isBooked == 1
+                                            ? TextDecoration.lineThrough
+                                            : TextDecoration.none,
+                                    decorationColor: Colors.red,
+                                    decorationThickness: 3,
+                                  ),
+                                ),
                               ),
                             ),
+                            onTap: () {
+                              if (appointment?[index].isBooked != 1) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return BlocProvider.value(
+                                      value: BlocProvider.of<ReservationCubit>(
+                                          context),
+                                      child: ReservationDialog(
+                                        appointment_time:
+                                            '${appointment?[index].startAt?.substring(0, 5)} مساءً ',
+                                        clinicTitle: clinicTitle,
+                                        full_name: full_name,
+                                        appointment_id: appointment?[index].id,
+                                        clinic_id: doctorDetailsModel
+                                            ?.data?.clinics?[0].id,
+                                        doctor_id: doctorDetailsModel?.data?.id,
+                                        status:
+                                            appointment?[index].isBooked == 1
+                                                ? "pending"
+                                                : null,
+                                        user_id: userId,
+                                      ),
+                                    );
+                                  },
+                                );
+                              }
+                            },
                           );
                         },
                       );
