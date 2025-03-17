@@ -21,11 +21,3 @@ Future<void> launchDialer(String phoneNumber) async {
     throw "تعذر فتح تطبيق الاتصال";
   }
 }
-
-  // void _launchUrl(String url) async {
-  //   if (await canLaunch(url)) {
-  //     await launch(url);
-  //   } else {
-  //     throw 'تعذر فتح الرابط: $url';
-  //   }
-  // }

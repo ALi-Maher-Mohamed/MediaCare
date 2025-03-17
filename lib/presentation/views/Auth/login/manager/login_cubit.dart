@@ -1,13 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:media_care/core/SharedPref/shared_pref.dart';
 import '../data/repo/login_repo.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginRepo loginRepo;
-  final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
   LoginCubit({required this.loginRepo}) : super(LoginInitial());
   final TextEditingController emailController = TextEditingController();
@@ -17,7 +16,6 @@ class LoginCubit extends Cubit<LoginState> {
   GlobalKey<FormState> loginKey = GlobalKey();
 
   Future<void> loginUser() async {
-    // SharedPreferences pref = await SharedPreferences.getInstance();
     isLoading = true;
     emit(LoginLoading());
     var response = await loginRepo.loginUser(
@@ -28,20 +26,20 @@ class LoginCubit extends Cubit<LoginState> {
         emit(LoginError(error: failure.errMessage));
       },
       (data) async {
+        String token = data.accessToken!;
+        await SharedPreference().saveToken(token);
         isLoading = false;
-        // pref.setString("token", token.accessToken ?? "");
         if (data.user?.emailVerifiedAt == null) {
           emit(LoginError(error: 'Please verify your email before logging in'));
           return;
         }
-        await secureStorage.write(key: "token", value: data.accessToken);
         emit(LoginSucess());
       },
     );
   }
 
   void changeVisibility() {
-    isVisible = !isVisible; // Toggle the value
+    isVisible = !isVisible;
     emit(LoginChangeVisibilityState());
   }
 
@@ -52,19 +50,18 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> checkLoginStatus() async {
-    String? token = await secureStorage.read(key: "token");
-
+    String? token = await SharedPreference().getToken();
     if (token != null && token.isNotEmpty) {
-      emit(LoginSucess()); // User is already logged in
+      emit(LoginSucess());
     } else {
-      emit(LoginInitial()); // Show login screen
+      emit(LoginInitial());
     }
   }
 
   Future<void> logout() async {
-    await secureStorage.delete(key: "token");
-    emailController.clear(); // Clear email field
-    passwordController.clear(); // Clear password field/ Remove token
-    emit(LoginInitial()); // Reset login state
+    await SharedPreference().clearToken();
+    emailController.clear();
+    passwordController.clear();
+    emit(LoginInitial());
   }
 }

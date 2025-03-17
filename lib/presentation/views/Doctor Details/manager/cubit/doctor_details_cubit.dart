@@ -9,13 +9,16 @@ class DoctorDetailsCubit extends Cubit<DoctorDetailsState> {
 
   DoctorDetailsCubit({required this.doctorDetailsRepoImplm})
       : super(DoctorDetailsInitial());
+  static DoctorDetailsCubit of(BuildContext context) =>
+      BlocProvider.of<DoctorDetailsCubit>(context);
+
   String? app_price;
   int? homeOption;
   String? clinicTitle;
   String? clinicAddress;
   List<Appointment>? appointment;
   DoctorDetailsModel? doctorDetailsModel;
-  PageController pageController = PageController(); // Ensures it's initialized
+  PageController pageController = PageController();
 
   void getDoctorDetails(String DoctorID) async {
     emit(DoctorDetailsLoading());

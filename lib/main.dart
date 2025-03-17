@@ -4,11 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:media_care/presentation/views/Auth/login/login_view.dart';
 import 'package:media_care/presentation/views/Department/data/repo/department_repo_impl.dart';
 import 'package:media_care/presentation/views/Department/manager/department_cubit.dart';
 import 'package:media_care/presentation/views/Hospital/data/repo/hospital_repo_impl.dart';
 import 'package:media_care/presentation/views/Hospital/manager/hospital_cubit.dart';
 import 'package:media_care/presentation/views/Laboratories/data/repo/laporatory_repo_impl.dart';
+import 'package:media_care/presentation/views/Reservation/data/repo/reservation_repo_impl.dart';
+import 'package:media_care/presentation/views/Reservation/manager/cubit/reservation_cubit.dart';
+import 'package:media_care/presentation/views/profile/data/repo/profile_repo_impl.dart';
+import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
 import 'core/network/api_service.dart';
 import 'observer.dart';
 import 'presentation/views/Auth/login/data/repo/login_repo_impl.dart';
@@ -29,6 +34,15 @@ void main() async {
 
   runApp(MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => ReservationCubit(
+            reservaionRepo: ReservaionRepoImpl(ApiServiceFunctions(Dio())),
+          ),
+        ),
+        BlocProvider(
+            create: (context) => ProfileCubit(
+                  profileRepo: ProfileRepoImpl(ApiServiceFunctions(Dio())),
+                )..fetchProfile()),
         BlocProvider(
           create: (context) =>
               LoginCubit(loginRepo: LoginRepoImpl(ApiServiceFunctions(Dio()))),

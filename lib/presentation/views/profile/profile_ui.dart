@@ -1,15 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/core/Secure%20Storage/secure_storage.dart';
 import 'package:media_care/core/network/api_service.dart';
 import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
+import 'package:media_care/presentation/views/profile/data/repo/profile_repo_impl.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_state.dart';
 import 'package:media_care/presentation/views/profile/widgets/avatar_and_name.dart';
 import 'package:media_care/presentation/views/profile/widgets/field_data.dart';
-import 'data/repo/profile_repo_impl.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override
@@ -17,7 +16,7 @@ class ProfileScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => ProfileCubit(
         profileRepo: ProfileRepoImpl(ApiServiceFunctions(Dio())),
-        secureStorage: SecureStorage(),
+        // secureStorage: SecureStorage(),
       )..fetchProfile(),
       child: Scaffold(
         appBar: AppBar(
@@ -48,7 +47,7 @@ class ProfileScreen extends StatelessWidget {
             if (state is ProfileInitial) {
               return Center(child: Text('Initial state'));
             } else if (state is ProfileLoading) {
-              return CustomProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             } else if (state is ProfileLoaded) {
               final user = state.user;
               return Column(

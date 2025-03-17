@@ -1,11 +1,10 @@
 class AppValidators {
-  AppValidators._(); // Private constructor to prevent instantiation
+  AppValidators._();
 
-  /// Validates an email format.
   static String? validateEmail(String? value) {
     if (value == null || value.trim().isEmpty) return 'This field is required';
     final emailRegex =
-    RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+        RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
     if (!emailRegex.hasMatch(value)) return 'Enter a valid email';
     return null;
   }

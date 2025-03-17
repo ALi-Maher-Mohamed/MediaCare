@@ -17,8 +17,6 @@ import 'search_doctor_field.dart';
 import '../../pharmacies/pharmacy_view.dart';
 import '../../pharmacies/manager/cubit/pharmacy_cubit.dart';
 import 'home_view_headr.dart';
-import 'title_and_see_all.dart';
-
 import 'home_view_header_card.dart';
 
 class HomeViewBody extends StatefulWidget {
