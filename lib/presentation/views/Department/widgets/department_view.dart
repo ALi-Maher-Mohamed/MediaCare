@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/core/network/api_service.dart';
 import 'package:media_care/core/utils/app_color.dart';
+import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
 import 'package:media_care/presentation/views/Department%20Details/department_details_view.dart';
 import 'package:media_care/presentation/views/Department/data/models/department_model.dart';
 import 'package:media_care/presentation/views/Department/data/repo/department_repo_impl.dart';
@@ -58,10 +59,7 @@ class _DepartmentsViewState extends State<DepartmentsView> {
             if (state is DepartmentInitial) {
               return Center(child: Text('Initial state'));
             } else if (state is DepartmentLoading) {
-              return Center(
-                  child: CircularProgressIndicator(
-                color: AppColors.primary,
-              ));
+              return CustomProgressIndicator();
             } else if (state is DepartmentLoaded) {
               final departments = state.departmentResponse.data.departments;
               return DepartmentGridBody(departments: departments);

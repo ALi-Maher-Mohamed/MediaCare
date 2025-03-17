@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_care/core/utils/app_color.dart';
+import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
 import 'package:media_care/presentation/views/pharmacies/manager/cubit/pharmacy_cubit.dart';
 
 import 'pharmacy_list_view_item.dart';
@@ -28,10 +29,7 @@ class CustomPharmacyListView extends StatelessWidget {
           itemBuilder: (context, index) {
             if (index == pharmacies.length) {
               return context.read<PharmacyCubit>().hasMore
-                  ? const Center(
-                      child: CircularProgressIndicator(
-                      color: AppColors.primary,
-                    ))
+                  ? const CustomProgressIndicator()
                   : const SizedBox.shrink();
             }
             return PharmacyListViewItem(

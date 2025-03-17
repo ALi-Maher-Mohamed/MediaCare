@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_offline/flutter_offline.dart';
+import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
 import 'package:media_care/presentation/views/pharmacies/data/repos/pharmacy_repo_impl.dart';
 
 import '../../../core/utils/app_color.dart';
@@ -20,29 +21,24 @@ class MainScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         body: OfflineBuilder(
-          connectivityBuilder: (
-            BuildContext context,
-            List<ConnectivityResult> connectivity,
-            Widget child,
-          ) {
-            final bool connected =
-                !connectivity.contains(ConnectivityResult.none);
-            if (connected) {
-              return BlocProvider(
-                create: (context) =>
-                    PharmacyCubit(PharmacyRepoImpl(Dio()))..fetchPharmacies(),
-                child: HomeViewBody(),
-              );
-            } else {
-              return NoInternetView();
-            }
-          },
-          child: Center(
-            child: CircularProgressIndicator(
-              color: AppColors.primary,
-            ),
-          ),
-        ),
+            connectivityBuilder: (
+              BuildContext context,
+              List<ConnectivityResult> connectivity,
+              Widget child,
+            ) {
+              final bool connected =
+                  !connectivity.contains(ConnectivityResult.none);
+              if (connected) {
+                return BlocProvider(
+                  create: (context) =>
+                      PharmacyCubit(PharmacyRepoImpl(Dio()))..fetchPharmacies(),
+                  child: HomeViewBody(),
+                );
+              } else {
+                return NoInternetView();
+              }
+            },
+            child: CustomProgressIndicator()),
       ),
     );
   }

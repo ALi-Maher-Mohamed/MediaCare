@@ -6,9 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/Laboratories/Labs_view.dart';
-import 'package:media_care/presentation/views/Laboratories/data/services/laps_service.dart';
+import 'package:media_care/presentation/views/Laboratories/data/repo/laporatory_repo_impl.dart';
 import 'package:media_care/presentation/views/Laboratories/manager/cubit/labs_cubit.dart';
-import 'package:media_care/presentation/views/home/widgets/home_pharmacy_list_view.dart';
 import 'package:media_care/presentation/views/home/widgets/wrap_container_home.dart';
 import 'package:media_care/presentation/views/pharmacies/data/repos/pharmacy_repo_impl.dart';
 import 'package:media_care/presentation/views/profile/profile_ui.dart';
@@ -69,7 +68,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
       child: PharmacyView(),
     ),
     BlocProvider(
-      create: (context) => LaboratoryCubit(LaboratoryService()),
+      create: (context) => LaboratoryCubit(LaboratoryRepoImpl(Dio())),
       child: LaboratoryView(),
     ),
     SearchView(),

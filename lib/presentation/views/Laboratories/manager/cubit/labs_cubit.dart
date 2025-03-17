@@ -1,51 +1,64 @@
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart'; // لاستخدام ScrollController
+import 'package:media_care/core/errors/failure.dart';
+import 'package:media_care/presentation/views/Laboratories/data/model/labs_model/pagination_labs_model.dart';
+import 'package:media_care/presentation/views/Laboratories/data/repo/laporatory_repo.dart';
 import '../../data/model/labs_model/data.dart';
-import '../../data/services/laps_service.dart';
 import 'labs_state.dart';
 
 class LaboratoryCubit extends Cubit<LaboratoryState> {
-  final LaboratoryService laboratoryService;
+  final LaboratoryRepo laboratoryRepo;
   int currentPage = 1;
   bool hasMore = true;
-  bool isLoading = false;
-  final Map<int, List<LaboratoryModel>> cachedPages = {};
+  final ScrollController scrollController = ScrollController();
 
-  LaboratoryCubit(this.laboratoryService) : super(LaboratoryInitial());
+  LaboratoryCubit(this.laboratoryRepo) : super(LaboratoryInitial()) {
+    scrollController.addListener(_onScroll);
+    fetchLaboratories(); // جلب الصفحة الأولى تلقائيًا عند التهيئة
+  }
 
-  void fetchLaboratories(
-      {bool isNextPage = false, bool isPrevPage = false}) async {
-    if (isLoading) return;
-    isLoading = true;
+  void fetchLaboratories({bool isLoadMore = false}) async {
+    if (!hasMore && isLoadMore) return;
 
-    if (isNextPage) {
-      currentPage++;
-    } else if (isPrevPage && currentPage > 1) {
-      currentPage--;
+    if (!isLoadMore) {
+      currentPage = 1;
+      emit(LaboratoryLoadingState());
     }
 
-    if (cachedPages.containsKey(currentPage)) {
-      emit(LaboratorySuccessState(
-        laboratories: cachedPages[currentPage]!,
-        currentPage: currentPage,
-        hasMore: hasMore,
-      ));
-      isLoading = false;
-      return;
-    }
+    final Either<Failure, LaboratoryPagination> result =
+        await laboratoryRepo.getLaboratories(page: currentPage);
 
-    try {
-      final pagination = await laboratoryService.fetchLaboratories(currentPage);
-      cachedPages[currentPage] = pagination.laboratories;
-      hasMore = pagination.laboratories.isNotEmpty;
-      emit(LaboratorySuccessState(
-        laboratories: pagination.laboratories,
-        currentPage: currentPage,
-        hasMore: hasMore,
-      ));
-    } catch (e) {
-      emit(LaboratoryError(e.toString()));
-    } finally {
-      isLoading = false;
+    result.fold(
+      (failure) => emit(LaboratoryErrorState(
+          failure.errMessage)), // استخدام message بدلاً من errMessage
+      (pagination) {
+        final laboratories = pagination.laboratories;
+        if (isLoadMore) {
+          final currentLaboratories =
+              (state as LaboratorySuccessState).laboratories;
+          emit(LaboratorySuccessState(
+              [...currentLaboratories, ...laboratories]));
+        } else {
+          emit(LaboratorySuccessState(laboratories));
+        }
+        hasMore =
+            laboratories.length == 6; // افتراض أن per_page = 6 هو الحد الأقصى
+        if (hasMore) currentPage++;
+      },
+    );
+  }
+
+  void _onScroll() {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      fetchLaboratories(isLoadMore: true);
     }
+  }
+
+  @override
+  Future<void> close() {
+    scrollController.dispose(); // تحرير الموارد
+    return super.close();
   }
 }
