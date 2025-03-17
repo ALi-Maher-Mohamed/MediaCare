@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
 
 import '../../../core/network/found_disease_serv.dart';
 import '../../../core/utils/app_color.dart';
@@ -149,8 +150,7 @@ class FindYourDiseaseState extends State<FindYourDisease> {
                               ? const SizedBox(
                                   height: 20,
                                   width: 20,
-                                  child: CircularProgressIndicator(
-                                      color: Colors.white),
+                                  child: CustomProgressIndicator(),
                                 )
                               : const Text("تحليل الصورة والنص",
                                   style: TextStyle(

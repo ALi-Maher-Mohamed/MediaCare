@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/core/utils/app_color.dart';
+import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
 import '../../pharmacies/manager/cubit/pharmacy_cubit.dart';
 
 class PharmacyListView extends StatelessWidget {
@@ -15,7 +16,7 @@ class PharmacyListView extends StatelessWidget {
       child:
           BlocBuilder<PharmacyCubit, PharmacyState>(builder: (context, State) {
         if (State is PharmacyLoadingState) {
-          return Center(child: CircularProgressIndicator());
+          return CustomProgressIndicator();
         } else if (State is PharmacySuccessState) {
           final pharmacy = State.pharmacies;
           return ListView.builder(

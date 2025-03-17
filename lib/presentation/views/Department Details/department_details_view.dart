@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_care/core/network/api_service.dart';
 import 'package:media_care/core/utils/app_color.dart';
+import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
 import 'package:media_care/presentation/views/Department%20Details/data/models/department_details_model.dart';
 import 'package:media_care/presentation/views/Department%20Details/data/repo/department_details_repo_impl.dart';
 import 'package:media_care/presentation/views/Department%20Details/manager/department_details_cubit.dart';
@@ -32,11 +33,7 @@ class DepartmentDetailsScreen extends StatelessWidget {
           if (state is DepartmentDetailsLoading) {
             return Container(
               color: Colors.white,
-              child: Center(
-                  child: CircularProgressIndicator(
-                backgroundColor: Colors.white,
-                color: AppColors.primary,
-              )),
+              child: CustomProgressIndicator(),
             );
           } else if (state is DepartmentDetailsLoaded) {
             String selectedCategory = state.selectedCategory;

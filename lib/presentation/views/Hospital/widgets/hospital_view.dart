@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
 import '../manager/hospital_cubit.dart';
 import '../manager/hospital_state.dart';
 
@@ -24,7 +25,7 @@ class HospitalsScreen extends StatelessWidget {
           if (state is HospitalInitial) {
             return Center(child: Text('Initial state'));
           } else if (state is HospitalLoading) {
-            return Center(child: CircularProgressIndicator());
+            return CustomProgressIndicator();
           } else if (state is HospitalLoaded) {
             final hospitals = state.hospitalModel.data; // List<Data>?
             if (hospitals == null || hospitals.isEmpty) {

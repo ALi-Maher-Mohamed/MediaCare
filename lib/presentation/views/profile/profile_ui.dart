@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_care/core/Secure%20Storage/secure_storage.dart';
 import 'package:media_care/core/network/api_service.dart';
 import 'package:media_care/core/utils/app_color.dart';
+import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_state.dart';
 import 'package:media_care/presentation/views/profile/widgets/avatar_and_name.dart';
@@ -47,7 +48,7 @@ class ProfileScreen extends StatelessWidget {
             if (state is ProfileInitial) {
               return Center(child: Text('Initial state'));
             } else if (state is ProfileLoading) {
-              return Center(child: CircularProgressIndicator());
+              return CustomProgressIndicator();
             } else if (state is ProfileLoaded) {
               final user = state.user;
               return Column(

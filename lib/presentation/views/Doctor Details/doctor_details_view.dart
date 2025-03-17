@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_care/core/network/api_service.dart';
 import 'package:media_care/core/utils/app_color.dart';
+import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/data/repo/doctor_details_repo_impl.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/manager/cubit/doctor_details_cubit.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/manager/cubit/doctor_details_state.dart';
@@ -41,14 +42,7 @@ class DoctorDetailsView extends StatelessWidget {
           builder: (context, state) {
             if (state is DoctorDetailsLoading) {
               return Container(
-                color: Colors.white,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    backgroundColor: Colors.white,
-                    color: AppColors.primary,
-                  ),
-                ),
-              );
+                  color: Colors.white, child: CustomProgressIndicator());
             }
             if (state is DoctorDetailsError) {
               return Center(
