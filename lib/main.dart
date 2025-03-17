@@ -72,7 +72,7 @@ class MediCare extends StatelessWidget {
           );
         }),
         debugShowCheckedModeBanner: false,
-        home: isLoggedIn ? HomeView() : LoginView(),
+        home: isLoggedIn ? HomeView() : HomeView(),
       ),
     );
   }
