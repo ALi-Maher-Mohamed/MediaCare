@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/core/utils/app_color.dart';
+import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
 import 'package:media_care/presentation/views/doctor_blogs/manager/cubit/blogs_cubit.dart';
 import 'package:media_care/presentation/views/doctor_blogs/manager/cubit/blogs_state.dart';
 import 'package:media_care/presentation/views/doctor_blogs/widgets/blog_list.dart';
@@ -16,10 +17,7 @@ class DoctorBlogsViewBody extends StatelessWidget {
     return BlocBuilder<DoctorBlogsCubit, BlogState>(
       builder: (context, state) {
         if (state is BlogLoadingState) {
-          return const Center(
-              child: CircularProgressIndicator(
-            color: AppColors.primary,
-          ));
+          return const CustomProgressIndicator();
         }
         if (state is BlogErrorState) {
           return ErrorWidget(state.message);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/core/utils/widgets/clip_path.dart';
+import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/functins/launch_url.dart';
 import '../data/model/labs_model/data.dart';
@@ -77,7 +78,7 @@ class LaboratoryListViewItem extends StatelessWidget {
                       loadingBuilder: (context, child, loadingProgress) =>
                           loadingProgress == null
                               ? child
-                              : Center(child: CircularProgressIndicator()),
+                              : CustomProgressIndicator(),
                       width: 90.w,
                       height: 90.h,
                       fit: BoxFit.cover,
@@ -129,70 +130,3 @@ class LaboratoryListViewItem extends StatelessWidget {
         ));
   }
 }
-// Container(
-//         margin: const EdgeInsets.symmetric(vertical: 8),
-//         padding: const EdgeInsets.all(12),
-//         decoration: BoxDecoration(
-//           color: Colors.white,
-//           borderRadius: BorderRadius.circular(12),
-//           boxShadow: [
-//             BoxShadow(
-//               color: Colors.black.withOpacity(0.1),
-//               blurRadius: 6,
-//               spreadRadius: 2,
-//               offset: Offset(0, 3),
-//             ),
-//           ],
-//         ),
-//         child: Row(
-//           children: [
-//             ClipRRect(
-//               borderRadius: BorderRadius.circular(10),
-//               child: Image.network(
-//                 laboratory.image,
-//                 width: 60,
-//                 height: 60,
-//                 fit: BoxFit.cover,
-//               ),
-//             ),
-//             const SizedBox(width: 12),
-//             Expanded(
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Text(
-//                     laboratory.title,
-//                     style: TextStyle(
-//                       fontSize: 18,
-//                       fontWeight: FontWeight.bold,
-//                       color: Colors.black87,
-//                     ),
-//                   ),
-//                   const SizedBox(height: 4),
-//                   Text(
-//                     '${laboratory.city} - ${laboratory.area}',
-//                     style: TextStyle(
-//                       fontSize: 14,
-//                       color: Colors.grey[700],
-//                     ),
-//                   ),
-//                   const SizedBox(height: 4),
-//                   Text(
-//                     laboratory.service,
-//                     style: TextStyle(
-//                       fontSize: 14,
-//                       color: Colors.blueGrey,
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             IconButton(
-//               icon: Icon(Icons.phone, color: AppColors.primary, size: 30),
-//               onPressed: () {
-//                 launchDialer(laboratory.phone);
-//               },
-//             ),
-//           ],
-//         ),
-//       ),

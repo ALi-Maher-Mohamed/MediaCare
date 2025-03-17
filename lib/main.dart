@@ -4,12 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/core/SharedPref/shared_pref.dart';
-import 'package:media_care/presentation/views/Auth/login/login_view.dart';
+// import 'package:media_care/presentation/views/Auth/login/login_view.dart';
 import 'package:media_care/presentation/views/Department/data/repo/department_repo_impl.dart';
 import 'package:media_care/presentation/views/Department/manager/department_cubit.dart';
 import 'package:media_care/presentation/views/Hospital/data/repo/hospital_repo_impl.dart';
 import 'package:media_care/presentation/views/Hospital/manager/hospital_cubit.dart';
-import 'package:media_care/presentation/views/Laboratories/data/services/laps_service.dart';
+// import 'package:media_care/presentation/views/Laboratories/data/repo/laporatory_repo_impl.dart';
 import 'package:media_care/presentation/views/Reservation/data/repo/reservation_repo_impl.dart';
 import 'package:media_care/presentation/views/Reservation/manager/cubit/reservation_cubit.dart';
 import 'package:media_care/presentation/views/profile/data/repo/profile_repo_impl.dart';
@@ -24,10 +24,10 @@ import 'zoom_drawer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final service = LaboratoryService();
-  final result = await service.fetchLaboratories(1);
+  // final service = LaboratoryRepoImpl(Dio());
+  // final result = await service.getLaboratories(page: 1);
 
-  print('Test API call: ${result.laboratories}');
+  // print('Test API call: ${result.laboratories}');
   String? token = await SharedPreference().getToken();
   print("tokkkkkkkkkkkkkkkkkkkkkkkkenn : $token");
 
@@ -86,7 +86,7 @@ class MediCare extends StatelessWidget {
           );
         }),
         debugShowCheckedModeBanner: false,
-        home: isLoggedIn ? HomeView() : LoginView(),
+        home: isLoggedIn ? HomeView() : HomeView(),
       ),
     );
   }

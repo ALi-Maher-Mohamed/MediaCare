@@ -1,0 +1,2 @@
+C:/Users/GAMA/Desktop/MediaCare/android/app/.cxx/Debug/3j215v40/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/GAMA/Desktop/MediaCare/android/app/.cxx/Debug/3j215v40/armeabi-v7a/CMakeFiles/rebuild_cache.dir
