@@ -1,4 +1,3 @@
-//Besttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +7,6 @@ import 'package:media_care/presentation/views/Doctor%20Details/manager/cubit/doc
 import 'package:media_care/presentation/views/Doctor%20Details/widgets/dialog.dart';
 import 'package:media_care/presentation/views/Reservation/manager/cubit/reservation_cubit.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
-// import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
 
 class BookingDetailsScreen extends StatelessWidget {
   final String? app_price;
