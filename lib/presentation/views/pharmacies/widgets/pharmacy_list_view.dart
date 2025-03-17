@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
 import 'package:media_care/presentation/views/pharmacies/manager/cubit/pharmacy_cubit.dart';
 

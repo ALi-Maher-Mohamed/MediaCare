@@ -126,25 +126,6 @@ class HomeViewBodyScreen extends StatelessWidget {
         SizedBox(
           height: 18.h,
         ),
-        Column(
-          children: [
-            TitleAndSeeAll(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return BlocProvider(
-                    create: (context) => PharmacyCubit(PharmacyRepoImpl(Dio()))
-                      ..fetchPharmacies(),
-                    child: PharmacyView(),
-                  );
-                }));
-              },
-              text: 'Top Pharmacies',
-            ),
-            SizedBox(
-              height: 12.h,
-            ),
-          ],
-        ),
       ]),
     );
   }
