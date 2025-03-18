@@ -58,10 +58,13 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  Future<void> logout() async {
-    await SharedPreference().clearToken();
-    emailController.clear();
-    passwordController.clear();
-    emit(LoginInitial());
-  }
+  // Future<void> logout() async {
+  //   emit(LogoutInitial());
+  //   emit(LogoutLoading());
+  //   await SharedPreference().clearToken();
+  //   emit(LogoutSucess());
+  //   emailController.clear();
+  //   passwordController.clear();
+  //   emit(LoginInitial());
+  // }
 }

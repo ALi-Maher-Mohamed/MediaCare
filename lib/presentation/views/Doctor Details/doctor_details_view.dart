@@ -11,6 +11,8 @@ import 'package:media_care/presentation/views/Doctor%20Details/widgets/doctor_da
 import 'package:media_care/presentation/views/Doctor%20Details/widgets/empty_space.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/widgets/more_info_doctor.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/widgets/reserve_appointment.dart';
+import 'package:media_care/presentation/views/profile/data/repo/profile_repo_impl.dart';
+import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
 
 class DoctorDetailsView extends StatelessWidget {
   final String doctorID;
@@ -69,17 +71,24 @@ class DoctorDetailsView extends StatelessWidget {
                           state.DoctorDetails.data?.infoAboutDoctor,
                     ),
                     EmptySpace(),
-                    BookingDetailsScreen(
-                      app_price: state.DoctorDetails.data?.appPrice,
-                      homeOption: state.DoctorDetails.data?.homeOption,
-                      clinicTitle: state.DoctorDetails.data?.clinics?[0].title,
-                      clinicAddress:
-                          state.DoctorDetails.data?.clinics?[0].address,
-                      appointment: state.DoctorDetails.data?.appointments,
-                      doctorDetailsModel: state.DoctorDetails,
-                      full_name: '${state.DoctorDetails.data?.fName}'
-                          '${state.DoctorDetails.data?.lName}',
-                      // appointment_time: state.DoctorDetails.data?.appointments,
+                    BlocProvider(
+                      create: (context) => ProfileCubit(
+                        profileRepo:
+                            ProfileRepoImpl(ApiServiceFunctions(Dio())),
+                      )..fetchProfile(),
+                      child: BookingDetailsScreen(
+                        app_price: state.DoctorDetails.data?.appPrice,
+                        homeOption: state.DoctorDetails.data?.homeOption,
+                        clinicTitle:
+                            state.DoctorDetails.data?.clinics?[0].title,
+                        clinicAddress:
+                            state.DoctorDetails.data?.clinics?[0].address,
+                        appointment: state.DoctorDetails.data?.appointments,
+                        doctorDetailsModel: state.DoctorDetails,
+                        full_name: '${state.DoctorDetails.data?.fName}'
+                            '${state.DoctorDetails.data?.lName}',
+                        // appointment_time: state.DoctorDetails.data?.appointments,
+                      ),
                     ), // Fixed widget
                   ],
                 ),

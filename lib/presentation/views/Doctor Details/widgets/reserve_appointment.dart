@@ -1,10 +1,13 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:media_care/core/network/api_service.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/data/models/doctor_detail_model.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/manager/cubit/doctor_details_cubit.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/widgets/dialog.dart';
+import 'package:media_care/presentation/views/Reservation/data/repo/reservation_repo_impl.dart';
 import 'package:media_care/presentation/views/Reservation/manager/cubit/reservation_cubit.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
 
@@ -30,11 +33,8 @@ class BookingDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var data = context.read<DoctorDetailsCubit>();
-    var profileCubit =
-        context.watch<ProfileCubit>(); // Get ProfileCubit instance
-    String? userId =
-        profileCubit.userId; // Get stored user ID// Get stored user ID
-    // var user = context.read<ProfileCubit>();
+    var profileCubit = context.watch<ProfileCubit>();
+    String? userId = profileCubit.userId;
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -272,9 +272,13 @@ class BookingDetailsScreen extends StatelessWidget {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return BlocProvider.value(
-                                      value: BlocProvider.of<ReservationCubit>(
-                                          context),
+                                    return BlocProvider(
+                                      create: (context) => ReservationCubit(
+                                        reservaionRepo: ReservaionRepoImpl(
+                                            ApiServiceFunctions(Dio())),
+                                      ),
+                                      // value: BlocProvider.of<ReservationCubit>(
+                                      //     context),
                                       child: ReservationDialog(
                                         appointment_time:
                                             '${appointment?[index].startAt?.substring(0, 5)} مساءً ',

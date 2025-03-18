@@ -13,5 +13,5 @@ class LoginError extends LoginState {
   final String error;
   LoginError({required this.error});
 }
-class LoginChangeVisibilityState extends LoginState {}
 
+class LoginChangeVisibilityState extends LoginState {}

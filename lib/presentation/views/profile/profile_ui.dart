@@ -15,7 +15,6 @@ class ProfileScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => ProfileCubit(
         profileRepo: ProfileRepoImpl(ApiServiceFunctions(Dio())),
-        // secureStorage: SecureStorage(),
       )..fetchProfile(),
       child: Scaffold(
         appBar: AppBar(
