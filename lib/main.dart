@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/core/SharedPref/shared_pref.dart';
+import 'package:media_care/presentation/views/Ai_feature/manager/cubit/prescription_cubit.dart';
+import 'package:media_care/presentation/views/Ai_feature/repo/Prescription_repo_impl.dart';
 import 'package:media_care/presentation/views/Auth/login/login_view.dart';
 import 'package:media_care/presentation/views/Laboratories/data/repo/laporatory_repo_impl.dart';
 import 'observer.dart';
@@ -33,17 +35,20 @@ class MediCare extends StatelessWidget {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) => MaterialApp(
-        locale: Locale('ar'),
-        builder: EasyLoading.init(builder: (context, child) {
-          return Directionality(
-            textDirection: TextDirection.rtl,
-            // يجعل التطبيق بالكامل من اليسار لليمين
-            child: child!,
-          );
-        }),
-        debugShowCheckedModeBanner: false,
-        home: isLoggedIn ? HomeView() : LoginView(),
+      builder: (context, child) => BlocProvider(
+        create: (context) => AnalysisCubit(AnalysisRepositoryImpl(Dio())),
+        child: MaterialApp(
+          locale: Locale('ar'),
+          builder: EasyLoading.init(builder: (context, child) {
+            return Directionality(
+              textDirection: TextDirection.rtl,
+              // يجعل التطبيق بالكامل من اليسار لليمين
+              child: child!,
+            );
+          }),
+          debugShowCheckedModeBanner: false,
+          home: isLoggedIn ? HomeView() : HomeView(),
+        ),
       ),
     );
   }

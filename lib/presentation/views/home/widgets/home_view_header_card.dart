@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_care/presentation/views/Ai_feature/view.dart';
 
 import '../../../../core/utils/app_color.dart';
 import '../../found_disease/found_disease.dart';
@@ -43,7 +44,7 @@ class HomeViewHeaderCard extends StatelessWidget {
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
-                        return FindYourDisease();
+                        return AnalysisScreen();
                       },
                     ));
                   },
