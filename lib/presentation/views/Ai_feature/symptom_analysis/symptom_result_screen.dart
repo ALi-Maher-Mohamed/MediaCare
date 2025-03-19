@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:media_care/presentation/views/AI_Feature/medicine_details/medicine_detail_screen.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_state.dart';
 
@@ -206,21 +207,34 @@ class SymptomResultScreen extends StatelessWidget {
                       return Card(
                         elevation: 2,
                         margin: const EdgeInsets.symmetric(vertical: 5),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'الدواء ${index + 1}: ${med.name ?? 'غير محدد'}',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MedicineDetailScreen(
+                                  medicineName: med.name ?? '',
+                                ),
                               ),
-                              const SizedBox(height: 5),
-                              Text('الجرعة: ${med.dosage ?? 'غير محدد'}'),
-                              Text(
-                                  'ملاحظات: ${med.notes ?? 'لا توجد ملاحظات'}'),
-                            ],
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'الدواء ${index + 1}: ${med.name ?? 'غير محدد'}',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                                const SizedBox(height: 5),
+                                Text('الجرعة: ${med.dosage ?? 'غير محدد'}'),
+                                Text(
+                                    'ملاحظات: ${med.notes ?? 'لا توجد ملاحظات'}'),
+                              ],
+                            ),
                           ),
                         ),
                       );
