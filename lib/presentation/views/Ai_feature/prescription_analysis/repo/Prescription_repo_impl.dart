@@ -1,29 +1,24 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:media_care/core/network/api_service.dart';
 import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/data/models/Prescription_details_model.dart';
 import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/repo/Prescription_repo.dart';
 
 class PrescriptionRepoImpl implements PrescriptionRepo {
-  final Dio _dio;
+  final ApiServiceFunctions _apiService;
 
-  PrescriptionRepoImpl(this._dio);
-
-  final String baseUrl = 'http://192.168.1.4:8000/api/analyze';
+  PrescriptionRepoImpl(Dio dio) : _apiService = ApiServiceFunctions(dio);
 
   @override
   Future<Either<String, PrescriptionData>> uploadImage(
       String type, FormData formData) async {
     try {
-      final response = await _dio.post(
-        '$baseUrl/$type',
-        data: formData,
+      final response = await _apiService.post(
+        endpoint: '/api/analyze/$type',
+        data: formData, // الـ FormData هنا بتشتغل مع Dio مباشرة
+        headers: {'Content-Type': 'multipart/form-data'},
       );
-
-      if (response.statusCode == 200) {
-        return Right(PrescriptionData.fromJson(response.data));
-      } else {
-        return Left('Failed to analyze: ${response.statusMessage}');
-      }
+      return Right(PrescriptionData.fromJson(response));
     } catch (e) {
       return Left('Error: $e');
     }

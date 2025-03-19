@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/manager/cubit/prescription_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/manager/cubit/prescription_state.dart';
+import 'package:media_care/presentation/views/AI_Feature/medicine_details/medicine_detail_screen.dart'; // ضيف ده لو مش موجود
 
 class PrescriptionResultScreen extends StatelessWidget {
   final String type;
@@ -77,29 +78,68 @@ class PrescriptionResultScreen extends StatelessWidget {
                     ...result.medications.asMap().entries.map((entry) {
                       final index = entry.key;
                       final med = entry.value;
-                      return Card(
-                        elevation: 2,
-                        margin: const EdgeInsets.symmetric(vertical: 5),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'الدواء ${index + 1}: ${med.name}',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
-                              ),
-                              const SizedBox(height: 5),
-                              Text('الجرعة: ${med.dosage}'),
-                              Text('التكرار: ${med.frequency}'),
-                              Text('المدة: ${med.duration}'),
-                              Text('الغرض: ${med.purpose}'),
-                              Text(
-                                'تحذيرات: ${med.warnings}',
-                                style: const TextStyle(color: Colors.redAccent),
-                              ),
-                            ],
+                      return GestureDetector(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MedicineDetailScreen(
+                              medicineName: med.name ?? 'Unknown',
+                            ),
+                          ),
+                        ),
+                        child: Card(
+                          elevation: 2,
+                          margin: const EdgeInsets.symmetric(vertical: 5),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      'الدواء ${index + 1}: ',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                MedicineDetailScreen(
+                                              medicineName:
+                                                  med.name ?? 'Unknown',
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        med.name ?? 'Unknown',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                          color: Colors.blue,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 5),
+                                Text('الجرعة: ${med.dosage}'),
+                                Text('التكرار: ${med.frequency}'),
+                                Text('المدة: ${med.duration}'),
+                                Text('الغرض: ${med.purpose}'),
+                                Text(
+                                  'تحذيرات: ${med.warnings}',
+                                  style:
+                                      const TextStyle(color: Colors.redAccent),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       );

@@ -50,7 +50,6 @@ class MedicineDetail {
     };
   }
 
-  // ✅ تحويل أي قيمة إلى String بشكل آمن
   static String? _convertToString(dynamic value) {
     if (value == null) return null;
     if (value is String) return value.trim();
@@ -58,16 +57,13 @@ class MedicineDetail {
     return value.toString();
   }
 
-  // ✅ تحويل الحقول التي يجب أن تكون `List<String>` إلى قائمة آمنة
   static List<String>? _convertToList(dynamic value) {
     if (value == null) return null;
     if (value is List) {
       return value.map((item) => _convertToString(item) ?? '').toList();
     }
     if (value is String) {
-      return [
-        value.trim()
-      ]; // إذا كان نصًا واحدًا، نحوله إلى قائمة تحتوي على عنصر واحد
+      return [value.trim()];
     }
     return null;
   }

@@ -4,5 +4,5 @@ import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/data/m
 
 abstract class SymptomAnalysisRepository {
   Future<Either<String, SymptomAnalysisData>> analyzeSymptoms(
-      String type, FormData formData);
+      String type, dynamic formData);
 }

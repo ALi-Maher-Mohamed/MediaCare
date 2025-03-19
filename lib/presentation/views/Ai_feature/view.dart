@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/managers/cubit/labs_analytics_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/repo/Labs_analytics_repo_impl.dart';
 import 'package:media_care/presentation/views/AI_Feature/image_details.dart';
+import 'package:media_care/presentation/views/AI_Feature/manual_input_screen.dart';
 import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/manager/cubit/prescription_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/repo/Prescription_repo_impl.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_cubit.dart';
@@ -28,7 +29,13 @@ class AnalysisScreen extends StatelessWidget {
       'title': 'تحليل الأعراض',
       'type': 'symptom',
       'description': 'رفع صورة الأعراض لتحليل الحالة.',
-      'image': 'assets/images/symptom_image.jpg', // أضف صورة مناسبة
+      'image': 'assets/images/symptom_image.jpg',
+    },
+    {
+      'title': 'بحث يدوي',
+      'type': 'manual',
+      'description': 'اكتب الأعراض أو اسم الدواء يدويًا.',
+      'image': 'assets/images/manual_input.jpg', // ضيف صورة مناسبة في assets
     },
   ];
 
@@ -68,19 +75,30 @@ class AnalysisScreen extends StatelessWidget {
               elevation: 5,
               child: InkWell(
                 onTap: () async {
-                  final picker = ImagePicker();
-                  final pickedFile =
-                      await picker.pickImage(source: ImageSource.gallery);
-                  if (pickedFile != null) {
+                  if (cardType == 'manual') {
+                    // لو الكرت هو "بحث يدوي"، يفتح شاشة إدخال النص
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ImageDetailScreen(
-                          imagePath: pickedFile.path,
-                          type: cardType,
-                        ),
+                        builder: (context) => ManualInputScreen(),
                       ),
                     );
+                  } else {
+                    // الخيارات القديمة (رفع صورة)
+                    final picker = ImagePicker();
+                    final pickedFile =
+                        await picker.pickImage(source: ImageSource.gallery);
+                    if (pickedFile != null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ImageDetailScreen(
+                            imagePath: pickedFile.path,
+                            type: cardType,
+                          ),
+                        ),
+                      );
+                    }
                   }
                 },
                 child: Column(

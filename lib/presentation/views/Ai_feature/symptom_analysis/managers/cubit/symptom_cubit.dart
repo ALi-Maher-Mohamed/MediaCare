@@ -8,11 +8,21 @@ class SymptomAnalysisCubit extends Cubit<SymptomAnalysisState> {
 
   SymptomAnalysisCubit(this._repository) : super(SymptomAnalysisInitial());
 
-  Future<void> analyzeSymptoms(String type, FormData formData) async {
+  Future<void> analyzeSymptoms(String type, dynamic data) async {
     print('Analyzing symptoms with type: $type');
     emit(SymptomAnalysisLoading());
-
-    final result = await _repository.analyzeSymptoms(type, formData);
+    final result = await _repository.analyzeSymptoms(type, data);
+    print('Result from Repository: $result');
+    result.fold(
+      (failure) {
+        print('Failure: $failure');
+        emit(SymptomAnalysisFailure(failure));
+      },
+      (success) {
+        print('Success: $success');
+        emit(SymptomAnalysisSuccess(success));
+      },
+    );
     result.fold(
       (failure) {
         print('Failure: $failure');
