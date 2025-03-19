@@ -1,5 +1,4 @@
-// Medication Model
-class Medication {
+class prescriptionModel {
   final String? name;
   final String? dosage;
   final String? frequency;
@@ -7,7 +6,7 @@ class Medication {
   final String? purpose;
   final String? warnings;
 
-  Medication({
+  prescriptionModel({
     this.name,
     this.dosage,
     this.frequency,
@@ -16,8 +15,8 @@ class Medication {
     this.warnings,
   });
 
-  factory Medication.fromJson(Map<dynamic, dynamic> json) {
-    return Medication(
+  factory prescriptionModel.fromJson(Map<dynamic, dynamic> json) {
+    return prescriptionModel(
       name: json['name'] as String? ?? 'غير واضح',
       dosage: json['dosage'] as String? ?? 'غير واضحة',
       frequency: json['frequency'] as String? ?? 'غير واضح',
@@ -39,7 +38,6 @@ class Medication {
   }
 }
 
-// Prescription Details Model
 class PrescriptionDetails {
   final String? doctorName;
   final String? patientName;
@@ -72,15 +70,14 @@ class PrescriptionDetails {
   }
 }
 
-// Main Analysis Data Model
-class AnalysisData {
-  final List<Medication> medications;
+class PrescriptionData {
+  final List<prescriptionModel> medications;
   final PrescriptionDetails prescriptionDetails;
   final Map<String, String?> generalAdvice;
   final String? message;
   final String? warning;
 
-  AnalysisData({
+  PrescriptionData({
     required this.medications,
     required this.prescriptionDetails,
     required this.generalAdvice,
@@ -88,10 +85,12 @@ class AnalysisData {
     this.warning,
   });
 
-  factory AnalysisData.fromJson(Map<String, dynamic> json) {
-    return AnalysisData(
+  factory PrescriptionData.fromJson(Map<String, dynamic> json) {
+    return PrescriptionData(
       medications: (json['medications'] as List? ?? [])
-          .map((med) => med is Map ? Medication.fromJson(med) : Medication())
+          .map((med) => med is Map
+              ? prescriptionModel.fromJson(med)
+              : prescriptionModel())
           .toList(),
       prescriptionDetails: json['prescriptionDetails'] is Map
           ? PrescriptionDetails.fromJson(json['prescriptionDetails'])

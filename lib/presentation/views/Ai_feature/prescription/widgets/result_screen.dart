@@ -15,14 +15,14 @@ class PrescriptionResultScreen extends StatelessWidget {
         title: Text('نتيجة تحليل $type'),
         backgroundColor: Colors.teal,
       ),
-      body: BlocBuilder<PrescriptionCubit, AnalysisState>(
+      body: BlocBuilder<PrescriptionCubit, PrescriptionState>(
         builder: (context, state) {
-          if (state is AnalysisLoading) {
+          if (state is PrescriptionLoading) {
             return const Center(child: CircularProgressIndicator());
-          } else if (state is AnalysisFailure) {
+          } else if (state is PrescriptionFailure) {
             return Center(child: Text(state.errorMessage));
-          } else if (state is AnalysisSuccess) {
-            final result = state.analysisData;
+          } else if (state is PrescriptionSuccess) {
+            final result = state.prescriptionData;
             return SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Column(

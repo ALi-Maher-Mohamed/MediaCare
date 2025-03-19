@@ -1,30 +1,30 @@
 import 'package:equatable/equatable.dart';
 import 'package:media_care/presentation/views/AI_Feature/prescription/data/models/Prescription_details_model.dart';
 
-abstract class AnalysisState extends Equatable {
-  const AnalysisState();
+abstract class PrescriptionState extends Equatable {
+  const PrescriptionState();
 
   @override
   List<Object?> get props => [];
 }
 
-class AnalysisInitial extends AnalysisState {}
+class PrescriptionInitial extends PrescriptionState {}
 
-class AnalysisLoading extends AnalysisState {}
+class PrescriptionLoading extends PrescriptionState {}
 
-class AnalysisSuccess extends AnalysisState {
-  final AnalysisData analysisData;
+class PrescriptionSuccess extends PrescriptionState {
+  final PrescriptionData prescriptionData;
 
-  const AnalysisSuccess(this.analysisData);
+  const PrescriptionSuccess(this.prescriptionData);
 
   @override
-  List<Object?> get props => [analysisData];
+  List<Object?> get props => [prescriptionData];
 }
 
-class AnalysisFailure extends AnalysisState {
+class PrescriptionFailure extends PrescriptionState {
   final String errorMessage;
 
-  const AnalysisFailure(this.errorMessage);
+  const PrescriptionFailure(this.errorMessage);
 
   @override
   List<Object?> get props => [errorMessage];

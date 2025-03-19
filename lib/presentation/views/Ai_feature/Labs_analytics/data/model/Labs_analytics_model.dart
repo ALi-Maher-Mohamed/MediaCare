@@ -1,12 +1,11 @@
-// Lab Test Result Model
-class LabTestResult {
+class LabAnalysisModel {
   final String? name;
   final String? value;
   final String? unit;
   final String? status;
   final String? notes;
 
-  LabTestResult({
+  LabAnalysisModel({
     this.name,
     this.value,
     this.unit,
@@ -14,8 +13,8 @@ class LabTestResult {
     this.notes,
   });
 
-  factory LabTestResult.fromJson(Map<dynamic, dynamic> json) {
-    return LabTestResult(
+  factory LabAnalysisModel.fromJson(Map<dynamic, dynamic> json) {
+    return LabAnalysisModel(
       name: _convertToString(json['name']) ?? 'غير محدد',
       value: _convertToString(json['value']) ?? '',
       unit: _convertToString(json['unit']) ?? 'غير محدد',
@@ -34,18 +33,16 @@ class LabTestResult {
     };
   }
 
-  // دالة مساعدة لتحويل أي قيمة إلى String بأمان
   static String? _convertToString(dynamic value) {
     if (value == null) return null;
     if (value is String) return value.trim();
-    if (value is num) return value.toString(); // تحويل int أو double إلى String
-    return value.toString(); // كحل بديل لأنواع أخرى
+    if (value is num) return value.toString();
+    return value.toString();
   }
 }
 
-// Main Lab Analysis Data Model
 class LabAnalysisData {
-  final List<LabTestResult> testResults;
+  final List<LabAnalysisModel> testResults;
   final String? interpretation;
   final List<String>? recommendations;
   final String? warning;
@@ -76,31 +73,28 @@ class LabAnalysisData {
     };
   }
 
-  // دالة لتحويل القيم إلى قائمة LabTestResult بأمان
-  static List<LabTestResult> _parseTestResults(dynamic value) {
+  static List<LabAnalysisModel> _parseTestResults(dynamic value) {
     if (value is List) {
       return value
           .map((test) => test is Map<String, dynamic>
-              ? LabTestResult.fromJson(test)
-              : LabTestResult())
+              ? LabAnalysisModel.fromJson(test)
+              : LabAnalysisModel())
           .toList();
     }
-    return []; // إرجاع قائمة فارغة عند حدوث أي مشكلة
+    return [];
   }
 
-  // دالة لتحويل القيم إلى قائمة نصوص
   static List<String>? _convertToList(dynamic value) {
     if (value == null) return null;
     if (value is List) {
       return value.map((item) => _convertToString(item) ?? '').toList();
     }
     if (value is String) {
-      return [value.trim()]; // إذا كان نصاً واحداً، نضعه داخل List
+      return [value.trim()];
     }
     return null;
   }
 
-  // دالة مساعدة لتحويل القيمة إلى String بأمان
   static String? _convertToString(dynamic value) {
     if (value == null) return null;
     if (value is String) return value.trim();

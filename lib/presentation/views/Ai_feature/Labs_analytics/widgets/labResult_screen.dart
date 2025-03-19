@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/managers/cubit/labs_analytics_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/managers/cubit/labs_analytics_state.dart';
 
-class LabResultScreen extends StatelessWidget {
+class LabAnalysisResultScreen extends StatelessWidget {
   final String type;
 
-  const LabResultScreen({required this.type});
+  const LabAnalysisResultScreen({required this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class LabResultScreen extends StatelessWidget {
             print(state.errorMessage);
             return Center(child: Text(state.errorMessage));
           } else if (state is LabAnalysisSuccess) {
-            final result = state.analysisData; // استخدام LabAnalysisData مباشرة
+            final result = state.analysisData;
             return SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Column(

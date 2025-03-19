@@ -63,7 +63,7 @@ class ImageDetailScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => LabResultScreen(type: type),
+                      builder: (context) => LabAnalysisResultScreen(type: type),
                     ),
                   );
                 } else {

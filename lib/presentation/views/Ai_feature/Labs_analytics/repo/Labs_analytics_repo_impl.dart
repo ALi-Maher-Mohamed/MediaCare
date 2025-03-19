@@ -23,13 +23,11 @@ class LabAnalysisRepositoryImpl implements LabAnalysisRepository {
         data: formData,
         options: Options(
           headers: {
-            'Content-Type': 'multipart/form-data', // تأكيد نوع المحتوى
-            // أضف رأس Authorization إذا كان مطلوبًا بناءً على Postman
-            // 'Authorization': 'Bearer <your-token-here>',
+            'Content-Type': 'multipart/form-data',
           },
           validateStatus: (status) {
             print('Status code: $status');
-            return true; // السماح بجميع أكواد الحالة للتعامل معها يدويًا
+            return true;
           },
         ),
       );

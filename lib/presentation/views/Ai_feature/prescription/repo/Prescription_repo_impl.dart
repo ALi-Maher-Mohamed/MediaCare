@@ -11,7 +11,7 @@ class PrescriptionRepoImpl implements PrescriptionRepo {
   final String baseUrl = 'http://192.168.1.4:8000/api/analyze';
 
   @override
-  Future<Either<String, AnalysisData>> uploadImage(
+  Future<Either<String, PrescriptionData>> uploadImage(
       String type, FormData formData) async {
     try {
       final response = await _dio.post(
@@ -20,7 +20,7 @@ class PrescriptionRepoImpl implements PrescriptionRepo {
       );
 
       if (response.statusCode == 200) {
-        return Right(AnalysisData.fromJson(response.data));
+        return Right(PrescriptionData.fromJson(response.data));
       } else {
         return Left('Failed to analyze: ${response.statusMessage}');
       }
