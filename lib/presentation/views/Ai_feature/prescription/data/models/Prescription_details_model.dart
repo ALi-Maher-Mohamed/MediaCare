@@ -18,11 +18,11 @@ class Medication {
 
   factory Medication.fromJson(Map<dynamic, dynamic> json) {
     return Medication(
-      name: json['name'] as String? ?? 'غير محدد',
-      dosage: json['dosage'] as String? ?? 'غير محدد',
-      frequency: json['frequency'] as String? ?? 'غير محدد',
-      duration: json['duration'] as String? ?? 'غير محدد',
-      purpose: json['purpose'] as String? ?? 'غير محدد',
+      name: json['name'] as String? ?? 'غير واضح',
+      dosage: json['dosage'] as String? ?? 'غير واضحة',
+      frequency: json['frequency'] as String? ?? 'غير واضح',
+      duration: json['duration'] as String? ?? 'غير واضح',
+      purpose: json['purpose'] as String? ?? 'غير واضح',
       warnings: json['warnings'] as String? ?? 'لا يوجد تحذيرات',
     );
   }
@@ -55,10 +55,10 @@ class PrescriptionDetails {
 
   factory PrescriptionDetails.fromJson(Map<String, dynamic>? json) {
     return PrescriptionDetails(
-      doctorName: json?['doctorName'] as String? ?? 'غير محدد',
-      patientName: json?['patientName'] as String? ?? 'غير محدد',
-      patientAge: json?['patientAge'] as String? ?? 'غير محدد',
-      prescriptionDate: json?['prescriptionDate'] as String? ?? 'غير محدد',
+      doctorName: json?['doctorName'] as String? ?? 'غير واضح',
+      patientName: json?['patientName'] as String? ?? 'غير واضح',
+      patientAge: json?['patientAge'] as String? ?? 'غير واضح',
+      prescriptionDate: json?['prescriptionDate'] as String? ?? 'غير واضح',
     );
   }
 
@@ -98,7 +98,7 @@ class AnalysisData {
           : PrescriptionDetails(),
       generalAdvice: json['generalAdvice'] is Map
           ? (json['generalAdvice'] as Map<String, dynamic>?)?.map(
-                (key, value) => MapEntry(key, value as String? ?? 'غير محدد'),
+                (key, value) => MapEntry(key, value as String? ?? 'غير واضح'),
               ) ??
               {}
           : {},

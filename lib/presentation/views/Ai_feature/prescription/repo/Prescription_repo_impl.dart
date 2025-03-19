@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:media_care/presentation/views/Ai_feature/data/models/Prescription_details_model.dart';
-import 'package:media_care/presentation/views/Ai_feature/repo/Prescription_repo.dart';
+import 'package:media_care/presentation/views/AI_Feature/prescription/data/models/Prescription_details_model.dart';
+import 'package:media_care/presentation/views/AI_Feature/prescription/repo/Prescription_repo.dart';
 
-class AnalysisRepositoryImpl implements AnalysisRepository {
+class PrescriptionRepoImpl implements PrescriptionRepo {
   final Dio _dio;
 
-  AnalysisRepositoryImpl(this._dio);
+  PrescriptionRepoImpl(this._dio);
 
   final String baseUrl = 'http://192.168.1.4:8000/api/analyze';
 

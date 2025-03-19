@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/presentation/views/Ai_feature/manager/cubit/prescription_cubit.dart';
-import 'package:media_care/presentation/views/Ai_feature/manager/cubit/prescription_state.dart';
+import 'package:media_care/presentation/views/AI_Feature/prescription/manager/cubit/prescription_cubit.dart';
+import 'package:media_care/presentation/views/AI_Feature/prescription/manager/cubit/prescription_state.dart';
 
-class ResultScreen extends StatelessWidget {
+class PrescriptionResultScreen extends StatelessWidget {
   final String type;
 
-  const ResultScreen({required this.type});
+  const PrescriptionResultScreen({required this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class ResultScreen extends StatelessWidget {
         title: Text('نتيجة تحليل $type'),
         backgroundColor: Colors.teal,
       ),
-      body: BlocBuilder<AnalysisCubit, AnalysisState>(
+      body: BlocBuilder<PrescriptionCubit, AnalysisState>(
         builder: (context, state) {
           if (state is AnalysisLoading) {
             return const Center(child: CircularProgressIndicator());
