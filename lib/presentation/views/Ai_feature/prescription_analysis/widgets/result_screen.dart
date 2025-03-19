@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/presentation/views/AI_Feature/prescription/manager/cubit/prescription_cubit.dart';
-import 'package:media_care/presentation/views/AI_Feature/prescription/manager/cubit/prescription_state.dart';
+import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/manager/cubit/prescription_cubit.dart';
+import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/manager/cubit/prescription_state.dart';
 
 class PrescriptionResultScreen extends StatelessWidget {
   final String type;

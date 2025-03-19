@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:media_care/presentation/views/AI_Feature/prescription/data/models/Prescription_details_model.dart';
-import 'package:media_care/presentation/views/AI_Feature/prescription/repo/Prescription_repo.dart';
+import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/data/models/Prescription_details_model.dart';
+import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/repo/Prescription_repo.dart';
 
 class PrescriptionRepoImpl implements PrescriptionRepo {
   final Dio _dio;

@@ -2,10 +2,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/labResult_screen.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/managers/cubit/labs_analytics_cubit.dart';
-import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/widgets/labResult_screen.dart';
-import 'package:media_care/presentation/views/AI_Feature/prescription/manager/cubit/prescription_cubit.dart';
-import 'package:media_care/presentation/views/AI_Feature/prescription/widgets/result_screen.dart';
+import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/manager/cubit/prescription_cubit.dart';
+import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/widgets/result_screen.dart';
+import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_cubit.dart';
+import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/symptom_result_screen.dart';
 
 class ImageDetailScreen extends StatelessWidget {
   final String imagePath;
@@ -40,7 +42,6 @@ class ImageDetailScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
               onPressed: () async {
-                // تحديد اسم الحقل بناءً على type
                 final fieldName = type == 'lab' ? 'file' : 'image';
                 final formData = FormData.fromMap({
                   fieldName: await MultipartFile.fromFile(imagePath),
@@ -64,6 +65,16 @@ class ImageDetailScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => LabAnalysisResultScreen(type: type),
+                    ),
+                  );
+                } else if (type == 'symptom') {
+                  context
+                      .read<SymptomAnalysisCubit>()
+                      .analyzeSymptoms(type, formData);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SymptomResultScreen(type: type),
                     ),
                   );
                 } else {

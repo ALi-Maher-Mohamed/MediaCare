@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:media_care/presentation/views/AI_Feature/prescription/manager/cubit/prescription_state.dart';
-import 'package:media_care/presentation/views/AI_Feature/prescription/repo/Prescription_repo.dart';
+import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/manager/cubit/prescription_state.dart';
+import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/repo/Prescription_repo.dart';
 
 class PrescriptionCubit extends Cubit<PrescriptionState> {
   final PrescriptionRepo _repository;

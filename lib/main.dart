@@ -6,8 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/core/SharedPref/shared_pref.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/repo/Labs_analytics_repo_impl.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/managers/cubit/labs_analytics_cubit.dart';
-import 'package:media_care/presentation/views/AI_Feature/prescription/manager/cubit/prescription_cubit.dart';
-import 'package:media_care/presentation/views/AI_Feature/prescription/repo/Prescription_repo_impl.dart';
+import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/manager/cubit/prescription_cubit.dart';
+import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/repo/Prescription_repo_impl.dart';
+import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_cubit.dart';
+import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/repos/symptom_analysis_repo.dart';
+import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/repos/symptom_analysis_repo_impl.dart';
 import 'package:media_care/presentation/views/Auth/login/login_view.dart';
 import 'package:media_care/presentation/views/Laboratories/data/repo/laporatory_repo_impl.dart';
 import 'observer.dart';
@@ -41,6 +44,10 @@ class MediCare extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) => PrescriptionCubit(PrescriptionRepoImpl(Dio())),
+          ),
+          BlocProvider(
+            create: (context) =>
+                SymptomAnalysisCubit(SymptomAnalysisRepositoryImpl(Dio())),
           ),
           BlocProvider(
             create: (context) =>

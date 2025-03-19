@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:media_care/presentation/views/AI_Feature/prescription/data/models/Prescription_details_model.dart';
+import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/data/models/Prescription_details_model.dart';
 
 abstract class PrescriptionState extends Equatable {
   const PrescriptionState();
