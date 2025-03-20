@@ -15,7 +15,6 @@ class ManualInputView extends StatefulWidget {
 class _ManualInputViewState extends State<ManualInputView> {
   final TextEditingController _controller = TextEditingController();
   bool _isSymptom = true;
-
   @override
   void dispose() {
     _controller.dispose();

@@ -4,12 +4,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/core/utils/app_color.dart';
-import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/labResult_screen.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/managers/cubit/labs_analytics_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/manager/cubit/prescription_cubit.dart';
-import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/widgets/result_screen.dart';
+import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/result_screen.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/symptom_result_screen.dart';
+
+import 'Labs_analytics/labResult_screen.dart';
 
 class ImageDetailView extends StatelessWidget {
   final String imagePath;
