@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/manager/cubit/prescription_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/manager/cubit/prescription_state.dart';
 import 'package:media_care/presentation/views/AI_Feature/medicine_details/medicine_detail_screen.dart'; // ضيف ده لو مش موجود
@@ -12,9 +14,17 @@ class PrescriptionResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('نتيجة تحليل $type'),
-        backgroundColor: Colors.teal,
+        centerTitle: true,
+        forceMaterialTransparency: true,
+        title: Text(
+          'نتيجة تحليل $type',
+          style: TextStyle(
+              color: AppColors.primary,
+              fontSize: 24.sp,
+              fontWeight: FontWeight.bold),
+        ),
       ),
       body: BlocBuilder<PrescriptionCubit, PrescriptionState>(
         builder: (context, state) {
@@ -39,7 +49,7 @@ class PrescriptionResultScreen extends StatelessWidget {
                           children: [
                             const Row(
                               children: [
-                                Icon(Icons.info, color: Colors.teal),
+                                Icon(Icons.info, color: AppColors.primary),
                                 SizedBox(width: 8),
                                 Text(
                                   'تفاصيل الروشتة:',
@@ -65,7 +75,7 @@ class PrescriptionResultScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                     const Row(
                       children: [
-                        Icon(Icons.medical_services, color: Colors.teal),
+                        Icon(Icons.medical_services, color: AppColors.primary),
                         SizedBox(width: 8),
                         Text(
                           'الأدوية:',
@@ -154,7 +164,7 @@ class PrescriptionResultScreen extends StatelessWidget {
                           children: [
                             const Row(
                               children: [
-                                Icon(Icons.lightbulb, color: Colors.teal),
+                                Icon(Icons.lightbulb, color: AppColors.primary),
                                 SizedBox(width: 8),
                                 Text(
                                   'النصائح العامة:',
@@ -188,7 +198,7 @@ class PrescriptionResultScreen extends StatelessWidget {
                           children: [
                             const Row(
                               children: [
-                                Icon(Icons.message, color: Colors.teal),
+                                Icon(Icons.message, color: AppColors.primary),
                                 SizedBox(width: 8),
                                 Text(
                                   'رسالة:',

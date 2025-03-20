@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:dio/dio.dart';
+import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/managers/cubit/labs_analytics_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/repo/Labs_analytics_repo_impl.dart';
 import 'package:media_care/presentation/views/AI_Feature/image_details.dart';
@@ -17,25 +19,25 @@ class AnalysisScreen extends StatelessWidget {
       'title': 'تحليل المختبرات',
       'type': 'lab',
       'description': 'رفع صورة تحليل المختبر لتحليل النتائج بدقة.',
-      'image': 'assets/images/lab_image.jpg',
+      'image': 'assets/images/laboratoryrobot.png',
     },
     {
       'title': 'تحليل الروشتة',
       'type': 'prescription',
       'description': 'رفع صورة الروشتة الطبية للحصول على التفاصيل.',
-      'image': 'assets/images/prescription_image.jpg',
+      'image': 'assets/images/pharmacyrobot.png',
     },
     {
       'title': 'تحليل الأعراض',
       'type': 'symptom',
       'description': 'رفع صورة الأعراض لتحليل الحالة.',
-      'image': 'assets/images/symptom_image.jpg',
+      'image': 'assets/images/ai.png',
     },
     {
-      'title': 'بحث يدوي',
+      'title': 'أبحث يدويا',
       'type': 'manual',
       'description': 'اكتب الأعراض أو اسم الدواء يدويًا.',
-      'image': 'assets/images/manual_input.jpg', // ضيف صورة مناسبة في assets
+      'image': 'assets/images/manual_input.png', // ضيف صورة مناسبة في assets
     },
   ];
 
@@ -56,14 +58,21 @@ class AnalysisScreen extends StatelessWidget {
         ),
       ],
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: const Text('تحليل البيانات'),
-          backgroundColor: Colors.teal,
+          iconTheme: const IconThemeData(color: AppColors.primary),
+          centerTitle: true,
+          title: Text('تحليل البيانات',
+              style: TextStyle(
+                  color: AppColors.primary,
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.bold)),
+          backgroundColor: Colors.white,
         ),
         body: GridView.builder(
           padding: const EdgeInsets.all(10),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
+            crossAxisCount: 1,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
           ),
@@ -76,7 +85,7 @@ class AnalysisScreen extends StatelessWidget {
               child: InkWell(
                 onTap: () async {
                   if (cardType == 'manual') {
-                    // لو الكرت هو "بحث يدوي"، يفتح شاشة إدخال النص
+                    // لو الكرت هو "بحث يدوي"، يفتح شاشة إدخال الن
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -84,7 +93,6 @@ class AnalysisScreen extends StatelessWidget {
                       ),
                     );
                   } else {
-                    // الخيارات القديمة (رفع صورة)
                     final picker = ImagePicker();
                     final pickedFile =
                         await picker.pickImage(source: ImageSource.gallery);
@@ -102,16 +110,17 @@ class AnalysisScreen extends StatelessWidget {
                   }
                 },
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Image.asset(
-                      cardImage,
-                      height: 80,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return const Icon(Icons.image,
-                            size: 50, color: Colors.teal);
-                      },
+                    Expanded(
+                      child: Image.asset(
+                        cardImage,
+                        fit: BoxFit.fill,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(Icons.image,
+                              size: 50, color: AppColors.primary);
+                        },
+                      ),
                     ),
                     const SizedBox(height: 10),
                     Text(

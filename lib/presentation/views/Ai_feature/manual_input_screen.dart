@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/AI_Feature/medicine_details/medicine_detail_screen.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_state.dart';
@@ -24,9 +26,16 @@ class _ManualInputScreenState extends State<ManualInputScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('بحث يدوي'),
-        backgroundColor: Colors.teal,
+        iconTheme: IconThemeData(color: AppColors.primary),
+        centerTitle: true,
+        title: Text('بحث يدوي',
+            style: TextStyle(
+                color: AppColors.primary,
+                fontSize: 24.sp,
+                fontWeight: FontWeight.bold)),
+        forceMaterialTransparency: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -121,7 +130,7 @@ class _ManualInputScreenState extends State<ManualInputScreen> {
                             }
                           },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal,
+                      backgroundColor: AppColors.primary,
                       padding: const EdgeInsets.symmetric(
                           vertical: 16.0, horizontal: 32.0),
                     ),

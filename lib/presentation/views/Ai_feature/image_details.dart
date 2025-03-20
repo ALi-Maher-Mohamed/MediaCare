@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/labResult_screen.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/managers/cubit/labs_analytics_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/manager/cubit/prescription_cubit.dart';
@@ -18,9 +20,15 @@ class ImageDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('تفاصيل الصورة - $type'),
-        backgroundColor: Colors.teal,
+        iconTheme: const IconThemeData(color: AppColors.primary),
+        title: Text('تفاصيل الصورة - $type',
+            style: TextStyle(
+                color: AppColors.primary,
+                fontSize: 24.sp,
+                fontWeight: FontWeight.bold)),
+        forceMaterialTransparency: true,
       ),
       body: Column(
         children: [
@@ -84,7 +92,7 @@ class ImageDetailScreen extends StatelessWidget {
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.teal,
+                backgroundColor: AppColors.primary,
                 padding: const EdgeInsets.symmetric(
                     vertical: 16.0, horizontal: 32.0),
               ),

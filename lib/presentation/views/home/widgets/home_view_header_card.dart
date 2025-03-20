@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/presentation/views/AI_Feature/view.dart';
 
 import '../../../../core/utils/app_color.dart';
-import '../../found_disease/found_disease.dart';
 
 class HomeViewHeaderCard extends StatelessWidget {
   const HomeViewHeaderCard({
@@ -25,13 +24,13 @@ class HomeViewHeaderCard extends StatelessWidget {
             padding: const EdgeInsets.all(12.0),
             child: Column(
               children: [
-                Text('عندك سؤال عن صحتك ؟',
+                Text('عندك سؤال؟',
                     style: TextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
                       color: AppColors.primary,
                     )),
-                Text('اطلع علي الاجابة ',
+                Text('أسال الروبوت عن صحتك',
                     style: TextStyle(
                       fontSize: 18.sp,
                       color: AppColors.primary,
@@ -78,14 +77,15 @@ class HomeViewHeaderCard extends StatelessWidget {
                 width: 100.w,
               ),
               Positioned(
-                top: -90,
+                top: -30,
                 left: 0,
                 right: 0,
                 child: Container(
-                  height: 180.h,
-                  width: 150.w,
+                  height: 120.h,
+                  // width: 170.w,
                   child: Image.asset(
-                    'assets/images/doc0.png',
+                    fit: BoxFit.fitHeight,
+                    'assets/images/dr_robot.png',
                   ),
                 ),
               ),

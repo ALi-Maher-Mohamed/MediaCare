@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/managers/cubit/labs_analytics_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/managers/cubit/labs_analytics_state.dart';
 
@@ -11,9 +13,15 @@ class LabAnalysisResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('نتيجة تحليل $type'),
-        backgroundColor: Colors.teal,
+        iconTheme: const IconThemeData(color: AppColors.primary),
+        title: Text('نتيجة تحليل $type',
+            style: TextStyle(
+                color: AppColors.primary,
+                fontSize: 24.sp,
+                fontWeight: FontWeight.bold)),
+        forceMaterialTransparency: true,
       ),
       body: BlocBuilder<LabAnalysisCubit, LabAnalysisState>(
         builder: (context, state) {
@@ -33,7 +41,7 @@ class LabAnalysisResultScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                     const Row(
                       children: [
-                        Icon(Icons.science, color: Colors.teal),
+                        Icon(Icons.science, color: AppColors.primary),
                         SizedBox(width: 8),
                         Text(
                           'نتائج الاختبارات:',
@@ -87,7 +95,7 @@ class LabAnalysisResultScreen extends StatelessWidget {
                           children: [
                             const Row(
                               children: [
-                                Icon(Icons.lightbulb, color: Colors.teal),
+                                Icon(Icons.lightbulb, color: AppColors.primary),
                                 SizedBox(width: 8),
                                 Text(
                                   'التفسير:',
@@ -113,7 +121,7 @@ class LabAnalysisResultScreen extends StatelessWidget {
                           children: [
                             const Row(
                               children: [
-                                Icon(Icons.recommend, color: Colors.teal),
+                                Icon(Icons.recommend, color: AppColors.primary),
                                 SizedBox(width: 8),
                                 Text(
                                   'التوصيات:',

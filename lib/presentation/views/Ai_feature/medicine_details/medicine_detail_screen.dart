@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/AI_Feature/medicine_details/manager/cubit/medicine_detail_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/medicine_details/manager/cubit/medicine_detail_state.dart';
 import 'package:media_care/presentation/views/AI_Feature/medicine_details/repos/medicine_detail_repo_impl.dart';
@@ -17,9 +19,17 @@ class MedicineDetailScreen extends StatelessWidget {
           MedicineDetailCubit(MedicineDetailRepositoryImpl(Dio()))
             ..fetchMedicineDetails(medicineName),
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text('تفاصيل الدواء'),
-          backgroundColor: Colors.teal,
+          centerTitle: true,
+          forceMaterialTransparency: true,
+          title: Text(
+            'تفاصيل الدواء',
+            style: TextStyle(
+                color: AppColors.primary,
+                fontSize: 24.sp,
+                fontWeight: FontWeight.bold),
+          ),
         ),
         body: BlocBuilder<MedicineDetailCubit, MedicineDetailState>(
           builder: (context, state) {

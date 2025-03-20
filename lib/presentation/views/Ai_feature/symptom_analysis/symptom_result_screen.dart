@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/AI_Feature/medicine_details/medicine_detail_screen.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_state.dart';
@@ -13,9 +15,17 @@ class SymptomResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('نتيجة تحليل الأعراض'),
-        backgroundColor: Colors.teal,
+        centerTitle: true,
+        forceMaterialTransparency: true,
+        title: Text(
+          'نتيجة تحليل الأعراض',
+          style: TextStyle(
+              color: AppColors.primary,
+              fontSize: 24.sp,
+              fontWeight: FontWeight.bold),
+        ),
       ),
       body: BlocBuilder<SymptomAnalysisCubit, SymptomAnalysisState>(
         builder: (context, state) {
@@ -41,7 +51,7 @@ class SymptomResultScreen extends StatelessWidget {
                           const Row(
                             children: [
                               FaIcon(FontAwesomeIcons.diagnoses,
-                                  color: Colors.teal),
+                                  color: AppColors.primary),
                               SizedBox(width: 8),
                               Text(
                                 'التشخيص المحتمل:',
@@ -67,7 +77,8 @@ class SymptomResultScreen extends StatelessWidget {
                         children: [
                           const Row(
                             children: [
-                              Icon(Icons.local_hospital, color: Colors.teal),
+                              Icon(Icons.local_hospital,
+                                  color: AppColors.primary),
                               SizedBox(width: 8),
                               Text(
                                 'التخصص الموصى به:',
@@ -93,7 +104,7 @@ class SymptomResultScreen extends StatelessWidget {
                         children: [
                           const Row(
                             children: [
-                              Icon(Icons.lightbulb, color: Colors.teal),
+                              Icon(Icons.lightbulb, color: AppColors.primary),
                               SizedBox(width: 8),
                               Text(
                                 'النصيحة:',
@@ -119,7 +130,7 @@ class SymptomResultScreen extends StatelessWidget {
                         children: [
                           const Row(
                             children: [
-                              Icon(Icons.score, color: Colors.teal),
+                              Icon(Icons.score, color: AppColors.primary),
                               SizedBox(width: 8),
                               Text(
                                 'درجة الثقة:',
@@ -145,7 +156,7 @@ class SymptomResultScreen extends StatelessWidget {
                         children: [
                           const Row(
                             children: [
-                              Icon(Icons.message, color: Colors.teal),
+                              Icon(Icons.message, color: AppColors.primary),
                               SizedBox(width: 8),
                               Text(
                                 'رسالة:',
@@ -164,7 +175,7 @@ class SymptomResultScreen extends StatelessWidget {
                   // الأدوية المقترحة
                   const Row(
                     children: [
-                      Icon(Icons.medical_services, color: Colors.teal),
+                      Icon(Icons.medical_services, color: AppColors.primary),
                       SizedBox(width: 8),
                       Text(
                         'الأدوية المقترحة:',
