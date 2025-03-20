@@ -7,13 +7,13 @@ import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/managers/cubit/labs_analytics_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/repo/Labs_analytics_repo_impl.dart';
 import 'package:media_care/presentation/views/AI_Feature/image_details.dart';
-import 'package:media_care/presentation/views/AI_Feature/manual_input_screen.dart';
+import 'package:media_care/presentation/views/AI_Feature/manual_input_view.dart';
 import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/manager/cubit/prescription_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/repo/Prescription_repo_impl.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/repos/symptom_analysis_repo_impl.dart';
 
-class AnalysisScreen extends StatelessWidget {
+class RobotView extends StatelessWidget {
   final List<Map<String, dynamic>> cards = [
     {
       'title': 'تحليل المختبرات',
@@ -60,6 +60,7 @@ class AnalysisScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          forceMaterialTransparency: true,
           iconTheme: const IconThemeData(color: AppColors.primary),
           centerTitle: true,
           title: Text('تحليل البيانات',
@@ -67,14 +68,13 @@ class AnalysisScreen extends StatelessWidget {
                   color: AppColors.primary,
                   fontSize: 24.sp,
                   fontWeight: FontWeight.bold)),
-          backgroundColor: Colors.white,
         ),
         body: GridView.builder(
           padding: const EdgeInsets.all(10),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 1,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
+            crossAxisSpacing: 10.w,
+            mainAxisSpacing: 10.h,
           ),
           itemCount: cards.length,
           itemBuilder: (context, index) {
@@ -85,11 +85,10 @@ class AnalysisScreen extends StatelessWidget {
               child: InkWell(
                 onTap: () async {
                   if (cardType == 'manual') {
-                    // لو الكرت هو "بحث يدوي"، يفتح شاشة إدخال الن
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ManualInputScreen(),
+                        builder: (context) => ManualInputView(),
                       ),
                     );
                   } else {
@@ -100,7 +99,7 @@ class AnalysisScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ImageDetailScreen(
+                          builder: (context) => ImageDetailView(
                             imagePath: pickedFile.path,
                             type: cardType,
                           ),
@@ -117,30 +116,31 @@ class AnalysisScreen extends StatelessWidget {
                         cardImage,
                         fit: BoxFit.fill,
                         errorBuilder: (context, error, stackTrace) {
-                          return const Icon(Icons.image,
-                              size: 50, color: AppColors.primary);
+                          return Icon(Icons.image,
+                              size: 50.sp, color: AppColors.primary);
                         },
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     Text(
                       cards[index]['title']!,
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 20.sp, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Text(
                         cards[index]['description']!,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 14),
+                        style: TextStyle(fontSize: 16.sp),
                       ),
                     ),
                   ],
                 ),
               ),
+              surfaceTintColor: AppColors.primary2,
             );
           },
         ),

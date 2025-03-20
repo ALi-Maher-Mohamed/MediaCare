@@ -48,25 +48,26 @@ class SymptomResultScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Row(
+                          Row(
                             children: [
                               FaIcon(FontAwesomeIcons.diagnoses,
                                   color: AppColors.primary),
-                              SizedBox(width: 8),
+                              SizedBox(width: 8.w),
                               Text(
                                 'التشخيص المحتمل:',
                                 style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 10),
+                          SizedBox(height: 10.h),
                           Text(result.diagnosis ?? 'غير محدد'),
                         ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   // التخصص الموصى به
                   Card(
                     elevation: 3,
@@ -75,25 +76,26 @@ class SymptomResultScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Row(
+                          Row(
                             children: [
                               Icon(Icons.local_hospital,
                                   color: AppColors.primary),
-                              SizedBox(width: 8),
+                              SizedBox(width: 8.w),
                               Text(
                                 'التخصص الموصى به:',
                                 style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 10),
+                          SizedBox(height: 10.h),
                           Text(result.recommendedSpecialization ?? 'غير محدد'),
                         ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   // النصيحة
                   Card(
                     elevation: 3,
@@ -102,24 +104,25 @@ class SymptomResultScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Row(
+                          Row(
                             children: [
                               Icon(Icons.lightbulb, color: AppColors.primary),
-                              SizedBox(width: 8),
+                              SizedBox(width: 8.w),
                               Text(
                                 'النصيحة:',
                                 style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 10),
+                          SizedBox(height: 10.h),
                           Text(result.advice ?? 'لا توجد نصائح'),
                         ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.sp),
                   // درجة الثقة
                   Card(
                     elevation: 3,
@@ -128,24 +131,25 @@ class SymptomResultScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Row(
+                          Row(
                             children: [
                               Icon(Icons.score, color: AppColors.primary),
-                              SizedBox(width: 8),
+                              SizedBox(width: 8.w),
                               Text(
                                 'درجة الثقة:',
                                 style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 10),
+                          SizedBox(height: 10.h),
                           Text('${result.confidenceScore ?? 0}%'),
                         ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   // الرسالة
                   Card(
                     elevation: 3,
@@ -154,44 +158,45 @@ class SymptomResultScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Row(
+                          Row(
                             children: [
                               Icon(Icons.message, color: AppColors.primary),
-                              SizedBox(width: 8),
+                              SizedBox(width: 8.w),
                               Text(
                                 'رسالة:',
                                 style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 10),
+                          SizedBox(height: 10.h),
                           Text(result.message ?? 'لا توجد رسالة'),
                         ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.sp),
                   // الأدوية المقترحة
-                  const Row(
+                  Row(
                     children: [
                       Icon(Icons.medical_services, color: AppColors.primary),
-                      SizedBox(width: 8),
+                      SizedBox(width: 8.w),
                       Text(
                         'الأدوية المقترحة:',
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                            fontSize: 20.sp, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   if (result.suggestedMedications.isNotEmpty)
                     ...result.suggestedMedications.asMap().entries.map((entry) {
                       final index = entry.key;
                       final med = entry.value;
                       return Card(
                         elevation: 2,
-                        margin: const EdgeInsets.symmetric(vertical: 5),
+                        margin: EdgeInsets.symmetric(vertical: 5.h),
                         child: InkWell(
                           onTap: () {
                             Navigator.push(
@@ -210,11 +215,11 @@ class SymptomResultScreen extends StatelessWidget {
                               children: [
                                 Text(
                                   'الدواء ${index + 1}: ${med.name ?? 'غير محدد'}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 16),
+                                      fontSize: 16.sp),
                                 ),
-                                const SizedBox(height: 5),
+                                SizedBox(height: 5.h),
                                 Text('الجرعة: ${med.dosage ?? 'غير محدد'}'),
                                 Text(
                                     'ملاحظات: ${med.notes ?? 'لا توجد ملاحظات'}'),
@@ -226,7 +231,7 @@ class SymptomResultScreen extends StatelessWidget {
                     })
                   else
                     const Text('لا توجد أدوية مقترحة'),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   // التحذير
                   Card(
                     elevation: 3,
@@ -235,18 +240,19 @@ class SymptomResultScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Row(
+                          Row(
                             children: [
                               Icon(Icons.warning, color: Colors.redAccent),
-                              SizedBox(width: 8),
+                              SizedBox(width: 8.w),
                               Text(
                                 'تحذير:',
                                 style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 10),
+                          SizedBox(height: 10.h),
                           Text(
                             result.medicationWarning ?? 'لا يوجد تحذير',
                             style: const TextStyle(color: Colors.redAccent),

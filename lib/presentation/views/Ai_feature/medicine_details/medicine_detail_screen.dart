@@ -46,70 +46,66 @@ class MedicineDetailScreen extends StatelessWidget {
                   children: [
                     Text(
                       medicine.medicineName ?? 'غير محدد',
-                      style: const TextStyle(
-                          fontSize: 24, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 24.sp, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     Text(
                       'الاسم العربي: ${medicine.medicineNameArabic ?? 'غير محدد'}',
-                      style: const TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18.sp),
                     ),
-                    const SizedBox(height: 20),
-                    const Text(
+                    SizedBox(height: 20.h),
+                    Text(
                       'الاستطبابات:',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
                     ...medicine.indications?.map((ind) => Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 4.0),
+                              padding: EdgeInsets.symmetric(vertical: 4.0.h),
                               child: Text('• $ind'),
                             )) ??
                         [const Text('لا توجد استطبابات')],
-                    const SizedBox(height: 20),
-                    const Text(
+                    SizedBox(height: 20.h),
+                    Text(
                       'تعليمات الجرعة:',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
                     Text(medicine.dosageInstructions ?? 'غير محدد'),
-                    const SizedBox(height: 20),
-                    const Text(
+                    SizedBox(height: 20.h),
+                    Text(
                       'الآثار الجانبية:',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
                     ...medicine.sideEffects?.map((effect) => Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 4.0),
+                              padding: EdgeInsets.symmetric(vertical: 4.0.h),
                               child: Text('• $effect'),
                             )) ??
                         [const Text('لا توجد آثار جانبية')],
-                    const SizedBox(height: 20),
-                    const Text(
+                    SizedBox(height: 20.h),
+                    Text(
                       'الاحتياطات:',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
                     ...medicine.precautions?.map((precaution) => Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 4.0),
+                              padding: EdgeInsets.symmetric(vertical: 4.0.h),
                               child: Text('• $precaution'),
                             )) ??
                         [const Text('لا توجد احتياطات')],
-                    const SizedBox(height: 20),
-                    const Text(
+                    SizedBox(height: 20.h),
+                    Text(
                       'معلومات إضافية:',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
                     ...medicine.additionalInformation?.map((info) => Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 4.0),
+                              padding: EdgeInsets.symmetric(vertical: 4.0.h),
                               child: Text('• $info'),
                             )) ??
                         [const Text('لا توجد معلومات إضافية')],
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20.h),
                     Text(
                       medicine.disclaimer ?? 'لا توجد إخلاء مسؤولية',
                       style: const TextStyle(fontStyle: FontStyle.italic),

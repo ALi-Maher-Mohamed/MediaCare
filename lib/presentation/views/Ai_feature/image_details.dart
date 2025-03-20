@@ -11,11 +11,11 @@ import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/w
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/symptom_result_screen.dart';
 
-class ImageDetailScreen extends StatelessWidget {
+class ImageDetailView extends StatelessWidget {
   final String imagePath;
   final String type;
 
-  const ImageDetailScreen({required this.imagePath, required this.type});
+  const ImageDetailView({required this.imagePath, required this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,8 @@ class ImageDetailScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         iconTheme: const IconThemeData(color: AppColors.primary),
-        title: Text('تفاصيل الصورة - $type',
+        centerTitle: true,
+        title: Text('تفاصيل الصورة ',
             style: TextStyle(
                 color: AppColors.primary,
                 fontSize: 24.sp,
@@ -36,13 +37,7 @@ class ImageDetailScreen extends StatelessWidget {
             child: Center(
               child: Image.file(
                 File(imagePath),
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Image.asset(
-                    'assets/images/placeholder_image.jpg',
-                    fit: BoxFit.cover,
-                  );
-                },
+                fit: BoxFit.fill,
               ),
             ),
           ),
@@ -93,12 +88,12 @@ class ImageDetailScreen extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primary,
-                padding: const EdgeInsets.symmetric(
-                    vertical: 16.0, horizontal: 32.0),
+                padding:
+                    EdgeInsets.symmetric(vertical: 16.0.h, horizontal: 32.0.w),
               ),
-              child: const Text(
+              child: Text(
                 'تحليل الصورة',
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: TextStyle(fontSize: 18.sp, color: Colors.white),
               ),
             ),
           ),

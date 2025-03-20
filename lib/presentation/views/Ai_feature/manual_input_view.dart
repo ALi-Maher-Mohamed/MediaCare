@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,12 +7,12 @@ import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/manage
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_state.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/symptom_result_screen.dart';
 
-class ManualInputScreen extends StatefulWidget {
+class ManualInputView extends StatefulWidget {
   @override
-  _ManualInputScreenState createState() => _ManualInputScreenState();
+  _ManualInputViewState createState() => _ManualInputViewState();
 }
 
-class _ManualInputScreenState extends State<ManualInputScreen> {
+class _ManualInputViewState extends State<ManualInputView> {
   final TextEditingController _controller = TextEditingController();
   bool _isSymptom = true;
 
@@ -42,11 +41,11 @@ class _ManualInputScreenState extends State<ManualInputScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'اكتب هنا:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
             TextField(
               controller: _controller,
               decoration: const InputDecoration(
@@ -55,7 +54,7 @@ class _ManualInputScreenState extends State<ManualInputScreen> {
               ),
               maxLines: 3,
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -68,7 +67,7 @@ class _ManualInputScreenState extends State<ManualInputScreen> {
                     });
                   },
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: 10.w),
                 ChoiceChip(
                   label: const Text('تفاصيل الدواء'),
                   selected: !_isSymptom,
@@ -80,13 +79,19 @@ class _ManualInputScreenState extends State<ManualInputScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             Center(
               child: BlocConsumer<SymptomAnalysisCubit, SymptomAnalysisState>(
                 listener: (context, state) {
                   if (state is SymptomAnalysisLoading) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('جاري التحليل...')),
+                      const SnackBar(
+                        content: Text(
+                          'جاري التحليل...',
+                          style: TextStyle(color: AppColors.primary),
+                        ),
+                        backgroundColor: Colors.white,
+                      ),
                     );
                   } else if (state is SymptomAnalysisSuccess) {
                     Navigator.push(
@@ -131,12 +136,12 @@ class _ManualInputScreenState extends State<ManualInputScreen> {
                           },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 32.0),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 16.0.h, horizontal: 32.0.w),
                     ),
-                    child: const Text(
+                    child: Text(
                       'بحث',
-                      style: TextStyle(fontSize: 18, color: Colors.white),
+                      style: TextStyle(fontSize: 18.sp, color: Colors.white),
                     ),
                   );
                 },

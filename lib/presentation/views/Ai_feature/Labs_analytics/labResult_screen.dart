@@ -15,8 +15,9 @@ class LabAnalysisResultScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        centerTitle: true,
         iconTheme: const IconThemeData(color: AppColors.primary),
-        title: Text('نتيجة تحليل $type',
+        title: Text('نتيجة التحليل ',
             style: TextStyle(
                 color: AppColors.primary,
                 fontSize: 24.sp,
@@ -38,24 +39,112 @@ class LabAnalysisResultScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (type == 'lab') ...[
-                    const SizedBox(height: 20),
-                    const Row(
+                    SizedBox(height: 20.h),
+                    Row(
                       children: [
                         Icon(Icons.science, color: AppColors.primary),
-                        SizedBox(width: 8),
+                        SizedBox(width: 8.w),
                         Text(
                           'نتائج الاختبارات:',
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: 20.sp, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    Card(
+                      surfaceTintColor: AppColors.primary2,
+                      elevation: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(Icons.lightbulb, color: AppColors.primary),
+                                SizedBox(width: 8.w),
+                                Text(
+                                  'التفسير:',
+                                  style: TextStyle(
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 10.h),
+                            Text(result.interpretation ?? 'لا توجد تفسير'),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20.h),
+                    Card(
+                      surfaceTintColor: AppColors.primary2,
+                      elevation: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(Icons.recommend, color: AppColors.primary),
+                                SizedBox(width: 8.w),
+                                Text(
+                                  'التوصيات:',
+                                  style: TextStyle(
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 10.h),
+                            ...?result.recommendations?.map((rec) => Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 4.0.h),
+                                      child: Text(rec),
+                                    )) ??
+                                [const Text('لا توجد توصيات')],
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20.h),
+                    Card(
+                      elevation: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(Icons.warning, color: Colors.redAccent),
+                                SizedBox(width: 8.w),
+                                Text(
+                                  'تحذير:',
+                                  style: TextStyle(
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 10.h),
+                            Text(
+                              result.warning ?? 'لا يوجد تحذير',
+                              style: const TextStyle(color: Colors.redAccent),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10.h),
                     ...result.testResults.asMap().entries.map((entry) {
                       final index = entry.key;
                       final test = entry.value;
                       return Card(
-                        elevation: 2,
+                        surfaceTintColor: AppColors.primary2,
+                        elevation: 4,
                         margin: const EdgeInsets.symmetric(vertical: 5),
                         child: Padding(
                           padding: const EdgeInsets.all(12.0),
@@ -64,13 +153,24 @@ class LabAnalysisResultScreen extends StatelessWidget {
                             children: [
                               Text(
                                 'اختبار ${index + 1}: ${test.name}',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14.sp),
                               ),
-                              const SizedBox(height: 5),
-                              Text('القيمة: ${test.value}'),
+                              SizedBox(height: 5.h),
+                              Text('القيمة: ${test.value}',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18.sp,
+                                  )),
                               Text('الوحدة: ${test.unit}'),
-                              Text('الحالة: ${test.status}'),
+                              Text('الحالة: ${test.status}',
+                                  style: TextStyle(
+                                    color: (test.status?.toLowerCase() ==
+                                            'غير طبيعي')
+                                        ? Colors.redAccent
+                                        : Colors.green,
+                                  )),
                               Text(
                                 'ملاحظات: ${test.notes}',
                                 style: TextStyle(
@@ -85,92 +185,7 @@ class LabAnalysisResultScreen extends StatelessWidget {
                         ),
                       );
                     }),
-                    const SizedBox(height: 20),
-                    Card(
-                      elevation: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Row(
-                              children: [
-                                Icon(Icons.lightbulb, color: AppColors.primary),
-                                SizedBox(width: 8),
-                                Text(
-                                  'التفسير:',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Text(result.interpretation ?? 'لا توجد تفسير'),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Card(
-                      elevation: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Row(
-                              children: [
-                                Icon(Icons.recommend, color: AppColors.primary),
-                                SizedBox(width: 8),
-                                Text(
-                                  'التوصيات:',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            ...?result.recommendations?.map((rec) => Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 4.0),
-                                      child: Text(rec ?? 'لا توجد توصيات'),
-                                    )) ??
-                                [const Text('لا توجد توصيات')],
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Card(
-                      elevation: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Row(
-                              children: [
-                                Icon(Icons.warning, color: Colors.redAccent),
-                                SizedBox(width: 8),
-                                Text(
-                                  'تحذير:',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              result.warning ?? 'لا يوجد تحذير',
-                              style: const TextStyle(color: Colors.redAccent),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    SizedBox(height: 20.h),
                   ],
                 ],
               ),

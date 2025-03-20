@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:media_care/presentation/views/AI_Feature/view.dart';
+import 'package:media_care/presentation/views/AI_Feature/robot_view.dart';
 
 import '../../../../core/utils/app_color.dart';
 
@@ -43,7 +43,7 @@ class HomeViewHeaderCard extends StatelessWidget {
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
-                        return AnalysisScreen();
+                        return RobotView();
                       },
                     ));
                   },

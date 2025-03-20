@@ -47,19 +47,19 @@ class PrescriptionResultScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Row(
+                            Row(
                               children: [
                                 Icon(Icons.info, color: AppColors.primary),
-                                SizedBox(width: 8),
+                                SizedBox(width: 8.w),
                                 Text(
                                   'تفاصيل الروشتة:',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 20.sp,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 10),
+                            SizedBox(height: 10.h),
                             Text(
                                 'اسم الطبيب: ${result.prescriptionDetails.doctorName}'),
                             Text(
@@ -72,19 +72,19 @@ class PrescriptionResultScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    const Row(
+                    SizedBox(height: 20.h),
+                    Row(
                       children: [
                         Icon(Icons.medical_services, color: AppColors.primary),
-                        SizedBox(width: 8),
+                        SizedBox(width: 8.w),
                         Text(
                           'الأدوية:',
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: 20.sp, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     ...result.medications.asMap().entries.map((entry) {
                       final index = entry.key;
                       final med = entry.value;
@@ -99,9 +99,9 @@ class PrescriptionResultScreen extends StatelessWidget {
                         ),
                         child: Card(
                           elevation: 2,
-                          margin: const EdgeInsets.symmetric(vertical: 5),
+                          margin: EdgeInsets.symmetric(vertical: 5.h),
                           child: Padding(
-                            padding: const EdgeInsets.all(12.0),
+                            padding: EdgeInsets.all(12.0.w),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -128,9 +128,9 @@ class PrescriptionResultScreen extends StatelessWidget {
                                       },
                                       child: Text(
                                         med.name ?? 'Unknown',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 16,
+                                          fontSize: 16.sp,
                                           color: Colors.blue,
                                           decoration: TextDecoration.underline,
                                         ),
@@ -138,7 +138,7 @@ class PrescriptionResultScreen extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                const SizedBox(height: 5),
+                                SizedBox(height: 5.h),
                                 Text('الجرعة: ${med.dosage}'),
                                 Text('التكرار: ${med.frequency}'),
                                 Text('المدة: ${med.duration}'),
@@ -154,7 +154,7 @@ class PrescriptionResultScreen extends StatelessWidget {
                         ),
                       );
                     }),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20.h),
                     Card(
                       elevation: 3,
                       child: Padding(
@@ -162,33 +162,33 @@ class PrescriptionResultScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Row(
+                            Row(
                               children: [
                                 Icon(Icons.lightbulb, color: AppColors.primary),
-                                SizedBox(width: 8),
+                                SizedBox(width: 8.h),
                                 Text(
                                   'النصائح العامة:',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 20.sp,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 10),
+                            SizedBox(height: 10.h),
                             ...result.generalAdvice.entries
                                 .map((entry) => Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 4.0),
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 4.0.h),
                                       child: Text(
                                         '${entry.key}: ${entry.value}',
-                                        style: const TextStyle(fontSize: 14),
+                                        style: TextStyle(fontSize: 14.sp),
                                       ),
                                     )),
                           ],
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20.sp),
                     Card(
                       elevation: 3,
                       child: Padding(
@@ -196,25 +196,28 @@ class PrescriptionResultScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Row(
+                            Row(
                               children: [
                                 Icon(Icons.message, color: AppColors.primary),
-                                SizedBox(width: 8),
+                                SizedBox(width: 8.w),
                                 Text(
                                   'رسالة:',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 20.sp,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 10),
-                            Text(result.message ?? ''),
+                            SizedBox(height: 10.h),
+                            Text(
+                              result.message ?? 'لا يوجد رسالة',
+                              style: TextStyle(fontSize: 14.sp),
+                            ),
                           ],
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     Card(
                       elevation: 3,
                       child: Padding(
@@ -222,19 +225,19 @@ class PrescriptionResultScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Row(
+                            Row(
                               children: [
                                 Icon(Icons.warning, color: Colors.redAccent),
-                                SizedBox(width: 8),
+                                SizedBox(width: 8.w),
                                 Text(
                                   'تحذير:',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 20.sp,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 10),
+                            SizedBox(height: 10.h),
                             Text(
                               result.warning ?? "",
                               style: const TextStyle(color: Colors.redAccent),
@@ -244,14 +247,14 @@ class PrescriptionResultScreen extends StatelessWidget {
                       ),
                     ),
                   ] else if (type == 'lab') ...[
-                    const Text('نتائج المختبرات:',
+                    Text('نتائج المختبرات:',
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
+                            fontSize: 20.sp, fontWeight: FontWeight.bold)),
                     const Text('هذه ميزة تحت الإنشاء - سيعرض التحليل قريبًا!'),
                   ] else if (type == 'child') ...[
-                    const Text('تحليل حالة الطفل:',
+                    Text('تحليل حالة الطفل:',
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
+                            fontSize: 20.sp, fontWeight: FontWeight.bold)),
                     const Text('هذه ميزة تحت الإنشاء - سيعرض التحليل قريبًا!'),
                   ],
                 ],
