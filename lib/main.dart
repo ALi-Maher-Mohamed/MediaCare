@@ -10,15 +10,12 @@ import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/m
 import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/repo/Prescription_repo_impl.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/repos/symptom_analysis_repo_impl.dart';
-import 'package:media_care/presentation/views/Laboratories/data/repo/laporatory_repo_impl.dart';
 import 'observer.dart';
 import 'zoom_drawer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final service = LaboratoryRepoImpl(Dio());
-  final result = await service.getLaboratories(page: 1);
-  print('Test API call: ${result.fold((l) => l, (r) => r)}');
+
   String? token = await SharedPreference().getToken();
   Bloc.observer = MyBlocObserver();
 

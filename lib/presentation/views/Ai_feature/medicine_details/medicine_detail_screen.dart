@@ -3,9 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/core/utils/app_color.dart';
+import 'package:media_care/presentation/views/AI_Feature/cubit/ai_state.dart';
 import 'package:media_care/presentation/views/AI_Feature/medicine_details/manager/cubit/medicine_detail_cubit.dart';
-import 'package:media_care/presentation/views/AI_Feature/medicine_details/manager/cubit/medicine_detail_state.dart';
 import 'package:media_care/presentation/views/AI_Feature/medicine_details/repos/medicine_detail_repo_impl.dart';
+import 'package:media_care/presentation/views/AI_Feature/medicine_details/widgets/medicine_name_section.dart';
+import 'package:media_care/presentation/views/AI_Feature/medicine_details/widgets/medicine_indications_section.dart';
+import 'package:media_care/presentation/views/AI_Feature/medicine_details/widgets/medicine_dosage_section.dart';
+import 'package:media_care/presentation/views/AI_Feature/medicine_details/widgets/medicine_side_effects_section.dart';
+import 'package:media_care/presentation/views/AI_Feature/medicine_details/widgets/medicine_precautions_section.dart';
+import 'package:media_care/presentation/views/AI_Feature/medicine_details/widgets/medicine_additional_info_section.dart';
+import 'package:media_care/presentation/views/AI_Feature/medicine_details/widgets/medicine_disclaimer_section.dart';
 
 class MedicineDetailScreen extends StatelessWidget {
   final String medicineName;
@@ -26,90 +33,49 @@ class MedicineDetailScreen extends StatelessWidget {
           title: Text(
             'تفاصيل الدواء',
             style: TextStyle(
-                color: AppColors.primary,
-                fontSize: 24.sp,
-                fontWeight: FontWeight.bold),
+              color: AppColors.primary,
+              fontSize: 24.sp,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-        body: BlocBuilder<MedicineDetailCubit, MedicineDetailState>(
+        body: BlocBuilder<MedicineDetailCubit, AiState>(
           builder: (context, state) {
-            if (state is MedicineDetailLoading) {
+            if (state is AiLoading && state.type == AnalysisType.medicine) {
               return const Center(child: CircularProgressIndicator());
-            } else if (state is MedicineDetailFailure) {
+            } else if (state is AiFailure &&
+                state.type == AnalysisType.medicine) {
               return Center(child: Text(state.errorMessage));
-            } else if (state is MedicineDetailSuccess) {
-              final medicine = state.medicineDetail;
+            } else if (state is AiSuccess &&
+                state.type == AnalysisType.medicine) {
+              final medicine = state.result;
               return SingleChildScrollView(
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      medicine.medicineName ?? 'غير محدد',
-                      style: TextStyle(
-                          fontSize: 24.sp, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 10.h),
-                    Text(
-                      'الاسم العربي: ${medicine.medicineNameArabic ?? 'غير محدد'}',
-                      style: TextStyle(fontSize: 18.sp),
+                    MedicineNameSection(
+                      medicineName: medicine.medicineName ?? 'غير محدد',
+                      medicineNameArabic: medicine.medicineNameArabic,
                     ),
                     SizedBox(height: 20.h),
-                    Text(
-                      'الاستطبابات:',
-                      style: TextStyle(
-                          fontSize: 20.sp, fontWeight: FontWeight.bold),
-                    ),
-                    ...medicine.indications?.map((ind) => Padding(
-                              padding: EdgeInsets.symmetric(vertical: 4.0.h),
-                              child: Text('• $ind'),
-                            )) ??
-                        [const Text('لا توجد استطبابات')],
+                    MedicineIndicationsSection(
+                        indications: medicine.indications),
                     SizedBox(height: 20.h),
-                    Text(
-                      'تعليمات الجرعة:',
-                      style: TextStyle(
-                          fontSize: 20.sp, fontWeight: FontWeight.bold),
-                    ),
-                    Text(medicine.dosageInstructions ?? 'غير محدد'),
+                    MedicineDosageSection(
+                        dosageInstructions: medicine.dosageInstructions),
                     SizedBox(height: 20.h),
-                    Text(
-                      'الآثار الجانبية:',
-                      style: TextStyle(
-                          fontSize: 20.sp, fontWeight: FontWeight.bold),
-                    ),
-                    ...medicine.sideEffects?.map((effect) => Padding(
-                              padding: EdgeInsets.symmetric(vertical: 4.0.h),
-                              child: Text('• $effect'),
-                            )) ??
-                        [const Text('لا توجد آثار جانبية')],
+                    MedicineSideEffectsSection(
+                        sideEffects: medicine.sideEffects),
                     SizedBox(height: 20.h),
-                    Text(
-                      'الاحتياطات:',
-                      style: TextStyle(
-                          fontSize: 20.sp, fontWeight: FontWeight.bold),
-                    ),
-                    ...medicine.precautions?.map((precaution) => Padding(
-                              padding: EdgeInsets.symmetric(vertical: 4.0.h),
-                              child: Text('• $precaution'),
-                            )) ??
-                        [const Text('لا توجد احتياطات')],
+                    MedicinePrecautionsSection(
+                        precautions: medicine.precautions),
                     SizedBox(height: 20.h),
-                    Text(
-                      'معلومات إضافية:',
-                      style: TextStyle(
-                          fontSize: 20.sp, fontWeight: FontWeight.bold),
-                    ),
-                    ...medicine.additionalInformation?.map((info) => Padding(
-                              padding: EdgeInsets.symmetric(vertical: 4.0.h),
-                              child: Text('• $info'),
-                            )) ??
-                        [const Text('لا توجد معلومات إضافية')],
+                    MedicineAdditionalInfoSection(
+                        additionalInformation: medicine.additionalInformation),
                     SizedBox(height: 20.h),
-                    Text(
-                      medicine.disclaimer ?? 'لا توجد إخلاء مسؤولية',
-                      style: const TextStyle(fontStyle: FontStyle.italic),
-                    ),
+                    MedicineDisclaimerSection(disclaimer: medicine.disclaimer),
+                    SizedBox(height: 20.h),
                   ],
                 ),
               );
