@@ -13,7 +13,6 @@ class ImageDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: const ImageDetailAppBar(),
       body: Column(
         children: [

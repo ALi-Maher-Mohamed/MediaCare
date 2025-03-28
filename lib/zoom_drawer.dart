@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-
-import 'core/utils/app_color.dart';
 import 'presentation/views/home/Custom_drawer_widgets/custom_drawer.dart';
 import 'presentation/views/home/home_view.dart';
 
@@ -16,7 +14,8 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return ZoomDrawer(
-      menuBackgroundColor: AppColors.primaryLight,
+      menuBackgroundColor:
+          Theme.of(context).colorScheme.secondaryContainer, // استخدام الـ Theme
       style: DrawerStyle.defaultStyle,
       menuScreen: MenuView(),
       mainScreen: MainScreen(),
