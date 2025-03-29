@@ -14,31 +14,40 @@ import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/w
 class PrescriptionResultScreen extends StatelessWidget {
   final String type;
 
-  const PrescriptionResultScreen({required this.type});
+  const PrescriptionResultScreen({required this.type, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor:
+          Theme.of(context).scaffoldBackgroundColor, // توافق مع الثيم
       appBar: AppBar(
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        elevation: Theme.of(context).appBarTheme.elevation,
         centerTitle: true,
-        forceMaterialTransparency: true,
         title: Text(
-          'نتيجة تحليل $type',
-          style: TextStyle(
-            color: AppColors.primary,
-            fontSize: 24.sp,
-            fontWeight: FontWeight.bold,
-          ),
+          'نتيجة تحليل الروشتة',
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontSize: 24.sp,
+              ), // نمط النص من الثيم
         ),
       ),
       body: BlocBuilder<PrescriptionCubit, AiState>(
         builder: (context, state) {
           if (state is AiLoading && state.type == AnalysisType.prescription) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.primary, // لون من الثيم
+              ),
+            );
           } else if (state is AiFailure &&
               state.type == AnalysisType.prescription) {
-            return Center(child: Text(state.errorMessage));
+            return Center(
+              child: Text(
+                state.errorMessage,
+                style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+              ),
+            );
           } else if (state is AiSuccess &&
               state.type == AnalysisType.prescription) {
             final result = state.result;
@@ -47,45 +56,41 @@ class PrescriptionResultScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (type == 'prescription') ...[
-                    PrescriptionDetailsCard(
-                        prescriptionDetails: result.prescriptionDetails),
-                    SizedBox(height: 20.h),
-                    const PrescriptionMedicationsHeader(),
-                    SizedBox(height: 10.h),
+                  PrescriptionDetailsCard(
+                      prescriptionDetails: result.prescriptionDetails),
+                  SizedBox(height: 20.h),
+                  const PrescriptionMedicationsHeader(),
+                  SizedBox(height: 10.h),
+                  if (result.medications.isNotEmpty)
                     ...result.medications.asMap().entries.map((entry) {
                       final index = entry.key;
                       final med = entry.value;
                       return PrescriptionMedicationCard(
                           index: index, medication: med);
-                    }),
-                    SizedBox(height: 20.h),
-                    PrescriptionGeneralAdviceCard(
-                        generalAdvice: result.generalAdvice),
-                    SizedBox(height: 20.sp),
-                    PrescriptionMessageCard(message: result.message),
-                    SizedBox(height: 10.h),
-                    PrescriptionWarningCard(warning: result.warning),
-                  ] else if (type == 'lab') ...[
+                    })
+                  else
                     Text(
-                      'نتائج المختبرات:',
-                      style: TextStyle(
-                          fontSize: 20.sp, fontWeight: FontWeight.bold),
+                      'لا توجد أدوية محددة',
+                      style:
+                          Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
                     ),
-                    const Text('هذه ميزة تحت الإنشاء - سيعرض التحليل قريبًا!'),
-                  ] else if (type == 'child') ...[
-                    Text(
-                      'تحليل حالة الطفل:',
-                      style: TextStyle(
-                          fontSize: 20.sp, fontWeight: FontWeight.bold),
-                    ),
-                    const Text('هذه ميزة تحت الإنشاء - سيعرض التحليل قريبًا!'),
-                  ],
+                  SizedBox(height: 20.h),
+                  PrescriptionGeneralAdviceCard(
+                      generalAdvice: result.generalAdvice),
+                  SizedBox(height: 20.h),
+                  PrescriptionMessageCard(message: result.message),
+                  SizedBox(height: 20.h),
+                  PrescriptionWarningCard(warning: result.warning),
                 ],
               ),
             );
           }
-          return const Center(child: Text('يرجى رفع صورة لتحليلها'));
+          return Center(
+            child: Text(
+              'يرجى رفع صورة لتحليلها',
+              style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+            ),
+          );
         },
       ),
     );
