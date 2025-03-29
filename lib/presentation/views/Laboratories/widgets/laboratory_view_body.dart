@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
 import 'package:media_care/presentation/views/Laboratories/data/repo/laporatory_repo_impl.dart';
 import 'package:media_care/presentation/views/Laboratories/manager/cubit/labs_cubit.dart';
 import 'package:media_care/presentation/views/Laboratories/manager/cubit/labs_state.dart';
@@ -19,7 +18,11 @@ class LaboratoryViewBody extends StatelessWidget {
       child: BlocBuilder<LaboratoryCubit, LaboratoryState>(
         builder: (context, state) {
           if (state is LaboratoryLoadingState) {
-            return CustomProgressIndicator();
+            return Shimmer.fromColors(
+              baseColor: Theme.of(context).colorScheme.primary,
+              highlightColor: Theme.of(context).colorScheme.surface,
+              child: const CustomShimmerListView(),
+            );
           } else if (state is LaboratoryErrorState) {
             return Center(child: Text(state.errorMessage));
           } else if (state is LaboratorySuccessState) {

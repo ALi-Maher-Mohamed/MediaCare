@@ -1,14 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/presentation/views/AI_Feature/robot_view.dart';
-import 'package:media_care/presentation/views/Ai_feature/Labs_analytics/managers/cubit/labs_analytics_cubit.dart';
-import 'package:media_care/presentation/views/Ai_feature/Labs_analytics/repo/Labs_analytics_repo_impl.dart';
-import 'package:media_care/presentation/views/Ai_feature/prescription_analysis/manager/cubit/prescription_cubit.dart';
-import 'package:media_care/presentation/views/Ai_feature/prescription_analysis/repo/Prescription_repo_impl.dart';
-import 'package:media_care/presentation/views/Ai_feature/symptom_analysis/managers/cubit/symptom_cubit.dart';
-import 'package:media_care/presentation/views/Ai_feature/symptom_analysis/repos/symptom_analysis_repo_impl.dart';
 
 class HomeViewHeaderCard extends StatelessWidget {
   const HomeViewHeaderCard({

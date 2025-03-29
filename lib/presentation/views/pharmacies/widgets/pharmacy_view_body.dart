@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
+import 'package:media_care/core/utils/widgets/custom_shimmer_list_view.dart';
 import 'package:media_care/presentation/views/pharmacies/widgets/pharmacy_list_view.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../manager/cubit/pharmacy_cubit.dart';
 
@@ -25,7 +27,11 @@ class pharmacyViewBody extends StatelessWidget {
       body: BlocBuilder<PharmacyCubit, PharmacyState>(
         builder: (context, state) {
           if (state is PharmacyLoadingState) {
-            return const CustomProgressIndicator();
+            return Shimmer.fromColors(
+              baseColor: Theme.of(context).colorScheme.primary,
+              highlightColor: Theme.of(context).colorScheme.surface,
+              child: const CustomShimmerListView(),
+            );
           } else if (state is PharmacySuccessState) {
             return CustomPharmacyListView(
                 pharmacies: state.pharmacies,
@@ -33,7 +39,11 @@ class pharmacyViewBody extends StatelessWidget {
           } else if (state is PharmacyErrorState) {
             return ErrorText(message: state.message);
           }
-          return const CustomProgressIndicator();
+          return Shimmer.fromColors(
+            baseColor: Theme.of(context).colorScheme.primary,
+            highlightColor: Theme.of(context).colorScheme.surface,
+            child: const CustomShimmerListView(),
+          );
         },
       ),
     );
