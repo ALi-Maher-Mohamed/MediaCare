@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:media_care/core/utils/app_color.dart';
 
 class RobotCard extends StatelessWidget {
   final String title;
@@ -13,29 +12,32 @@ class RobotCard extends StatelessWidget {
     required this.description,
     required this.image,
     required this.onTap,
+    super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      surfaceTintColor: AppColors.primary,
+      color: Theme.of(context).colorScheme.surface, // خلفية الكارد من الثيم
+      surfaceTintColor: Theme.of(context).colorScheme.primary, // لون التمييز
       child: InkWell(
         onTap: onTap,
         child: Column(
-          mainAxisSize: MainAxisSize.min, // تحديد الحجم الأدنى لـ Column
+          mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              height: 150.h, // ارتفاع ثابت للصورة (قابل للتعديل حسب التصميم)
-              width: double.infinity, // لضمان امتداد الصورة أفقيًا
+              height: 150.h,
+              width: double.infinity,
               child: Image.asset(
                 image,
-                fit: BoxFit.cover, // ضبط الصورة لتناسب الحاوية
+                fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return Icon(
                     Icons.image,
                     size: 50.sp,
-                    color: AppColors.primary,
+                    color:
+                        Theme.of(context).colorScheme.primary, // لون من الثيم
                   );
                 },
               ),
@@ -43,10 +45,9 @@ class RobotCard extends StatelessWidget {
             SizedBox(height: 10.h),
             Text(
               title,
-              style: TextStyle(
-                fontSize: 20.sp,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontSize: 20.sp,
+                  ), // نمط النص من الثيم مع تعديل الحجم
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 10.h),
@@ -55,7 +56,9 @@ class RobotCard extends StatelessWidget {
               child: Text(
                 description,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16.sp),
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontSize: 16.sp,
+                    ), // نمط النص من الثيم مع تعديل الحجم
               ),
             ),
           ],

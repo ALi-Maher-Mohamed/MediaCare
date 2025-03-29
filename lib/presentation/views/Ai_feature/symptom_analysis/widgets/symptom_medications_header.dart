@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:media_care/core/utils/app_color.dart';
 
 class SymptomMedicationsHeader extends StatelessWidget {
   const SymptomMedicationsHeader({super.key});
@@ -9,11 +8,14 @@ class SymptomMedicationsHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(Icons.medical_services, color: AppColors.primary),
+        Icon(Icons.medical_services,
+            color: Theme.of(context).colorScheme.primary), // لون من الثيم
         SizedBox(width: 8.w),
         Text(
           'الأدوية المقترحة:',
-          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontSize: 20.sp,
+              ), // نمط من الثيم
         ),
       ],
     );

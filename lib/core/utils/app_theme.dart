@@ -35,7 +35,7 @@ class AppTheme {
           fontWeight: FontWeight.bold,
         ),
         bodyLarge: TextStyle(
-          color: AppColors.textLight, // أزرق بدلاً من الأسود
+          color: AppColors.primary, // أزرق بدلاً من الأسود
           fontSize: 16,
         ),
       ),

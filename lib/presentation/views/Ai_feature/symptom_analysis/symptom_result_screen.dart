@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/AI_Feature/cubit/ai_state.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/widgets/symptom_diagnosis_card.dart';
@@ -16,30 +15,39 @@ import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/widget
 class SymptomResultScreen extends StatelessWidget {
   final String type;
 
-  const SymptomResultScreen({required this.type});
+  const SymptomResultScreen({required this.type, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor:
+          Theme.of(context).scaffoldBackgroundColor, // توافق مع الثيم
       appBar: AppBar(
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        elevation: Theme.of(context).appBarTheme.elevation,
         centerTitle: true,
-        forceMaterialTransparency: true,
         title: Text(
           'نتيجة تحليل الأعراض',
-          style: TextStyle(
-            color: AppColors.primary,
-            fontSize: 24.sp,
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontSize: 24.sp,
+              ), // نمط النص من الثيم
         ),
       ),
       body: BlocBuilder<SymptomAnalysisCubit, AiState>(
         builder: (context, state) {
           if (state is AiLoading && state.type == AnalysisType.symptom) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.primary, // لون من الثيم
+              ),
+            );
           } else if (state is AiFailure && state.type == AnalysisType.symptom) {
-            return Center(child: Text(state.errorMessage));
+            return Center(
+              child: Text(
+                state.errorMessage,
+                style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+              ),
+            );
           } else if (state is AiSuccess && state.type == AnalysisType.symptom) {
             final result = state.result;
             return SingleChildScrollView(
@@ -70,14 +78,23 @@ class SymptomResultScreen extends StatelessWidget {
                           index: index, medication: med);
                     })
                   else
-                    const Text('لا توجد أدوية مقترحة'),
+                    Text(
+                      'لا توجد أدوية مقترحة',
+                      style:
+                          Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+                    ),
                   SizedBox(height: 20.h),
                   SymptomWarningCard(warning: result.medicationWarning),
                 ],
               ),
             );
           }
-          return const Center(child: Text('جاري تحميل النتيجة...'));
+          return Center(
+            child: Text(
+              'جاري تحميل النتيجة...',
+              style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+            ),
+          );
         },
       ),
     );
