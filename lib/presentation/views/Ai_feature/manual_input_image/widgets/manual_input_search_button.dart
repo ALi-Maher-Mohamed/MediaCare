@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/AI_Feature/cubit/ai_state.dart';
 import 'package:media_care/presentation/views/AI_Feature/medicine_details/medicine_detail_screen.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_cubit.dart';
@@ -23,12 +22,16 @@ class ManualInputSearchButton extends StatelessWidget {
       listener: (context, state) {
         if (state is AiLoading && state.type == AnalysisType.symptom) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+            SnackBar(
               content: Text(
                 'جاري التحليل...',
-                style: TextStyle(color: AppColors.primary),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color:
+                          Theme.of(context).colorScheme.primary, // لون من الثيم
+                    ),
               ),
-              backgroundColor: Colors.white,
+              backgroundColor:
+                  Theme.of(context).colorScheme.surface, // خلفية من الثيم
             ),
           );
         } else if (state is AiSuccess && state.type == AnalysisType.symptom) {
@@ -40,7 +43,12 @@ class ManualInputSearchButton extends StatelessWidget {
           );
         } else if (state is AiFailure && state.type == AnalysisType.symptom) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errorMessage)),
+            SnackBar(
+              content: Text(
+                state.errorMessage,
+                style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+              ),
+            ),
           );
         }
       },
@@ -52,7 +60,14 @@ class ManualInputSearchButton extends StatelessWidget {
                   final input = controller.text.trim();
                   if (input.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('يرجى إدخال نص')),
+                      SnackBar(
+                        content: Text(
+                          'يرجى إدخال نص',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge, // نمط من الثيم
+                        ),
+                      ),
                     );
                     return;
                   }
@@ -72,12 +87,18 @@ class ManualInputSearchButton extends StatelessWidget {
                   }
                 },
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primary,
+            backgroundColor:
+                Theme.of(context).colorScheme.primary, // لون من الثيم
             padding: EdgeInsets.symmetric(vertical: 16.0.h, horizontal: 32.0.w),
           ),
           child: Text(
             'بحث',
-            style: TextStyle(fontSize: 18.sp, color: Colors.white),
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  fontSize: 18.sp,
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onPrimary, // لون النص من الثيم
+                ), // نمط من الثيم
           ),
         );
       },
