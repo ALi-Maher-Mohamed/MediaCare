@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/AI_Feature/cubit/ai_state.dart';
 import 'package:media_care/presentation/views/AI_Feature/medicine_details/manager/cubit/medicine_detail_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/medicine_details/repos/medicine_detail_repo_impl.dart';
@@ -17,7 +16,7 @@ import 'package:media_care/presentation/views/AI_Feature/medicine_details/widget
 class MedicineDetailScreen extends StatelessWidget {
   final String medicineName;
 
-  const MedicineDetailScreen({required this.medicineName});
+  const MedicineDetailScreen({required this.medicineName, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,26 +25,35 @@ class MedicineDetailScreen extends StatelessWidget {
           MedicineDetailCubit(MedicineDetailRepositoryImpl(Dio()))
             ..fetchMedicineDetails(medicineName),
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor:
+            Theme.of(context).scaffoldBackgroundColor, // توافق مع الثيم
         appBar: AppBar(
+          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+          elevation: Theme.of(context).appBarTheme.elevation,
           centerTitle: true,
-          forceMaterialTransparency: true,
           title: Text(
             'تفاصيل الدواء',
-            style: TextStyle(
-              color: AppColors.primary,
-              fontSize: 24.sp,
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  fontSize: 24.sp,
+                ), // نمط من الثيم
           ),
         ),
         body: BlocBuilder<MedicineDetailCubit, AiState>(
           builder: (context, state) {
             if (state is AiLoading && state.type == AnalysisType.medicine) {
-              return const Center(child: CircularProgressIndicator());
+              return Center(
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).colorScheme.primary, // لون من الثيم
+                ),
+              );
             } else if (state is AiFailure &&
                 state.type == AnalysisType.medicine) {
-              return Center(child: Text(state.errorMessage));
+              return Center(
+                child: Text(
+                  state.errorMessage,
+                  style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+                ),
+              );
             } else if (state is AiSuccess &&
                 state.type == AnalysisType.medicine) {
               final medicine = state.result;
@@ -75,12 +83,16 @@ class MedicineDetailScreen extends StatelessWidget {
                         additionalInformation: medicine.additionalInformation),
                     SizedBox(height: 20.h),
                     MedicineDisclaimerSection(disclaimer: medicine.disclaimer),
-                    SizedBox(height: 20.h),
                   ],
                 ),
               );
             }
-            return const Center(child: Text('يرجى الانتظار'));
+            return Center(
+              child: Text(
+                'يرجى الانتظار',
+                style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+              ),
+            );
           },
         ),
       ),

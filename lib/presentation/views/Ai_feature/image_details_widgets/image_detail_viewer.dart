@@ -12,7 +12,8 @@ class ImageDetailViewer extends StatelessWidget {
       child: Center(
         child: Image.file(
           File(imagePath),
-          fit: BoxFit.fill,
+          fit:
+              BoxFit.contain, // تغيير من fill إلى contain لعرض الصورة بشكل أفضل
         ),
       ),
     );

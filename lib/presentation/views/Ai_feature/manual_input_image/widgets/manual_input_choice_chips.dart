@@ -17,19 +17,37 @@ class ManualInputChoiceChips extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ChoiceChip(
-          label: const Text('تحليل الأعراض'),
+          label: Text(
+            'تحليل الأعراض',
+            style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+          ),
           selected: isSymptom,
           onSelected: (selected) {
             onSymptomSelected(true);
           },
+          selectedColor: Theme.of(context)
+              .colorScheme
+              .primary
+              .withOpacity(0.2), // لون مختار من الثيم
+          backgroundColor:
+              Theme.of(context).colorScheme.surface, // خلفية من الثيم
         ),
         SizedBox(width: 10.w),
         ChoiceChip(
-          label: const Text('تفاصيل الدواء'),
+          label: Text(
+            'تفاصيل الدواء',
+            style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+          ),
           selected: !isSymptom,
           onSelected: (selected) {
             onSymptomSelected(false);
           },
+          selectedColor: Theme.of(context)
+              .colorScheme
+              .primary
+              .withOpacity(0.2), // لون مختار من الثيم
+          backgroundColor:
+              Theme.of(context).colorScheme.surface, // خلفية من الثيم
         ),
       ],
     );

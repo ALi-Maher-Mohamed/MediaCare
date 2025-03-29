@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:media_care/core/utils/app_color.dart';
 
 class LabRecommendationsCard extends StatelessWidget {
   final List<String>? recommendations;
@@ -10,8 +9,10 @@ class LabRecommendationsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      surfaceTintColor: AppColors.primary,
       elevation: 3,
+      color: Theme.of(context).colorScheme.surface, // خلفية من الثيم
+      surfaceTintColor:
+          Theme.of(context).colorScheme.primary, // لون التمييز من الثيم
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -19,12 +20,15 @@ class LabRecommendationsCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(Icons.recommend, color: AppColors.primary),
+                Icon(Icons.recommend,
+                    color:
+                        Theme.of(context).colorScheme.primary), // لون من الثيم
                 SizedBox(width: 8.w),
                 Text(
                   'التوصيات:',
-                  style:
-                      TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontSize: 20.sp,
+                      ), // نمط من الثيم
                 ),
               ],
             ),
@@ -33,11 +37,18 @@ class LabRecommendationsCard extends StatelessWidget {
               ...recommendations!.map(
                 (rec) => Padding(
                   padding: EdgeInsets.symmetric(vertical: 4.0.h),
-                  child: Text(rec),
+                  child: Text(
+                    rec,
+                    style:
+                        Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+                  ),
                 ),
               )
             else
-              const Text('لا توجد توصيات'),
+              Text(
+                'لا توجد توصيات',
+                style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+              ),
           ],
         ),
       ),

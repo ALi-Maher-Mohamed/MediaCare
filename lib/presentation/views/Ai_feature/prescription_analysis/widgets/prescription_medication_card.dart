@@ -14,61 +14,55 @@ class PrescriptionMedicationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => MedicineDetailScreen(
-            medicineName: medication.name ?? 'Unknown',
-          ),
-        ),
-      ),
-      child: Card(
-        elevation: 2,
-        margin: EdgeInsets.symmetric(vertical: 5.h),
+    return Card(
+      elevation: 2,
+      color: Theme.of(context).colorScheme.surface, // خلفية من الثيم
+      margin: EdgeInsets.symmetric(vertical: 5.h),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MedicineDetailScreen(
+                medicineName: medication.name ?? 'غير محدد',
+              ),
+            ),
+          );
+        },
         child: Padding(
-          padding: EdgeInsets.all(12.0.w),
+          padding: const EdgeInsets.all(12.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Text(
-                    'الدواء ${index + 1}: ',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 16),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MedicineDetailScreen(
-                            medicineName: medication.name ?? 'Unknown',
-                          ),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      medication.name ?? 'Unknown',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.sp,
-                        color: Colors.blue,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
-                ],
+              Text(
+                'الدواء ${index + 1}: ${medication.name ?? 'غير محدد'}',
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontSize: 16.sp,
+                      color:
+                          Theme.of(context).colorScheme.primary, // لون من الثيم
+                    ), // نمط من الثيم
               ),
               SizedBox(height: 5.h),
-              Text('الجرعة: ${medication.dosage ?? 'غير محدد'}'),
-              Text('التكرار: ${medication.frequency ?? 'غير محدد'}'),
-              Text('المدة: ${medication.duration ?? 'غير محدد'}'),
-              Text('الغرض: ${medication.purpose ?? 'غير محدد'}'),
+              Text(
+                'الجرعة: ${medication.dosage ?? 'غير محدد'}',
+                style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+              ),
+              Text(
+                'التكرار: ${medication.frequency ?? 'غير محدد'}',
+                style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+              ),
+              Text(
+                'المدة: ${medication.duration ?? 'غير محدد'}',
+                style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+              ),
+              Text(
+                'الغرض: ${medication.purpose ?? 'غير محدد'}',
+                style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+              ),
               Text(
                 'تحذيرات: ${medication.warnings ?? 'لا توجد تحذيرات'}',
-                style: const TextStyle(color: Colors.redAccent),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Colors.redAccent), // نمط من الثيم مع لون مخصص
               ),
             ],
           ),

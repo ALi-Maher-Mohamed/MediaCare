@@ -13,9 +13,15 @@ class MedicineDosageSection extends StatelessWidget {
       children: [
         Text(
           'تعليمات الجرعة:',
-          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontSize: 20.sp,
+              ), // نمط من الثيم
         ),
-        Text(dosageInstructions ?? 'غير محدد'),
+        SizedBox(height: 8.h),
+        Text(
+          dosageInstructions ?? 'غير محدد',
+          style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+        ),
       ],
     );
   }

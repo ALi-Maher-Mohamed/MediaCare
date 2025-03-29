@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
 import 'package:media_care/core/utils/widgets/custom_shimmer_list_view.dart';
 import 'package:media_care/presentation/views/pharmacies/widgets/pharmacy_list_view.dart';
 import 'package:shimmer/shimmer.dart';

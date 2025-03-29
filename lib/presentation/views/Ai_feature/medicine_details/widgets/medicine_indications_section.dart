@@ -13,17 +13,26 @@ class MedicineIndicationsSection extends StatelessWidget {
       children: [
         Text(
           'الاستطبابات:',
-          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontSize: 20.sp,
+              ), // نمط من الثيم
         ),
+        SizedBox(height: 8.h),
         if (indications != null && indications!.isNotEmpty)
           ...indications!.map(
             (ind) => Padding(
               padding: EdgeInsets.symmetric(vertical: 4.0.h),
-              child: Text('• $ind'),
+              child: Text(
+                '• $ind',
+                style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+              ),
             ),
           )
         else
-          const Text('لا توجد استطبابات'),
+          Text(
+            'لا توجد استطبابات',
+            style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+          ),
       ],
     );
   }

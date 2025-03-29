@@ -18,12 +18,16 @@ class MedicineNameSection extends StatelessWidget {
       children: [
         Text(
           medicineName,
-          style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontSize: 24.sp,
+              ), // نمط من الثيم
         ),
         SizedBox(height: 10.h),
         Text(
           'الاسم العربي: ${medicineNameArabic ?? 'غير محدد'}',
-          style: TextStyle(fontSize: 18.sp),
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                fontSize: 18.sp,
+              ), // نمط من الثيم
         ),
       ],
     );

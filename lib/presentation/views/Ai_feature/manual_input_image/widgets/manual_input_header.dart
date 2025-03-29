@@ -8,7 +8,9 @@ class ManualInputHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       'اكتب هنا:',
-      style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            fontSize: 18.sp,
+          ), // نمط من الثيم
     );
   }
 }

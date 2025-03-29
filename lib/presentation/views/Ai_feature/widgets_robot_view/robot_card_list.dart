@@ -7,6 +7,8 @@ import 'package:media_care/presentation/views/AI_Feature/manual_input_image/manu
 import 'package:media_care/presentation/views/AI_Feature/widgets_robot_view/robot_card.dart';
 
 class RobotCardList extends StatelessWidget {
+  RobotCardList({super.key});
+
   final Map<String, Function(BuildContext)> _navigationMap = {
     'manual': (context) => Navigator.push(
           context,
@@ -20,10 +22,9 @@ class RobotCardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      separatorBuilder: (context, index) => SizedBox(
-        height: 10.h,
-      ),
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      separatorBuilder: (context, index) => SizedBox(height: 10.h),
+      padding: const EdgeInsets.symmetric(
+          vertical: 10, horizontal: 16), // حشوة إضافية
       itemCount: robotCards.length,
       itemBuilder: (context, index) {
         final card = robotCards[index];

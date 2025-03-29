@@ -16,6 +16,7 @@ class SymptomMedicationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 2,
+      color: Theme.of(context).colorScheme.surface, // خلفية من الثيم
       margin: EdgeInsets.symmetric(vertical: 5.h),
       child: InkWell(
         onTap: () {
@@ -35,11 +36,19 @@ class SymptomMedicationCard extends StatelessWidget {
             children: [
               Text(
                 'الدواء ${index + 1}: ${medication.name ?? 'غير محدد'}',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontSize: 16.sp,
+                    ), // نمط من الثيم
               ),
               SizedBox(height: 5.h),
-              Text('الجرعة: ${medication.dosage ?? 'غير محدد'}'),
-              Text('ملاحظات: ${medication.notes ?? 'لا توجد ملاحظات'}'),
+              Text(
+                'الجرعة: ${medication.dosage ?? 'غير محددة'}',
+                style: Theme.of(context).textTheme.titleMedium, // نمط من الثيم
+              ),
+              Text(
+                'ملاحظات: ${medication.notes ?? 'لا توجد ملاحظات'}',
+                style: Theme.of(context).textTheme.titleMedium, // نمط من الثيم
+              ),
             ],
           ),
         ),

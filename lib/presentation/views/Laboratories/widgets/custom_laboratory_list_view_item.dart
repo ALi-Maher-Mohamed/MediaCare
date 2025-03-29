@@ -58,33 +58,26 @@ class LabListViewItemCard extends StatelessWidget {
           // الصورة على اليسار
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: laboratory.image == null
-                ? Image.asset(
-                    'assets/pharmacies/pharmacy_icon.png',
-                    width: 60,
-                    height: 60,
-                    fit: BoxFit.cover,
-                  )
-                : Image.network(
-                    laboratory.image,
-                    width: 60,
-                    height: 60,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => Image.asset(
-                      'assets/pharmacies/pharmacy_icon.png',
-                      width: 60,
-                      height: 60,
-                      fit: BoxFit.cover,
-                    ),
-                    loadingBuilder: (context, child, loadingProgress) =>
-                        loadingProgress == null
-                            ? child
-                            : SizedBox(
-                                width: 60,
-                                height: 60,
-                                child: const CircularProgressIndicator(),
-                              ),
-                  ),
+            child: Image.network(
+              laboratory.image,
+              width: 60,
+              height: 60,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => Image.asset(
+                'assets/pharmacies/pharmacy_icon.png',
+                width: 60,
+                height: 60,
+                fit: BoxFit.cover,
+              ),
+              loadingBuilder: (context, child, loadingProgress) =>
+                  loadingProgress == null
+                      ? child
+                      : SizedBox(
+                          width: 60,
+                          height: 60,
+                          child: const CircularProgressIndicator(),
+                        ),
+            ),
           ),
           const SizedBox(width: 12), // مسافة بين الصورة والنصوص
           // النصوص في المنتصف

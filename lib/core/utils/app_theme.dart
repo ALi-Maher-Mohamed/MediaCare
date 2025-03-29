@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/core/utils/app_color.dart';
 
 class AppTheme {
@@ -31,12 +32,12 @@ class AppTheme {
       textTheme: TextTheme(
         titleLarge: TextStyle(
           color: AppColors.primary, // أزرق بدلاً من الأسود
-          fontSize: 22,
+          fontSize: 22.sp,
           fontWeight: FontWeight.bold,
         ),
         bodyLarge: TextStyle(
-          color: AppColors.textLight, // أزرق بدلاً من الأسود
-          fontSize: 16,
+          color: AppColors.primary, // أزرق بدلاً من الأسود
+          fontSize: 16.sp,
         ),
       ),
       iconTheme:
@@ -72,12 +73,12 @@ class AppTheme {
       textTheme: TextTheme(
         titleLarge: TextStyle(
           color: AppColors.primary, // أزرق للعناوين الكبيرة
-          fontSize: 20,
+          fontSize: 20.sp,
           fontWeight: FontWeight.bold,
         ),
         bodyLarge: TextStyle(
           color: AppColors.textLight, // أبيض للنصوص العادية للتباين
-          fontSize: 16,
+          fontSize: 16.sp,
         ),
       ),
       iconTheme: const IconThemeData(color: AppColors.textLight),
