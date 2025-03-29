@@ -32,6 +32,7 @@ class CustomLaboratoryListView extends StatelessWidget {
                     : const SizedBox.shrink();
               }
               final laboratory = laboratories[index];
+
               return LaboratoryListViewItem(
                 laboratory: laboratory,
                 index: index,

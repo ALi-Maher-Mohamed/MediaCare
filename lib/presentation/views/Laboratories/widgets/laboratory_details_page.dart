@@ -29,6 +29,9 @@ class LaboratoryDetailsPage extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
                 child: Image.network(
+                  errorBuilder: (context, error, stackTrace) => Image.asset(
+                    'assets/pharmacies/labs.png',
+                  ),
                   laboratory.image,
                   width: double.infinity,
                   height: 230,

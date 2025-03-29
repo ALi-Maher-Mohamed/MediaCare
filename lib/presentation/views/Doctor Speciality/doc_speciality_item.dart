@@ -21,7 +21,7 @@ class DocSpecialityItem extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 50,
-          backgroundColor: color ?? AppColors.primaryLight,
+          backgroundColor: color ?? AppColors.backgroundLight,
           child: SvgPicture.asset(
             docSpecialityData[index].image,
             height: 50,

@@ -58,7 +58,7 @@ class DoctorSpecialityView extends StatelessWidget {
             style: GoogleFonts.inter(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
-                color: AppColors.darkGrey)),
+                color: AppColors.textLight)),
         centerTitle: true,
       ),
       body: DocSpecialityBody(docSpecialityData: docSpecialityData),

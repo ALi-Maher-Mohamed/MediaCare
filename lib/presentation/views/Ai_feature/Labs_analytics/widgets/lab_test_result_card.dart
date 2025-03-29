@@ -11,7 +11,7 @@ class LabTestResultCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      surfaceTintColor: AppColors.primary2,
+      surfaceTintColor: AppColors.primary,
       elevation: 4,
       margin: const EdgeInsets.symmetric(vertical: 5),
       child: Padding(

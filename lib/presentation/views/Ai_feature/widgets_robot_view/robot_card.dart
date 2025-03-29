@@ -19,7 +19,7 @@ class RobotCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      surfaceTintColor: AppColors.primary2,
+      surfaceTintColor: AppColors.primary,
       child: InkWell(
         onTap: onTap,
         child: Column(

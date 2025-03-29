@@ -27,12 +27,12 @@ class PharmacyListViewItem extends StatelessWidget {
             ),
           );
         },
-        child: CustomCard(pharmacy: pharmacy));
+        child: PharmacyListViewItemCard(pharmacy: pharmacy));
   }
 }
 
-class CustomCard2 extends StatelessWidget {
-  const CustomCard2({
+class PharmacyListViewItemCard extends StatelessWidget {
+  const PharmacyListViewItemCard({
     super.key,
     required this.pharmacy,
   });
@@ -107,8 +107,8 @@ class CustomCard2 extends StatelessWidget {
   }
 }
 
-class CustomCard extends StatelessWidget {
-  const CustomCard({
+class CustomCardSimilarToWeb extends StatelessWidget {
+  const CustomCardSimilarToWeb({
     super.key,
     required this.pharmacy,
   });

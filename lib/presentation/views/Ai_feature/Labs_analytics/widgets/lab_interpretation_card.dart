@@ -10,7 +10,7 @@ class LabInterpretationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      surfaceTintColor: AppColors.primary2,
+      surfaceTintColor: AppColors.primary,
       elevation: 3,
       child: Padding(
         padding: const EdgeInsets.all(16.0),

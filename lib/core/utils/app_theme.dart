@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/core/utils/app_color.dart';
 
 class AppTheme {
@@ -7,56 +6,41 @@ class AppTheme {
     return ThemeData(
       brightness: Brightness.light,
       primaryColor: AppColors.primary,
-      primaryColorLight: AppColors.primaryLight,
       scaffoldBackgroundColor: AppColors.backgroundLight,
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: AppColors.backgroundLight,
         elevation: 0,
-        iconTheme: IconThemeData(color: AppColors.textDark),
+        iconTheme: const IconThemeData(
+            color: AppColors.primary), // أزرق بدلاً من الأسود
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
           foregroundColor: AppColors.textLight,
-          padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 32.w),
         ),
       ),
       colorScheme: ColorScheme.light(
         primary: AppColors.primary,
-        primaryContainer: AppColors.primaryLight,
-        secondary: AppColors.secondary, // الوردي الطبي الجديد
-        secondaryContainer: AppColors.primaryLight, // وردي فاتح كـ container
-        surface: AppColors.surfaceLight,
-        surfaceVariant: AppColors.lightGrey,
-        onSurface: AppColors.textDark,
-        onSurfaceVariant: AppColors.darkGrey,
-        error: AppColors.backgroundLight,
+        secondary: AppColors.secondary, // الأزرق المائي الجديد
+        background: AppColors.backgroundLight,
+        surface: AppColors.surfaceLight, // خلفية الكروت
         onPrimary: AppColors.textLight,
         onSecondary: AppColors.textLight,
-        onError: AppColors.textLight,
-        background: AppColors.backgroundLight,
+        onSurface: AppColors.primary, // النصوص على الكروت بالأزرق الطبي
       ),
       textTheme: TextTheme(
         titleLarge: TextStyle(
-          color: AppColors.textDark,
-          fontSize: 22.sp,
+          color: AppColors.primary, // أزرق بدلاً من الأسود
+          fontSize: 22,
           fontWeight: FontWeight.bold,
         ),
-        titleMedium: TextStyle(
-          color: AppColors.textDark,
-          fontSize: 20.sp,
-          fontWeight: FontWeight.w600,
-        ),
         bodyLarge: TextStyle(
-          color: AppColors.textDark,
-          fontSize: 16.sp,
-        ),
-        bodyMedium: TextStyle(
-          color: AppColors.textLight,
-          fontSize: 14.sp,
+          color: AppColors.textLight, // أزرق بدلاً من الأسود
+          fontSize: 16,
         ),
       ),
-      iconTheme: const IconThemeData(color: AppColors.textDark),
+      iconTheme:
+          const IconThemeData(color: AppColors.primary), // أيقونات بالأزرق
     );
   }
 
@@ -64,53 +48,36 @@ class AppTheme {
     return ThemeData(
       brightness: Brightness.dark,
       primaryColor: AppColors.primary,
-      primaryColorLight: AppColors.primaryLight,
       scaffoldBackgroundColor: AppColors.backgroundDark,
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: AppColors.backgroundDark,
         elevation: 0,
-        iconTheme: IconThemeData(color: AppColors.textLight),
+        iconTheme: const IconThemeData(color: AppColors.textLight),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
           foregroundColor: AppColors.textLight,
-          padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 32.w),
         ),
       ),
       colorScheme: ColorScheme.dark(
         primary: AppColors.primary,
-        primaryContainer: AppColors.primaryLight,
-        secondary: AppColors.secondary, // الوردي الطبي الجديد
-        secondaryContainer: Color(0xffC2185B), // وردي غامق كـ container
-        surface: AppColors.surfaceDark,
-        surfaceVariant: AppColors.darkGrey,
-        onSurface: AppColors.textLight,
-        onSurfaceVariant: AppColors.lightGrey,
-        error: Colors.redAccent,
+        secondary: AppColors.secondary, // الأزرق المائي الجديد
+        background: AppColors.backgroundDark,
+        surface: AppColors.surfaceDark, // خلفية الكروت
         onPrimary: AppColors.textLight,
         onSecondary: AppColors.textLight,
-        onError: AppColors.textLight,
-        background: AppColors.backgroundDark,
+        onSurface: AppColors.textLight, // النصوص على الكروت بالأبيض للتباين
       ),
       textTheme: TextTheme(
         titleLarge: TextStyle(
-          color: AppColors.primary,
-          fontSize: 20.sp,
+          color: AppColors.primary, // أزرق للعناوين الكبيرة
+          fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
-        titleMedium: TextStyle(
-          color: AppColors.textLight,
-          fontSize: 18.sp,
-          fontWeight: FontWeight.w600,
-        ),
         bodyLarge: TextStyle(
-          color: AppColors.textLight,
-          fontSize: 16.sp,
-        ),
-        bodyMedium: TextStyle(
-          color: AppColors.lightGrey,
-          fontSize: 14.sp,
+          color: AppColors.textLight, // أبيض للنصوص العادية للتباين
+          fontSize: 16,
         ),
       ),
       iconTheme: const IconThemeData(color: AppColors.textLight),
