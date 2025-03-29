@@ -16,7 +16,7 @@ class DepartmentGridBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: 1,
+          childAspectRatio: .95.w / 1.0.h,
           crossAxisSpacing: 10.w,
           mainAxisSpacing: 10.w,
           crossAxisCount: 2),

@@ -14,7 +14,10 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return ZoomDrawer(
-      menuBackgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+      drawerShadowsBackgroundColor: Theme.of(context).colorScheme.surface,
+      menuScreenOverlayColor: Theme.of(context).colorScheme.surface,
+      mainScreenOverlayColor: Theme.of(context).focusColor,
+      menuBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
       style: DrawerStyle.defaultStyle,
       menuScreen: MenuView(), // تأكد إن MenuView بيستخدم الثيم
       mainScreen: const MainScreen(), // تأكد إن MainScreen بيستخدم الثيم
