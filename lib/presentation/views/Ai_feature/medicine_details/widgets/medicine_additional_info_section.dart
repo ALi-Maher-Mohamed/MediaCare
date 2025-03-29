@@ -13,17 +13,26 @@ class MedicineAdditionalInfoSection extends StatelessWidget {
       children: [
         Text(
           'معلومات إضافية:',
-          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontSize: 20.sp,
+              ), // نمط من الثيم
         ),
+        SizedBox(height: 8.h),
         if (additionalInformation != null && additionalInformation!.isNotEmpty)
           ...additionalInformation!.map(
             (info) => Padding(
               padding: EdgeInsets.symmetric(vertical: 4.0.h),
-              child: Text('• $info'),
+              child: Text(
+                '• $info',
+                style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+              ),
             ),
           )
         else
-          const Text('لا توجد معلومات إضافية'),
+          Text(
+            'لا توجد معلومات إضافية',
+            style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+          ),
       ],
     );
   }

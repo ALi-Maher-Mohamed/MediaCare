@@ -13,17 +13,26 @@ class MedicinePrecautionsSection extends StatelessWidget {
       children: [
         Text(
           'الاحتياطات:',
-          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontSize: 20.sp,
+              ), // نمط من الثيم
         ),
+        SizedBox(height: 8.h),
         if (precautions != null && precautions!.isNotEmpty)
           ...precautions!.map(
             (precaution) => Padding(
               padding: EdgeInsets.symmetric(vertical: 4.0.h),
-              child: Text('• $precaution'),
+              child: Text(
+                '• $precaution',
+                style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+              ),
             ),
           )
         else
-          const Text('لا توجد احتياطات'),
+          Text(
+            'لا توجد احتياطات',
+            style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+          ),
       ],
     );
   }
