@@ -1,0 +1,2 @@
+C:/Users/GAMA/Desktop/MediaCare/android/app/.cxx/RelWithDebInfo/2t542mwz/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/GAMA/Desktop/MediaCare/android/app/.cxx/RelWithDebInfo/2t542mwz/x86_64/CMakeFiles/rebuild_cache.dir

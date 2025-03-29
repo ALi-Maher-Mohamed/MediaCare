@@ -1,0 +1,2 @@
+C:/Users/GAMA/Desktop/MediaCare/android/app/.cxx/RelWithDebInfo/2t542mwz/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/GAMA/Desktop/MediaCare/android/app/.cxx/RelWithDebInfo/2t542mwz/armeabi-v7a/CMakeFiles/rebuild_cache.dir

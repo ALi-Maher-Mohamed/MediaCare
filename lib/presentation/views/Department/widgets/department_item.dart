@@ -17,7 +17,7 @@ class DepartmentItem extends StatelessWidget {
       margin: EdgeInsets.all(25.sp),
       color: Theme.of(context).colorScheme.primaryContainer,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
       ),
       elevation: 3,
       child: Column(
@@ -37,7 +37,9 @@ class DepartmentItem extends StatelessWidget {
           Text(
             title,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
                 ),
           ),
