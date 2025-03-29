@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_care/core/network/api_service.dart';
-import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/profile/data/repo/profile_repo_impl.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_state.dart';
@@ -21,18 +20,16 @@ class ProfileScreen extends StatelessWidget {
           centerTitle: true,
           leading: Icon(
             Icons.arrow_back_ios,
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.onPrimary,
           ),
           title: Text('حسابي'),
           titleSpacing: -15,
-          titleTextStyle: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-            fontSize: 20,
-          ),
-          backgroundColor: AppColors.primaryLight,
+          titleTextStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+          backgroundColor: Theme.of(context).colorScheme.primary,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: BlocConsumer<ProfileCubit, ProfileState>(
           listener: (context, state) {
             if (state is ProfileError) {
@@ -43,7 +40,9 @@ class ProfileScreen extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is ProfileInitial) {
-              return Center(child: Text('Initial state'));
+              return Center(
+                  child: Text('Initial state',
+                      style: Theme.of(context).textTheme.bodyMedium));
             } else if (state is ProfileLoading) {
               return Center(child: CircularProgressIndicator());
             } else if (state is ProfileLoaded) {
@@ -63,7 +62,9 @@ class ProfileScreen extends StatelessWidget {
                 ],
               );
             }
-            return Center(child: Text('Unexpected state'));
+            return Center(
+                child: Text('Unexpected state',
+                    style: Theme.of(context).textTheme.bodyMedium));
           },
         ),
       ),

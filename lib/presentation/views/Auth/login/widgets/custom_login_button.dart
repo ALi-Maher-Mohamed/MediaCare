@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import '../../../../../core/utils/app_color.dart';
 
 class CustomSubmitButton extends StatelessWidget {
-  const CustomSubmitButton(
-      {super.key, required this.text, required this.onPresed});
+  const CustomSubmitButton({
+    super.key,
+    required this.text,
+    required this.onPresed,
+  });
   final Function() onPresed;
   final String text;
+
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -19,14 +22,16 @@ class CustomSubmitButton extends StatelessWidget {
             Size(300, 60),
           ),
           backgroundColor: WidgetStatePropertyAll(
-            AppColors.primary,
+            Theme.of(context).colorScheme.primary,
           ),
         ),
         onPressed: onPresed,
         child: Text(
           text,
-          style: TextStyle(
-              color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onPrimary,
+                fontWeight: FontWeight.bold,
+              ),
         ));
   }
 }

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import '../../../../../core/utils/app_color.dart';
 import '../../register/regester_view.dart';
-
 import 'dont_have_email_password.dart';
 import 'email_and_passowrd_form.dart';
 
@@ -15,7 +13,7 @@ class LoginViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 24),
@@ -34,17 +32,14 @@ class LoginViewBody extends StatelessWidget {
                     children: [
                       Text(
                         '...مرحبا بعودتك',
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: AppColors.primary,
-                        ),
+                        style:
+                            Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
                       ),
                       Text(
                         'سجل دخولك ',
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: AppColors.darkGrey,
-                        ),
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ],
                   ),

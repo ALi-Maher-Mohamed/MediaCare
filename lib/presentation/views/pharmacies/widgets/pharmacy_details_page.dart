@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/functins/launch_url.dart';
 import '../data/model/pharmacy_model.dart';
 
@@ -13,16 +12,15 @@ class PharmacyDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: AppColors.primary),
+        iconTheme: Theme.of(context).iconTheme,
         centerTitle: true,
         title: Text(
           pharmacy.title,
-          style:
-              TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.titleLarge,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.surface,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -43,27 +41,27 @@ class PharmacyDetailsPage extends StatelessWidget {
             const SizedBox(height: 50),
             Text(
               "📍 الموقع: ${pharmacy.city}, ${pharmacy.area}",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 30),
             Text(
               "🛠️ الخدمة المقدمة: ${pharmacy.service}",
-              style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 30),
             Text(
               "⭐ التقييم: ${pharmacy.avgRate} / 5.0",
-              style: TextStyle(fontSize: 16, color: Colors.amber),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 30),
             Text(
               "🚚 التوصيل: ${pharmacy.deliveryOption == 1 ? "متاح" : "غير متاح"}",
-              style: TextStyle(fontSize: 16, color: Colors.green),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 30),
             Text(
               "🛡️ التأمين الصحي: ${pharmacy.insurence == 1 ? "مدعوم" : "غير مدعوم"}",
-              style: TextStyle(fontSize: 16, color: Colors.red),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 30),
             Wrap(
@@ -72,34 +70,36 @@ class PharmacyDetailsPage extends StatelessWidget {
               children: [
                 ElevatedButton.icon(
                   onPressed: () => launchDialer('01278408531'),
-                  icon: Icon(Icons.phone, color: AppColors.primary),
+                  icon: Icon(Icons.phone,
+                      color: Theme.of(context).colorScheme.primary),
                   label: Text(
                     "اتصل بالصيدلية",
-                    style: TextStyle(
-                        color: AppColors.primary,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(color: Theme.of(context).colorScheme.primary),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.lightGrey,
-                    foregroundColor: AppColors.primary,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                    foregroundColor: Theme.of(context).colorScheme.primary,
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   ),
                 ),
                 ElevatedButton.icon(
                   onPressed: () => launchCustomUrl(
                       context, 'https://goo.gl/maps/y9b6HrD4CzN2'),
-                  icon: Icon(Icons.map, color: AppColors.primary),
+                  icon: Icon(Icons.map,
+                      color: Theme.of(context).colorScheme.primary),
                   label: Text(
                     "عرض على الخريطة",
-                    style: TextStyle(
-                        color: AppColors.primary,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(color: Theme.of(context).colorScheme.primary),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.lightGrey,
-                    foregroundColor: Colors.white,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                    foregroundColor: Theme.of(context).colorScheme.primary,
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   ),
                 ),
@@ -107,17 +107,17 @@ class PharmacyDetailsPage extends StatelessWidget {
                   onPressed: () =>
                       launchCustomUrl(context, 'https://wa.me/201278408531'),
                   icon: FaIcon(FontAwesomeIcons.whatsapp,
-                      color: AppColors.primary),
+                      color: Theme.of(context).colorScheme.primary),
                   label: Text(
                     "واتساب",
-                    style: TextStyle(
-                        color: AppColors.primary,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(color: Theme.of(context).colorScheme.primary),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.lightGrey,
-                    foregroundColor: AppColors.primary,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                    foregroundColor: Theme.of(context).colorScheme.primary,
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   ),
                 ),

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../../../../core/utils/app_color.dart';
 
 class DontHaveAccountText extends StatelessWidget {
-  const DontHaveAccountText(
-      {super.key,
-      required this.text,
-      required this.boldText,
-      required this.router});
+  const DontHaveAccountText({
+    super.key,
+    required this.text,
+    required this.boldText,
+    required this.router,
+  });
   final String text, boldText;
   final Widget router;
 
@@ -23,14 +23,14 @@ class DontHaveAccountText extends StatelessWidget {
       child: RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
+          style: Theme.of(context).textTheme.bodyMedium,
           children: [
             TextSpan(
               text: text,
-              style: TextStyle(color: AppColors.darkGrey),
             ),
             TextSpan(
-              style: TextStyle(color: AppColors.primary),
               text: boldText,
+              style: TextStyle(color: Theme.of(context).colorScheme.primary),
             ),
           ],
         ),

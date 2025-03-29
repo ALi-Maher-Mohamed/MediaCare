@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:media_care/core/utils/app_color.dart';
 
 class DepartmentItem extends StatelessWidget {
   final String iconUrl;
@@ -16,8 +15,7 @@ class DepartmentItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.all(25.sp),
-      color: AppColors.primaryLight,
-      // Color(0xff0dcaf0),
+      color: Theme.of(context).colorScheme.primaryContainer,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
@@ -31,17 +29,17 @@ class DepartmentItem extends StatelessWidget {
             width: 60.w,
             fit: BoxFit.contain,
             errorBuilder: (context, error, stackTrace) {
-              return Icon(Icons.error, size: 50.sp, color: Colors.red);
+              return Icon(Icons.error,
+                  size: 50.sp, color: Theme.of(context).colorScheme.error);
             },
           ),
           SizedBox(height: 10.h),
           Text(
             title,
             textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w600,
-                color: AppColors.darkGrey),
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
           ),
         ],
       ),

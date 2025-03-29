@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../core/utils/app_color.dart';
 import 'widgets/search_view_body.dart';
 
 class SearchView extends StatelessWidget {
@@ -9,16 +8,15 @@ class SearchView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
             leading: null,
             centerTitle: true,
-            iconTheme: IconThemeData(color: AppColors.primary),
-            backgroundColor: AppColors.lightGrey,
+            iconTheme: Theme.of(context).appBarTheme.iconTheme,
+            backgroundColor: Theme.of(context).colorScheme.surface,
             title: Text(
               'أبحث عن دكتورك  ',
-              style: TextStyle(
-                  color: AppColors.primary, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           body: Padding(

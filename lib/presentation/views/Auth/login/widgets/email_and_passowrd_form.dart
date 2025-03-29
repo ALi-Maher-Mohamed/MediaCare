@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../manager/login_cubit.dart';
-import '../../../../../core/utils/app_color.dart';
 import '../../../../../core/utils/components/validators.dart';
 import 'custom_login_button.dart';
 import 'custom_text_form_field.dart';
@@ -20,11 +19,9 @@ class EmailAndPasswordForm extends StatelessWidget {
           child: Column(
             children: [
               CustomTextField(
-                ////This for email
                 autofillHints: [AutofillHints.email],
                 inputType: TextInputType.emailAddress,
                 controller: data.emailController,
-                // ignore: body_might_complete_normally_nullable
                 validator: AppValidators.validateEmail,
                 label: 'Email',
               ),
@@ -32,7 +29,6 @@ class EmailAndPasswordForm extends StatelessWidget {
                 height: 30,
               ),
               CustomTextField(
-                //This for password
                 autofillHints: [AutofillHints.password],
                 validator: AppValidators.validatePassword,
                 controller: data.passwordController,
@@ -42,7 +38,7 @@ class EmailAndPasswordForm extends StatelessWidget {
                   },
                   icon: Icon(
                     data.isVisible ? Icons.visibility_off : Icons.visibility,
-                    color: AppColors.primary,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
                 isObscureText: context.watch<LoginCubit>().isVisible,

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-
 import '../../Doctor Speciality/DocSpecialityModel.dart';
 import '../../Doctor Speciality/doc_speciality_item.dart';
 
 class SpecialityListView extends StatelessWidget {
-  SpecialityListView({
-    super.key,
-  });
+  SpecialityListView({super.key});
 
   final List<DocSpecialityModel> spicialty = [
     DocSpecialityModel(
@@ -29,8 +26,9 @@ class SpecialityListView extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Column(children: [
-        Container(
+      child: Column(
+        children: [
+          Container(
             height: 180,
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -40,17 +38,17 @@ class SpecialityListView extends StatelessWidget {
                   (index) => Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: DocSpecialityItem(
-                      DocSpecialityData: spicialty,
+                      docSpecialityData: spicialty,
                       index: index,
                     ),
                   ),
                 ),
               ),
-            )),
-        SizedBox(
-          height: 12,
-        ),
-      ]),
+            ),
+          ),
+          SizedBox(height: 12),
+        ],
+      ),
     );
   }
 }

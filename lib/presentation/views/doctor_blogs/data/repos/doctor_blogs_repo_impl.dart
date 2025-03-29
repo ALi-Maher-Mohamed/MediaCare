@@ -12,7 +12,7 @@ class BlogsRepoImpl implements BlogsRepo {
   @override
   Future<Either<Failure, BlogResponse>> fetchBlogs() async {
     try {
-      final response = await _dio.get('http://10.0.2.2:8000/api/Blogs_Web');
+      final response = await _dio.get('http://192.168.1.4:8000/api/Blogs_Web');
       if (response.statusCode == 200) {
         final data = response.data;
         if (data is Map<String, dynamic>) {

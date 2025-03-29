@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:media_care/presentation/views/Doctor%20Speciality/DocSpecialityModel.dart';
 import '../../../core/utils/app_color.dart';
-import '../Doctor%20Speciality/DocSpecialityModel.dart';
 
 class DocSpecialityItem extends StatelessWidget {
   const DocSpecialityItem({
     super.key,
     this.color,
-    required this.DocSpecialityData,
+    required this.docSpecialityData,
     required this.index,
   });
   final Color? color;
-  final List<DocSpecialityModel> DocSpecialityData;
+  final List<DocSpecialityModel> docSpecialityData;
   final int index;
 
   @override
@@ -22,17 +21,16 @@ class DocSpecialityItem extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 50,
-          backgroundColor:
-              color == null ? AppColors.primaryLight : Colors.grey[200],
+          backgroundColor: color ?? AppColors.backgroundLight,
           child: SvgPicture.asset(
-            DocSpecialityData[index].image,
+            docSpecialityData[index].image,
             height: 50,
             width: 40,
           ),
         ),
         SizedBox(height: 18),
         Text(
-          DocSpecialityData[index].name,
+          docSpecialityData[index].name,
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
         ),
       ],

@@ -15,7 +15,7 @@ class DoctorData extends StatelessWidget {
   final String? facebookLink;
   final String? whatsappLink;
 
-  DoctorData({
+  const DoctorData({
     required this.fname,
     required this.lname,
     required this.title,
@@ -26,9 +26,9 @@ class DoctorData extends StatelessWidget {
     required this.whatsappLink,
     super.key,
   });
+
   void _launchURL(String url) async {
     Uri uri = Uri.parse(Uri.encodeFull(url));
-
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
@@ -38,13 +38,11 @@ class DoctorData extends StatelessWidget {
 
   void makeCall(String phoneNumber) async {
     var status = await Permission.phone.status;
-
     if (!status.isGranted) {
       status = await Permission.phone.request();
     }
-
     if (status.isGranted) {
-      String telUri = 'tel:$phoneNumber'; // Removed +2 to avoid issues
+      String telUri = 'tel:$phoneNumber';
       _launchURL(telUri);
     } else {
       print("❌ Permission Denied");
@@ -55,10 +53,10 @@ class DoctorData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).scaffoldBackgroundColor,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
+            color: Theme.of(context).shadowColor.withOpacity(0.2),
             spreadRadius: 2,
             blurRadius: 5,
             offset: const Offset(0, 3),
@@ -92,28 +90,24 @@ class DoctorData extends StatelessWidget {
                   children: [
                     Text(
                       'دكتور $fname $lname',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                     ),
                     SizedBox(height: 2.w),
                     Text(
                       title ?? '',
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color:
+                                Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
                     ),
                     Text(
                       'دكتور متخصص في ${specialization?[0].title}',
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color:
+                                Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
                     ),
                   ],
                 ),
@@ -122,12 +116,11 @@ class DoctorData extends StatelessWidget {
           ),
           SizedBox(height: 15.w),
           Row(
-            mainAxisAlignment:
-                MainAxisAlignment.spaceEvenly, // Ensures even spacing
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconButton(
-                icon: const FaIcon(FontAwesomeIcons.facebook,
-                    color: Color(0xff0866FF)),
+                icon: const FaIcon(FontAwesomeIcons.facebook),
+                color: Theme.of(context).colorScheme.primary,
                 onPressed: () {
                   if (facebookLink != null && facebookLink!.isNotEmpty) {
                     _launchURL(facebookLink!);
@@ -137,8 +130,8 @@ class DoctorData extends StatelessWidget {
                 },
               ),
               IconButton(
-                icon: const FaIcon(FontAwesomeIcons.whatsapp,
-                    color: Color(0xff25D366)),
+                icon: const FaIcon(FontAwesomeIcons.whatsapp),
+                color: Theme.of(context).colorScheme.secondary,
                 onPressed: () {
                   if (whatsappLink != null && whatsappLink!.isNotEmpty) {
                     _launchURL(whatsappLink!);
@@ -148,8 +141,8 @@ class DoctorData extends StatelessWidget {
                 },
               ),
               IconButton(
-                icon: const FaIcon(FontAwesomeIcons.phone,
-                    color: Color(0xff0DCAF0)),
+                icon: const FaIcon(FontAwesomeIcons.phone),
+                color: Theme.of(context).colorScheme.primary,
                 onPressed: () {
                   if (phone != null && phone!.isNotEmpty) {
                     makeCall(phone!);

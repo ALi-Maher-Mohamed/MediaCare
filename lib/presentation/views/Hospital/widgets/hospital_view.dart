@@ -14,7 +14,7 @@ class HospitalsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hospitals'),
+        title: const Text('Hospitals'),
       ),
       body: BlocProvider(
         create: (context) => HospitalCubit(
@@ -29,36 +29,37 @@ class HospitalsScreen extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            if (state is HospitalInitial) {
-              return Center(child: Text('Initial state'));
-            } else if (state is HospitalLoading) {
-              return CustomProgressIndicator();
+            if (state is HospitalLoading) {
+              return const CustomProgressIndicator();
             } else if (state is HospitalLoaded) {
-              final hospitals = state.hospitalModel.data; // List<Data>?
+              final hospitals = state.hospitalModel.data;
               if (hospitals == null || hospitals.isEmpty) {
-                return Center(child: Text('No hospitals found'));
+                return const Center(child: Text('No hospitals found'));
               }
               return ListView.builder(
                 itemCount: hospitals.length,
                 itemBuilder: (context, index) {
                   final hospital = hospitals[index];
-                  return ListTile(
-                    leading: hospital.image,
-                    title:
-                        Text(hospital.title ?? 'No Title'), // Handle null title
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(hospital.service ??
-                            'No Service'), // Handle null service
-                        Text(hospital.address ??
-                            'No Address'), // Handle null address
-                        Text(hospital.phone ?? 'No Phone'), // Handle null phone
-                      ],
+                  return Card(
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    child: ListTile(
+                      leading: hospital.image,
+                      title: Text(hospital.title ?? 'No Title',
+                          style: Theme.of(context).textTheme.titleMedium),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(hospital.service ?? 'No Service',
+                              style: Theme.of(context).textTheme.bodySmall),
+                          Text(hospital.address ?? 'No Address',
+                              style: Theme.of(context).textTheme.bodySmall),
+                          Text(hospital.phone ?? 'No Phone',
+                              style: Theme.of(context).textTheme.bodySmall),
+                        ],
+                      ),
+                      onTap: () {},
                     ),
-                    onTap: () {
-                      // Handle hospital tap (e.g., navigate to details screen)
-                    },
                   );
                 },
               );

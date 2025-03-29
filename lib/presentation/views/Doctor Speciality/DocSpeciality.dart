@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:media_care/presentation/views/Doctor%20Speciality/DocSpecialityModel.dart';
+import 'package:media_care/presentation/views/Doctor%20Speciality/doc_spiciality_body.dart';
 import '../../../core/utils/app_color.dart';
-import '../Doctor%20Speciality/doc_spiciality_body.dart';
-import 'DocSpecialityModel.dart';
 
 class DoctorSpecialityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final DocSpecialityData = [
+    final docSpecialityData = [
       DocSpecialityModel(
           name: 'ENT', image: 'assets/images/DoctorSpeciality/ENT.svg'),
       DocSpecialityModel(
@@ -58,10 +58,10 @@ class DoctorSpecialityView extends StatelessWidget {
             style: GoogleFonts.inter(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
-                color: AppColors.darkGrey)),
+                color: AppColors.textLight)),
         centerTitle: true,
       ),
-      body: DocSpicalityBody(DocSpecialityData: DocSpecialityData),
+      body: DocSpecialityBody(docSpecialityData: docSpecialityData),
     );
   }
 }

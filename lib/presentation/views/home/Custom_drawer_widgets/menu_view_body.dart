@@ -1,14 +1,11 @@
-// import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:media_care/core/utils/cubits/theme_cubit.dart';
 import 'package:media_care/presentation/views/Auth/logout/manager/cubit/logout_cubit.dart';
 import 'package:media_care/presentation/views/Auth/logout/manager/cubit/logout_state.dart';
-// import 'package:media_care/core/network/api_service.dart';
-// import 'package:media_care/presentation/views/Auth/login/data/repo/login_repo_impl.dart';
 import '../../Auth/login/login_view.dart';
-// import '../../Auth/login/manager/login_cubit.dart';
 
 class MenuViewBody extends StatelessWidget {
   const MenuViewBody({
@@ -28,7 +25,7 @@ class MenuViewBody extends StatelessWidget {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => LoginView()),
-            (route) => false, // Remove all previous screens from the stack
+            (route) => false,
           );
         } else if (state is LogoutLoading) {
           EasyLoading.show(status: 'Loading...');
@@ -42,7 +39,9 @@ class MenuViewBody extends StatelessWidget {
           children: [
             Text(
               'Welcome',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall, // بالفعل بيتبع الـ Theme
             ),
             SizedBox(
               height: 20,
@@ -59,17 +58,15 @@ class MenuViewBody extends StatelessWidget {
             ),
             Text(
               'Ali Maher',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall, // بالفعل بيتبع الـ Theme
             ),
             Text(
               'باشا البلد @example.com',
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ), // بالفعل بيتبع الـ Theme
             ),
             SizedBox(
               height: 20,
@@ -79,53 +76,86 @@ class MenuViewBody extends StatelessWidget {
                 ZoomDrawer.of(context)!.toggle();
               },
               child: ListTile(
-                leading: Icon(
-                  Icons.home,
-                  color: Colors.black,
-                ),
+                leading: Icon(Icons.home,
+                    color: Theme.of(context)
+                        .iconTheme
+                        .color), // تعديل: تتبع الـ Theme
                 title: Text(
                   'Home',
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge, // بالفعل بيتبع الـ Theme
                 ),
               ),
             ),
             ListTile(
-              leading: Icon(
-                Icons.settings,
-                color: Colors.black,
-              ),
+              leading: Icon(Icons.settings,
+                  color: Theme.of(context)
+                      .iconTheme
+                      .color), // تعديل: تتبع الـ Theme
               title: Text(
                 'Settings',
-                style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge, // بالفعل بيتبع الـ Theme
               ),
             ),
             ListTile(
-              leading: Icon(
-                Icons.help,
-                color: Colors.black,
-              ),
+              leading: Icon(Icons.help,
+                  color: Theme.of(context)
+                      .iconTheme
+                      .color), // تعديل: تتبع الـ Theme
               title: Text(
                 'Help',
-                style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge, // بالفعل بيتبع الـ Theme
               ),
+            ),
+            ListTile(
+              leading: Icon(Icons.brightness_6,
+                  color: Theme.of(context)
+                      .iconTheme
+                      .color), // تعديل: تتبع الـ Theme
+              title: Text(
+                'تبديل الثيم',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge, // تعديل: تتبع الـ Theme
+              ),
+              onTap: () {
+                context.read<ThemeCubit>().toggleTheme();
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.settings_system_daydream,
+                  color: Theme.of(context)
+                      .iconTheme
+                      .color), // تعديل: تتبع الـ Theme
+              title: Text(
+                'العودة لثيم النظام',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge, // تعديل: تتبع الـ Theme
+              ),
+              onTap: () {
+                context.read<ThemeCubit>().resetToSystem(context);
+              },
             ),
             GestureDetector(
               onTap: () {
                 cubit.logout();
-                // context.read<LoginCubit>().logout();
               },
               child: ListTile(
-                leading: Icon(
-                  Icons.logout,
-                  color: Colors.black,
-                ),
+                leading: Icon(Icons.logout,
+                    color: Theme.of(context)
+                        .iconTheme
+                        .color), // تعديل: تتبع الـ Theme
                 title: Text(
                   'Logout',
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge, // بالفعل بيتبع الـ Theme
                 ),
               ),
             ),

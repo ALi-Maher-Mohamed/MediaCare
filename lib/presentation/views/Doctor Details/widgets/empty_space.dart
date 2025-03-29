@@ -9,7 +9,7 @@ class EmptySpace extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 10.h,
-      color: Color(0xffF4F7FD),
+      color: Theme.of(context).colorScheme.surfaceVariant,
     );
   }
 }

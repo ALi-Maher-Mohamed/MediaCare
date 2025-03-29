@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../../Doctor Speciality/DocSpecialityModel.dart';
-
 import 'custom_search_bar.dart';
 import 'serch_view_recommend_item.dart';
 
@@ -22,8 +21,6 @@ class SearchViewBody extends StatelessWidget {
     DocSpecialityModel(
         name: 'Hepatology',
         image: 'assets/images/DoctorSpeciality/Hepatology.svg'),
-    // DocSpecialityModel(
-    //     name: 'General', image: 'assets/images/DoctorSpeciality/gen.svg'),
     DocSpecialityModel(
         name: 'Cardiologist',
         image: 'assets/images/DoctorSpeciality/cardiologist.svg'),

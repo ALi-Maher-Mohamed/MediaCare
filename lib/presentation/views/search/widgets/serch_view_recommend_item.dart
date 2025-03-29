@@ -14,7 +14,7 @@ class SearchViewRecommendItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Text(name),
+          Text(name, style: Theme.of(context).textTheme.bodyMedium),
           SizedBox(width: 18),
           SvgPicture.asset(image),
           SizedBox(width: 14),

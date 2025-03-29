@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../core/utils/app_color.dart';
 
 class CustomSearchBar extends StatelessWidget {
   const CustomSearchBar({super.key});
@@ -9,9 +8,9 @@ class CustomSearchBar extends StatelessWidget {
     return Container(
       height: 50,
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.primary),
+        border: Border.all(color: Theme.of(context).colorScheme.primary),
         borderRadius: BorderRadius.circular(20),
-        color: AppColors.lightGrey,
+        color: Theme.of(context).colorScheme.surface,
       ),
       child: Padding(
         padding: const EdgeInsets.all(6.0),

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/utils/app_color.dart';
 import '../../../../../core/utils/components/validators.dart';
 import '../manager/register_cubit.dart';
 import '../../login/widgets/custom_login_button.dart';
-
 import '../../login/widgets/custom_text_form_field.dart';
 
 class RegisterForm extends StatelessWidget {
@@ -65,7 +63,6 @@ class RegisterForm extends StatelessWidget {
             height: 20,
           ),
           CustomTextField(
-            //This for password
             validator: AppValidators.validatePassword,
             controller: data.passwordController,
             suffixIcon: IconButton(
@@ -74,7 +71,7 @@ class RegisterForm extends StatelessWidget {
               },
               icon: Icon(
                 data.isVisible ? Icons.visibility_off : Icons.visibility,
-                color: AppColors.primary,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
             isObscureText: context.watch<RegisterCubit>().isVisible,
@@ -84,7 +81,6 @@ class RegisterForm extends StatelessWidget {
             height: 20,
           ),
           CustomTextField(
-            //This for password
             validator: (value) => AppValidators.validateConfirmPassword(
                 value, data.passwordController.text),
             controller: data.passwordConfimController,
@@ -94,7 +90,7 @@ class RegisterForm extends StatelessWidget {
               },
               icon: Icon(
                 data.isVisibleConfirm ? Icons.visibility_off : Icons.visibility,
-                color: AppColors.primary,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
             isObscureText: context.watch<RegisterCubit>().isVisibleConfirm,

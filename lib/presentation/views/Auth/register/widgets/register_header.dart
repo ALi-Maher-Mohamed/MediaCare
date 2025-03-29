@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/utils/app_color.dart';
-
 class RegisterHeader extends StatelessWidget {
   const RegisterHeader({
     super.key,
@@ -15,17 +13,13 @@ class RegisterHeader extends StatelessWidget {
         children: [
           Text(
             '... مرحبا بك ',
-            style: TextStyle(
-              fontSize: 30,
-              color: AppColors.primary,
-            ),
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
           ),
           Text(
             'سجل دخولك ',
-            style: TextStyle(
-              fontSize: 30,
-              color: AppColors.darkGrey,
-            ),
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
         ],
       ),

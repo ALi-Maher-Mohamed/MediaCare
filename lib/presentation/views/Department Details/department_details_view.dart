@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_care/core/network/api_service.dart';
-import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
 import 'package:media_care/presentation/views/Department%20Details/data/models/department_details_model.dart';
 import 'package:media_care/presentation/views/Department%20Details/data/repo/department_details_repo_impl.dart';
@@ -25,29 +24,28 @@ class DepartmentDetailsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => DepartmentDetailsCubit(
         departmentDetailsRepoImpl: DepartmentDetailsRepoImpl(
-          ApiServiceFunctions(Dio()), // Pass token here
+          ApiServiceFunctions(Dio()),
         ),
       )..getDepartmentDetails(departmentID),
       child: BlocBuilder<DepartmentDetailsCubit, DepartmentDetailsState>(
         builder: (context, state) {
           if (state is DepartmentDetailsLoading) {
             return Container(
-              color: Colors.white,
+              color: Theme.of(context).scaffoldBackgroundColor,
               child: CustomProgressIndicator(),
             );
           } else if (state is DepartmentDetailsLoaded) {
             String selectedCategory = state.selectedCategory;
 
             return Scaffold(
-              backgroundColor: Colors.white,
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               appBar: AppBar(
                 centerTitle: true,
                 forceMaterialTransparency: true,
-                iconTheme: IconThemeData(color: AppColors.primary),
+                iconTheme: Theme.of(context).iconTheme,
                 title: Text(
                   '$title',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: AppColors.primary),
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
               body: Column(
@@ -84,17 +82,13 @@ class DepartmentDetailsScreen extends StatelessWidget {
                     child: ListView(
                       children: state.filteredData.map((item) {
                         if (item.runtimeType == Hospital) {
-                          return HospitalCard(
-                              hospital:
-                                  item as Hospital); // قم بإنشاء HospitalCard
+                          return HospitalCard(hospital: item as Hospital);
                         } else if (item.runtimeType == CareCenter) {
-                          return CareCenterCard(
-                              careCenter: item
-                                  as CareCenter); // قم بإنشاء CareCenterCard
+                          return CareCenterCard(careCenter: item as CareCenter);
                         } else if (item.runtimeType == Doctor) {
                           return DoctorCard(doctor: item as Doctor);
                         } else {
-                          return Container(); // Fallback في حالة وجود نوع غير معروف
+                          return Container();
                         }
                       }).toList(),
                     ),
@@ -103,9 +97,13 @@ class DepartmentDetailsScreen extends StatelessWidget {
               ),
             );
           } else if (state is DepartmentDetailsError) {
-            return Center(child: Text('Error: ${state.message}'));
+            return Center(
+                child: Text('Error: ${state.message}',
+                    style: Theme.of(context).textTheme.bodyMedium));
           }
-          return Center(child: Text('Unknown state')); // Fallback
+          return Center(
+              child: Text('Unknown state',
+                  style: Theme.of(context).textTheme.bodyMedium));
         },
       ),
     );

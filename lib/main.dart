@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/core/SharedPref/shared_pref.dart';
+import 'package:media_care/core/utils/cubits/theme_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/repo/Labs_analytics_repo_impl.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/managers/cubit/labs_analytics_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/manager/cubit/prescription_cubit.dart';
@@ -48,18 +49,27 @@ class MediCare extends StatelessWidget {
             create: (context) =>
                 LabAnalysisCubit(LabAnalysisRepositoryImpl(Dio())),
           ),
+          BlocProvider(
+            create: (context) => ThemeCubit(),
+          ),
         ],
-        child: MaterialApp(
-          locale: Locale('ar'),
-          builder: EasyLoading.init(builder: (context, child) {
-            return Directionality(
-              textDirection: TextDirection.rtl,
-              // يجعل التطبيق بالكامل من اليسار لليمين
-              child: child!,
+        child: BlocBuilder<ThemeCubit, ThemeData>(
+          builder: (context, theme) {
+            // تعيين الثيم الافتراضي عند البداية
+            context.read<ThemeCubit>().setInitialTheme(context);
+            return MaterialApp(
+              theme: theme, // تطبيق الثيم من ThemeCubit
+              locale: Locale('ar'),
+              builder: EasyLoading.init(builder: (context, child) {
+                return Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: child!,
+                );
+              }),
+              debugShowCheckedModeBanner: false,
+              home: isLoggedIn ? HomeView() : HomeView(),
             );
-          }),
-          debugShowCheckedModeBanner: false,
-          home: isLoggedIn ? HomeView() : HomeView(),
+          },
         ),
       ),
     );

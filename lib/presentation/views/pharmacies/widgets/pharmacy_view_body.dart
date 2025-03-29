@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
+import 'package:media_care/core/utils/widgets/custom_shimmer_list_view.dart';
 import 'package:media_care/presentation/views/pharmacies/widgets/pharmacy_list_view.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../manager/cubit/pharmacy_cubit.dart';
 
@@ -15,30 +16,34 @@ class pharmacyViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         forceMaterialTransparency: true,
-        title: const Text('الصيدليات ',
-            style: TextStyle(
-                fontWeight: FontWeight.bold, color: AppColors.primary)),
+        title:
+            Text('الصيدليات ', style: Theme.of(context).textTheme.titleLarge),
         centerTitle: true,
-        iconTheme: IconThemeData(
-          color: AppColors.primary,
-        ),
+        iconTheme: Theme.of(context).appBarTheme.iconTheme,
       ),
       body: BlocBuilder<PharmacyCubit, PharmacyState>(
         builder: (context, state) {
           if (state is PharmacyLoadingState) {
-            return const CustomProgressIndicator();
+            return Shimmer.fromColors(
+              baseColor: Theme.of(context).colorScheme.primary,
+              highlightColor: Theme.of(context).colorScheme.surface,
+              child: const CustomShimmerListView(),
+            );
           } else if (state is PharmacySuccessState) {
             return CustomPharmacyListView(
                 pharmacies: state.pharmacies,
                 scrollController: _scrollController);
-            // CustomPharmacyListView(pharmacies: state.pharmacies);
           } else if (state is PharmacyErrorState) {
             return ErrorText(message: state.message);
           }
-          return const CustomProgressIndicator();
+          return Shimmer.fromColors(
+            baseColor: Theme.of(context).colorScheme.primary,
+            highlightColor: Theme.of(context).colorScheme.surface,
+            child: const CustomShimmerListView(),
+          );
         },
       ),
     );
