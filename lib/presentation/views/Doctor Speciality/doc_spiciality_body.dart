@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
-import '../Doctor%20Speciality/DocSpecialityModel.dart';
-import '../Doctor%20Speciality/custom_doc_grid_view.dart';
+import 'package:media_care/presentation/views/Doctor%20Speciality/DocSpecialityModel.dart';
+import 'package:media_care/presentation/views/Doctor%20Speciality/custom_doc_grid_view.dart';
 
-class DocSpicalityBody extends StatelessWidget {
-  const DocSpicalityBody({
+class DocSpecialityBody extends StatelessWidget {
+  const DocSpecialityBody({
     super.key,
-    required this.DocSpecialityData,
+    required this.docSpecialityData,
   });
 
-  final List<DocSpecialityModel> DocSpecialityData;
+  final List<DocSpecialityModel> docSpecialityData;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: CustomDocSpicalityGridView(
-        DocSpecialityData: DocSpecialityData,
-      ),
+      child: CustomDocSpecialityGridView(docSpecialityData: docSpecialityData),
     );
   }
 }

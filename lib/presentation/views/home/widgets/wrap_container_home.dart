@@ -13,9 +13,7 @@ import '../../pharmacies/manager/cubit/pharmacy_cubit.dart';
 import '../../pharmacies/pharmacy_view.dart';
 
 class CustomWrapContainersHomeView extends StatelessWidget {
-  const CustomWrapContainersHomeView({
-    super.key,
-  });
+  const CustomWrapContainersHomeView({super.key});
 
   @override
   Widget build(BuildContext context) {

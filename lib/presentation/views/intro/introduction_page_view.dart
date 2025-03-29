@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'widgets/intro_view_body.dart';
 
 class IntroView extends StatelessWidget {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../../core/utils/app_color.dart';
 
 class CategoryCard extends StatelessWidget {
   const CategoryCard({super.key});
@@ -13,18 +12,22 @@ class CategoryCard extends StatelessWidget {
         height: 80,
         padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
-            color: AppColors.primaryLight,
-            borderRadius: BorderRadius.circular(12)),
+          color: Theme.of(context).colorScheme.secondaryContainer,
+          borderRadius: BorderRadius.circular(12),
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SvgPicture.asset(
               'assets/images/DoctorSpeciality/ENT.svg',
             ),
-            SizedBox(
-              width: 12,
+            SizedBox(width: 12),
+            Text(
+              "ENT",
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+              ),
             ),
-            Text("ENT")
           ],
         ),
       ),

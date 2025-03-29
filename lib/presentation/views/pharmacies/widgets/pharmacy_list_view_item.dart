@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/core/utils/widgets/clip_path.dart';
 import '../../../../core/utils/functins/launch_url.dart';
-import '../../../../core/utils/app_color.dart';
 import '../data/model/pharmacy_model.dart';
 import 'pharmacy_details_page.dart';
 
@@ -45,7 +45,7 @@ class CustomCard2 extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -79,33 +79,24 @@ class CustomCard2 extends StatelessWidget {
               children: [
                 Text(
                   pharmacy.title,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 4),
                 Text(
                   '${pharmacy.city} - ${pharmacy.area}',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey[700],
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 4),
                 Text(
                   pharmacy.service,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.blueGrey,
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],
             ),
           ),
           IconButton(
-            icon: Icon(Icons.phone, color: AppColors.primary, size: 30),
+            icon: Icon(Icons.phone,
+                color: Theme.of(context).colorScheme.primary, size: 30),
             onPressed: () {
               launchDialer(pharmacy.phone);
             },
@@ -130,11 +121,11 @@ class CustomCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: AppColors.backgroundDark.withOpacity(0.5),
             blurRadius: 6,
             spreadRadius: 2,
             offset: Offset(0, 3),
@@ -147,7 +138,7 @@ class CustomCard extends StatelessWidget {
           child: Container(
             height: 200.h,
             width: double.infinity,
-            color: AppColors.primary2,
+            color: Theme.of(context).colorScheme.primaryFixed,
           ),
         ),
         Column(
@@ -157,10 +148,9 @@ class CustomCard extends StatelessWidget {
             Text(
               pharmacy.title,
               style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20.h),
             ClipRRect(
@@ -184,9 +174,11 @@ class CustomCard extends StatelessWidget {
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     fixedSize: Size(100.w, 35.h),
-                    backgroundColor: AppColors.primary2,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                   ),
-                  child: Icon(Icons.location_on, color: Colors.white, size: 30),
+                  child: Icon(Icons.location_on,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      size: 30.sp),
                   onPressed: () {
                     launchCustomUrl(context, '${pharmacy.locationUrl}');
                   },
@@ -194,14 +186,11 @@ class CustomCard extends StatelessWidget {
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       fixedSize: Size(100.w, 35.h),
-                      backgroundColor: AppColors.primary2,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
                     child: Text('المزيد',
                         style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16.sp,
-                        )),
+                            color: Theme.of(context).colorScheme.onPrimary)),
                     onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -217,7 +206,7 @@ class CustomCard extends StatelessWidget {
           right: 20.w,
           bottom: 40.h,
           child: Text(' ${pharmacy.city} - ${pharmacy.area}',
-              style: TextStyle(color: AppColors.darkGrey, fontSize: 14.sp)),
+              style: Theme.of(context).textTheme.bodyMedium),
         ),
         if (pharmacy.deliveryOption == 1)
           Positioned(
@@ -227,7 +216,7 @@ class CustomCard extends StatelessWidget {
                 height: 30.h,
                 width: 90.w,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.surface,
                   borderRadius: BorderRadius.circular(30),
                   boxShadow: [
                     BoxShadow(
@@ -241,11 +230,10 @@ class CustomCard extends StatelessWidget {
                 child: Text(
                   ' نوصيل 🚓',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.primary2,
-                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(color: Theme.of(context).colorScheme.primary),
                 ),
               )),
       ]),

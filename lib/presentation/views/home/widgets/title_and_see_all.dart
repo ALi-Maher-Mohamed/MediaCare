@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:media_care/core/utils/app_color.dart';
 
 class TitleAndSeeAll extends StatelessWidget {
@@ -8,8 +7,10 @@ class TitleAndSeeAll extends StatelessWidget {
     required this.text,
     required this.onTap,
   });
+
   final String text;
   final void Function() onTap;
+
   @override
   Widget build(BuildContext context) {
     return Padding(

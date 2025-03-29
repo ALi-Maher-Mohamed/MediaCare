@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/core/utils/app_color.dart';
 
 class AppTheme {
@@ -6,22 +7,56 @@ class AppTheme {
     return ThemeData(
       brightness: Brightness.light,
       primaryColor: AppColors.primary,
-      scaffoldBackgroundColor: Colors.white,
+      primaryColorLight: AppColors.primaryLight,
+      scaffoldBackgroundColor: AppColors.backgroundLight,
       appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.backgroundLight,
         elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(color: AppColors.textDark),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
-          foregroundColor: Colors.white,
+          foregroundColor: AppColors.textLight,
+          padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 32.w),
         ),
       ),
-      textTheme: const TextTheme(
-        bodyMedium: TextStyle(color: Colors.black),
+      colorScheme: ColorScheme.light(
+        primary: AppColors.primary,
+        primaryContainer: AppColors.primaryLight,
+        secondary: AppColors.secondary, // الوردي الطبي الجديد
+        secondaryContainer: AppColors.primaryLight, // وردي فاتح كـ container
+        surface: AppColors.surfaceLight,
+        surfaceVariant: AppColors.lightGrey,
+        onSurface: AppColors.textDark,
+        onSurfaceVariant: AppColors.darkGrey,
+        error: AppColors.backgroundLight,
+        onPrimary: AppColors.textLight,
+        onSecondary: AppColors.textLight,
+        onError: AppColors.textLight,
+        background: AppColors.backgroundLight,
       ),
-      iconTheme: const IconThemeData(color: Colors.black),
+      textTheme: TextTheme(
+        titleLarge: TextStyle(
+          color: AppColors.textDark,
+          fontSize: 22.sp,
+          fontWeight: FontWeight.bold,
+        ),
+        titleMedium: TextStyle(
+          color: AppColors.textDark,
+          fontSize: 20.sp,
+          fontWeight: FontWeight.w600,
+        ),
+        bodyLarge: TextStyle(
+          color: AppColors.textDark,
+          fontSize: 16.sp,
+        ),
+        bodyMedium: TextStyle(
+          color: AppColors.textLight,
+          fontSize: 14.sp,
+        ),
+      ),
+      iconTheme: const IconThemeData(color: AppColors.textDark),
     );
   }
 
@@ -29,22 +64,56 @@ class AppTheme {
     return ThemeData(
       brightness: Brightness.dark,
       primaryColor: AppColors.primary,
-      scaffoldBackgroundColor: Colors.grey[900],
-      appBarTheme: AppBarTheme(
-        backgroundColor: Colors.grey[900],
+      primaryColorLight: AppColors.primaryLight,
+      scaffoldBackgroundColor: AppColors.backgroundDark,
+      appBarTheme: const AppBarTheme(
+        backgroundColor: AppColors.backgroundDark,
         elevation: 0,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: AppColors.textLight),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
-          foregroundColor: Colors.white,
+          foregroundColor: AppColors.textLight,
+          padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 32.w),
         ),
       ),
-      textTheme: const TextTheme(
-        bodyMedium: TextStyle(color: Colors.white),
+      colorScheme: ColorScheme.dark(
+        primary: AppColors.primary,
+        primaryContainer: AppColors.primaryLight,
+        secondary: AppColors.secondary, // الوردي الطبي الجديد
+        secondaryContainer: Color(0xffC2185B), // وردي غامق كـ container
+        surface: AppColors.surfaceDark,
+        surfaceVariant: AppColors.darkGrey,
+        onSurface: AppColors.textLight,
+        onSurfaceVariant: AppColors.lightGrey,
+        error: Colors.redAccent,
+        onPrimary: AppColors.textLight,
+        onSecondary: AppColors.textLight,
+        onError: AppColors.textLight,
+        background: AppColors.backgroundDark,
       ),
-      iconTheme: const IconThemeData(color: Colors.white),
+      textTheme: TextTheme(
+        titleLarge: TextStyle(
+          color: AppColors.primary,
+          fontSize: 20.sp,
+          fontWeight: FontWeight.bold,
+        ),
+        titleMedium: TextStyle(
+          color: AppColors.textLight,
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w600,
+        ),
+        bodyLarge: TextStyle(
+          color: AppColors.textLight,
+          fontSize: 16.sp,
+        ),
+        bodyMedium: TextStyle(
+          color: AppColors.lightGrey,
+          fontSize: 14.sp,
+        ),
+      ),
+      iconTheme: const IconThemeData(color: AppColors.textLight),
     );
   }
 }

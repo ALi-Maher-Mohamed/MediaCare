@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import '../../../../core/utils/app_color.dart';
 
 class HomeViewHeader extends StatelessWidget {
   const HomeViewHeader({super.key});
@@ -15,13 +14,14 @@ class HomeViewHeader extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-                width: 130.w,
-                child: Image.asset(
-                  'assets/images/Medicare.png',
-                  height: 80.h,
-                )),
+              width: 130.w,
+              child: Image.asset(
+                'assets/images/Medicare.png',
+                height: 80.h,
+              ),
+            ),
             IconButton(
-              color: AppColors.primary,
+              color: Theme.of(context).primaryColor, // بالفعل بيتبع الـ Theme
               onPressed: () {
                 ZoomDrawer.of(context)!.toggle();
               },
@@ -31,10 +31,11 @@ class HomeViewHeader extends StatelessWidget {
         ),
         Text(
           ' ${DateTime.now().day.toString()} / ${DateTime.now().month.toString()} / ${DateTime.now().year.toString()}',
-          style: TextStyle(
-              color: AppColors.primary.withOpacity(.8),
-              fontWeight: FontWeight.bold,
-              fontSize: 14.sp),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).primaryColor.withOpacity(.8),
+                fontWeight: FontWeight.bold,
+                fontSize: 14.sp,
+              ), // بالفعل بيتبع الـ Theme
         ),
         SizedBox(
           height: 30.h,

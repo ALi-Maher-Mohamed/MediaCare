@@ -24,7 +24,7 @@ class CustomLaboratoryListView extends StatelessWidget {
         Expanded(
           child: ListView.builder(
             controller: scrollController,
-            itemCount: laboratories.length + 1, // +1 لعنصر التحميل
+            itemCount: laboratories.length + 1,
             itemBuilder: (context, index) {
               if (index == laboratories.length) {
                 return context.read<LaboratoryCubit>().hasMore

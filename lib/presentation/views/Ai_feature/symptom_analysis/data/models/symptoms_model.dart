@@ -40,7 +40,7 @@ class SymptomAnalysisData {
   final String? diagnosis;
   final String? recommendedSpecialization;
   final String? advice;
-  final int? confidenceScore;
+  final double? confidenceScore; // نوع double? كما هو معرف
   final String? message;
   final List<SymptomMedication> suggestedMedications;
   final String? medicationWarning;
@@ -64,7 +64,10 @@ class SymptomAnalysisData {
       recommendedSpecialization:
           _convertToString(json['recommendedSpecialization']) ?? 'غير محدد',
       advice: _convertToString(json['advice']) ?? 'لا توجد نصائح',
-      confidenceScore: json['confidence_score'] as int? ?? 0,
+      confidenceScore: (json['confidence_score'] is num
+              ? (json['confidence_score'] as num).toDouble()
+              : null) ??
+          0.0, // تعديل للتعامل مع int و double
       message: _convertToString(json['message']) ?? 'لا توجد رسالة',
       suggestedMedications: (json['suggested_medications'] as List? ?? [])
           .map((med) => med is Map

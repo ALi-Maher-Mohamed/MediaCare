@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../core/utils/app_color.dart';
 
 class NoInternetView extends StatelessWidget {
   const NoInternetView({super.key});
@@ -19,10 +18,8 @@ class NoInternetView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Text(
             'Please check your internet connection and try again ...',
-            style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.normal,
-                color: AppColors.primary),
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                fontSize: 22, color: Theme.of(context).colorScheme.primary),
             textAlign: TextAlign.center,
           ),
         ),

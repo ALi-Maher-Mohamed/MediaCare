@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:media_care/core/utils/app_color.dart';
 
 class FieldData extends StatelessWidget {
   FieldData({required this.title, super.key, required this.data});
@@ -16,10 +15,9 @@ class FieldData extends StatelessWidget {
         children: [
           Text(
             '$title',
-            style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.bold,
-                color: AppColors.primary),
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
           ),
           const SizedBox(
             height: 5,
@@ -30,7 +28,7 @@ class FieldData extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: Colors.blue.shade300,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   width: 1.5,
                   style: BorderStyle.solid,
                 ),
@@ -42,10 +40,7 @@ class FieldData extends StatelessWidget {
                 children: [
                   Text(
                     '$data',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ],
               ),

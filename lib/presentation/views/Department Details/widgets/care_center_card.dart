@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/core/utils/widgets/clip_path.dart';
 import 'package:media_care/presentation/views/Department%20Details/data/models/department_details_model.dart';
 
@@ -15,7 +14,7 @@ class CareCenterCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
@@ -32,7 +31,7 @@ class CareCenterCard extends StatelessWidget {
           child: Container(
             height: 250.h,
             width: double.infinity,
-            color: AppColors.primary,
+            color: Theme.of(context).colorScheme.primary,
           ),
         ),
         Column(
@@ -41,25 +40,21 @@ class CareCenterCard extends StatelessWidget {
             SizedBox(height: 10.h),
             FaIcon(
               FontAwesomeIcons.hospital,
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
             Text(
               careCenter.title,
-              style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
             ),
             Text(
               careCenter.service,
               overflow: TextOverflow.clip,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
             ),
             SizedBox(height: 20.h),
             ClipRRect(
@@ -83,11 +78,7 @@ class CareCenterCard extends StatelessWidget {
                 children: [
                   Text(
                     '${careCenter.appPrice}',
-                    style: TextStyle(
-                      color: Color(0xff272b2f),
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   SizedBox(
                     width: 5.w,
@@ -95,18 +86,14 @@ class CareCenterCard extends StatelessWidget {
                   FaIcon(
                     FontAwesomeIcons.moneyBill,
                     size: 16,
-                    color: AppColors.primary,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                   Spacer(
                     flex: 1,
                   ),
                   Text(
                     careCenter.phone,
-                    style: TextStyle(
-                      color: Color(0xff272b2f),
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   SizedBox(
                     width: 7.w,
@@ -114,7 +101,7 @@ class CareCenterCard extends StatelessWidget {
                   FaIcon(
                     FontAwesomeIcons.phone,
                     size: 16,
-                    color: AppColors.primary,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ],
               ),
@@ -128,11 +115,7 @@ class CareCenterCard extends StatelessWidget {
                 careCenter.address,
                 overflow: TextOverflow.clip,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xff272b2f),
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),
             SizedBox(
@@ -141,12 +124,11 @@ class CareCenterCard extends StatelessWidget {
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   fixedSize: Size(270.w, 35.h),
-                  backgroundColor: AppColors.primary,
+                  backgroundColor: Theme.of(context).colorScheme.primary,
                 ),
                 child: FaIcon(
                   FontAwesomeIcons.locationDot,
-                  color: Colors.white,
-                  // size: ,
+                  color: Theme.of(context).colorScheme.onPrimary,
                 ),
                 onPressed: () {}),
           ],

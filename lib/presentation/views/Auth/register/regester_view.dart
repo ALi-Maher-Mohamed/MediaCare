@@ -23,9 +23,7 @@ class RegisterView extends StatelessWidget {
             EasyLoading.showSuccess("Register Success");
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      const LoginView()), // Change to your Login screen widget
+              MaterialPageRoute(builder: (context) => const LoginView()),
             );
           } else if (state is RegisterLoadingState) {
             EasyLoading.show(status: 'Loading...');

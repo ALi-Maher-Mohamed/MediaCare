@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-
-import 'DocSpecialityModel.dart';
+import 'package:media_care/presentation/views/Doctor%20Speciality/DocSpecialityModel.dart';
 import 'doc_speciality_item.dart';
 
-class CustomDocSpicalityGridView extends StatelessWidget {
-  const CustomDocSpicalityGridView({
+class CustomDocSpecialityGridView extends StatelessWidget {
+  const CustomDocSpecialityGridView({
     super.key,
-    required this.DocSpecialityData,
+    required this.docSpecialityData,
   });
 
-  final List<DocSpecialityModel> DocSpecialityData;
+  final List<DocSpecialityModel> docSpecialityData;
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +19,10 @@ class CustomDocSpicalityGridView extends StatelessWidget {
         crossAxisSpacing: 12.0,
         mainAxisSpacing: 8.0,
       ),
-      itemCount: DocSpecialityData.length,
+      itemCount: docSpecialityData.length,
       itemBuilder: (context, index) {
         return DocSpecialityItem(
-            DocSpecialityData: DocSpecialityData, index: index);
+            docSpecialityData: docSpecialityData, index: index);
       },
     );
   }

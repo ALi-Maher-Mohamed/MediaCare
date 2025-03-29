@@ -10,12 +10,14 @@ class MenuView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor:
-            Theme.of(context).colorScheme.secondaryContainer, // من الـ Theme
-        body: BlocProvider(
-          create: (context) => LogoutCubit(
-              logoutRepo: LogoutRepoImpl(ApiServiceFunctions(Dio()))),
-          child: MenuViewBody(),
-        ));
+      backgroundColor: Theme.of(context)
+          .colorScheme
+          .secondaryContainer, // بالفعل بيتبع الـ Theme
+      body: BlocProvider(
+        create: (context) =>
+            LogoutCubit(logoutRepo: LogoutRepoImpl(ApiServiceFunctions(Dio()))),
+        child: MenuViewBody(),
+      ),
+    );
   }
 }

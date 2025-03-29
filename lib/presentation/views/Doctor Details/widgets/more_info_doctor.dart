@@ -3,7 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MoreInfoDoctor extends StatelessWidget {
   final String? moreInfoAboutDoctor;
-  MoreInfoDoctor({
+
+  const MoreInfoDoctor({
     required this.moreInfoAboutDoctor,
     super.key,
   });
@@ -11,22 +12,19 @@ class MoreInfoDoctor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // margin: const EdgeInsets.all(16), // هامش خارجي
       decoration: BoxDecoration(
-        color: Colors.white,
-        // borderRadius: BorderRadius.circular(10),
+        color: Theme.of(context).scaffoldBackgroundColor,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
+            color: Theme.of(context).shadowColor.withOpacity(0.2),
             spreadRadius: 2,
             blurRadius: 5,
-            // offset: const Offset(0, 3),
           ),
         ],
       ),
       child: ExpansionTile(
-        collapsedIconColor: Color(0xff0DCAF0),
-        iconColor: Color(0xff0DCAF0),
+        collapsedIconColor: Theme.of(context).colorScheme.primary,
+        iconColor: Theme.of(context).colorScheme.primary,
         dense: true,
         title: Row(
           children: [
@@ -35,12 +33,12 @@ class MoreInfoDoctor extends StatelessWidget {
               child: FaIcon(
                 FontAwesomeIcons.circleInfo,
                 size: 18,
-                color: Color(0xff0DCAF0),
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
             Text(
               'معلومات عن الدكتور',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ],
         ),
@@ -49,7 +47,9 @@ class MoreInfoDoctor extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: Text(
               '$moreInfoAboutDoctor',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
             ),
           ),
         ],

@@ -13,23 +13,10 @@ import 'package:media_care/presentation/views/AI_Feature/widgets_robot_view/robo
 class RobotView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-            create: (context) =>
-                PrescriptionCubit(PrescriptionRepoImpl(Dio()))),
-        BlocProvider(
-            create: (context) =>
-                LabAnalysisCubit(LabAnalysisRepositoryImpl(Dio()))),
-        BlocProvider(
-            create: (context) =>
-                SymptomAnalysisCubit(SymptomAnalysisRepositoryImpl(Dio()))),
-      ],
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: RobotAppBar(),
-        body: RobotCardList(),
-      ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: RobotAppBar(),
+      body: RobotCardList(),
     );
   }
 }

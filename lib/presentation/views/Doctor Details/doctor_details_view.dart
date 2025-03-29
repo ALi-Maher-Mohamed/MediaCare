@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_care/core/network/api_service.dart';
-import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/data/repo/doctor_details_repo_impl.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/manager/cubit/doctor_details_cubit.dart';
@@ -22,16 +21,14 @@ class DoctorDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        shadowColor: Colors.white,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        shadowColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
         title: Text(
           'Doctor Details',
-          style: TextStyle(
-            color: AppColors.primary2,
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-          ),
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                color: Theme.of(context).colorScheme.primaryContainer,
+              ),
         ),
       ),
       body: BlocProvider(
@@ -44,11 +41,15 @@ class DoctorDetailsView extends StatelessWidget {
           builder: (context, state) {
             if (state is DoctorDetailsLoading) {
               return Container(
-                  color: Colors.white, child: CustomProgressIndicator());
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  child: CustomProgressIndicator());
             }
             if (state is DoctorDetailsError) {
               return Center(
-                child: Text('Error : ${state.message}'),
+                child: Text(
+                  'Error : ${state.message}',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
               );
             }
             if (state is DoctorDetailsLoaded) {
@@ -87,14 +88,18 @@ class DoctorDetailsView extends StatelessWidget {
                         doctorDetailsModel: state.DoctorDetails,
                         full_name: '${state.DoctorDetails.data?.fName}'
                             '${state.DoctorDetails.data?.lName}',
-                        // appointment_time: state.DoctorDetails.data?.appointments,
                       ),
-                    ), // Fixed widget
+                    ),
                   ],
                 ),
               );
             }
-            return Center(child: Text('Unknown state')); // Fallback
+            return Center(
+              child: Text(
+                'Unknown state',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            );
           },
         ),
       ),

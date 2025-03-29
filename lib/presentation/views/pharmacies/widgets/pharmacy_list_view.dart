@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
 import 'package:media_care/presentation/views/pharmacies/manager/cubit/pharmacy_cubit.dart';
-
 import 'pharmacy_list_view_item.dart';
 import '../../search/widgets/custom_search_bar.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +32,6 @@ class CustomPharmacyListView extends StatelessWidget {
             }
             return PharmacyListViewItem(
                 pharmacy: pharmacies[index], index: index);
-            // PharmacyItem(pharmacy: pharmacies[index]);
           },
         ),
       ),

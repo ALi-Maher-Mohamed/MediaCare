@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/presentation/views/Reservation/manager/cubit/reservation_cubit.dart';
 import 'package:media_care/presentation/views/Reservation/manager/cubit/reservation_state.dart';
 
@@ -49,11 +48,9 @@ class ReservationDialog extends StatelessWidget {
           title: Center(
             child: Text(
               'احجز الآن مع د. ${full_name}',
-              style: TextStyle(
-                color: Color(0xff0DCAF0),
-                fontSize: 15.sp,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
             ),
           ),
           content: SizedBox(
@@ -61,37 +58,51 @@ class ReservationDialog extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Divider(
-                  color: Colors.grey,
+                Divider(
+                  color: Theme.of(context).colorScheme.outline,
                   thickness: 1.0,
                 ),
-                const Text(
+                Text(
                   'معلومات الحجز:',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 const SizedBox(height: 10),
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Colors.amber[100],
+                    color: Theme.of(context).colorScheme.secondaryContainer,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Column(
                     children: [
-                      const Text(
+                      Text(
                         'برجاء التسجيل الدخول للحجز',
-                        style: TextStyle(color: Colors.brown),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSecondaryContainer,
+                            ),
                       ),
                       const SizedBox(height: 8),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.amber,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.secondary,
                         ),
                         onPressed: () {
                           Navigator.pop(context);
                           // Add login navigation here
                         },
-                        child: const Text('سجل الآن'),
+                        child: Text(
+                          'سجل الآن',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
+                                color:
+                                    Theme.of(context).colorScheme.onSecondary,
+                              ),
+                        ),
                       ),
                     ],
                   ),
@@ -99,16 +110,24 @@ class ReservationDialog extends StatelessWidget {
                 const SizedBox(height: 20),
                 Row(
                   children: [
-                    Icon(Icons.access_time, color: Colors.grey),
+                    Icon(Icons.access_time,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant),
                     SizedBox(width: 5),
-                    Text('$appointment_time'),
+                    Text(
+                      '$appointment_time',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                   ],
                 ),
                 Row(
                   children: [
-                    Icon(Icons.location_on, color: Colors.blue),
+                    Icon(Icons.location_on,
+                        color: Theme.of(context).colorScheme.primary),
                     SizedBox(width: 5),
-                    Text('${clinicTitle}'),
+                    Text(
+                      '$clinicTitle',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                   ],
                 ),
               ],
@@ -120,15 +139,13 @@ class ReservationDialog extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
-                  color: Color.fromARGB(255, 242, 37, 37),
+                  color: Theme.of(context).colorScheme.error,
                 ),
                 child: Text(
                   'إلغاء',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: Theme.of(context).colorScheme.onError,
+                      ),
                 ),
               ),
               onTap: () {
@@ -140,22 +157,18 @@ class ReservationDialog extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
-                  color: Color(0xff0DCAF0),
+                  color: Theme.of(context).colorScheme.primary,
                 ),
                 child: Text(
                   'احجز',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                 ),
               ),
               onTap: () {
                 final reservationCubit =
                     BlocProvider.of<ReservationCubit>(context);
-
-                // Ensure all parameters are valid before calling the function
                 if (user_id == null ||
                     doctor_id == null ||
                     clinic_id == null ||
@@ -163,8 +176,6 @@ class ReservationDialog extends StatelessWidget {
                   EasyLoading.showError("Missing required information");
                   return;
                 }
-                // print('$user_id');
-                // print('token : $g')
                 reservationCubit.reserveAppointment(
                   userId: user_id!,
                   doctorId: doctor_id!,

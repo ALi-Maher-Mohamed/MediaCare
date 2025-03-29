@@ -5,30 +5,25 @@ import '../no_internet/no_intenet_view.dart';
 import 'widgets/home_view_body.dart';
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({
-    super.key,
-  });
+  const MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: OfflineBuilder(
-            connectivityBuilder: (
-              BuildContext context,
-              List<ConnectivityResult> connectivity,
-              Widget child,
-            ) {
-              final bool connected =
-                  !connectivity.contains(ConnectivityResult.none);
-              if (connected) {
-                return HomeViewBody();
-              } else {
-                return NoInternetView();
-              }
-            },
-            child: CustomProgressIndicator()),
+          connectivityBuilder: (
+            BuildContext context,
+            List<ConnectivityResult> connectivity,
+            Widget child,
+          ) {
+            final bool connected =
+                !connectivity.contains(ConnectivityResult.none);
+            return connected ? HomeViewBody() : NoInternetView();
+          },
+          child: CustomProgressIndicator(),
+        ),
       ),
     );
   }

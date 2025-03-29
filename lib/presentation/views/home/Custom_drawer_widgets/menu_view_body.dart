@@ -39,7 +39,9 @@ class MenuViewBody extends StatelessWidget {
           children: [
             Text(
               'Welcome',
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall, // بالفعل بيتبع الـ Theme
             ),
             SizedBox(
               height: 20,
@@ -56,13 +58,15 @@ class MenuViewBody extends StatelessWidget {
             ),
             Text(
               'Ali Maher',
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall, // بالفعل بيتبع الـ Theme
             ),
             Text(
               'باشا البلد @example.com',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                  ),
+                  ), // بالفعل بيتبع الـ Theme
             ),
             SizedBox(
               height: 20,
@@ -72,37 +76,68 @@ class MenuViewBody extends StatelessWidget {
                 ZoomDrawer.of(context)!.toggle();
               },
               child: ListTile(
-                leading: Icon(Icons.home),
+                leading: Icon(Icons.home,
+                    color: Theme.of(context)
+                        .iconTheme
+                        .color), // تعديل: تتبع الـ Theme
                 title: Text(
                   'Home',
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge, // بالفعل بيتبع الـ Theme
                 ),
               ),
             ),
             ListTile(
-              leading: Icon(Icons.settings),
+              leading: Icon(Icons.settings,
+                  color: Theme.of(context)
+                      .iconTheme
+                      .color), // تعديل: تتبع الـ Theme
               title: Text(
                 'Settings',
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge, // بالفعل بيتبع الـ Theme
               ),
             ),
             ListTile(
-              leading: Icon(Icons.help),
+              leading: Icon(Icons.help,
+                  color: Theme.of(context)
+                      .iconTheme
+                      .color), // تعديل: تتبع الـ Theme
               title: Text(
                 'Help',
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge, // بالفعل بيتبع الـ Theme
               ),
             ),
             ListTile(
-              leading: Icon(Icons.brightness_6),
-              title: Text('تبديل الثيم'),
+              leading: Icon(Icons.brightness_6,
+                  color: Theme.of(context)
+                      .iconTheme
+                      .color), // تعديل: تتبع الـ Theme
+              title: Text(
+                'تبديل الثيم',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge, // تعديل: تتبع الـ Theme
+              ),
               onTap: () {
                 context.read<ThemeCubit>().toggleTheme();
               },
             ),
             ListTile(
-              leading: Icon(Icons.settings_system_daydream),
-              title: Text('العودة لثيم النظام'),
+              leading: Icon(Icons.settings_system_daydream,
+                  color: Theme.of(context)
+                      .iconTheme
+                      .color), // تعديل: تتبع الـ Theme
+              title: Text(
+                'العودة لثيم النظام',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge, // تعديل: تتبع الـ Theme
+              ),
               onTap: () {
                 context.read<ThemeCubit>().resetToSystem(context);
               },
@@ -112,10 +147,15 @@ class MenuViewBody extends StatelessWidget {
                 cubit.logout();
               },
               child: ListTile(
-                leading: Icon(Icons.logout),
+                leading: Icon(Icons.logout,
+                    color: Theme.of(context)
+                        .iconTheme
+                        .color), // تعديل: تتبع الـ Theme
                 title: Text(
                   'Logout',
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge, // بالفعل بيتبع الـ Theme
                 ),
               ),
             ),

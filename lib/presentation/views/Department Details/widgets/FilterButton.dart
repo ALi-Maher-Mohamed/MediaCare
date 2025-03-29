@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:media_care/core/utils/app_color.dart';
 
 class CategoryButton extends StatelessWidget {
   final String title;
@@ -24,16 +23,20 @@ class CategoryButton extends StatelessWidget {
         margin: EdgeInsets.symmetric(horizontal: 15.w),
         padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 10.w),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary : Colors.grey[300],
+          color: isSelected
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.secondaryContainer,
           borderRadius: BorderRadius.circular(20),
         ),
         child: FittedBox(
           child: Text(
             title,
-            style: TextStyle(
-              color: isSelected ? Colors.white : Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: isSelected
+                      ? Theme.of(context).colorScheme.onPrimary
+                      : Theme.of(context).colorScheme.onSurface,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
         ),
       ),

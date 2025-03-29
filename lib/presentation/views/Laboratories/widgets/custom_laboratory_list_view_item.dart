@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/core/utils/widgets/clip_path.dart';
 import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
-import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/functins/launch_url.dart';
 import '../data/model/labs_model/data.dart';
 import 'laboratory_details_page.dart';
@@ -32,7 +31,7 @@ class LaboratoryListViewItem extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 8),
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(30),
             boxShadow: [
               BoxShadow(
@@ -49,7 +48,7 @@ class LaboratoryListViewItem extends StatelessWidget {
               child: Container(
                 height: 200.h,
                 width: double.infinity,
-                color: AppColors.primary2,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
             Column(
@@ -58,11 +57,7 @@ class LaboratoryListViewItem extends StatelessWidget {
                 SizedBox(height: 20.h),
                 Text(
                   laboratory.title,
-                  style: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 SizedBox(height: 20.h),
                 ClipRRect(
@@ -90,10 +85,11 @@ class LaboratoryListViewItem extends StatelessWidget {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(100.w, 35.h),
-                        backgroundColor: AppColors.primary2,
+                        backgroundColor: Theme.of(context).colorScheme.primary,
                       ),
                       child: Icon(Icons.location_on,
-                          color: Colors.white, size: 30),
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          size: 30),
                       onPressed: () {
                         launchCustomUrl(context, '${laboratory.locationUrl}');
                       },
@@ -101,14 +97,17 @@ class LaboratoryListViewItem extends StatelessWidget {
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(100.w, 35.h),
-                          backgroundColor: AppColors.primary2,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
                         ),
                         child: Text('المزيد',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16.sp,
-                            )),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary)),
                         onPressed: () => Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -124,7 +123,7 @@ class LaboratoryListViewItem extends StatelessWidget {
               right: 20.w,
               bottom: 40.h,
               child: Text(' ${laboratory.city} - ${laboratory.area}',
-                  style: TextStyle(color: AppColors.darkGrey, fontSize: 14.sp)),
+                  style: Theme.of(context).textTheme.bodyMedium),
             ),
           ]),
         ));

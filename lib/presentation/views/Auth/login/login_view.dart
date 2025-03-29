@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:media_care/core/network/api_service.dart';
 import 'package:media_care/presentation/views/Auth/login/data/repo/login_repo_impl.dart';
-
 import '../../../../zoom_drawer.dart';
 import 'manager/login_cubit.dart';
 import 'widgets/login_view_body.dart';
@@ -21,14 +20,10 @@ class LoginView extends StatelessWidget {
         listener: (context, state) {
           if (state is LoginSucess) {
             EasyLoading.dismiss();
-            EasyLoading.showSuccess(
-              "Login Success",
-            );
+            EasyLoading.showSuccess("Login Success");
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      const HomeView()), // Change to your home screen widget
+              MaterialPageRoute(builder: (context) => const HomeView()),
             );
           } else if (state is LoginLoading) {
             EasyLoading.show(status: 'Loading...');

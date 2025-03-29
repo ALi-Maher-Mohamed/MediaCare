@@ -11,20 +11,19 @@ class AvatarAndName extends StatelessWidget {
       children: [
         Container(
           height: 175,
-          decoration: const BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.only(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary,
+            borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(30),
               bottomRight: Radius.circular(30),
             ),
           ),
         ),
         Column(
-          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CircleAvatar(
               radius: 63,
-              backgroundColor: Colors.white,
+              backgroundColor: Theme.of(context).colorScheme.surface,
               child: CircleAvatar(
                 radius: 60,
                 backgroundImage: NetworkImage('$image'),
@@ -33,10 +32,9 @@ class AvatarAndName extends StatelessWidget {
             const SizedBox(height: 5),
             Text(
               '$name',
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
             ),
             const SizedBox(height: 5),
           ],

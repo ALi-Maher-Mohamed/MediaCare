@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../core/utils/app_color.dart';
 
 class CustomTextButton extends StatelessWidget {
   const CustomTextButton(
@@ -13,8 +12,8 @@ class CustomTextButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           text,
-          style: TextStyle(
-              color: AppColors.primary,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.bold,
               fontSize: 24),
         ),

@@ -19,7 +19,8 @@ class BookingDetailsScreen extends StatelessWidget {
   final String? clinicAddress;
   final List<Appointment>? appointment;
   final DoctorDetailsModel? doctorDetailsModel;
-  BookingDetailsScreen({
+
+  const BookingDetailsScreen({
     this.full_name,
     this.app_price,
     this.homeOption,
@@ -37,10 +38,10 @@ class BookingDetailsScreen extends StatelessWidget {
     String? userId = profileCubit.userId;
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).scaffoldBackgroundColor,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
+            color: Theme.of(context).shadowColor.withOpacity(0.2),
             spreadRadius: 2,
             blurRadius: 5,
           ),
@@ -54,27 +55,24 @@ class BookingDetailsScreen extends StatelessWidget {
             width: 250.w,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
-              color: Color(0xff0DCAF0),
+              color: Theme.of(context).colorScheme.primary,
             ),
             child: Center(
               child: Text(
                 'معلومات الحجز',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
               ),
             ),
           ),
           SizedBox(height: 10.h),
           Text(
             'احجز كشف طبي',
-            style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w600,
-                color: Color(0xff6C7582)),
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
           ),
           Divider(thickness: 1.5),
           Padding(
@@ -85,37 +83,45 @@ class BookingDetailsScreen extends StatelessWidget {
                 Column(
                   children: [
                     FaIcon(FontAwesomeIcons.moneyBill,
-                        color: Color(0xff0DCAF0)),
+                        color: Theme.of(context).colorScheme.primary),
                     SizedBox(height: 5.h),
                     Text(
                       'الكشف : ${app_price}',
-                      style: TextStyle(
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff6C7582)),
-                    )
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color:
+                                Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                    ),
                   ],
                 ),
                 Column(
                   children: [
                     FaIcon(FontAwesomeIcons.houseUser,
-                        color: Color(0xffDC3545)),
+                        color: Theme.of(context).colorScheme.error),
                     SizedBox(height: 5.h),
                     homeOption == 0
                         ? Text(
                             'لا يدعم الزيارة المنزلية',
-                            style: TextStyle(
-                                fontSize: 13.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xff6C7582)),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant,
+                                ),
                           )
                         : Text(
                             'يدعم الزيارة المنزلية',
-                            style: TextStyle(
-                                fontSize: 13.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xff6C7582)),
-                          )
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant,
+                                ),
+                          ),
                   ],
                 ),
               ],
@@ -128,68 +134,66 @@ class BookingDetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 IconButton(
-                    icon: Icon(
-                      FontAwesomeIcons.locationDot,
-                      color: Color(0xff0DCAF0),
-                      size: 25,
-                    ),
-                    onPressed: () {}),
+                  icon: Icon(
+                    FontAwesomeIcons.locationDot,
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 25,
+                  ),
+                  onPressed: () {},
+                ),
                 SizedBox(width: 5),
                 Expanded(
                   child: Text(
                     '$clinicTitle ($clinicAddress)',
                     overflow: TextOverflow.visible,
                     softWrap: true,
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff595965)),
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
                   ),
                 ),
               ],
             ),
           ),
-          Divider(
-            thickness: 1.5,
-          ),
+          Divider(thickness: 1.5),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               'اخـتــــــــار ميعاد الــحــجــز',
-              overflow: TextOverflow.visible, // Ensures text wraps
-              softWrap: true, // Allows text to break lines
-              style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black), // Adjust font size if needed
+              overflow: TextOverflow.visible,
+              softWrap: true,
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
             ),
           ),
-          Divider(
-            thickness: 1.5,
-          ),
+          Divider(thickness: 1.5),
           SizedBox(height: 10.h),
-          // 🔹 Time Slots Section with Scrollable List 🔹
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 16.0),
             padding: const EdgeInsets.all(16.0),
-            height: 200.h, // Fixed height to prevent overflow
+            height: 200.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.surface,
               boxShadow: [
-                BoxShadow(color: Colors.grey.withOpacity(0.2), blurRadius: 5)
+                BoxShadow(
+                  color: Theme.of(context).shadowColor.withOpacity(0.2),
+                  blurRadius: 5,
+                ),
               ],
             ),
             child: Column(
               children: [
-                // Navigation Arrows and Day Title
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(
                       icon: Icon(
                         Icons.arrow_back_ios,
-                        color: data.currentPage > 0 ? Colors.cyan : Colors.grey,
+                        color: data.currentPage > 0
+                            ? Theme.of(context).colorScheme.primary
+                            : Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                       onPressed: data.previousPage,
                     ),
@@ -200,11 +204,12 @@ class BookingDetailsScreen extends StatelessWidget {
                                   ?.data?.appointmentsGroupedByDate?.keys
                                   .elementAt(data.currentPage) ??
                               'لا توجد مواعيد متاحه',
-                          style: TextStyle(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.cyan,
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
                         ),
                       ),
                     ),
@@ -218,14 +223,13 @@ class BookingDetailsScreen extends StatelessWidget {
                                             ?.length ??
                                         1) -
                                     1
-                            ? Colors.cyan
-                            : Colors.grey,
+                            ? Theme.of(context).colorScheme.primary
+                            : Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                       onPressed: data.nextPage,
                     ),
                   ],
                 ),
-                // Scrollable List of Time Slots
                 Expanded(
                   child: PageView.builder(
                     controller: data.pageController,
@@ -247,23 +251,27 @@ class BookingDetailsScreen extends StatelessWidget {
                                 padding: EdgeInsets.all(12),
                                 decoration: BoxDecoration(
                                   color: appointment?[index].isBooked == 1
-                                      ? Colors.grey[200]
-                                      : Colors.grey[300],
+                                      ? Theme.of(context)
+                                          .colorScheme
+                                          .surfaceVariant
+                                      : Theme.of(context).colorScheme.surface,
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Text(
                                   '${appointment?[index].startAt?.substring(0, 5)} مساءً - ${appointment?[index].endAt?.substring(0, 5)} مساءً',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                    decoration:
-                                        appointment?[index].isBooked == 1
-                                            ? TextDecoration.lineThrough
-                                            : TextDecoration.none,
-                                    decorationColor: Colors.red,
-                                    decorationThickness: 3,
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                        decoration:
+                                            appointment?[index].isBooked == 1
+                                                ? TextDecoration.lineThrough
+                                                : TextDecoration.none,
+                                        decorationColor:
+                                            Theme.of(context).colorScheme.error,
+                                        decorationThickness: 3,
+                                      ),
                                 ),
                               ),
                             ),
@@ -277,8 +285,6 @@ class BookingDetailsScreen extends StatelessWidget {
                                         reservaionRepo: ReservaionRepoImpl(
                                             ApiServiceFunctions(Dio())),
                                       ),
-                                      // value: BlocProvider.of<ReservationCubit>(
-                                      //     context),
                                       child: ReservationDialog(
                                         appointment_time:
                                             '${appointment?[index].startAt?.substring(0, 5)} مساءً ',
@@ -316,15 +322,12 @@ class BookingDetailsScreen extends StatelessWidget {
               'الحجز مسبقا و الدخول بأسبقية الحضور',
               overflow: TextOverflow.visible,
               softWrap: true,
-              style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff595965)),
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
             ),
           ),
-          Divider(
-            thickness: 1.5,
-          ),
+          Divider(thickness: 1.5),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
@@ -332,18 +335,16 @@ class BookingDetailsScreen extends StatelessWidget {
               children: [
                 Icon(
                   FontAwesomeIcons.penToSquare,
-                  color: Color(0xff0DCAF0),
+                  color: Theme.of(context).colorScheme.primary,
                   size: 25,
                 ),
                 SizedBox(width: 10.w),
                 Text(
                   'احجز أونلاين، ادفع في العيادة!\nالدكتور يشترط الحجز المسبق!',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff595965),
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                 ),
               ],
             ),

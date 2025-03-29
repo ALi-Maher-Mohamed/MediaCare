@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/Laboratories/Labs_view.dart';
 import 'package:media_care/presentation/views/Laboratories/data/repo/laporatory_repo_impl.dart';
 import 'package:media_care/presentation/views/Laboratories/manager/cubit/labs_cubit.dart';
@@ -20,9 +19,7 @@ import 'home_view_headr.dart';
 import 'home_view_header_card.dart';
 
 class HomeViewBody extends StatefulWidget {
-  HomeViewBody({
-    super.key,
-  });
+  const HomeViewBody({super.key});
 
   @override
   State<HomeViewBody> createState() => _HomeViewBodyState();
@@ -31,39 +28,21 @@ class HomeViewBody extends StatefulWidget {
 class _HomeViewBodyState extends State<HomeViewBody> {
   int selectedIndex = 0;
   final bottomNavigationKey = GlobalKey<CurvedNavigationBarState>();
-  List<Widget> items = [
-    Icon(
-      Icons.home,
-      size: 30,
-      color: AppColors.darkGrey,
-    ),
-    FaIcon(
-      FontAwesomeIcons.hospital,
-      color: AppColors.darkGrey,
-      size: 30,
-    ),
-    Icon(
-      FontAwesomeIcons.flask,
-      size: 30,
-      color: AppColors.darkGrey,
-    ),
-    Icon(
-      Icons.search,
-      size: 30,
-      color: AppColors.darkGrey,
-    ),
-    Icon(
-      Icons.person,
-      size: 30,
-      color: AppColors.darkGrey,
-    ),
+
+  final List<Widget> items = [
+    const Icon(Icons.home, size: 30),
+    const FaIcon(FontAwesomeIcons.hospital, size: 30),
+    const Icon(FontAwesomeIcons.flask, size: 30),
+    const Icon(Icons.search, size: 30),
+    const Icon(Icons.person, size: 30),
   ];
-  List<Widget> widgetOptions = <Widget>[
-    HomeViewBodyScreen(),
+
+  final List<Widget> widgetOptions = <Widget>[
+    const HomeViewBodyScreen(),
     BlocProvider(
       create: (context) =>
           PharmacyCubit(PharmacyRepoImpl(Dio()))..fetchPharmacies(),
-      child: PharmacyView(),
+      child: const PharmacyView(),
     ),
     BlocProvider(
       create: (context) => LaboratoryCubit(LaboratoryRepoImpl(Dio())),
@@ -72,59 +51,71 @@ class _HomeViewBodyState extends State<HomeViewBody> {
     SearchView(),
     ProfileScreen(),
   ];
+
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: colorScheme.background,
       bottomNavigationBar: CurvedNavigationBar(
-          animationDuration: Duration(milliseconds: 250),
-          key: bottomNavigationKey,
-          backgroundColor: Colors.white,
-          color: AppColors.primaryLight,
-          height: MediaQuery.of(context).size.height * 0.06,
-          onTap: (value) {
-            setState(() {
-              selectedIndex = value;
-            });
-          },
-          index: selectedIndex,
-          items: items),
+        key: bottomNavigationKey,
+        backgroundColor: colorScheme.background,
+        color: colorScheme.surface,
+        buttonBackgroundColor: colorScheme.primary,
+        height: MediaQuery.of(context).size.height * 0.06,
+        animationDuration: const Duration(milliseconds: 250),
+        onTap: (value) {
+          setState(() {
+            selectedIndex = value;
+          });
+        },
+        index: selectedIndex,
+        items: items.asMap().entries.map((entry) {
+          final index = entry.key;
+          final item = entry.value;
+          return Theme(
+            data: Theme.of(context).copyWith(
+              iconTheme: IconThemeData(
+                color: selectedIndex == index
+                    ? colorScheme.onError
+                    : colorScheme.onSurface,
+              ),
+            ),
+            child: item,
+          );
+        }).toList(),
+      ),
       body: widgetOptions[selectedIndex],
     );
   }
 }
 
 class HomeViewBodyScreen extends StatelessWidget {
-  const HomeViewBodyScreen({
-    super.key,
-  });
+  const HomeViewBodyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              HomeViewHeader(),
-              HomeViewHeaderCard(),
-              SizedBox(
-                height: 24.h,
-              ),
-              SearchDoctor()
-            ],
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const HomeViewHeader(),
+                const HomeViewHeaderCard(),
+                SizedBox(height: 24.h),
+                const SearchDoctor(),
+              ],
+            ),
           ),
-        ),
-        SizedBox(
-          height: 24.h,
-        ),
-        CustomWrapContainersHomeView(),
-        SizedBox(
-          height: 18.h,
-        ),
-      ]),
+          SizedBox(height: 24.h),
+          const CustomWrapContainersHomeView(),
+          SizedBox(height: 18.h),
+        ],
+      ),
     );
   }
 }

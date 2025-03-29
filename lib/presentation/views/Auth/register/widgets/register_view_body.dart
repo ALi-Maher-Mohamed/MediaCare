@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../login/login_view.dart';
 import '../../login/widgets/dont_have_email_password.dart';
 import 'register_form.dart';
@@ -12,7 +11,7 @@ class RegisterViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
