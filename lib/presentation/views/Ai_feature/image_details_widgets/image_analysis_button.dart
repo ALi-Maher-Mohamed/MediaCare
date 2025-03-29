@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/managers/cubit/labs_analytics_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/manager/cubit/prescription_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/prescription_result_view.dart';
@@ -58,17 +57,28 @@ class ImageAnalysisButton extends StatelessWidget {
             );
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('هذه الميزة تحت الإنشاء')),
+              SnackBar(
+                content: Text(
+                  'هذه الميزة تحت الإنشاء',
+                  style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+                ),
+              ),
             );
           }
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primary,
+          backgroundColor:
+              Theme.of(context).colorScheme.primary, // لون من الثيم
           padding: EdgeInsets.symmetric(vertical: 16.0.h, horizontal: 32.0.w),
         ),
         child: Text(
           'تحليل الصورة',
-          style: TextStyle(fontSize: 18.sp, color: Colors.white),
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                fontSize: 18.sp,
+                color: Theme.of(context)
+                    .colorScheme
+                    .onPrimary, // لون النص من الثيم
+              ), // نمط من الثيم
         ),
       ),
     );

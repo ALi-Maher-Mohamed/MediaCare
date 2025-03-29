@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:media_care/core/utils/app_color.dart';
 
 class LabTestResultCard extends StatelessWidget {
   final int index;
@@ -10,9 +9,12 @@ class LabTestResultCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isAbnormal = (test.status?.toLowerCase() == 'غير طبيعي');
     return Card(
-      surfaceTintColor: AppColors.primary,
       elevation: 4,
+      color: Theme.of(context).colorScheme.surface, // خلفية من الثيم
+      surfaceTintColor:
+          Theme.of(context).colorScheme.primary, // لون التمييز من الثيم
       margin: const EdgeInsets.symmetric(vertical: 5),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -20,30 +22,33 @@ class LabTestResultCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'اختبار ${index + 1}: ${test.name}',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
+              'اختبار ${index + 1}: ${test.name ?? 'غير محدد'}',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontSize: 14.sp,
+                  ), // نمط من الثيم
             ),
             SizedBox(height: 5.h),
             Text(
-              'القيمة: ${test.value}',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
-            ),
-            Text('الوحدة: ${test.unit}'),
-            Text(
-              'الحالة: ${test.status}',
-              style: TextStyle(
-                color: (test.status?.toLowerCase() == 'غير طبيعي')
-                    ? Colors.redAccent
-                    : Colors.green,
-              ),
+              'القيمة: ${test.value ?? 'غير محدد'}',
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    fontSize: 18.sp,
+                  ), // نمط من الثيم
             ),
             Text(
-              'ملاحظات: ${test.notes}',
-              style: TextStyle(
-                color: (test.status?.toLowerCase() == 'غير طبيعي')
-                    ? Colors.redAccent
-                    : Colors.green,
-              ),
+              'الوحدة: ${test.unit ?? 'غير محدد'}',
+              style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+            ),
+            Text(
+              'الحالة: ${test.status ?? 'غير محدد'}',
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: isAbnormal ? Colors.redAccent : Colors.green,
+                  ), // نمط من الثيم مع لون مشروط
+            ),
+            Text(
+              'ملاحظات: ${test.notes ?? 'لا توجد ملاحظات'}',
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: isAbnormal ? Colors.redAccent : Colors.green,
+                  ), // نمط من الثيم مع لون مشروط
             ),
           ],
         ),

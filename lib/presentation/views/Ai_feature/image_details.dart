@@ -16,8 +16,7 @@ class ImageDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          Theme.of(context).scaffoldBackgroundColor, // توافق مع الثيم
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: const ImageDetailAppBar(),
       body: Column(
         children: [
