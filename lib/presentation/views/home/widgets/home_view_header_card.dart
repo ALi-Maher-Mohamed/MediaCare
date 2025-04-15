@@ -45,11 +45,21 @@ class HomeViewHeaderCard extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) {
-                        return RobotView();
-                      },
-                    ));
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        transitionDuration: Duration(milliseconds: 400),
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            RobotView(),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: child,
+                          );
+                        },
+                      ),
+                    );
                   },
                   child: Container(
                     decoration: BoxDecoration(

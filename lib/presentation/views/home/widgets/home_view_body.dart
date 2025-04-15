@@ -10,7 +10,6 @@ import 'package:media_care/presentation/views/Laboratories/manager/cubit/labs_cu
 import 'package:media_care/presentation/views/home/widgets/wrap_container_home.dart';
 import 'package:media_care/presentation/views/pharmacies/data/repos/pharmacy_repo_impl.dart';
 import 'package:media_care/presentation/views/profile/profile_ui.dart';
-import 'package:media_care/presentation/views/search/search_view.dart';
 
 import 'search_doctor_field.dart';
 import '../../pharmacies/pharmacy_view.dart';
