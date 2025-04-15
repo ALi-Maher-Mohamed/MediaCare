@@ -12,7 +12,7 @@ class AppTheme {
         backgroundColor: AppColors.backgroundLight,
         elevation: 0,
         iconTheme: const IconThemeData(
-            color: AppColors.primary), // أزرق بدلاً من الأسود
+            color: AppColors.primary),   
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -22,26 +22,26 @@ class AppTheme {
       ),
       colorScheme: ColorScheme.light(
         primary: AppColors.primary,
-        secondary: AppColors.secondary, // الأزرق المائي الجديد
+        secondary: AppColors.secondary,   
         background: AppColors.backgroundLight,
-        surface: AppColors.surfaceLight, // خلفية الكروت
+        surface: AppColors.surfaceLight,   
         onPrimary: AppColors.textLight,
         onSecondary: AppColors.textLight,
-        onSurface: AppColors.primary, // النصوص على الكروت بالأزرق الطبي
+        onSurface: AppColors.primary,   
       ),
       textTheme: TextTheme(
         titleLarge: TextStyle(
-          color: AppColors.primary, // أزرق بدلاً من الأسود
+          color: AppColors.primary,   
           fontSize: 22.sp,
           fontWeight: FontWeight.bold,
         ),
         bodyLarge: TextStyle(
-          color: AppColors.primary, // أزرق بدلاً من الأسود
+          color: AppColors.primary,   
           fontSize: 16.sp,
         ),
       ),
       iconTheme:
-          const IconThemeData(color: AppColors.primary), // أيقونات بالأزرق
+          const IconThemeData(color: AppColors.primary),   
     );
   }
 
@@ -63,21 +63,21 @@ class AppTheme {
       ),
       colorScheme: ColorScheme.dark(
         primary: AppColors.primary,
-        secondary: AppColors.secondary, // الأزرق المائي الجديد
+        secondary: AppColors.secondary,   
         background: AppColors.backgroundDark,
-        surface: AppColors.surfaceDark, // خلفية الكروت
+        surface: AppColors.surfaceDark,   
         onPrimary: AppColors.textLight,
         onSecondary: AppColors.textLight,
-        onSurface: AppColors.textLight, // النصوص على الكروت بالأبيض للتباين
+        onSurface: AppColors.textLight,   
       ),
       textTheme: TextTheme(
         titleLarge: TextStyle(
-          color: AppColors.primary, // أزرق للعناوين الكبيرة
+          color: AppColors.primary,   
           fontSize: 20.sp,
           fontWeight: FontWeight.bold,
         ),
         bodyLarge: TextStyle(
-          color: AppColors.textLight, // أبيض للنصوص العادية للتباين
+          color: AppColors.textLight,   
           fontSize: 16.sp,
         ),
       ),

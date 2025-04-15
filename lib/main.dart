@@ -55,10 +55,9 @@ class MediCare extends StatelessWidget {
         ],
         child: BlocBuilder<ThemeCubit, ThemeData>(
           builder: (context, theme) {
-            // تعيين الثيم الافتراضي عند البداية
             context.read<ThemeCubit>().setInitialTheme(context);
             return MaterialApp(
-              theme: theme, // تطبيق الثيم من ThemeCubit
+              theme: theme,
               locale: Locale('ar'),
               builder: EasyLoading.init(builder: (context, child) {
                 return Directionality(

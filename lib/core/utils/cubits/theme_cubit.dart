@@ -26,7 +26,7 @@ class ThemeCubit extends Cubit<ThemeData> {
   }
 
   void resetToSystem(BuildContext context) {
-    // رجوع للنظام
+      
     isManual = false;
     setInitialTheme(context);
   }

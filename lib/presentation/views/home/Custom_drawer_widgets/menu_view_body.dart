@@ -5,6 +5,7 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:media_care/core/utils/cubits/theme_cubit.dart';
 import 'package:media_care/presentation/views/Auth/logout/manager/cubit/logout_cubit.dart';
 import 'package:media_care/presentation/views/Auth/logout/manager/cubit/logout_state.dart';
+import 'package:media_care/presentation/views/profile/profile_ui.dart';
 import '../../Auth/login/login_view.dart';
 
 class MenuViewBody extends StatelessWidget {
@@ -38,7 +39,7 @@ class MenuViewBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Welcome',
+              'مرحبا بك',
               style: Theme.of(context)
                   .textTheme
                   .headlineSmall, // بالفعل بيتبع الـ Theme
@@ -81,37 +82,25 @@ class MenuViewBody extends StatelessWidget {
                         .iconTheme
                         .color), // تعديل: تتبع الـ Theme
                 title: Text(
-                  'Home',
+                  'الرئيسية',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge, // بالفعل بيتبع الـ Theme
                 ),
               ),
             ),
-            ListTile(
-              leading: Icon(Icons.settings,
-                  color: Theme.of(context)
-                      .iconTheme
-                      .color), // تعديل: تتبع الـ Theme
-              title: Text(
-                'Settings',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge, // بالفعل بيتبع الـ Theme
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.help,
-                  color: Theme.of(context)
-                      .iconTheme
-                      .color), // تعديل: تتبع الـ Theme
-              title: Text(
-                'Help',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge, // بالفعل بيتبع الـ Theme
-              ),
-            ),
+            // ListTile(
+            //   leading: Icon(Icons.settings,
+            //       color: Theme.of(context)
+            //           .iconTheme
+            //           .color), // تعديل: تتبع الـ Theme
+            //   title: Text(
+            //     'الاعدادات',
+            //     style: Theme.of(context)
+            //         .textTheme
+            //         .bodyLarge, // بالفعل بيتبع الـ Theme
+            //   ),
+            // ),
             ListTile(
               leading: Icon(Icons.brightness_6,
                   color: Theme.of(context)
@@ -128,20 +117,37 @@ class MenuViewBody extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.settings_system_daydream,
+              leading: Icon(Icons.help,
                   color: Theme.of(context)
                       .iconTheme
                       .color), // تعديل: تتبع الـ Theme
               title: Text(
-                'العودة لثيم النظام',
+                'الحساب الشخصي',
                 style: Theme.of(context)
                     .textTheme
-                    .bodyLarge, // تعديل: تتبع الـ Theme
+                    .bodyLarge, // بالفعل بيتبع الـ Theme
               ),
               onTap: () {
-                context.read<ThemeCubit>().resetToSystem(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return ProfileScreen();
+                }));
               },
             ),
+            // ListTile(
+            //   leading: Icon(Icons.settings_system_daydream,
+            //       color: Theme.of(context)
+            //           .iconTheme
+            //           .color), // تعديل: تتبع الـ Theme
+            //   title: Text(
+            //     'العودة لثيم النظام',
+            //     style: Theme.of(context)
+            //         .textTheme
+            //         .bodyLarge, // تعديل: تتبع الـ Theme
+            //   ),
+            //   onTap: () {
+            //     context.read<ThemeCubit>().resetToSystem(context);
+            //   },
+            // ),
             GestureDetector(
               onTap: () {
                 cubit.logout();
@@ -152,7 +158,7 @@ class MenuViewBody extends StatelessWidget {
                         .iconTheme
                         .color), // تعديل: تتبع الـ Theme
                 title: Text(
-                  'Logout',
+                  'تسجيل الخروج',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge, // بالفعل بيتبع الـ Theme

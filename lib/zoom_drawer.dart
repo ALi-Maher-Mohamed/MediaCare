@@ -19,8 +19,8 @@ class _HomeViewState extends State<HomeView> {
       mainScreenOverlayColor: Theme.of(context).focusColor,
       menuBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
       style: DrawerStyle.defaultStyle,
-      menuScreen: MenuView(), // تأكد إن MenuView بيستخدم الثيم
-      mainScreen: const MainScreen(), // تأكد إن MainScreen بيستخدم الثيم
+      menuScreen: MenuView(),
+      mainScreen: const MainScreen(),
       borderRadius: 24.0,
       showShadow: true,
       angle: 0,

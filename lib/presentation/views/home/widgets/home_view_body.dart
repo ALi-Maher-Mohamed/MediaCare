@@ -33,7 +33,6 @@ class _HomeViewBodyState extends State<HomeViewBody> {
     const Icon(Icons.home, size: 30),
     const FaIcon(FontAwesomeIcons.hospital, size: 30),
     const Icon(FontAwesomeIcons.flask, size: 30),
-    const Icon(Icons.search, size: 30),
     const Icon(Icons.person, size: 30),
   ];
 
@@ -48,7 +47,6 @@ class _HomeViewBodyState extends State<HomeViewBody> {
       create: (context) => LaboratoryCubit(LaboratoryRepoImpl(Dio())),
       child: LaboratoryView(),
     ),
-    SearchView(),
     ProfileScreen(),
   ];
 
