@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/presentation/views/Department/widgets/department_view.dart';
 import 'package:media_care/presentation/views/Laboratories/data/repo/laporatory_repo_impl.dart';
-import 'package:media_care/presentation/views/doctor_blogs/doctor_blogs_view.dart';
 import 'package:media_care/presentation/views/pharmacies/data/repos/pharmacy_repo_impl.dart';
 import '../../Laboratories/Labs_view.dart';
 import '../../Laboratories/manager/cubit/labs_cubit.dart';
