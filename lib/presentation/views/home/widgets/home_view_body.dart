@@ -7,13 +7,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:media_care/presentation/views/Laboratories/Labs_view.dart';
 import 'package:media_care/presentation/views/Laboratories/data/repo/laporatory_repo_impl.dart';
 import 'package:media_care/presentation/views/Laboratories/manager/cubit/labs_cubit.dart';
+import 'package:media_care/presentation/views/doctor_blogs/doctor_blogs_view.dart';
 import 'package:media_care/presentation/views/doctors_offers/offer_group_view.dart';
+import 'package:media_care/presentation/views/home/widgets/blogs_row.dart';
 import 'package:media_care/presentation/views/home/widgets/offers_row.dart';
 import 'package:media_care/presentation/views/home/widgets/title_and_see_all.dart';
 import 'package:media_care/presentation/views/home/widgets/wrap_container_home.dart';
 import 'package:media_care/presentation/views/pharmacies/data/repos/pharmacy_repo_impl.dart';
 import 'package:media_care/presentation/views/profile/profile_ui.dart';
-import 'search_doctor_field.dart';
 import '../../pharmacies/pharmacy_view.dart';
 import '../../pharmacies/manager/cubit/pharmacy_cubit.dart';
 import 'home_view_headr.dart';
@@ -119,6 +120,14 @@ class HomeViewBodyScreen extends StatelessWidget {
           const OffersRow(),
           SizedBox(height: 24.h),
           const CustomWrapContainersHomeView(),
+          TitleAndSeeAll(
+              text: 'المقالات الطبية',
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => DoctorBlogsView()));
+              }),
+          SizedBox(height: 24.h),
+          const BlogsRow(),
           SizedBox(height: 18.h),
         ],
       ),

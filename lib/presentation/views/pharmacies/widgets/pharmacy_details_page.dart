@@ -30,13 +30,20 @@ class PharmacyDetailsPage extends StatelessWidget {
             Center(
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
-                  child: Image.network(
-                    pharmacy.image ??
-                        'https://cdn4.vectorstock.com/i/1000x1000/62/78/error-sign-icon-image-vector-16746278.jpg',
-                    width: double.infinity,
-                    height: 230,
-                    fit: BoxFit.cover,
-                  )),
+                  child: pharmacy.image == null
+                      ? Image.asset(
+                          'assets/pharmacies/pharmacy_icon.png',
+                          width: double.infinity,
+                          height: 230,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.network(
+                          pharmacy.image ??
+                              'https://cdn4.vectorstock.com/i/1000x1000/62/78/error-sign-icon-image-vector-16746278.jpg',
+                          width: double.infinity,
+                          height: 230,
+                          fit: BoxFit.cover,
+                        )),
             ),
             const SizedBox(height: 50),
             Text(

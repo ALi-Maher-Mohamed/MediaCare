@@ -49,14 +49,14 @@ class CustomWrapContainersHomeView extends StatelessWidget {
               MaterialPageRoute(builder: (context) => DepartmentsView()));
         },
       ),
-      _FeatureItem(
-        image: 'assets/pharmacies/blogs.jfif',
-        text: 'المقالات الطبية',
-        onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => DoctorBlogsView()));
-        },
-      ),
+      // _FeatureItem(
+      //   image: 'assets/pharmacies/blogs.jfif',
+      //   text: 'المقالات الطبية',
+      //   onTap: () {
+      //     Navigator.push(context,
+      //         MaterialPageRoute(builder: (context) => DoctorBlogsView()));
+      //   },
+      // ),
       // _FeatureItem(
       //   image: 'assets/offers/offer.png',
       //   text: 'العروض الطبية',
