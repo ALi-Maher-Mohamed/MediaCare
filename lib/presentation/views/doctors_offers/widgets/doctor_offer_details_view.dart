@@ -18,7 +18,7 @@ class DoctorOfferDetailsView extends StatelessWidget {
             expandedHeight: 300,
             floating: false,
             pinned: true,
-            backgroundColor: Theme.of(context).colorScheme.onPrimary,
+            backgroundColor: Theme.of(context).colorScheme.surface,
             flexibleSpace: FlexibleSpaceBar(
               background: CachedNetworkImage(
                 imageUrl: doctorOffer.images.isNotEmpty
