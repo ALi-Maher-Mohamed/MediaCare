@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/presentation/views/Department/widgets/department_view.dart';
 import 'package:media_care/presentation/views/Laboratories/data/repo/laporatory_repo_impl.dart';
 import 'package:media_care/presentation/views/doctor_blogs/doctor_blogs_view.dart';
-import 'package:media_care/presentation/views/doctors_offers/offer_group_view.dart';
 import 'package:media_care/presentation/views/pharmacies/data/repos/pharmacy_repo_impl.dart';
 import '../../Laboratories/Labs_view.dart';
 import '../../Laboratories/manager/cubit/labs_cubit.dart';
@@ -58,14 +57,14 @@ class CustomWrapContainersHomeView extends StatelessWidget {
               MaterialPageRoute(builder: (context) => DoctorBlogsView()));
         },
       ),
-      _FeatureItem(
-        image: 'assets/offers/offer.png',
-        text: 'العروض الطبية',
-        onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => OfferGroupView()));
-        },
-      ),
+      // _FeatureItem(
+      //   image: 'assets/offers/offer.png',
+      //   text: 'العروض الطبية',
+      //   onTap: () {
+      //     Navigator.push(context,
+      //         MaterialPageRoute(builder: (context) => OfferGroupView()));
+      //   },
+      // ),
     ];
 
     return Padding(
