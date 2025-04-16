@@ -25,7 +25,7 @@ class DoctorDetailsView extends StatelessWidget {
         shadowColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
         title: Text(
-          'Doctor Details',
+          'تفاصيل الدكتور ',
           style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 color: Theme.of(context).colorScheme.primaryContainer,
               ),

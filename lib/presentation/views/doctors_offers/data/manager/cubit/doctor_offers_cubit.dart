@@ -1,6 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
 import 'package:media_care/presentation/views/doctors_offers/data/manager/cubit/doctor_offers_state.dart';
 import 'package:media_care/presentation/views/doctors_offers/data/repos/offer_group_repository.dart';
 

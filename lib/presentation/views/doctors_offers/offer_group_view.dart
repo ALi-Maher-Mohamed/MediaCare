@@ -37,7 +37,10 @@ class _OfferGroupViewState extends State<OfferGroupView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Offer Groups')),
+      appBar: AppBar(
+        title: const Text('نافذة العروض'),
+        centerTitle: true,
+      ),
       body: BlocBuilder<OfferGroupCubit, OfferGroupState>(
         builder: (context, state) {
           if (state is OfferGroupLoading) {
