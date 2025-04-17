@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import '../../register/regester_view.dart';
 import 'dont_have_email_password.dart';
@@ -16,22 +17,22 @@ class LoginViewBody extends StatelessWidget {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 24),
+            padding: EdgeInsets.symmetric(horizontal: 30.h, vertical: 24.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                    height: 300,
-                    width: 300,
+                    height: 300.h,
+                    width: 300.w,
                     child: Lottie.asset(
                       'assets/animation/doctorWelcomed.json',
                     )),
                 Align(
-                  alignment: AlignmentDirectional.centerEnd,
+                  alignment: AlignmentDirectional.topStart,
                   child: Column(
                     children: [
                       Text(
-                        '...مرحبا بعودتك',
+                        'مرحبا بعودتك',
                         style:
                             Theme.of(context).textTheme.headlineSmall!.copyWith(
                                   color: Theme.of(context).colorScheme.primary,
@@ -45,16 +46,16 @@ class LoginViewBody extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 30.h,
                 ),
                 EmailAndPasswordForm(),
                 SizedBox(
-                  height: 30,
+                  height: 30.h,
                 ),
                 DontHaveAccountText(
                   router: RegisterView(),
-                  text: "don't have Account ?",
-                  boldText: " Sign Up",
+                  text: "ليس لديك حساب؟",
+                  boldText: " انشاء حساب جديد",
                 ),
               ],
             ),

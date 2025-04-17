@@ -20,17 +20,17 @@ class RegisterView extends StatelessWidget {
         listener: (context, state) {
           if (state is RegisterSuccessState) {
             EasyLoading.dismiss();
-            EasyLoading.showSuccess("Register Success");
+            EasyLoading.showSuccess("تم التسجيل بنجاح");
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => const LoginView()),
             );
           } else if (state is RegisterLoadingState) {
-            EasyLoading.show(status: 'Loading...');
+            EasyLoading.show(status: 'يتم التسجيل...');
           } else if (state is RegisterErrorState) {
-            if (state.error.contains("email has already been taken")) {
+            if (state.error.contains("هذا البريد مسجل مسبقا")) {
               EasyLoading.showError(
-                  "This email is already registered. Try another.");
+                  "هذا البريد مسجل مسبقا يرجى استخدام بريد اخر");
             } else {
               EasyLoading.showError(state.error);
             }

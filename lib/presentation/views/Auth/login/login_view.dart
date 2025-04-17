@@ -20,13 +20,13 @@ class LoginView extends StatelessWidget {
         listener: (context, state) {
           if (state is LoginSucess) {
             EasyLoading.dismiss();
-            EasyLoading.showSuccess("Login Success");
+            EasyLoading.showSuccess("تم التسجيل بنجاح");
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => const HomeView()),
             );
           } else if (state is LoginLoading) {
-            EasyLoading.show(status: 'Loading...');
+            EasyLoading.show(status: 'جاري التحميل ');
           } else if (state is LoginError) {
             EasyLoading.showError(state.error);
           }

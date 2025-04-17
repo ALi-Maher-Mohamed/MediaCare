@@ -48,6 +48,7 @@ class CustomWrapContainersHomeView extends StatelessWidget {
               MaterialPageRoute(builder: (context) => DepartmentsView()));
         },
       ),
+
       // _FeatureItem(
       //   image: 'assets/pharmacies/blogs.jfif',
       //   text: 'المقالات الطبية',

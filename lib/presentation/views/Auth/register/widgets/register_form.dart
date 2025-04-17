@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/utils/components/validators.dart';
 import '../manager/register_cubit.dart';
 import '../../login/widgets/custom_login_button.dart';
@@ -19,48 +20,48 @@ class RegisterForm extends StatelessWidget {
         children: [
           CustomTextField(
             inputType: TextInputType.name,
-            label: 'Full Name',
+            label: 'الاسم',
             controller: data.nameController,
             validator: AppValidators.validateFullName,
           ),
           SizedBox(
-            height: 20,
+            height: 20.h,
           ),
           CustomTextField(
             inputType: TextInputType.emailAddress,
-            label: 'Email',
+            label: 'الايميل',
             controller: data.emailController,
             validator: AppValidators.validateEmail,
           ),
           SizedBox(
-            height: 20,
+            height: 20.h,
           ),
           CustomTextField(
             inputType: TextInputType.phone,
-            label: 'Phone',
+            label: 'رقم الهاتف',
             controller: data.phoneController,
             validator: AppValidators.validatePhoneNumber,
           ),
           SizedBox(
-            height: 20,
+            height: 20.h,
           ),
           CustomTextField(
             inputType: TextInputType.streetAddress,
-            label: 'Address',
+            label: 'العنوان',
             controller: data.addressController,
             validator: AppValidators.validateFullName,
           ),
           SizedBox(
-            height: 20,
+            height: 20.h,
           ),
           CustomTextField(
             inputType: TextInputType.datetime,
-            label: 'Birth date',
+            label: 'يوم - شهر - سنة',
             controller: data.bithDateController,
             validator: AppValidators.validateFullName,
           ),
           SizedBox(
-            height: 20,
+            height: 20.h,
           ),
           CustomTextField(
             validator: AppValidators.validatePassword,
@@ -75,10 +76,10 @@ class RegisterForm extends StatelessWidget {
               ),
             ),
             isObscureText: context.watch<RegisterCubit>().isVisible,
-            label: 'Password',
+            label: 'كلمة المرور',
           ),
           SizedBox(
-            height: 20,
+            height: 20.h,
           ),
           CustomTextField(
             validator: (value) => AppValidators.validateConfirmPassword(
@@ -94,18 +95,18 @@ class RegisterForm extends StatelessWidget {
               ),
             ),
             isObscureText: context.watch<RegisterCubit>().isVisibleConfirm,
-            label: 'Confirm Password',
+            label: 'تاكيد كلمة المرور',
           ),
           SizedBox(
-            height: 20,
+            height: 20.h,
           ),
           CustomSubmitButton(
-              text: 'Submit',
+              text: 'تسجيل',
               onPresed: () {
                 data.RegisterUserValidate();
               }),
           SizedBox(
-            height: 20,
+            height: 20.h,
           ),
         ],
       ),

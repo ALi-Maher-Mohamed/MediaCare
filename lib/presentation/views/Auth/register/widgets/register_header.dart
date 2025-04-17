@@ -8,11 +8,11 @@ class RegisterHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional.centerEnd,
+      alignment: AlignmentDirectional.topStart,
       child: Column(
         children: [
           Text(
-            '... مرحبا بك ',
+            'مرحبا بك ... ',
             style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomSubmitButton extends StatelessWidget {
   const CustomSubmitButton({
@@ -19,7 +20,7 @@ class CustomSubmitButton extends StatelessWidget {
             ),
           ),
           fixedSize: WidgetStatePropertyAll(
-            Size(300, 60),
+            Size(300.w, 40.h),
           ),
           backgroundColor: WidgetStatePropertyAll(
             Theme.of(context).colorScheme.primary,
