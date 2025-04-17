@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:media_care/presentation/views/Laboratories/Labs_view.dart';
 import 'package:media_care/presentation/views/Laboratories/data/repo/laporatory_repo_impl.dart';
 import 'package:media_care/presentation/views/Laboratories/manager/cubit/labs_cubit.dart';
+import 'package:media_care/presentation/views/delivery_options/delivery_options_view.dart';
 import 'package:media_care/presentation/views/doctor_blogs/doctor_blogs_view.dart';
 import 'package:media_care/presentation/views/doctors_offers/offer_group_view.dart';
 import 'package:media_care/presentation/views/home/widgets/blogs_row.dart';
@@ -32,10 +33,11 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   final bottomNavigationKey = GlobalKey<CurvedNavigationBarState>();
 
   final List<Widget> items = [
-    const Icon(Icons.home, size: 30),
-    const FaIcon(FontAwesomeIcons.hospital, size: 30),
-    const Icon(FontAwesomeIcons.flask, size: 30),
-    const Icon(Icons.person, size: 30),
+    Icon(Icons.home, size: 30.sp),
+    FaIcon(FontAwesomeIcons.hospital, size: 30.sp),
+    Icon(FontAwesomeIcons.flask, size: 30.sp),
+    Icon(Icons.local_shipping, size: 30.sp), // أيقونة جديدة لخيارات التوصيل
+    Icon(Icons.person, size: 30.sp),
   ];
 
   final List<Widget> widgetOptions = <Widget>[
@@ -49,6 +51,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
       create: (context) => LaboratoryCubit(LaboratoryRepoImpl(Dio())),
       child: LaboratoryView(),
     ),
+    DeliveryOptionsView(),
     ProfileScreen(),
   ];
 
@@ -100,7 +103,7 @@ class HomeViewBodyScreen extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
+            padding: EdgeInsets.symmetric(horizontal: 25.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -111,21 +114,27 @@ class HomeViewBodyScreen extends StatelessWidget {
             ),
           ),
           TitleAndSeeAll(
-              text: 'العروض',
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => OfferGroupView()));
-              }),
+            text: 'العروض',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => OfferGroupView()),
+              );
+            },
+          ),
           SizedBox(height: 18.h),
           const OffersRow(),
           SizedBox(height: 24.h),
           const CustomWrapContainersHomeView(),
           TitleAndSeeAll(
-              text: 'المقالات الطبية',
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => DoctorBlogsView()));
-              }),
+            text: 'المقالات الطبية',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DoctorBlogsView()),
+              );
+            },
+          ),
           SizedBox(height: 24.h),
           const BlogsRow(),
           SizedBox(height: 18.h),

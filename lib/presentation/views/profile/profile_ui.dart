@@ -18,8 +18,7 @@ class ProfileScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          leading: Icon(
-            Icons.arrow_back_ios,
+          iconTheme: IconThemeData(
             color: Theme.of(context).colorScheme.onPrimary,
           ),
           title: Text('حسابي'),
