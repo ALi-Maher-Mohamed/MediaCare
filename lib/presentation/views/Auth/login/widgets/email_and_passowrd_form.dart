@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../manager/login_cubit.dart';
 import '../../../../../core/utils/components/validators.dart';
 import 'custom_login_button.dart';
@@ -23,10 +24,10 @@ class EmailAndPasswordForm extends StatelessWidget {
                 inputType: TextInputType.emailAddress,
                 controller: data.emailController,
                 validator: AppValidators.validateEmail,
-                label: 'Email',
+                label: 'الايميل',
               ),
               SizedBox(
-                height: 30,
+                height: 30.h,
               ),
               CustomTextField(
                 autofillHints: [AutofillHints.password],
@@ -42,16 +43,16 @@ class EmailAndPasswordForm extends StatelessWidget {
                   ),
                 ),
                 isObscureText: context.watch<LoginCubit>().isVisible,
-                label: 'Password',
+                label: 'كلمة المرور',
               ),
               SizedBox(
-                height: 30,
+                height: 30.h,
               ),
               CustomSubmitButton(
                   onPresed: () {
                     data.LoginUserValidate();
                   },
-                  text: 'Submit')
+                  text: 'تسجيل الدخول'),
             ],
           ),
         ));

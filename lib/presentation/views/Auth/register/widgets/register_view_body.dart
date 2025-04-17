@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../login/login_view.dart';
 import '../../login/widgets/dont_have_email_password.dart';
 import 'register_form.dart';
@@ -14,19 +15,19 @@ class RegisterViewBody extends StatelessWidget {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 RegisterHeader(),
                 SizedBox(
-                  height: 20,
+                  height: 20.h,
                 ),
                 RegisterForm(),
                 DontHaveAccountText(
                   router: LoginView(),
-                  text: "Already have an Account  ",
-                  boldText: 'Log In',
+                  text: "لديك حساب بالفعل؟",
+                  boldText: 'تسجيل الدخول',
                 )
               ],
             ),

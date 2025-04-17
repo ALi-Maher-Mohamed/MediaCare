@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DontHaveAccountText extends StatelessWidget {
   const DontHaveAccountText({
@@ -27,10 +28,14 @@ class DontHaveAccountText extends StatelessWidget {
           children: [
             TextSpan(
               text: text,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             TextSpan(
               text: boldText,
-              style: TextStyle(color: Theme.of(context).colorScheme.primary),
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),
