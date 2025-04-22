@@ -65,7 +65,7 @@ class PharmacyListViewItemCard extends StatelessWidget {
                       width: 60,
                       height: 60,
                       fit: BoxFit.cover,
-                      'assets/pharmacies/pharmacy_icon.png')
+                      'assets/Gifs/pharmacy.gif')
                   : Image.network(
                       pharmacy.image!,
                       width: 60,

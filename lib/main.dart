@@ -12,7 +12,6 @@ import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/m
 import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/repo/Prescription_repo_impl.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/repos/symptom_analysis_repo_impl.dart';
-import 'package:media_care/presentation/views/Auth/login/login_view.dart';
 import 'package:media_care/presentation/views/doctors_offers/data/manager/cubit/doctor_offers_cubit.dart';
 import 'package:media_care/presentation/views/doctors_offers/data/repos/offer_group_repository.dart';
 import 'package:media_care/presentation/views/doctors_offers/offer_group_view.dart';

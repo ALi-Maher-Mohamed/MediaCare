@@ -90,6 +90,7 @@ flutter:
   assets:
     - assets/animation/
     - assets/spalsh/
+    - assets/Gifs/
     - assets/offers/
     - assets/pharmacies/
     - assets/images/

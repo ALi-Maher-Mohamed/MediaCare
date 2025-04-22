@@ -2,9 +2,10 @@ import 'package:dio/dio.dart';
 
 class ApiServiceFunctions {
   final Dio dio;
-  final String baseUrl = 'http://192.168.1.4:8000';
+  final String baseUrl = 'https://medicareapi-production-1298.up.railway.app';
   //Ali Maher BaseUrl --> http://192.168.1.4:8000
   //Ahmed Mansour BaseUrl --> http://10.0.2.2:8000
+
   ApiServiceFunctions(this.dio);
 
   Future<dynamic> post({

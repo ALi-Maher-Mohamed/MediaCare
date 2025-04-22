@@ -67,12 +67,11 @@ class _HomeViewBodyState extends State<HomeViewBody> {
           });
           return false; // يرجعه للـ Home
         } else {
-          // عرض الـ CustomExitDialog
           bool shouldExit = await showDialog(
             context: context,
             builder: (context) => const CustomExitDialog(),
           );
-          return shouldExit ?? false;
+          return shouldExit;
         }
       },
       child: Scaffold(

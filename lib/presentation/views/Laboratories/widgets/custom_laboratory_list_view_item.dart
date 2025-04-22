@@ -64,7 +64,7 @@ class LabListViewItemCard extends StatelessWidget {
               height: 60,
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) => Image.asset(
-                'assets/pharmacies/pharmacy_icon.png',
+                'assets/Gifs/laboratory.gif',
                 width: 60,
                 height: 60,
                 fit: BoxFit.cover,
