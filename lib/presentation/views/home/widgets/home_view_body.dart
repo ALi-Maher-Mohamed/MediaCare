@@ -11,6 +11,7 @@ import 'package:media_care/presentation/views/delivery_options/delivery_options_
 import 'package:media_care/presentation/views/doctor_blogs/doctor_blogs_view.dart';
 import 'package:media_care/presentation/views/doctors_offers/offer_group_view.dart';
 import 'package:media_care/presentation/views/home/widgets/blogs_row.dart';
+import 'package:media_care/presentation/views/home/widgets/home_carasoul.dart';
 import 'package:media_care/presentation/views/home/widgets/offers_row.dart';
 import 'package:media_care/presentation/views/home/widgets/title_and_see_all.dart';
 import 'package:media_care/presentation/views/home/widgets/wrap_container_home.dart';
@@ -241,6 +242,8 @@ class HomeViewBodyScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const HomeViewHeader(),
+                HomeCarousel(),
+                SizedBox(height: 24.h),
                 const HomeViewHeaderCard(),
                 SizedBox(height: 24.h),
               ],

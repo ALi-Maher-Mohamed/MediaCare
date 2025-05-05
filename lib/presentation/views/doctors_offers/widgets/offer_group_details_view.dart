@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/core/network/api_service.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/doctor_details_view.dart';
 import 'package:media_care/presentation/views/doctors_offers/data/manager/offers_details/offer_details_cubit.dart';
@@ -30,7 +31,7 @@ class OfferGroupDetailsView extends StatelessWidget {
               return CustomScrollView(
                 slivers: [
                   SliverAppBar(
-                    expandedHeight: 300,
+                    expandedHeight: 300.h,
                     floating: false,
                     pinned: true,
                     flexibleSpace: FlexibleSpaceBar(
@@ -42,7 +43,7 @@ class OfferGroupDetailsView extends StatelessWidget {
                           placeholder: (context, url) =>
                               const Center(child: CircularProgressIndicator()),
                           errorWidget: (context, url, error) =>
-                              const Icon(Icons.error, size: 50),
+                              Icon(Icons.error, size: 50.sp),
                         ),
                       ),
                     ),
@@ -63,7 +64,7 @@ class OfferGroupDetailsView extends StatelessWidget {
                                   color: Colors.blue.shade900,
                                 ),
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: 16.h),
                           Card(
                             elevation: 2,
                             child: Padding(
@@ -98,8 +99,8 @@ class OfferGroupDetailsView extends StatelessWidget {
                                     imageUrl: doctorOffer.images.isNotEmpty
                                         ? doctorOffer.images[0].image
                                         : offer.image,
-                                    width: 50,
-                                    height: 50,
+                                    width: 50.w,
+                                    height: 50.h,
                                     fit: BoxFit.cover,
                                     placeholder: (context, url) =>
                                         const CircularProgressIndicator(),

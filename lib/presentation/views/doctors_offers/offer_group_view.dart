@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/presentation/views/doctors_offers/data/manager/cubit/doctor_offers_cubit.dart';
 import 'package:media_care/presentation/views/doctors_offers/data/manager/cubit/doctor_offers_state.dart';
 import 'package:media_care/presentation/views/doctors_offers/widgets/offer_group_details_view.dart';
@@ -61,15 +62,14 @@ class _OfferGroupViewState extends State<OfferGroupView> {
                 }
                 final offer = offerGroups[index];
                 return Card(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                   child: ListTile(
                     leading: Hero(
                       tag: 'offer_image_${offer.id}',
                       child: CachedNetworkImage(
                         imageUrl: offer.image,
-                        width: 50,
-                        height: 50,
+                        width: 50.w,
+                        height: 50.h,
                         fit: BoxFit.cover,
                         placeholder: (context, url) =>
                             const CircularProgressIndicator(),

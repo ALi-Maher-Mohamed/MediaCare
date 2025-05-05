@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -71,60 +72,7 @@ class OffersRow extends StatelessWidget {
                 child: Center(child: Text('No offers available')),
               );
             }
-            return SizedBox(
-              height: 150.h,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: offers.length,
-                itemBuilder: (context, index) {
-                  final offer = offers[index];
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              OfferGroupDetailsView(offerId: offer.id),
-                        ),
-                      );
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0.h),
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12.sp),
-                            child: CachedNetworkImage(
-                              imageUrl: offer.image,
-                              width: 120.w,
-                              height: 110.h,
-                              fit: BoxFit.cover,
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
-                            ),
-                          ),
-                          SizedBox(height: 8.h),
-                          FittedBox(
-                            child: Text(
-                              offer.title,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.primary),
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            );
+            return OffersRowBody(offers: offers);
           } else if (state is OfferGroupError) {
             return SizedBox(
               height: 150.h,
@@ -134,6 +82,69 @@ class OffersRow extends StatelessWidget {
           return const SizedBox();
         },
       ),
+    );
+  }
+}
+
+class OffersRowBody extends StatelessWidget {
+  const OffersRowBody({
+    super.key,
+    required this.offers,
+  });
+
+  final List offers;
+
+  @override
+  Widget build(BuildContext context) {
+    return CarouselSlider.builder(
+      itemCount: offers.length,
+      options: CarouselOptions(
+        reverse: true,
+        height: 180.h,
+        autoPlay: true,
+        enlargeCenterPage: true,
+        viewportFraction: 0.5,
+        autoPlayInterval: Duration(seconds: 3),
+      ),
+      itemBuilder: (context, index, realIndex) {
+        final offer = offers[index];
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OfferGroupDetailsView(offerId: offer.id),
+              ),
+            );
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12.sp),
+                child: CachedNetworkImage(
+                  imageUrl: offer.image,
+                  width: 140.w,
+                  height: 110.h,
+                  fit: BoxFit.cover,
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
+              ),
+              SizedBox(height: 8.h),
+              Text(
+                offer.title,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.primary,
+                    ),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

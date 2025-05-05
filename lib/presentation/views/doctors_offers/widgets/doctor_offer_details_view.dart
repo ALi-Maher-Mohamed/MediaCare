@@ -3,47 +3,105 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/doctor_details_view.dart';
 import 'package:media_care/presentation/views/doctors_offers/data/model/offer_group_model.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class DoctorOfferDetailsView extends StatelessWidget {
+class DoctorOfferDetailsView extends StatefulWidget {
   final DoctorOffer doctorOffer;
 
   const DoctorOfferDetailsView({super.key, required this.doctorOffer});
 
   @override
+  State<DoctorOfferDetailsView> createState() => _DoctorOfferDetailsViewState();
+}
+
+/// ---------------------------------------------------------------------------
+
+class _DoctorOfferDetailsViewState extends State<DoctorOfferDetailsView> {
+  final PageController _pageController = PageController();
+
+  @override
   Widget build(BuildContext context) {
+    final hasMultipleImages = widget.doctorOffer.images.length > 1;
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 300,
+            expandedHeight: 300.h,
             floating: false,
             pinned: true,
             backgroundColor: Theme.of(context).colorScheme.surface,
             flexibleSpace: FlexibleSpaceBar(
-              background: CachedNetworkImage(
-                imageUrl: doctorOffer.images.isNotEmpty
-                    ? doctorOffer.images[0].image
-                    : '',
-                fit: BoxFit.cover,
-                placeholder: (context, url) =>
-                    const Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) =>
-                    const Icon(Icons.error, size: 50, color: Colors.white),
+              background: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  hasMultipleImages
+                      ? PageView.builder(
+                          controller: _pageController,
+                          itemCount: widget.doctorOffer.images.length,
+                          itemBuilder: (context, index) {
+                            return CachedNetworkImage(
+                              imageUrl: widget.doctorOffer.images[index].image,
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => const Center(
+                                  child: CircularProgressIndicator()),
+                              errorWidget: (context, url, error) => Icon(
+                                  Icons.error,
+                                  size: 50.sp,
+                                  color: Colors.white),
+                            );
+                          },
+                        )
+                      : CachedNetworkImage(
+                          imageUrl: widget.doctorOffer.images.isNotEmpty
+                              ? widget.doctorOffer.images[0].image
+                              : '',
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) =>
+                              const Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) => Icon(
+                              Icons.error,
+                              size: 50.sp,
+                              color: Colors.white),
+                        ),
+
+                  /// Dot Indicator
+                  if (hasMultipleImages)
+                    Positioned(
+                      bottom: 16.h,
+                      child: SmoothPageIndicator(
+                        controller: _pageController,
+                        count: widget.doctorOffer.images.length,
+                        effect: ExpandingDotsEffect(
+                          activeDotColor: Colors.white,
+                          dotColor: Colors.grey.shade400,
+                          dotHeight: 8.h,
+                          dotWidth: 8.h,
+                          expansionFactor: 2,
+                          spacing: 6.w,
+                        ),
+                      ),
+                    ),
+                ],
               ),
             ),
           ),
+
+          /// -------------------------------------------------------------------
+
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.all(16.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  /// Header Row
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         child: Text(
-                          doctorOffer.title,
+                          widget.doctorOffer.title,
                           style: Theme.of(context)
                               .textTheme
                               .headlineSmall
@@ -69,7 +127,7 @@ class DoctorOfferDetailsView extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) => DoctorDetailsView(
-                                  doctorID: doctorOffer.doctorId),
+                                  doctorID: widget.doctorOffer.doctorId),
                             ),
                           );
                         },
@@ -85,6 +143,8 @@ class DoctorOfferDetailsView extends StatelessWidget {
                       ),
                     ],
                   ),
+
+                  /// -------------------------------------------------------------------
                   SizedBox(height: 16.h),
                   Card(
                     elevation: 4,
@@ -99,83 +159,58 @@ class DoctorOfferDetailsView extends StatelessWidget {
                           _buildDetailRow(
                             context,
                             'معلومات عن العرض',
-                            doctorOffer.infoAboutOffer,
+                            widget.doctorOffer.infoAboutOffer,
                             icon: Icons.info_outline,
                           ),
-                          Divider(color: Theme.of(context).colorScheme.surface),
+                          SizedBox(
+                            height: 10.h,
+                          ),
                           _buildDetailRow(
                             context,
                             'للتواصل',
-                            doctorOffer.details,
+                            widget.doctorOffer.details,
                             icon: Icons.phone_outlined,
                           ),
-                          Divider(color: Theme.of(context).colorScheme.surface),
+                          SizedBox(
+                            height: 10.h,
+                          ),
                           _buildDetailRow(
                             context,
                             'السعر قبل الخصم',
-                            doctorOffer.priceBeforeDiscount,
+                            widget.doctorOffer.priceBeforeDiscount,
                             icon: Icons.price_change_outlined,
                           ),
-                          Divider(color: Theme.of(context).colorScheme.surface),
+                          SizedBox(
+                            height: 10.h,
+                          ),
                           _buildDetailRow(
                             context,
                             'الخصم',
-                            doctorOffer.discount,
+                            widget.doctorOffer.discount,
                             icon: Icons.discount_outlined,
                           ),
-                          Divider(color: Theme.of(context).colorScheme.surface),
+                          SizedBox(
+                            height: 10.h,
+                          ),
                           _buildDetailRow(
                             context,
                             'من',
-                            doctorOffer.fromDay,
+                            widget.doctorOffer.fromDay,
                             icon: Icons.calendar_today_outlined,
                           ),
-                          Divider(color: Theme.of(context).colorScheme.surface),
+                          SizedBox(
+                            height: 10.h,
+                          ),
                           _buildDetailRow(
                             context,
                             'إلى',
-                            doctorOffer.toDay,
+                            widget.doctorOffer.toDay,
                             icon: Icons.calendar_today_outlined,
                           ),
                         ],
                       ),
                     ),
                   ),
-                  if (doctorOffer.images.isNotEmpty) ...[
-                    SizedBox(height: 16.h),
-                    Text(
-                      'صور العرض',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                    ),
-                    SizedBox(height: 8.h),
-                    SizedBox(
-                      height: 150.h,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: doctorOffer.images.length,
-                        itemBuilder: (context, index) {
-                          final image = doctorOffer.images[index];
-                          return Padding(
-                            padding: EdgeInsets.only(right: 8.w),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: CachedNetworkImage(
-                                imageUrl: image.image,
-                                width: 150.w,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    const CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
                 ],
               ),
             ),
@@ -199,6 +234,8 @@ class DoctorOfferDetailsView extends StatelessWidget {
   }
 }
 
+/// ---------------------------------------------------------------------------
+
 class _ExpandableDetailRow extends StatefulWidget {
   final String label;
   final String value;
@@ -213,6 +250,8 @@ class _ExpandableDetailRow extends StatefulWidget {
   @override
   _ExpandableDetailRowState createState() => _ExpandableDetailRowState();
 }
+
+/// ---------------------------------------------------------------------------
 
 class _ExpandableDetailRowState extends State<_ExpandableDetailRow> {
   bool _isExpanded = false;
