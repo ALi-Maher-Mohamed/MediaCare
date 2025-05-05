@@ -38,7 +38,7 @@ class HomeViewHeader extends StatelessWidget {
               ), // بالفعل بيتبع الـ Theme
         ),
         SizedBox(
-          height: 30.h,
+          height: 15.h,
         ),
       ],
     );

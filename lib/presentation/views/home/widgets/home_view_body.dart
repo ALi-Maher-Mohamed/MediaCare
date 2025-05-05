@@ -59,7 +59,6 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-
     return WillPopScope(
       onWillPop: () async {
         if (selectedIndex != 0) {
@@ -238,12 +237,15 @@ class HomeViewBodyScreen extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 25.w),
+            child: const HomeViewHeader(),
+          ),
+          HomeCarousel(),
+          SizedBox(height: 24.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const HomeViewHeader(),
-                HomeCarousel(),
-                SizedBox(height: 24.h),
                 const HomeViewHeaderCard(),
                 SizedBox(height: 24.h),
               ],

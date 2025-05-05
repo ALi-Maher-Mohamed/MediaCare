@@ -28,7 +28,8 @@ class HomeCarousel extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-        height: 80.h,
+        aspectRatio: 3,
+        // height: 80.h,
         autoPlay: true,
         autoPlayInterval: Duration(seconds: 4),
         enlargeCenterPage: true,
@@ -60,7 +61,7 @@ class HomeCarousel extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    bottom: 30.h,
+                    bottom: 20.h,
                     left: 20.w,
                     right: 20.w,
                     child: Column(
