@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_care/core/network/api_service.dart';
 import 'package:media_care/presentation/views/doctor_blogs/data/repos/doctor_blogs_repo_impl.dart';
 import 'package:media_care/presentation/views/doctor_blogs/manager/cubit/blogs_cubit.dart';
 import 'package:media_care/presentation/views/doctor_blogs/manager/cubit/blogs_state.dart';
@@ -16,7 +17,7 @@ class BlogsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => DoctorBlogsCubit(
-        BlogsRepoImpl(Dio()),
+        BlogsRepoImpl(ApiServiceFunctions(Dio())),
       )..fetchBlogs(),
       child: BlocBuilder<DoctorBlogsCubit, BlogState>(
         builder: (context, state) {

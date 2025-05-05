@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:media_care/core/network/api_service.dart';
 import 'package:media_care/presentation/views/doctor_blogs/data/repos/doctor_blogs_repo_impl.dart';
 import 'package:media_care/presentation/views/doctor_blogs/manager/cubit/blogs_cubit.dart';
 import 'package:media_care/presentation/views/doctor_blogs/widgets/doctor_blogs_view_body.dart';
@@ -25,7 +26,8 @@ class DoctorBlogsView extends StatelessWidget {
         textDirection: TextDirection.rtl,
         child: BlocProvider(
           create: (context) =>
-              DoctorBlogsCubit(BlogsRepoImpl(Dio()))..fetchBlogs(),
+              DoctorBlogsCubit(BlogsRepoImpl(ApiServiceFunctions(Dio())))
+                ..fetchBlogs(),
           child: DoctorBlogsViewBody(),
         ),
       ),
