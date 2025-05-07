@@ -76,7 +76,7 @@ class MediCare extends StatelessWidget {
                 );
               }),
               debugShowCheckedModeBanner: false,
-              home: LoginView(),
+              home: HomeView(),
             );
           },
         ),

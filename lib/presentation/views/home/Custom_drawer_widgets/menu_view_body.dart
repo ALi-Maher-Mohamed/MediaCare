@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:media_care/core/network/api_service.dart';
 import 'package:media_care/core/utils/cubits/theme_cubit.dart';
 import 'package:media_care/presentation/views/Auth/logout/manager/cubit/logout_cubit.dart';
 import 'package:media_care/presentation/views/Auth/logout/manager/cubit/logout_state.dart';
+import 'package:media_care/presentation/views/My%20appointments/widgets/myAppointments_view.dart';
 import 'package:media_care/presentation/views/profile/data/repo/profile_repo_impl.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_state.dart';
@@ -108,6 +110,17 @@ class MenuViewBody extends StatelessWidget {
           ),
         ),
         ListTile(
+          leading: FaIcon(FontAwesomeIcons.solidCalendar, color: Theme.of(context).iconTheme.color),
+          title: Text(
+            'حجوزاتي',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AppointmentsScreen()));
+          },
+        ),
+        ListTile(
           leading: Icon(Icons.brightness_6,
               color: Theme.of(context).iconTheme.color),
           title: Text(
@@ -119,7 +132,7 @@ class MenuViewBody extends StatelessWidget {
           },
         ),
         ListTile(
-          leading: Icon(Icons.help, color: Theme.of(context).iconTheme.color),
+          leading: FaIcon(FontAwesomeIcons.solidUser, color: Theme.of(context).iconTheme.color),
           title: Text(
             'الحساب الشخصي',
             style: Theme.of(context).textTheme.bodyLarge,
