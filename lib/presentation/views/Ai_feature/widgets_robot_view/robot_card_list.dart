@@ -41,17 +41,60 @@ class RobotCardList extends StatelessWidget {
   static Future<void> _pickAndNavigate(
       BuildContext context, String type) async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ImageDetailView(
-            imagePath: pickedFile.path,
-            type: type,
+
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (BuildContext ctx) {
+        return SafeArea(
+          child: Wrap(
+            children: [
+              ListTile(
+                leading: Icon(Icons.camera_alt),
+                title: Text('التقاط صورة'),
+                onTap: () async {
+                  Navigator.of(ctx).pop();
+                  final pickedFile =
+                      await picker.pickImage(source: ImageSource.camera);
+                  if (pickedFile != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ImageDetailView(
+                          imagePath: pickedFile.path,
+                          type: type,
+                        ),
+                      ),
+                    );
+                  }
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.photo_library),
+                title: Text('اختر صورة من المعرض'),
+                onTap: () async {
+                  Navigator.of(ctx).pop();
+                  final pickedFile =
+                      await picker.pickImage(source: ImageSource.gallery);
+                  if (pickedFile != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ImageDetailView(
+                          imagePath: pickedFile.path,
+                          type: type,
+                        ),
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
           ),
-        ),
-      );
-    }
+        );
+      },
+    );
   }
 }
