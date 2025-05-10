@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class ManualInputTextField extends StatelessWidget {
   final TextEditingController controller;
-
   const ManualInputTextField({super.key, required this.controller});
 
   @override
@@ -17,14 +16,11 @@ class ManualInputTextField extends StatelessWidget {
         ),
         hintText: 'أدخل الأعراض أو اسم الدواء',
         hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: Theme.of(context)
-                  .colorScheme
-                  .onSurface
-                  .withOpacity(0.6), // لون تلميح من الثيم
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
             ),
       ),
       maxLines: 3,
-      style: Theme.of(context).textTheme.bodyLarge, // نمط النص من الثيم
+      style: Theme.of(context).textTheme.bodyLarge,
     );
   }
 }

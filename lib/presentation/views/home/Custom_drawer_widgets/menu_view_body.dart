@@ -44,7 +44,7 @@ class MenuViewBody extends StatelessWidget {
           return BlocBuilder<ProfileCubit, ProfileState>(
             builder: (context, profileState) {
               if (profileState is ProfileLoading) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (profileState is ProfileLoaded) {
                 final user = profileState.user;
 
@@ -55,7 +55,7 @@ class MenuViewBody extends StatelessWidget {
                       'مرحبا بك',
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     CircleAvatar(
                       backgroundImage: NetworkImage(
                         user.avatar ??
@@ -63,7 +63,7 @@ class MenuViewBody extends StatelessWidget {
                       ),
                       radius: 100,
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Text(
                       user.name!,
                       style: Theme.of(context).textTheme.headlineSmall,
@@ -75,15 +75,14 @@ class MenuViewBody extends StatelessWidget {
                           .bodyMedium
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 20),
-                    // باقي القائمة كما هي
+                    const SizedBox(height: 20),
                     buildListTiles(context),
                   ],
                 );
               } else if (profileState is ProfileError) {
-                return Center(child: Text("حدث خطأ: ${profileState.message}"));
+                return const NonLoginZoomDrawer();
               } else {
-                return Center(child: Text("جاري تحميل البيانات..."));
+                return const Center(child: Text("جاري تحميل البيانات..."));
               }
             },
           );
@@ -104,13 +103,14 @@ class MenuViewBody extends StatelessWidget {
           child: ListTile(
             leading: Icon(Icons.home, color: Theme.of(context).iconTheme.color),
             title: Text(
-              'الرئيسية',
+              'الرئيسية',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
           ),
         ),
         ListTile(
-          leading: FaIcon(FontAwesomeIcons.solidCalendar, color: Theme.of(context).iconTheme.color),
+          leading: FaIcon(FontAwesomeIcons.solidCalendar,
+              color: Theme.of(context).iconTheme.color),
           title: Text(
             'حجوزاتي',
             style: Theme.of(context).textTheme.bodyLarge,
@@ -132,7 +132,8 @@ class MenuViewBody extends StatelessWidget {
           },
         ),
         ListTile(
-          leading: FaIcon(FontAwesomeIcons.solidUser, color: Theme.of(context).iconTheme.color),
+          leading: FaIcon(FontAwesomeIcons.solidUser,
+              color: Theme.of(context).iconTheme.color),
           title: Text(
             'الحساب الشخصي',
             style: Theme.of(context).textTheme.bodyLarge,
@@ -154,6 +155,81 @@ class MenuViewBody extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyLarge,
             ),
           ),
+        ),
+      ],
+    );
+  }
+}
+
+class NonLoginZoomDrawer extends StatelessWidget {
+  const NonLoginZoomDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'مرحبا بك',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        const SizedBox(height: 20),
+        const CircleAvatar(
+          backgroundImage: NetworkImage(
+            "https://cdn.pixabay.com/photo/2017/07/18/23/23/user-2517430_1280.png",
+          ),
+          radius: 100,
+        ),
+        const SizedBox(height: 20),
+        Text(
+          'يرجى تسجيل الدخول',
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 20),
+        buildNonLoginListTiles(context),
+      ],
+    );
+  }
+
+  Widget buildNonLoginListTiles(BuildContext context) {
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: () {
+            ZoomDrawer.of(context)!.toggle();
+          },
+          child: ListTile(
+            leading: Icon(Icons.home, color: Theme.of(context).iconTheme.color),
+            title: Text(
+              'الرئيسية',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ),
+        ),
+        ListTile(
+          leading: Icon(Icons.brightness_6,
+              color: Theme.of(context).iconTheme.color),
+          title: Text(
+            'تبديل الثيم',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          onTap: () {
+            context.read<ThemeCubit>().toggleTheme();
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.login, color: Theme.of(context).iconTheme.color),
+          title: Text(
+            'تسجيل الدخول',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          onTap: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => LoginView()));
+          },
         ),
       ],
     );
