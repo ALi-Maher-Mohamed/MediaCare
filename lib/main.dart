@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/core/SharedPref/shared_pref.dart';
+import 'package:media_care/core/errors/modern_error_screen.dart';
 import 'package:media_care/core/network/api_service.dart';
 import 'package:media_care/core/utils/cubits/theme_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/repo/Labs_analytics_repo_impl.dart';
@@ -12,7 +13,6 @@ import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/m
 import 'package:media_care/presentation/views/AI_Feature/prescription_analysis/repo/Prescription_repo_impl.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/repos/symptom_analysis_repo_impl.dart';
-import 'package:media_care/presentation/views/Auth/login/login_view.dart';
 import 'package:media_care/presentation/views/doctors_offers/data/manager/cubit/doctor_offers_cubit.dart';
 import 'package:media_care/presentation/views/doctors_offers/data/repos/offer_group_repository.dart';
 import 'package:media_care/presentation/views/doctors_offers/offer_group_view.dart';
@@ -24,7 +24,9 @@ void main() async {
 
   String? token = await SharedPreference().getToken();
   Bloc.observer = MyBlocObserver();
-
+  ErrorWidget.builder = (FlutterErrorDetails exception) => ModernErrorScreen(
+        errorDetails: exception,
+      );
   runApp(MediCare(
     isLoggedIn: token != null,
   ));
@@ -66,6 +68,7 @@ class MediCare extends StatelessWidget {
         child: BlocBuilder<ThemeCubit, ThemeData>(
           builder: (context, theme) {
             context.read<ThemeCubit>().setInitialTheme(context);
+
             return MaterialApp(
               theme: theme,
               locale: Locale('ar'),
