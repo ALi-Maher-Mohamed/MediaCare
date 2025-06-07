@@ -30,6 +30,31 @@ class PrescriptionResultScreen extends StatelessWidget {
                 fontSize: 24.sp,
               ), // نمط النص من الثيم
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.picture_as_pdf),
+            tooltip: 'تحميل كـ PDF',
+            onPressed: () async {
+              final cubit = context.read<PrescriptionCubit>();
+              final state = cubit.state;
+              if (state is AiSuccess &&
+                  state.type == AnalysisType.prescription) {
+                try {
+                  await cubit.createAndPrintPdf();
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('حدث خطأ أثناء إنشاء ملف PDF')),
+                  );
+                }
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                      content: Text('الرجاء الانتظار حتى تحميل النتيجة')),
+                );
+              }
+            },
+          ),
+        ],
       ),
       body: BlocBuilder<PrescriptionCubit, AiState>(
         builder: (context, state) {

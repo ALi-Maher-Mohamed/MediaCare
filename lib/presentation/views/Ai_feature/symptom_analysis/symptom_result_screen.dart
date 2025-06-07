@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_care/core/utils/pdf_helper.dart';
 import 'package:media_care/presentation/views/AI_Feature/cubit/ai_state.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/widgets/symptom_diagnosis_card.dart';
@@ -11,6 +12,8 @@ import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/widget
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/widgets/symptom_medications_header.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/widgets/symptom_medication_card.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/widgets/symptom_warning_card.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 
 class SymptomResultScreen extends StatelessWidget {
   final String type;
@@ -32,20 +35,44 @@ class SymptomResultScreen extends StatelessWidget {
                 fontSize: 24.sp,
               ), // نمط النص من الثيم
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.picture_as_pdf),
+            tooltip: 'تحميل كـ PDF',
+            onPressed: () async {
+              final cubit = context.read<SymptomAnalysisCubit>();
+              final state = cubit.state;
+              if (state is AiSuccess && state.type == AnalysisType.symptom) {
+                final result = state.result;
+
+                final pdf = await PdfHelper.createPdf(result);
+
+                await Printing.layoutPdf(
+                  onLayout: (PdfPageFormat format) async => pdf.save(),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                      content: Text('الرجاء الانتظار حتى تحميل النتيجة')),
+                );
+              }
+            },
+          ),
+        ],
       ),
       body: BlocBuilder<SymptomAnalysisCubit, AiState>(
         builder: (context, state) {
           if (state is AiLoading && state.type == AnalysisType.symptom) {
             return Center(
               child: CircularProgressIndicator(
-                color: Theme.of(context).colorScheme.primary, // لون من الثيم
+                color: Theme.of(context).colorScheme.primary,
               ),
             );
           } else if (state is AiFailure && state.type == AnalysisType.symptom) {
             return Center(
               child: Text(
                 state.errorMessage,
-                style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
             );
           } else if (state is AiSuccess && state.type == AnalysisType.symptom) {
