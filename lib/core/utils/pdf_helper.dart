@@ -8,7 +8,7 @@ import 'package:pdf/widgets.dart' as pw;
 
 class PdfHelper {
   static Future<pw.Font> loadAmiriFont() async {
-    final fontData = await rootBundle.load('assets/fonts/Amiri-Regular.ttf');
+    final fontData = await rootBundle.load('assets/fonts/Cairo-Regular.ttf');
     return pw.Font.ttf(fontData);
   }
 

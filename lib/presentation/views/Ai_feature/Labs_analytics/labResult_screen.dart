@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_care/core/utils/pdf_helper.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/managers/cubit/labs_analytics_cubit.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/widgets/lab_result_header.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/widgets/lab_interpretation_card.dart';
@@ -8,6 +9,7 @@ import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/widgets/
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/widgets/lab_warning_card.dart';
 import 'package:media_care/presentation/views/AI_Feature/Labs_analytics/widgets/lab_test_result_card.dart';
 import 'package:media_care/presentation/views/AI_Feature/cubit/ai_state.dart';
+import 'package:printing/printing.dart';
 
 class LabAnalysisResultScreen extends StatelessWidget {
   final String type;
@@ -28,6 +30,29 @@ class LabAnalysisResultScreen extends StatelessWidget {
                 fontSize: 24.sp,
               ), // نمط من الثيم
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.picture_as_pdf_outlined),
+            tooltip: 'تحميل PDF',
+            onPressed: () async {
+              // هنا هنجيب بيانات التحليل من الـ state (لو تستخدم Bloc)
+              final cubit = context.read<LabAnalysisCubit>();
+              final state = cubit.state;
+              if (state is AiSuccess && state.type == AnalysisType.lab) {
+                final pdf = await PdfHelper.createPdf(state.result);
+
+                // لو عايز تحفظ الملف أو تعرضه للطباعة / معاينة
+                await Printing.layoutPdf(
+                  onLayout: (format) async => pdf.save(),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('لا يوجد بيانات لتحويلها إلى PDF')),
+                );
+              }
+            },
+          ),
+        ],
       ),
       body: BlocBuilder<LabAnalysisCubit, AiState>(
         builder: (context, state) {
