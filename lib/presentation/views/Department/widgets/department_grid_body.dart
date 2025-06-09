@@ -29,6 +29,7 @@ class DepartmentGridBody extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => DepartmentDetailsScreen(
+                  title: department.title,
                   departmentID: department.id,
                 ),
                 settings: RouteSettings(

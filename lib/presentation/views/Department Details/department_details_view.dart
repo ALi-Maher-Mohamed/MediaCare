@@ -14,13 +14,14 @@ import 'package:media_care/presentation/views/Department%20Details/widgets/hospi
 
 class DepartmentDetailsScreen extends StatelessWidget {
   final String departmentID;
+  final String title;
 
-  const DepartmentDetailsScreen({Key? key, required this.departmentID})
+  const DepartmentDetailsScreen(
+      {Key? key, required this.departmentID, required this.title})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String title = ModalRoute.of(context)!.settings.arguments as String;
     return BlocProvider(
       create: (context) => DepartmentDetailsCubit(
         departmentDetailsRepoImpl: DepartmentDetailsRepoImpl(

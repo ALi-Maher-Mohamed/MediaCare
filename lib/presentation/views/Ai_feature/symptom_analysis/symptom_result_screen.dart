@@ -1,6 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_care/core/network/api_service.dart';
 import 'package:media_care/core/utils/pdf_helper.dart';
 import 'package:media_care/presentation/views/AI_Feature/cubit/ai_state.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/managers/cubit/symptom_cubit.dart';
@@ -12,6 +14,8 @@ import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/widget
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/widgets/symptom_medications_header.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/widgets/symptom_medication_card.dart';
 import 'package:media_care/presentation/views/AI_Feature/symptom_analysis/widgets/symptom_warning_card.dart';
+import 'package:media_care/presentation/views/Department/data/repo/department_repo_impl.dart';
+import 'package:media_care/presentation/views/Department/manager/department_cubit.dart';
 import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
 
@@ -22,9 +26,22 @@ class SymptomResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => DepartmentCubit(
+          departmentRepo: DepartmentRepoImpl(ApiServiceFunctions(Dio())))
+        ..fetchDepartments(),
+      child: const _SymptomResultScreenBody(),
+    );
+  }
+}
+
+class _SymptomResultScreenBody extends StatelessWidget {
+  const _SymptomResultScreenBody({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          Theme.of(context).scaffoldBackgroundColor, // توافق مع الثيم
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         elevation: Theme.of(context).appBarTheme.elevation,
@@ -33,7 +50,7 @@ class SymptomResultScreen extends StatelessWidget {
           'نتيجة تحليل الأعراض',
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontSize: 24.sp,
-              ), // نمط النص من الثيم
+              ),
         ),
         actions: [
           IconButton(
@@ -44,16 +61,15 @@ class SymptomResultScreen extends StatelessWidget {
               final state = cubit.state;
               if (state is AiSuccess && state.type == AnalysisType.symptom) {
                 final result = state.result;
-
                 final pdf = await PdfHelper.createPdf(result);
-
                 await Printing.layoutPdf(
                   onLayout: (PdfPageFormat format) async => pdf.save(),
                 );
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                      content: Text('الرجاء الانتظار حتى تحميل النتيجة')),
+                    content: Text('الرجاء الانتظار حتى تحميل النتيجة'),
+                  ),
                 );
               }
             },
@@ -77,6 +93,7 @@ class SymptomResultScreen extends StatelessWidget {
             );
           } else if (state is AiSuccess && state.type == AnalysisType.symptom) {
             final result = state.result;
+
             return SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -85,8 +102,8 @@ class SymptomResultScreen extends StatelessWidget {
                   SymptomDiagnosisCard(diagnosis: result.diagnosis),
                   SizedBox(height: 20.h),
                   SymptomSpecializationCard(
-                      recommendedSpecialization:
-                          result.recommendedSpecialization),
+                    recommendedSpecialization: result.recommendedSpecialization,
+                  ),
                   SizedBox(height: 20.h),
                   SymptomAdviceCard(advice: result.advice),
                   SizedBox(height: 20.sp),
@@ -107,8 +124,7 @@ class SymptomResultScreen extends StatelessWidget {
                   else
                     Text(
                       'لا توجد أدوية مقترحة',
-                      style:
-                          Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   SizedBox(height: 20.h),
                   SymptomWarningCard(warning: result.medicationWarning),
@@ -116,10 +132,11 @@ class SymptomResultScreen extends StatelessWidget {
               ),
             );
           }
+
           return Center(
             child: Text(
               'جاري تحميل النتيجة...',
-              style: Theme.of(context).textTheme.bodyLarge, // نمط من الثيم
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
           );
         },
