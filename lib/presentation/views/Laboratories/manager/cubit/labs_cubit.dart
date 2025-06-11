@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:media_care/presentation/views/Laboratories/data/model/labs_model/data.dart';
 import 'labs_state.dart';
 import 'package:media_care/core/errors/failure.dart';
 import 'package:media_care/presentation/views/Laboratories/data/model/labs_model/pagination_labs_model.dart';
@@ -48,6 +49,44 @@ class LaboratoryCubit extends Cubit<LaboratoryState> {
         if (hasMore) currentPage++;
       },
     );
+  }
+
+  void filterLaboratories({
+    String? city,
+    String? area,
+    bool? supportsInsurance,
+  }) {
+    if (state is! LaboratorySuccessState) return;
+
+    final currentState = state as LaboratorySuccessState;
+
+    List<LaboratoryModel> filtered = currentState.allLaboratories;
+
+    if (city != null && city.isNotEmpty) {
+      filtered = filtered.where((lab) => lab.city == city).toList();
+    }
+
+    if (area != null && area.isNotEmpty) {
+      filtered = filtered.where((lab) => lab.area == area).toList();
+    }
+
+    if (supportsInsurance != null) {
+      if (supportsInsurance) {
+        filtered = filtered
+            .where((lab) =>
+                lab.service.contains('تأمين') ||
+                lab.service.contains('تأمين صحي'))
+            .toList();
+      } else {
+        filtered = filtered
+            .where((lab) =>
+                !lab.service.contains('تأمين') &&
+                !lab.service.contains('تأمين صحي'))
+            .toList();
+      }
+    }
+
+    emit(LaboratorySuccessState(filtered, currentState.allLaboratories));
   }
 
   void searchLaboratories(String query) {
