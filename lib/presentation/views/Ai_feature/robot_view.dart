@@ -4,7 +4,6 @@ import 'package:media_care/presentation/views/AI_Feature/widgets_robot_view/robo
 
 class RobotView extends StatelessWidget {
   const RobotView({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

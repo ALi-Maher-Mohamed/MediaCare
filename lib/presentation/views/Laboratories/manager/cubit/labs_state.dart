@@ -7,8 +7,11 @@ class LaboratoryInitial extends LaboratoryState {}
 class LaboratoryLoadingState extends LaboratoryState {}
 
 class LaboratorySuccessState extends LaboratoryState {
-  final List<LaboratoryModel> laboratories;
-  LaboratorySuccessState(this.laboratories);
+  final List<LaboratoryModel>
+      laboratories; // القائمة المعروضة (مفلترة أو كاملة)
+  final List<LaboratoryModel> allLaboratories; // القائمة الأصلية
+
+  LaboratorySuccessState(this.laboratories, this.allLaboratories);
 }
 
 class LaboratoryErrorState extends LaboratoryState {
