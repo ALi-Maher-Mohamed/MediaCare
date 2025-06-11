@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart'; // لاستخدام ScrollController
+import 'package:flutter/material.dart';
+import 'labs_state.dart';
 import 'package:media_care/core/errors/failure.dart';
 import 'package:media_care/presentation/views/Laboratories/data/model/labs_model/pagination_labs_model.dart';
 import 'package:media_care/presentation/views/Laboratories/data/repo/laporatory_repo.dart';
-import 'labs_state.dart';
 
 class LaboratoryCubit extends Cubit<LaboratoryState> {
   final LaboratoryRepo laboratoryRepo;
@@ -14,7 +14,7 @@ class LaboratoryCubit extends Cubit<LaboratoryState> {
 
   LaboratoryCubit(this.laboratoryRepo) : super(LaboratoryInitial()) {
     scrollController.addListener(_onScroll);
-    fetchLaboratories(); // جلب الصفحة الأولى تلقائيًا عند التهيئة
+    fetchLaboratories();
   }
 
   void fetchLaboratories({bool isLoadMore = false}) async {
@@ -29,23 +29,45 @@ class LaboratoryCubit extends Cubit<LaboratoryState> {
         await laboratoryRepo.getLaboratories(page: currentPage);
 
     result.fold(
-      (failure) => emit(LaboratoryErrorState(
-          failure.errMessage)), // استخدام message بدلاً من errMessage
+      (failure) => emit(LaboratoryErrorState(failure.errMessage)),
       (pagination) {
-        final laboratories = pagination.laboratories;
-        if (isLoadMore) {
-          final currentLaboratories =
-              (state as LaboratorySuccessState).laboratories;
-          emit(LaboratorySuccessState(
-              [...currentLaboratories, ...laboratories]));
+        final labs = pagination.laboratories;
+
+        if (isLoadMore && state is LaboratorySuccessState) {
+          final currentState = state as LaboratorySuccessState;
+
+          final updatedAllLabs = [...currentState.allLaboratories, ...labs];
+          final updatedLabs = [...currentState.laboratories, ...labs];
+
+          emit(LaboratorySuccessState(updatedLabs, updatedAllLabs));
         } else {
-          emit(LaboratorySuccessState(laboratories));
+          emit(LaboratorySuccessState(labs, labs));
         }
-        hasMore =
-            laboratories.length == 6; // افتراض أن per_page = 6 هو الحد الأقصى
+
+        hasMore = labs.length == 6; // حسب حجم الصفحة (per_page)
         if (hasMore) currentPage++;
       },
     );
+  }
+
+  void searchLaboratories(String query) {
+    if (state is! LaboratorySuccessState) return;
+
+    final currentState = state as LaboratorySuccessState;
+
+    if (query.isEmpty) {
+      emit(LaboratorySuccessState(
+          currentState.allLaboratories, currentState.allLaboratories));
+    } else {
+      final filteredLabs = currentState.allLaboratories.where((lab) {
+        final q = query.toLowerCase();
+        return lab.title.toLowerCase().contains(q) ||
+            lab.city.toLowerCase().contains(q) ||
+            lab.area.toLowerCase().contains(q);
+      }).toList();
+
+      emit(LaboratorySuccessState(filteredLabs, currentState.allLaboratories));
+    }
   }
 
   void _onScroll() {
@@ -57,7 +79,7 @@ class LaboratoryCubit extends Cubit<LaboratoryState> {
 
   @override
   Future<void> close() {
-    scrollController.dispose(); // تحرير الموارد
+    scrollController.dispose();
     return super.close();
   }
 }

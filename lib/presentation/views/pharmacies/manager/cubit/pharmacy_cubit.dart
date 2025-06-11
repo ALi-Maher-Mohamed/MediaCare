@@ -41,6 +41,35 @@ class PharmacyCubit extends Cubit<PharmacyState> {
     );
   }
 
+  void filterPharmacies({
+    String? city,
+    String? area,
+    bool? supportsInsurance,
+  }) {
+    final filtered = allPharmacies.where((pharmacy) {
+      final matchesCity = city == null || pharmacy.city == city;
+      final matchesArea = area == null || pharmacy.area == area;
+
+      final matchesInsurance = supportsInsurance == null
+          ? true
+          : pharmacy.insurence == (supportsInsurance ? 1 : 0);
+
+      return matchesCity && matchesArea && matchesInsurance;
+    }).toList();
+
+    emit(PharmacySuccessState(
+      filtered,
+      allPharmacies,
+    ));
+  }
+
+  List<PharmacyModel> get allPharmacies {
+    if (state is PharmacySuccessState) {
+      return (state as PharmacySuccessState).allPharmacies;
+    }
+    return [];
+  }
+
   void searchPharmacies(String query) {
     if (state is! PharmacySuccessState) return;
 

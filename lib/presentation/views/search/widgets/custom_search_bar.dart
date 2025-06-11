@@ -1,10 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../pharmacies/manager/cubit/pharmacy_cubit.dart';
 
 class CustomSearchBar extends StatefulWidget {
-  const CustomSearchBar({super.key});
+  final Function(String) onSearch;
+  final String hintText;
+
+  const CustomSearchBar({
+    super.key,
+    required this.onSearch,
+    required this.hintText,
+  });
 
   @override
   State<CustomSearchBar> createState() => _CustomSearchBarState();
@@ -12,12 +17,14 @@ class CustomSearchBar extends StatefulWidget {
 
 class _CustomSearchBarState extends State<CustomSearchBar> {
   final TextEditingController _controller = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
   Timer? _debounce;
 
   @override
   void dispose() {
     _debounce?.cancel();
     _controller.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -25,14 +32,15 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
 
     _debounce = Timer(const Duration(milliseconds: 400), () {
-      context.read<PharmacyCubit>().searchPharmacies(query);
+      widget.onSearch(query);
     });
   }
 
   void _clearSearch() {
     _controller.clear();
-    context.read<PharmacyCubit>().searchPharmacies('');
+    widget.onSearch('');
     setState(() {});
+    _focusNode.requestFocus();
   }
 
   @override
@@ -53,13 +61,15 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
           Expanded(
             child: TextField(
               controller: _controller,
+              focusNode: _focusNode,
               onChanged: (value) {
-                setState(() {}); // عشان نظهر زر × وقت الكتابة
+                setState(() {});
+                _focusNode.requestFocus();
                 _onSearchChanged(value);
               },
               textDirection: TextDirection.rtl,
-              decoration: const InputDecoration(
-                hintText: 'ابحث باسم الصيدلية أو المدينة أو المنطقة',
+              decoration: InputDecoration(
+                hintText: widget.hintText,
                 border: InputBorder.none,
               ),
             ),
