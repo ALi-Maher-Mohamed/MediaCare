@@ -117,31 +117,34 @@ class OffersRowBody extends StatelessWidget {
               ),
             );
           },
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12.sp),
-                child: CachedNetworkImage(
-                  imageUrl: offer.image,
-                  width: 140.w,
-                  height: 110.h,
-                  fit: BoxFit.cover,
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12.sp),
+                  child: CachedNetworkImage(
+                    imageUrl: offer.image,
+                    width: 140.w,
+                    height: 110.h,
+                    fit: BoxFit.cover,
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
                 ),
-              ),
-              SizedBox(height: 8.h),
-              Text(
-                offer.title,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.primary,
-                    ),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
+                SizedBox(height: 8.h),
+                Text(
+                  offer.title,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primary,
+                      ),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ),
         );
       },

@@ -117,37 +117,39 @@ class BlogsRowBody extends StatelessWidget {
               ),
             );
           },
-          child: Column(
-            children: [
-              Card(
-                elevation: 3,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.sp),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.sp),
-                  child: CachedNetworkImage(
-                    imageUrl: blog.doctor.image,
-                    width: 160.w,
-                    height: 110.h,
-                    fit: BoxFit.cover,
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Card(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.sp),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.sp),
+                    child: CachedNetworkImage(
+                      imageUrl: blog.doctor.image,
+                      width: 160.w,
+                      height: 110.h,
+                      fit: BoxFit.cover,
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 6.h),
-              Text(
-                '${blog.doctor.fName} ${blog.doctor.lName}',
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
-            ],
+                SizedBox(height: 6.h),
+                Text(
+                  '${blog.doctor.fName} ${blog.doctor.lName}',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ],
+            ),
           ),
         );
       },

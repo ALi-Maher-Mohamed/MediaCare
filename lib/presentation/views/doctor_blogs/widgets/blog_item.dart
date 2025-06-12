@@ -38,6 +38,12 @@ class BlogItem extends StatelessWidget {
                   width: 80.w,
                   height: 80.h,
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => Image.asset(
+                    'assets/images/Ali1.jpg', // صورة بديلة في حالة الخطأ
+                    width: 80.w,
+                    height: 80.h,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               SizedBox(width: 10.w),
