@@ -14,36 +14,41 @@ class DepartmentGridBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: .95.w / 1.0.h,
-          crossAxisSpacing: 10.w,
-          mainAxisSpacing: 10.w,
-          crossAxisCount: 2),
-      itemCount: departments.length,
-      itemBuilder: (context, index) {
-        final department = departments[index];
-        return InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DepartmentDetailsScreen(
-                  title: department.title,
-                  departmentID: department.id,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 0.9.w / 1.0.h,
+          crossAxisSpacing: 16.w,
+          mainAxisSpacing: 16.h,
+        ),
+        itemCount: departments.length,
+        itemBuilder: (context, index) {
+          final department = departments[index];
+          return InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DepartmentDetailsScreen(
+                    title: department.title,
+                    departmentID: department.id,
+                  ),
+                  settings: RouteSettings(
+                    arguments: department.title,
+                  ),
                 ),
-                settings: RouteSettings(
-                  arguments: department.title,
-                ),
-              ),
-            );
-          },
-          child: DepartmentItem(
-            title: department.title,
-            iconUrl: department.icon,
-          ),
-        );
-      },
+              );
+            },
+            borderRadius: BorderRadius.circular(20.sp),
+            child: DepartmentItem(
+              title: department.title,
+              iconUrl: department.icon,
+            ),
+          );
+        },
+      ),
     );
   }
 }

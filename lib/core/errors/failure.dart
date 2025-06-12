@@ -11,62 +11,44 @@ abstract class Failure {
 class ServerFailure extends Failure {
   ServerFailure(super.errMessage);
 
-  // Factory method to create a ServerFailure instance from a DioException
   factory ServerFailure.fromDioError(DioException dioError) {
     switch (dioError.type) {
       case DioExceptionType.connectionTimeout:
         return ServerFailure('Connection timeout with ApiServer');
-
       case DioExceptionType.sendTimeout:
         return ServerFailure('Send timeout with ApiServer');
-
       case DioExceptionType.receiveTimeout:
         return ServerFailure('Receive timeout with ApiServer');
-
       case DioExceptionType.badResponse:
-        if (dioError.response != null) {
-          return ServerFailure.fromResponse(
-              dioError.response!.statusCode, dioError.response!.data);
-        }
-        return ServerFailure('Received an invalid response from the server.');
-
+        return ServerFailure.fromResponse(
+            dioError.response?.statusCode, dioError.response?.data);
       case DioExceptionType.cancel:
         return ServerFailure('Request to ApiServer was canceled');
-
       case DioExceptionType.unknown:
-        final message = dioError.message ?? '';
-        if (message.contains('SocketException')) {
+        if (dioError.message?.contains('SocketException') ?? false) {
           return ServerFailure('No Internet Connection');
-        } else {
-          return ServerFailure('Unexpected Error, Please try again!');
         }
-
+        return ServerFailure('Unexpected Error, Please try again!');
       default:
         return ServerFailure('Oops! There was an error, Please try again');
     }
   }
 
-  // Factory method to create a ServerFailure instance from an HTTP response
-  // Factory method to create a ServerFailure instance from an HTTP response
+  // Add this factory method
   factory ServerFailure.fromResponse(int? statusCode, dynamic response) {
-    print("API Response: $response"); // Debugging line
-
-    if (response is Map<String, dynamic>) {
-      if (response.containsKey('email')) {
-        // Extract the first error message from the list
-        List<dynamic> emailErrors = response['email'];
-        if (emailErrors.isNotEmpty) {
-          return ServerFailure(emailErrors.first.toString());
-        }
-      } else if (response.containsKey('message')) {
+    if (statusCode == 400) {
+      return ServerFailure('لقد قمت بتقييم هذه الصيدلية من قبل');
+    } else if (statusCode == 404) {
+      return ServerFailure('Not found');
+    } else if (statusCode == 500) {
+      return ServerFailure('Internal server error');
+    } else if (response is Map<String, dynamic>) {
+      if (response.containsKey('message')) {
         return ServerFailure(response['message']);
       } else if (response.containsKey('error')) {
         return ServerFailure(response['error']);
-      } else {
-        return ServerFailure('Unknown error format.');
       }
     }
-
-    return ServerFailure('Oops! There was an error, Please try again.');
+    return ServerFailure('Oops! There was an error, Please try again');
   }
 }

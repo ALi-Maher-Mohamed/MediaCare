@@ -1,12 +1,14 @@
 class ReservationModel {
   String? message;
-  Data? data;
+  ReservationData? data;
 
   ReservationModel({this.message, this.data});
 
   ReservationModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null
+        ? new ReservationData.fromJson(json['data'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -19,11 +21,11 @@ class ReservationModel {
   }
 }
 
-class Data {
+class ReservationData {
   String? userId;
   String? doctorId;
   String? clinicId;
-  String? appointmentId;
+  int? appointmentId;
   String? status;
   String? updatedAt;
   String? createdAt;
@@ -32,7 +34,7 @@ class Data {
   Appointment? appointment;
   Clinic? clinic;
 
-  Data(
+  ReservationData(
       {this.userId,
       this.doctorId,
       this.clinicId,
@@ -45,7 +47,7 @@ class Data {
       this.appointment,
       this.clinic});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  ReservationData.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
     doctorId = json['doctor_id'];
     clinicId = json['clinic_id'];
@@ -176,7 +178,7 @@ class Doctor {
 }
 
 class Appointment {
-  String? id;
+  int? id;
   String? day;
   String? startAt;
   String? endAt;

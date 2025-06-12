@@ -36,7 +36,7 @@ class SymptomResultScreen extends StatelessWidget {
 }
 
 class _SymptomResultScreenBody extends StatelessWidget {
-  const _SymptomResultScreenBody({super.key});
+  const _SymptomResultScreenBody();
 
   @override
   Widget build(BuildContext context) {

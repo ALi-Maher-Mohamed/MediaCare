@@ -17,7 +17,7 @@ class ReservationCubit extends Cubit<ReservationStates> {
     required String userId,
     required String doctorId,
     required String clinicId,
-    required String appointmentId,
+    required int appointmentId,
     required String status,
   }) async {
     emit(ReservationStatesLoading());

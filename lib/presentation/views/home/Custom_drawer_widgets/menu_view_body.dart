@@ -28,7 +28,7 @@ class MenuViewBody extends StatelessWidget {
         listener: (context, state) {
           if (state is LogoutSucess) {
             EasyLoading.dismiss();
-            EasyLoading.showSuccess(state.logoutModel.message ?? "");
+            EasyLoading.showSuccess("تم تسجيل الخروج بنجاح");
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => LoginView()),

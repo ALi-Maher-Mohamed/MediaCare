@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_care/core/SharedPref/shared_pref.dart';
 import 'package:media_care/core/network/api_service.dart';
+import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/data/repo/doctor_details_repo_impl.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/manager/cubit/doctor_details_cubit.dart';
@@ -10,6 +13,9 @@ import 'package:media_care/presentation/views/Doctor%20Details/widgets/doctor_da
 import 'package:media_care/presentation/views/Doctor%20Details/widgets/empty_space.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/widgets/more_info_doctor.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/widgets/reserve_appointment.dart';
+import 'package:media_care/presentation/views/Doctor_rating/data/repo/doctor_rating_repo_impl.dart';
+import 'package:media_care/presentation/views/Doctor_rating/manager/cubit/doctor_rating_cubit.dart';
+import 'package:media_care/presentation/views/Doctor_rating/widget/doctor_rating_bottom_sheet.dart';
 import 'package:media_care/presentation/views/profile/data/repo/profile_repo_impl.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
 
@@ -90,13 +96,58 @@ class DoctorDetailsView extends StatelessWidget {
                             '${state.DoctorDetails.data?.lName}',
                       ),
                     ),
+                    Divider(
+                      thickness: 1.5,
+                      color: AppColors.primary,
+                    ),
+                    _actionButton(context, Icons.star, "قيّم الدكتور",
+                        () async {
+                      final token = await SharedPreference().getToken();
+
+                      final profileCubit = context.read<ProfileCubit>();
+
+                      if (token == null || token.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('يجب تسجيل الدخول أولاً'),
+                            backgroundColor: Colors.red,
+                            duration: Duration(seconds: 1),
+                          ),
+                        );
+                        return;
+                      }
+
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (_) => MultiBlocProvider(
+                          providers: [
+                            BlocProvider.value(value: profileCubit),
+                            BlocProvider(
+                              create: (_) => DoctorRatingCubit(
+                                DoctorRatingRepoImpl(
+                                    ApiServiceFunctions(Dio())),
+                              ),
+                            ),
+                          ],
+                          child: DoctorRatingBottomSheet(
+                            doctorId: state.DoctorDetails.data?.id ?? '',
+                            doctorName:
+                                '${state.DoctorDetails.data?.fName} ${state.DoctorDetails.data?.lName}',
+                            doctorSpecialty: state.DoctorDetails.data
+                                    ?.specializations?[0].title ??
+                                '',
+                          ),
+                        ),
+                      );
+                    }),
                   ],
                 ),
               );
             }
             return Center(
               child: Text(
-                'Unknown state',
+                'لا توجد بيانات لعرضها',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             );
@@ -105,4 +156,30 @@ class DoctorDetailsView extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _actionButton(
+    BuildContext context, IconData icon, String label, VoidCallback onPressed) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: SizedBox(
+      width: double.infinity,
+      child: ElevatedButton.icon(
+        onPressed: onPressed,
+        icon: Icon(icon, color: Theme.of(context).colorScheme.primary),
+        label: Text(label,
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(color: Colors.white)),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          foregroundColor: Theme.of(context).colorScheme.primary,
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        ),
+      ),
+    ),
+  );
 }

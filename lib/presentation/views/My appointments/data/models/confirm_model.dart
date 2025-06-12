@@ -30,7 +30,7 @@ class Data {
   String? currency;
   String? paymentStatus;
   String? finalPrice;
-  Null? paymentMethod;
+  Null paymentMethod;
   String? createdAt;
   String? updatedAt;
 

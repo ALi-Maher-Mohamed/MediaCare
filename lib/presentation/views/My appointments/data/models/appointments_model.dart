@@ -35,7 +35,7 @@ class Data {
   String? currency;
   String? paymentStatus;
   String? finalPrice;
-  Null? paymentMethod;
+  Null paymentMethod;
   String? createdAt;
   String? updatedAt;
   Doctor? doctor;
@@ -254,7 +254,7 @@ class Appointment {
   int? isBooked;
   String? doctorId;
   String? clinicId;
-  Null? createdAt;
+  Null createdAt;
   String? updatedAt;
 
   Appointment(
