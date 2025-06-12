@@ -62,6 +62,42 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
     super.dispose();
   }
 
+  Future<void> _showRatingBottomSheet(BuildContext context) async {
+    final token = await SharedPreference().getToken();
+    final profileCubit = context.read<ProfileCubit>();
+
+    if (token == null || token.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('يجب تسجيل الدخول أولاً'),
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 1),
+        ),
+      );
+      return;
+    }
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (_) => MultiBlocProvider(
+        providers: [
+          BlocProvider.value(value: profileCubit),
+          BlocProvider(
+            create: (_) => PharmacyRatingCubit(
+              PharmacyRatingRepoImpl(ApiServiceFunctions(Dio())),
+            ),
+          ),
+        ],
+        child: PharmacyRatingBottomSheet(
+          pharmacyId: widget.pharmacy.id,
+          pharmacyName: widget.pharmacy.title,
+          pharmacyLocation: '${widget.pharmacy.city}, ${widget.pharmacy.area}',
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -291,6 +327,7 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
               value: "${widget.pharmacy.avgRate}",
               label: "التقييم",
               color: Colors.amber,
+              onTap: () => _showRatingBottomSheet(context),
             ),
             Container(
               height: 40.h,
@@ -328,38 +365,42 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
     required String value,
     required String label,
     required Color color,
+    VoidCallback? onTap,
   }) {
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.all(10.w),
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(12.r),
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(10.w),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            child: Icon(
+              icon,
+              color: color,
+              size: 24.sp,
+            ),
           ),
-          child: Icon(
-            icon,
-            color: color,
-            size: 24.sp,
+          SizedBox(height: 8.h),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
           ),
-        ),
-        SizedBox(height: 8.h),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12.sp,
+              color: Colors.grey[600],
+            ),
           ),
-        ),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12.sp,
-            color: Colors.grey[600],
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -534,6 +575,19 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
               LinearGradient(colors: [Colors.blue[400]!, Colors.blue[600]!]),
           onPressed: () =>
               launchCustomUrl(context, widget.pharmacy.locationUrl),
+        ),
+
+        SizedBox(height: 16.h),
+
+        // Rate Button
+        _buildGlassButton(
+          context,
+          icon: Icons.star_rounded,
+          label: "قيّم الصيدلية",
+          subtitle: "شاركنا رأيك",
+          gradient:
+              LinearGradient(colors: [Colors.amber[600]!, Colors.orange[600]!]),
+          onPressed: () => _showRatingBottomSheet(context),
         ),
       ],
     );
