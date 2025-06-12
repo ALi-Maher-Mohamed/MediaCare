@@ -9,6 +9,7 @@ class DepartmentDetailsCubit extends Cubit<DepartmentDetailsState> {
   List<Hospital> hospitals = [];
   List<CareCenter> careCenters = [];
   List<Doctor> doctors = [];
+  List<Tip> tips = [];
   List<dynamic> filteredData = [];
 
   DepartmentDetailsCubit({required this.departmentDetailsRepoImpl})
@@ -30,11 +31,24 @@ class DepartmentDetailsCubit extends Cubit<DepartmentDetailsState> {
           hospitals = departmentDetailsModel.data.hospitals;
           careCenters = departmentDetailsModel.data.careCenters;
           doctors = departmentDetailsModel.data.doctors;
+          tips = departmentDetailsModel.data.tips;
 
           emit(DepartmentDetailsLoaded(
             departmentDetails: departmentDetailsModel,
-            filteredData: hospitals,
-            selectedCategory: "المستشفيات",
+            filteredData: hospitals.isNotEmpty
+                ? hospitals
+                : careCenters.isNotEmpty
+                    ? careCenters
+                    : doctors.isNotEmpty
+                        ? doctors
+                        : [],
+            selectedCategory: hospitals.isNotEmpty
+                ? "المستشفيات"
+                : careCenters.isNotEmpty
+                    ? "المراكز"
+                    : doctors.isNotEmpty
+                        ? "الأطباء"
+                        : "",
           ));
         },
       );
@@ -72,7 +86,7 @@ class DepartmentDetailsCubit extends Cubit<DepartmentDetailsState> {
           hospitals: hospitals,
           careCenters: careCenters,
           doctors: doctors,
-          tips: [],
+          tips: tips,
         ),
       ),
       filteredData: filteredData,
