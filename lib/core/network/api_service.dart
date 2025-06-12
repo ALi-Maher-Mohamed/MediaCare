@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 class ApiServiceFunctions {
   final Dio dio;
-  final String baseUrl = 'http://192.168.1.4:8000';
+  final String baseUrl = 'http://10.0.2.2:8000';
 
   //Ali Maher BaseUrl --> http://192.168.1.4:8000
   //Ahmed Mansour BaseUrl --> http://10.0.2.2:8000
@@ -21,7 +21,7 @@ class ApiServiceFunctions {
         data: data,
         options: Options(headers: headers, validateStatus: (status) => true),
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         return response.data;
       } else {
         throw Exception('Server error: ${response.statusMessage}');

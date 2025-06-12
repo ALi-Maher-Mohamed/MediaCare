@@ -249,7 +249,7 @@ class Clinic {
 }
 
 class Appointment {
-  String? id;
+  int? id;
   String? day;
   String? startAt;
   String? endAt;

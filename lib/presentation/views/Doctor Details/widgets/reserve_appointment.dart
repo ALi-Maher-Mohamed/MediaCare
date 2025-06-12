@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:media_care/core/network/api_service.dart';
+import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/data/models/doctor_detail_model.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/manager/cubit/doctor_details_cubit.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/widgets/dialog.dart';
@@ -74,7 +75,10 @@ class BookingDetailsScreen extends StatelessWidget {
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
           ),
-          Divider(thickness: 1.5),
+          Divider(
+            thickness: 1.5,
+            color: AppColors.primary,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
@@ -127,7 +131,10 @@ class BookingDetailsScreen extends StatelessWidget {
               ],
             ),
           ),
-          Divider(thickness: 1.5),
+          Divider(
+            thickness: 1.5,
+            color: AppColors.primary,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
@@ -155,7 +162,10 @@ class BookingDetailsScreen extends StatelessWidget {
               ],
             ),
           ),
-          Divider(thickness: 1.5),
+          Divider(
+            thickness: 1.5,
+            color: AppColors.primary,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
@@ -167,7 +177,10 @@ class BookingDetailsScreen extends StatelessWidget {
                   ),
             ),
           ),
-          Divider(thickness: 1.5),
+          Divider(
+            thickness: 1.5,
+            color: AppColors.primary,
+          ),
           SizedBox(height: 10.h),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -315,7 +328,10 @@ class BookingDetailsScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10.h),
-          Divider(thickness: 1.5),
+          Divider(
+            thickness: 1.5,
+            color: AppColors.primary,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
@@ -327,7 +343,10 @@ class BookingDetailsScreen extends StatelessWidget {
                   ),
             ),
           ),
-          Divider(thickness: 1.5),
+          Divider(
+            thickness: 1.5,
+            color: AppColors.primary,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(

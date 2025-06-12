@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:media_care/presentation/views/Ai_feature/robot_view.dart';
-import 'package:media_care/zoom_drawer.dart';
 
 class ModernErrorScreen extends StatefulWidget {
   final FlutterErrorDetails? errorDetails;

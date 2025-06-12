@@ -15,7 +15,7 @@ class ReservaionRepoImpl implements ReservaionRepo {
     required String user_id,
     required String doctor_id,
     required String clinic_id,
-    required String appointment_id,
+    required int appointment_id,
     required String status,
     required String? token,
   }) async {
