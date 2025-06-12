@@ -8,8 +8,9 @@ class PharmacyLoadingState extends PharmacyState {}
 
 class PharmacySuccessState extends PharmacyState {
   final List<PharmacyModel> pharmacies;
+  final List<PharmacyModel> allPharmacies;
 
-  PharmacySuccessState(this.pharmacies);
+  PharmacySuccessState(this.pharmacies, this.allPharmacies);
 }
 
 class PharmacyErrorState extends PharmacyState {

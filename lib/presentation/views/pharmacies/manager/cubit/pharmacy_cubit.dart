@@ -10,7 +10,6 @@ class PharmacyCubit extends Cubit<PharmacyState> {
   bool hasMore = true;
 
   PharmacyCubit(this.pharmacyRepo) : super(PharmacyInitial());
-
   void fetchPharmacies({bool isLoadMore = false}) async {
     if (!hasMore && isLoadMore) return;
 
@@ -21,19 +20,72 @@ class PharmacyCubit extends Cubit<PharmacyState> {
 
     final result = await pharmacyRepo.getPharmacies(page: currentPage);
     result.fold(
-      (failure) => emit(PharmacyErrorState(
-          failure.errMessage)), // نستخدم errMessage من Failure
+      (failure) => emit(PharmacyErrorState(failure.errMessage)),
       (pharmacies) {
-        if (isLoadMore) {
-          final currentPharmacies = (state as PharmacySuccessState).pharmacies;
-          emit(PharmacySuccessState([...currentPharmacies, ...pharmacies]));
+        if (isLoadMore && state is PharmacySuccessState) {
+          final currentState = state as PharmacySuccessState;
+          final updatedList = [...currentState.pharmacies, ...pharmacies];
+          final updatedOriginal = [
+            ...currentState.allPharmacies,
+            ...pharmacies
+          ];
+
+          emit(PharmacySuccessState(updatedList, updatedOriginal));
         } else {
-          emit(PharmacySuccessState(pharmacies));
+          emit(PharmacySuccessState(pharmacies, pharmacies));
         }
-        hasMore =
-            pharmacies.length == 6; // افتراض أن per_page = 6 هو الحد الأقصى
+
+        hasMore = pharmacies.length == 6; // per_page = 6
         if (hasMore) currentPage++;
       },
     );
+  }
+
+  void filterPharmacies({
+    String? city,
+    String? area,
+    bool? supportsInsurance,
+  }) {
+    final filtered = allPharmacies.where((pharmacy) {
+      final matchesCity = city == null || pharmacy.city == city;
+      final matchesArea = area == null || pharmacy.area == area;
+
+      final matchesInsurance = supportsInsurance == null
+          ? true
+          : pharmacy.insurence == (supportsInsurance ? 1 : 0);
+
+      return matchesCity && matchesArea && matchesInsurance;
+    }).toList();
+
+    emit(PharmacySuccessState(
+      filtered,
+      allPharmacies,
+    ));
+  }
+
+  List<PharmacyModel> get allPharmacies {
+    if (state is PharmacySuccessState) {
+      return (state as PharmacySuccessState).allPharmacies;
+    }
+    return [];
+  }
+
+  void searchPharmacies(String query) {
+    if (state is! PharmacySuccessState) return;
+
+    final currentState = state as PharmacySuccessState;
+
+    if (query.isEmpty) {
+      emit(PharmacySuccessState(
+          currentState.allPharmacies, currentState.allPharmacies));
+    } else {
+      final filtered = currentState.allPharmacies.where((pharmacy) {
+        return pharmacy.title.toLowerCase().contains(query.toLowerCase()) ||
+            pharmacy.city.toLowerCase().contains(query.toLowerCase()) ||
+            pharmacy.area.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+
+      emit(PharmacySuccessState(filtered, currentState.allPharmacies));
+    }
   }
 }

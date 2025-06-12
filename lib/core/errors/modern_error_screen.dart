@@ -383,8 +383,7 @@ class ErrorScreenDemo extends StatelessWidget {
       ),
       home: ModernErrorScreen(
         errorDetails: errorDetails,
-        // customTitle: 'Custom Error Title', // Optional override
-        // customMessage: 'Custom error message', // Optional override
+    
         onRetry: () {
           // Handle retry logic
           ScaffoldMessenger.of(context).showSnackBar(
