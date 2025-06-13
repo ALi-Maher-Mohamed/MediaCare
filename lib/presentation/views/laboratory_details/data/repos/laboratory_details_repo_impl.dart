@@ -11,14 +11,15 @@ class LaboratoryRepositoryImpl implements LaboratoryRepository {
   LaboratoryRepositoryImpl(this.apiService);
 
   @override
-  Future<Either<Failure, LaboratoryResponse>> getLaboratory(String id) async {
+  Future<Either<Failure, LaboratoryDetailsResponse>> getLaboratory(
+      String id) async {
     try {
       final response = await apiService.get(
         endpoint: '/api/Laboratories/$id',
       );
 
       if (response['success'] == true) {
-        return Right(LaboratoryResponse.fromJson(response));
+        return Right(LaboratoryDetailsResponse.fromJson(response));
       } else {
         return Left(ServerFailure(response['message'] ?? 'Unknown error'));
       }

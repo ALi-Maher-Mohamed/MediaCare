@@ -1,30 +1,30 @@
 import 'package:equatable/equatable.dart';
 import 'package:media_care/presentation/views/laboratory_details/data/models/laboratory_details_model.dart';
 
-abstract class LaboratoryState extends Equatable {
-  const LaboratoryState();
+abstract class LaboratoryDetailsState extends Equatable {
+  const LaboratoryDetailsState();
 
   @override
   List<Object> get props => [];
 }
 
-class LaboratoryInitial extends LaboratoryState {}
+class LaboratoryDetailsInitial extends LaboratoryDetailsState {}
 
-class LaboratoryLoading extends LaboratoryState {}
+class LaboratoryDetailsLoading extends LaboratoryDetailsState {}
 
-class LaboratoryLoaded extends LaboratoryState {
-  final LaboratoryResponse response;
+class LaboratoryDetailsSuccess extends LaboratoryDetailsState {
+  final LaboratoryDetailsResponse response;
 
-  const LaboratoryLoaded(this.response);
+  const LaboratoryDetailsSuccess(this.response);
 
   @override
   List<Object> get props => [response];
 }
 
-class LaboratoryError extends LaboratoryState {
+class LaboratoryDetailsError extends LaboratoryDetailsState {
   final String message;
 
-  const LaboratoryError(this.message);
+  const LaboratoryDetailsError(this.message);
 
   @override
   List<Object> get props => [message];

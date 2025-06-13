@@ -1,21 +1,21 @@
 import 'package:equatable/equatable.dart';
 
-class LaboratoryResponse extends Equatable {
+class LaboratoryDetailsResponse extends Equatable {
   final bool success;
   final String message;
-  final LaboratoryData data;
+  final LaboratoryDetailsData data;
 
-  const LaboratoryResponse({
+  const LaboratoryDetailsResponse({
     required this.success,
     required this.message,
     required this.data,
   });
 
-  factory LaboratoryResponse.fromJson(Map<String, dynamic> json) {
-    return LaboratoryResponse(
+  factory LaboratoryDetailsResponse.fromJson(Map<String, dynamic> json) {
+    return LaboratoryDetailsResponse(
       success: json['success'] ?? false,
       message: json['message'] ?? '',
-      data: LaboratoryData.fromJson(json['data'] ?? {}),
+      data: LaboratoryDetailsData.fromJson(json['data'] ?? {}),
     );
   }
 
@@ -23,7 +23,7 @@ class LaboratoryResponse extends Equatable {
   List<Object> get props => [success, message, data];
 }
 
-class LaboratoryData extends Equatable {
+class LaboratoryDetailsData extends Equatable {
   final String id;
   final String title;
   final String service;
@@ -41,10 +41,10 @@ class LaboratoryData extends Equatable {
   final String? chainLaboratoryId;
   final String createdAt;
   final String updatedAt;
-  final List<User> users;
+  final List<LaboratoryUser> users;
   final List<dynamic> insuranceCompanies;
 
-  const LaboratoryData({
+  const LaboratoryDetailsData({
     required this.id,
     required this.title,
     required this.service,
@@ -66,8 +66,8 @@ class LaboratoryData extends Equatable {
     required this.insuranceCompanies,
   });
 
-  factory LaboratoryData.fromJson(Map<String, dynamic> json) {
-    return LaboratoryData(
+  factory LaboratoryDetailsData.fromJson(Map<String, dynamic> json) {
+    return LaboratoryDetailsData(
       id: json['id'] ?? '',
       title: json['title'] ?? '',
       service: json['service'] ?? '',
@@ -86,14 +86,14 @@ class LaboratoryData extends Equatable {
       createdAt: json['created_at'] ?? '',
       updatedAt: json['updated_at'] ?? '',
       users: (json['users'] as List<dynamic>?)
-              ?.map((user) => User.fromJson(user))
+              ?.map((user) => LaboratoryUser.fromJson(user))
               .toList() ??
           [],
       insuranceCompanies: json['insurance_companies'] ?? [],
     );
   }
 
-  LaboratoryData copyWith({
+  LaboratoryDetailsData copyWith({
     String? id,
     String? title,
     String? service,
@@ -111,10 +111,10 @@ class LaboratoryData extends Equatable {
     String? chainLaboratoryId,
     String? createdAt,
     String? updatedAt,
-    List<User>? users,
+    List<LaboratoryUser>? users,
     List<dynamic>? insuranceCompanies,
   }) {
-    return LaboratoryData(
+    return LaboratoryDetailsData(
       id: id ?? this.id,
       title: title ?? this.title,
       service: service ?? this.service,
@@ -161,7 +161,7 @@ class LaboratoryData extends Equatable {
       ];
 }
 
-class User extends Equatable {
+class LaboratoryUser extends Equatable {
   final String id;
   final String? googleId;
   final String? avatar;
@@ -181,7 +181,7 @@ class User extends Equatable {
   final String updatedAt;
   final Pivot pivot;
 
-  const User({
+  const LaboratoryUser({
     required this.id,
     this.googleId,
     this.avatar,
@@ -202,8 +202,8 @@ class User extends Equatable {
     required this.pivot,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  factory LaboratoryUser.fromJson(Map<String, dynamic> json) {
+    return LaboratoryUser(
       id: json['id'] ?? '',
       googleId: json['google_id'],
       avatar: json['avatar'],
@@ -225,7 +225,7 @@ class User extends Equatable {
     );
   }
 
-  User copyWith({
+  LaboratoryUser copyWith({
     String? id,
     String? googleId,
     String? avatar,
@@ -245,7 +245,7 @@ class User extends Equatable {
     String? updatedAt,
     Pivot? pivot,
   }) {
-    return User(
+    return LaboratoryUser(
       id: id ?? this.id,
       googleId: googleId ?? this.googleId,
       avatar: avatar ?? this.avatar,

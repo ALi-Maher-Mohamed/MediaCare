@@ -2,19 +2,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:media_care/presentation/views/laboratory_details/cubit/laboratory_details_state.dart';
 import 'package:media_care/presentation/views/laboratory_details/data/repos/laboratory_details_repo.dart';
 
-class LaboratoryCubit extends Cubit<LaboratoryState> {
+class LaboratoryDetailsCubit extends Cubit<LaboratoryDetailsState> {
   final LaboratoryRepository repository;
 
-  LaboratoryCubit(this.repository) : super(LaboratoryInitial());
+  LaboratoryDetailsCubit(this.repository) : super(LaboratoryDetailsInitial());
 
   Future<void> fetchLaboratory(String id) async {
-    emit(LaboratoryLoading());
+    emit(LaboratoryDetailsLoading());
 
     final result = await repository.getLaboratory(id);
 
     result.fold(
-      (failure) => emit(LaboratoryError(failure.errMessage)),
-      (response) => emit(LaboratoryLoaded(response)),
+      (failure) => emit(LaboratoryDetailsError(failure.errMessage)),
+      (response) => emit(LaboratoryDetailsSuccess(response)),
     );
   }
 }

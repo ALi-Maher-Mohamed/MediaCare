@@ -107,7 +107,7 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
     final dio = Dio();
     final apiService = ApiServiceFunctions(dio);
     final repository = LaboratoryRepositoryImpl(apiService);
-    final cubit = LaboratoryCubit(repository);
+    final cubit = LaboratoryDetailsCubit(repository);
 
     cubit.fetchLaboratory(widget.laboratoryId);
 
@@ -116,11 +116,11 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
       backgroundColor: isDarkMode ? AppColors.backgroundDark : Colors.grey[50],
       body: BlocProvider(
         create: (_) => cubit,
-        child: BlocBuilder<LaboratoryCubit, LaboratoryState>(
+        child: BlocBuilder<LaboratoryDetailsCubit, LaboratoryDetailsState>(
           builder: (context, state) {
-            if (state is LaboratoryLoading) {
+            if (state is LaboratoryDetailsLoading) {
               return const Center(child: CircularProgressIndicator());
-            } else if (state is LaboratoryLoaded) {
+            } else if (state is LaboratoryDetailsSuccess) {
               final laboratory = state.response.data;
               return Stack(
                 children: [
@@ -362,7 +362,7 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
                   ),
                 ],
               );
-            } else if (state is LaboratoryError) {
+            } else if (state is LaboratoryDetailsError) {
               return Center(child: Text(state.message));
             }
             return const SizedBox.shrink();
@@ -373,7 +373,7 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
   }
 
   Widget _buildFloatingRatingCard(
-      BuildContext context, LaboratoryData laboratory) {
+      BuildContext context, LaboratoryDetailsData laboratory) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Container(
       transform: Matrix4.translationValues(0, -30.h, 0),
@@ -478,7 +478,8 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
     );
   }
 
-  Widget _buildServicesGrid(BuildContext context, LaboratoryData laboratory) {
+  Widget _buildServicesGrid(
+      BuildContext context, LaboratoryDetailsData laboratory) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -602,7 +603,7 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
   }
 
   Widget _buildModernActionButtons(
-      BuildContext context, LaboratoryData laboratory) {
+      BuildContext context, LaboratoryDetailsData laboratory) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -673,13 +674,23 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
     );
   }
 
-  Widget _buildReviewsSection(BuildContext context, LaboratoryData laboratory) {
+  String _formatDate(String dateString) {
+    try {
+      final date = DateTime.parse(dateString);
+      return "${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year}";
+    } catch (e) {
+      return dateString;
+    }
+  }
+
+  Widget _buildReviewsSection(
+      BuildContext context, LaboratoryDetailsData laboratory) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "المراجعات",
+          "اراء العملاء",
           style: TextStyle(
             fontSize: 24.sp,
             fontWeight: FontWeight.bold,
@@ -713,11 +724,13 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
                             ? NetworkImage(user.avatar!)
                             : null,
                         child: user.avatar == null
-                            ? Icon(Icons.person,
+                            ? Icon(
+                                Icons.person,
                                 size: 24.sp,
                                 color: isDarkMode
                                     ? AppColors.textLight
-                                    : Colors.black87)
+                                    : Colors.black87,
+                              )
                             : null,
                       ),
                       SizedBox(width: 16.w),
@@ -758,6 +771,20 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
                                   color: Colors.amber,
                                   size: 16.sp,
                                 ),
+                              ),
+                            ),
+                            SizedBox(height: 8.h),
+                            Text(
+                              user.pivot.createdAt.isNotEmpty
+                                  ? _formatDate(user.pivot.createdAt)
+                                  : "غير متاح",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12.sp,
+                                color: isDarkMode
+                                    ? AppColors.textLight.withOpacity(0.6)
+                                    : Colors.grey[500],
+                                fontStyle: FontStyle.italic,
                               ),
                             ),
                           ],
