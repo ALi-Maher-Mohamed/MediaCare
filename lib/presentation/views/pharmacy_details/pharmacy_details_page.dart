@@ -6,15 +6,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:media_care/core/SharedPref/shared_pref.dart';
 import 'package:media_care/core/network/api_service.dart';
 import 'package:media_care/core/utils/app_color.dart';
+import 'package:media_care/core/utils/functins/launch_url.dart';
 import 'package:media_care/presentation/views/Pharmacie_rating/data/repos/pharmacy_rating_repo_impl.dart';
 import 'package:media_care/presentation/views/Pharmacie_rating/manager/cubit/pharmacy_rating_cubit.dart';
-import 'package:media_care/presentation/views/Pharmacie_rating/manager/cubit/pharmacy_rating_state.dart';
 import 'package:media_care/presentation/views/Pharmacie_rating/widgets/rating_bottom_sheet.dart';
 import 'package:media_care/presentation/views/pharmacy_details/cubit/pharmacy_details_cubit.dart';
 import 'package:media_care/presentation/views/pharmacy_details/cubit/pharmacy_details_state.dart';
 import 'package:media_care/presentation/views/pharmacy_details/data/model/pharmacy_details_mode;.dart';
+import 'package:media_care/presentation/views/pharmacy_details/data/repos/pharmacy_repo_impl.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
-import '../../../core/utils/functins/launch_url.dart';
 
 class PharmacyDetailsPage extends StatefulWidget {
   final String pharmacyId;
@@ -55,11 +55,6 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
 
     _fadeController.forward();
     _slideController.forward();
-
-    // Fetch pharmacy details
-    context
-        .read<PharmacyDetailsCubit>()
-        .fetchPharmacyDetails(widget.pharmacyId);
   }
 
   @override
@@ -69,7 +64,8 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
     super.dispose();
   }
 
-  Future<void> _showRatingBottomSheet(BuildContext context) async {
+  Future<void> _showRatingBottomSheet(BuildContext context, String pharmacyId,
+      String pharmacyName, String pharmacyLocation) async {
     final token = await SharedPreference().getToken();
     final profileCubit = context.read<ProfileCubit>();
 
@@ -97,18 +93,9 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
           ),
         ],
         child: PharmacyRatingBottomSheet(
-          pharmacyId: widget.pharmacyId,
-          pharmacyName: context.read<PharmacyDetailsCubit>().state
-                  is PharmacyDetailsSuccess
-              ? (context.read<PharmacyDetailsCubit>().state
-                      as PharmacyDetailsSuccess)
-                  .pharmacy
-                  .title
-              : '',
-          pharmacyLocation: context.read<PharmacyDetailsCubit>().state
-                  is PharmacyDetailsSuccess
-              ? '${(context.read<PharmacyDetailsCubit>().state as PharmacyDetailsSuccess).pharmacy.city}, ${(context.read<PharmacyDetailsCubit>().state as PharmacyDetailsSuccess).pharmacy.area}'
-              : '',
+          pharmacyId: pharmacyId,
+          pharmacyName: pharmacyName,
+          pharmacyLocation: pharmacyLocation,
         ),
       ),
     );
@@ -116,251 +103,270 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
 
   @override
   Widget build(BuildContext context) {
+    final dio = Dio();
+    final apiService = ApiServiceFunctions(dio);
+    final repository = PharmacyDetailsRepoImpl(apiService: apiService);
+    final cubit = PharmacyDetailsCubit(repository);
+
+    cubit.fetchPharmacyDetails(widget.pharmacyId);
+
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: isDarkMode ? AppColors.backgroundDark : Colors.grey[50],
-      body: BlocBuilder<PharmacyDetailsCubit, PharmacyDetailsState>(
-        builder: (context, state) {
-          if (state is PharmacyDetailsLoading) {
-            return Center(child: CircularProgressIndicator());
-          } else if (state is PharmacyDetailsSuccess) {
-            final pharmacy = state.pharmacy;
-            return Stack(
-              children: [
-                // Background Pattern
-                Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: isDarkMode
-                          ? [
-                              AppColors.backgroundDark,
-                              AppColors.secondary.withOpacity(0.8),
-                              Color(0xff1C252F),
-                            ]
-                          : [
-                              Colors.blue[50]!,
-                              Colors.cyan[50]!,
-                              Colors.teal[50]!,
-                            ],
+      body: BlocProvider(
+        create: (_) => cubit,
+        child: BlocBuilder<PharmacyDetailsCubit, PharmacyDetailsState>(
+          builder: (context, state) {
+            if (state is PharmacyDetailsLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is PharmacyDetailsSuccess) {
+              final pharmacy = state.pharmacy;
+              return Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: isDarkMode
+                            ? [
+                                AppColors.backgroundDark,
+                                AppColors.secondary.withOpacity(0.8),
+                                Color(0xff1C252F),
+                              ]
+                            : [
+                                Colors.blue[50]!,
+                                Colors.cyan[50]!,
+                                Colors.teal[50]!,
+                              ],
+                      ),
                     ),
                   ),
-                ),
-
-                CustomScrollView(
-                  slivers: [
-                    // Hero Section
-                    SliverAppBar(
-                      expandedHeight: 320.h,
-                      floating: false,
-                      pinned: true,
-                      elevation: 0,
-                      backgroundColor: isDarkMode
-                          ? AppColors.backgroundDark
-                          : Colors.transparent,
-                      leading: Container(
-                        margin: EdgeInsets.all(8.w),
-                        decoration: BoxDecoration(
-                          color: isDarkMode
-                              ? AppColors.surfaceDark.withOpacity(0.9)
-                              : Colors.white.withOpacity(0.9),
-                          borderRadius: BorderRadius.circular(12.r),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 10,
-                              offset: Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.arrow_back_ios_new,
+                  CustomScrollView(
+                    slivers: [
+                      SliverAppBar(
+                        expandedHeight: 320.h,
+                        floating: false,
+                        pinned: true,
+                        elevation: 0,
+                        backgroundColor: isDarkMode
+                            ? AppColors.backgroundDark
+                            : Colors.transparent,
+                        leading: Container(
+                          margin: EdgeInsets.all(8.w),
+                          decoration: BoxDecoration(
                             color: isDarkMode
-                                ? AppColors.textLight
-                                : Colors.black87,
+                                ? AppColors.surfaceDark.withOpacity(0.9)
+                                : Colors.white.withOpacity(0.9),
+                            borderRadius: BorderRadius.circular(12.r),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 10,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
                           ),
-                          onPressed: () => Navigator.pop(context),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.arrow_back_ios_new,
+                              color: isDarkMode
+                                  ? AppColors.textLight
+                                  : Colors.black87,
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                          ),
                         ),
-                      ),
-                      flexibleSpace: FlexibleSpaceBar(
-                        background: Stack(
-                          children: [
-                            // Hero Image
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(40.r),
-                                  bottomRight: Radius.circular(40.r),
+                        flexibleSpace: FlexibleSpaceBar(
+                          background: Stack(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(40.r),
+                                    bottomRight: Radius.circular(40.r),
+                                  ),
                                 ),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(40.r),
-                                  bottomRight: Radius.circular(40.r),
-                                ),
-                                child: pharmacy.image == null
-                                    ? Image.asset(
-                                        'assets/Gifs/pharmacy.gif',
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(40.r),
+                                    bottomRight: Radius.circular(40.r),
+                                  ),
+                                  child: Image.network(
+                                    pharmacy.image ??
+                                        'assets/pharmacies/pharmacy.png',
+                                    width: double.infinity,
+                                    height: 320.h,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Image.asset(
+                                        'assets/pharmacies/pharmacy.png',
                                         width: double.infinity,
                                         height: 320.h,
                                         fit: BoxFit.cover,
-                                      )
-                                    : Image.network(
-                                        pharmacy.image!,
-                                        width: double.infinity,
-                                        height: 320.h,
-                                        fit: BoxFit.cover,
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                          return Image.asset(
-                                            'assets/Gifs/pharmacy.gif',
-                                            width: double.infinity,
-                                            height: 320.h,
-                                            fit: BoxFit.cover,
-                                          );
-                                        },
-                                      ),
-                              ),
-                            ),
-
-                            // Gradient Overlay
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(40.r),
-                                  bottomRight: Radius.circular(40.r),
-                                ),
-                                gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: isDarkMode
-                                      ? [
-                                          Colors.transparent,
-                                          AppColors.backgroundDark
-                                              .withOpacity(0.8),
-                                        ]
-                                      : [
-                                          Colors.transparent,
-                                          Colors.black.withOpacity(0.8),
-                                        ],
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
-                            ),
-
-                            // Pharmacy Name
-                            Positioned(
-                              bottom: 30.h,
-                              left: 20.w,
-                              right: 20.w,
-                              child: FadeTransition(
-                                opacity: _fadeAnimation,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      pharmacy.title,
-                                      style: TextStyle(
-                                        color: AppColors.textLight,
-                                        fontSize: 28.sp,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [
-                                          Shadow(
-                                            offset: Offset(0, 2),
-                                            blurRadius: 4,
-                                            color:
-                                                Colors.black.withOpacity(0.5),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(40.r),
+                                    bottomRight: Radius.circular(40.r),
+                                  ),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: isDarkMode
+                                        ? [
+                                            Colors.transparent,
+                                            AppColors.backgroundDark
+                                                .withOpacity(0.8),
+                                          ]
+                                        : [
+                                            Colors.transparent,
+                                            Colors.black.withOpacity(0.8),
+                                          ],
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 30.h,
+                                left: 20.w,
+                                right: 20.w,
+                                child: FadeTransition(
+                                  opacity: _fadeAnimation,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
+                                            padding: EdgeInsets.all(8.w),
+                                            decoration: BoxDecoration(
+                                              color: isDarkMode
+                                                  ? AppColors.primary
+                                                      .withOpacity(0.2)
+                                                  : Colors.purple
+                                                      .withOpacity(0.2),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.r),
+                                            ),
+                                            child: Icon(
+                                              Icons.local_pharmacy,
+                                              color: AppColors.textLight,
+                                              size: 20.sp,
+                                            ),
+                                          ),
+                                          SizedBox(width: 8.w),
+                                          Text(
+                                            "صيدلية",
+                                            style: TextStyle(
+                                              color: AppColors.textLight
+                                                  .withOpacity(0.8),
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                           ),
                                         ],
                                       ),
-                                    ),
-                                    SizedBox(height: 8.h),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 12.w,
-                                        vertical: 6.h,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: isDarkMode
-                                            ? AppColors.surfaceDark
-                                                .withOpacity(0.2)
-                                            : Colors.white.withOpacity(0.2),
-                                        borderRadius:
-                                            BorderRadius.circular(20.r),
-                                        border: Border.all(
-                                          color: AppColors.textLight
-                                              .withOpacity(0.3),
-                                        ),
-                                      ),
-                                      child: FittedBox(
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Icon(
-                                              Icons.location_on,
-                                              color: AppColors.textLight,
-                                              size: 16.sp,
-                                            ),
-                                            SizedBox(width: 4.w),
-                                            Text(
-                                              "${pharmacy.city}, ${pharmacy.area}",
-                                              style: TextStyle(
-                                                color: AppColors.textLight,
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w500,
-                                              ),
+                                      SizedBox(height: 8.h),
+                                      Text(
+                                        pharmacy.title,
+                                        style: TextStyle(
+                                          color: AppColors.textLight,
+                                          fontSize: 28.sp,
+                                          fontWeight: FontWeight.bold,
+                                          shadows: [
+                                            Shadow(
+                                              offset: Offset(0, 2),
+                                              blurRadius: 4,
+                                              color:
+                                                  Colors.black.withOpacity(0.5),
                                             ),
                                           ],
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      SizedBox(height: 8.h),
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 12.w,
+                                          vertical: 6.h,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: isDarkMode
+                                              ? AppColors.surfaceDark
+                                                  .withOpacity(0.2)
+                                              : Colors.white.withOpacity(0.2),
+                                          borderRadius:
+                                              BorderRadius.circular(20.r),
+                                          border: Border.all(
+                                            color: AppColors.textLight
+                                                .withOpacity(0.3),
+                                          ),
+                                        ),
+                                        child: FittedBox(
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Icon(
+                                                Icons.location_on,
+                                                color: AppColors.textLight,
+                                                size: 16.sp,
+                                              ),
+                                              SizedBox(width: 4.w),
+                                              Text(
+                                                "${pharmacy.city}, ${pharmacy.area}",
+                                                style: TextStyle(
+                                                  color: AppColors.textLight,
+                                                  fontSize: 14.sp,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    // Content
-                    SliverToBoxAdapter(
-                      child: SlideTransition(
-                        position: _slideAnimation,
-                        child: Padding(
-                          padding: EdgeInsets.all(20.w),
-                          child: Column(
-                            children: [
-                              // Rating Section
-                              _buildFloatingRatingCard(context, pharmacy),
-                              SizedBox(height: 30.h),
-
-                              // Services Grid
-                              _buildServicesGrid(context, pharmacy),
-                              SizedBox(height: 30.h),
-
-                              // Reviews Section
-                              _buildReviewsSection(context, pharmacy),
-                              SizedBox(height: 30.h),
-
-                              // Action Buttons
-                              _buildModernActionButtons(context, pharmacy),
-                              SizedBox(height: 30.h),
                             ],
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            );
-          } else if (state is PharmacyDetailsError) {
-            return Center(child: Text(state.message));
-          }
-          return Container();
-        },
+                      SliverToBoxAdapter(
+                        child: SlideTransition(
+                          position: _slideAnimation,
+                          child: Padding(
+                            padding: EdgeInsets.all(20.w),
+                            child: Column(
+                              children: [
+                                _buildFloatingRatingCard(context, pharmacy),
+                                SizedBox(height: 30.h),
+                                _buildServicesGrid(context, pharmacy),
+                                SizedBox(height: 30.h),
+                                _buildModernActionButtons(context, pharmacy),
+                                SizedBox(height: 30.h),
+                                _buildReviewsSection(context, pharmacy),
+                                SizedBox(height: 30.h),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            } else if (state is PharmacyDetailsError) {
+              return Center(child: Text(state.message));
+            }
+            return const SizedBox.shrink();
+          },
+        ),
       ),
     );
   }
@@ -391,7 +397,6 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
               value: "${pharmacy.avgRate}",
               label: "التقييم",
               color: Colors.amber,
-              onTap: () => _showRatingBottomSheet(context),
             ),
             Container(
               height: 40.h,
@@ -402,8 +407,8 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
             ),
             _buildRatingItem(
               context,
-              icon: Icons.verified,
-              value: "موثوق",
+              icon: Icons.verified_user,
+              value: pharmacy.insurance == 1 ? "معتمد" : "غير معتمد",
               label: "الجودة",
               color: Colors.green,
             ),
@@ -416,9 +421,9 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
             ),
             _buildRatingItem(
               context,
-              icon: Icons.access_time,
-              value: "24/7",
-              label: "الخدمة",
+              icon: Icons.local_shipping,
+              value: pharmacy.deliveryOption == 1 ? "متاح" : "غير متاح",
+              label: "التوصيل",
               color: Colors.blue,
             ),
           ],
@@ -433,45 +438,41 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
     required String value,
     required String label,
     required Color color,
-    VoidCallback? onTap,
   }) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.all(10.w),
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12.r),
-            ),
-            child: Icon(
-              icon,
-              color: color,
-              size: 24.sp,
-            ),
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.all(10.w),
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(12.r),
           ),
-          SizedBox(height: 8.h),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
-              color: isDarkMode ? AppColors.textLight : Colors.black87,
-            ),
+          child: Icon(
+            icon,
+            color: color,
+            size: 24.sp,
           ),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: isDarkMode
-                  ? AppColors.textLight.withOpacity(0.7)
-                  : Colors.grey[600],
-            ),
+        ),
+        SizedBox(height: 8.h),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.bold,
+            color: isDarkMode ? AppColors.textLight : Colors.black87,
           ),
-        ],
-      ),
+        ),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 12.sp,
+            color: isDarkMode
+                ? AppColors.textLight.withOpacity(0.7)
+                : Colors.grey[600],
+          ),
+        ),
+      ],
     );
   }
 
@@ -481,7 +482,7 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "خدماتنا",
+          "خدمات الصيدلية",
           style: TextStyle(
             fontSize: 24.sp,
             fontWeight: FontWeight.bold,
@@ -502,29 +503,28 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
               icon: Icons.medical_services,
               title: "الخدمة",
               subtitle: pharmacy.service,
-              color: Colors.blue,
+              color: Colors.purple,
             ),
             _buildServiceCard(
               context,
               icon: Icons.local_shipping,
               title: "التوصيل",
               subtitle: pharmacy.deliveryOption == 1 ? "متاح" : "غير متاح",
-              color:
-                  pharmacy.deliveryOption == 1 ? Colors.green : Colors.orange,
+              color: Colors.blue,
             ),
             _buildServiceCard(
               context,
               icon: Icons.security,
               title: "التأمين",
               subtitle: pharmacy.insurance == 1 ? "مدعوم" : "غير مدعوم",
-              color: pharmacy.insurance == 1 ? Colors.teal : Colors.grey,
+              color: Colors.teal,
             ),
             _buildServiceCard(
               context,
               icon: Icons.schedule,
               title: "المواعيد",
-              subtitle: "متاح دائماً",
-              color: Colors.purple,
+              subtitle: "من ${pharmacy.startAt} إلى ${pharmacy.endAt}",
+              color: Colors.orange,
             ),
           ],
         ),
@@ -553,51 +553,59 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
           ),
         ],
       ),
-      child: Expanded(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: EdgeInsets.all(12.w),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    color.withOpacity(0.1),
-                    color.withOpacity(0.2),
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(16.r),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: EdgeInsets.all(12.w),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  color.withOpacity(0.1),
+                  color.withOpacity(0.2),
+                ],
               ),
-              child: Icon(
-                icon,
-                color: color,
-                size: 28.sp,
-              ),
+              borderRadius: BorderRadius.circular(16.r),
             ),
-            SizedBox(height: 12.h),
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
-                color: isDarkMode
-                    ? AppColors.textLight.withOpacity(0.7)
-                    : Colors.grey[600],
-              ),
+            child: Icon(
+              icon,
+              color: color,
+              size: 28.sp,
             ),
-            Text(
-              subtitle,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 12.sp,
-                fontWeight: FontWeight.bold,
-                color: isDarkMode ? AppColors.textLight : Colors.black87,
-              ),
+          ),
+          SizedBox(height: 12.h),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+              color: isDarkMode
+                  ? AppColors.textLight.withOpacity(0.7)
+                  : Colors.grey[600],
             ),
-          ],
-        ),
+          ),
+          SizedBox(height: 4.h),
+          Text(
+            subtitle,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.bold,
+              color: isDarkMode ? AppColors.textLight : Colors.black87,
+            ),
+          ),
+        ],
       ),
     );
+  }
+
+  String _formatDate(String dateString) {
+    try {
+      final date = DateTime.parse(dateString);
+      return "${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year}";
+    } catch (e) {
+      return dateString;
+    }
   }
 
   Widget _buildReviewsSection(BuildContext context, PharmacyData pharmacy) {
@@ -614,149 +622,112 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
           ),
         ),
         SizedBox(height: 16.h),
-        pharmacy.users.isEmpty
-            ? Container(
-                padding: EdgeInsets.all(16.w),
-                decoration: BoxDecoration(
-                  color: isDarkMode ? AppColors.surfaceDark : Colors.white,
-                  borderRadius: BorderRadius.circular(20.r),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 15,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
-                child: Center(
-                  child: Text(
-                    "لا توجد مراجعات بعد",
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      color: isDarkMode
-                          ? AppColors.textLight.withOpacity(0.7)
-                          : Colors.grey[600],
-                    ),
+        if (pharmacy.users.isNotEmpty)
+          ...pharmacy.users
+              .map(
+                (user) => Container(
+                  margin: EdgeInsets.only(bottom: 16.h),
+                  padding: EdgeInsets.all(16.w),
+                  decoration: BoxDecoration(
+                    color: isDarkMode ? AppColors.surfaceDark : Colors.white,
+                    borderRadius: BorderRadius.circular(20.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 15,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
                   ),
-                ),
-              )
-            : Container(
-                height: 200.h,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: ClampingScrollPhysics(),
-                  itemCount: pharmacy.users.length,
-                  itemBuilder: (context, index) {
-                    final user = pharmacy.users[index];
-                    return Padding(
-                      padding: EdgeInsets.only(bottom: 16.h),
-                      child: Container(
-                        padding: EdgeInsets.all(16.w),
-                        decoration: BoxDecoration(
-                          color:
-                              isDarkMode ? AppColors.surfaceDark : Colors.white,
-                          borderRadius: BorderRadius.circular(20.r),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 15,
-                              offset: Offset(0, 5),
-                            ),
-                          ],
-                        ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        radius: 24.r,
+                        backgroundImage: user.avatar != null
+                            ? NetworkImage(user.avatar!)
+                            : null,
+                        child: user.avatar == null
+                            ? Icon(
+                                Icons.person,
+                                size: 24.sp,
+                                color: isDarkMode
+                                    ? AppColors.textLight
+                                    : Colors.black87,
+                              )
+                            : null,
+                      ),
+                      SizedBox(width: 16.w),
+                      Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 20.r,
-                                      backgroundColor:
-                                          Colors.blue.withOpacity(0.1),
-                                      child: user.avatar == null
-                                          ? Icon(
-                                              Icons.person,
-                                              color: isDarkMode
-                                                  ? AppColors.textLight
-                                                  : Colors.black87,
-                                              size: 20.sp,
-                                            )
-                                          : ClipOval(
-                                              child: Image.network(
-                                                user.avatar!,
-                                                width: 40.r,
-                                                height: 40.r,
-                                                fit: BoxFit.cover,
-                                                errorBuilder: (context, error,
-                                                    stackTrace) {
-                                                  return Icon(
-                                                    Icons.person,
-                                                    color: isDarkMode
-                                                        ? AppColors.textLight
-                                                        : Colors.black87,
-                                                    size: 20.sp,
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                    ),
-                                    SizedBox(width: 8.w),
-                                    Text(
-                                      user.name,
-                                      style: TextStyle(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: isDarkMode
-                                            ? AppColors.textLight
-                                            : Colors.black87,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: List.generate(
-                                    5,
-                                    (starIndex) => Icon(
-                                      Icons.star_rounded,
-                                      size: 16.sp,
-                                      color: starIndex < user.pivot.ratingValue
-                                          ? Colors.amber
-                                          : Colors.grey[400],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 8.h),
                             Text(
-                              user.pivot.review,
+                              user.name,
                               style: TextStyle(
-                                fontSize: 14.sp,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.bold,
                                 color: isDarkMode
-                                    ? AppColors.textLight.withOpacity(0.8)
-                                    : Colors.grey[800],
+                                    ? AppColors.textLight
+                                    : Colors.black87,
                               ),
                             ),
                             SizedBox(height: 8.h),
                             Text(
-                              user.pivot.createdAt.split('T')[0],
+                              user.pivot.review.isNotEmpty
+                                  ? user.pivot.review
+                                  : "لا توجد مراجعة",
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: isDarkMode
+                                    ? AppColors.textLight.withOpacity(0.7)
+                                    : Colors.grey[600],
+                              ),
+                            ),
+                            SizedBox(height: 8.h),
+                            Row(
+                              children: List.generate(
+                                5,
+                                (index) => Icon(
+                                  index < user.pivot.ratingValue
+                                      ? Icons.star
+                                      : Icons.star_border,
+                                  color: Colors.amber,
+                                  size: 16.sp,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 8.h),
+                            Text(
+                              user.pivot.createdAt.isNotEmpty
+                                  ? _formatDate(user.pivot.createdAt)
+                                  : "غير متاح",
                               style: TextStyle(
                                 fontSize: 12.sp,
                                 color: isDarkMode
                                     ? AppColors.textLight.withOpacity(0.6)
-                                    : Colors.grey[600],
+                                    : Colors.grey[500],
+                                fontStyle: FontStyle.italic,
                               ),
                             ),
                           ],
                         ),
                       ),
-                    );
-                  },
+                    ],
+                  ),
                 ),
-              ),
+              )
+              .toList(),
+        if (pharmacy.users.isEmpty)
+          Text(
+            "لا توجد مراجعات",
+            style: TextStyle(
+              fontSize: 16.sp,
+              color: isDarkMode
+                  ? AppColors.textLight.withOpacity(0.7)
+                  : Colors.grey[600],
+            ),
+          ),
       ],
     );
   }
@@ -768,7 +739,7 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "تواصل معنا",
+          "تواصل مع الصيدلية",
           style: TextStyle(
             fontSize: 24.sp,
             fontWeight: FontWeight.bold,
@@ -776,13 +747,25 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
           ),
         ),
         SizedBox(height: 20.h),
-
-        // Phone Button
+        _buildGlassButton(
+          context,
+          icon: Icons.star_rate_rounded,
+          label: "تقييم الصيدلية",
+          subtitle: "شاركنا رأيك عن الخدمة",
+          gradient: LinearGradient(
+            colors: isDarkMode
+                ? [Colors.amber[700]!, Colors.orange[900]!]
+                : [Colors.amber[600]!, Colors.orange[600]!],
+          ),
+          onPressed: () => _showRatingBottomSheet(context, pharmacy.id,
+              pharmacy.title, "${pharmacy.city}, ${pharmacy.area}"),
+        ),
+        SizedBox(height: 16.h),
         _buildGlassButton(
           context,
           icon: Icons.phone_rounded,
           label: "اتصل بالصيدلية",
-          subtitle: "للاستفسارات الطارئة",
+          subtitle: "للاستفسارات والمواعيد",
           gradient: LinearGradient(
             colors: isDarkMode
                 ? [Colors.green[700]!, Colors.green[900]!]
@@ -790,15 +773,12 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
           ),
           onPressed: () => launchDialer(pharmacy.phone),
         ),
-
         SizedBox(height: 16.h),
-
-        // WhatsApp Button
         _buildGlassButton(
           context,
           icon: FontAwesomeIcons.whatsapp,
           label: "واتساب",
-          subtitle: "للتواصل السريع",
+          subtitle: "للتواصل والاستشارات",
           gradient: LinearGradient(
             colors: isDarkMode
                 ? [Color(0xFF128C7E), Color(0xFF0A5F55)]
@@ -807,37 +787,18 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
           onPressed: () => launchCustomUrl(context, pharmacy.whatsappLink),
           isWhatsApp: true,
         ),
-
         SizedBox(height: 16.h),
-
-        // Map Button
         _buildGlassButton(
           context,
           icon: Icons.map_rounded,
           label: "عرض على الخريطة",
-          subtitle: "للوصول بسهولة",
+          subtitle: "للوصول إلى الصيدلية",
           gradient: LinearGradient(
             colors: isDarkMode
-                ? [Colors.blue[700]!, Colors.blue[900]!]
-                : [Colors.blue[400]!, Colors.blue[600]!],
+                ? [Colors.purple[700]!, Colors.purple[900]!]
+                : [Colors.purple[400]!, Colors.purple[600]!],
           ),
           onPressed: () => launchCustomUrl(context, pharmacy.locationUrl),
-        ),
-
-        SizedBox(height: 16.h),
-
-        // Rate Button
-        _buildGlassButton(
-          context,
-          icon: Icons.star_rounded,
-          label: "قيّم الصيدلية",
-          subtitle: "شاركنا رأيك",
-          gradient: LinearGradient(
-            colors: isDarkMode
-                ? [Colors.amber[700]!, Colors.orange[900]!]
-                : [Colors.amber[600]!, Colors.orange[600]!],
-          ),
-          onPressed: () => _showRatingBottomSheet(context),
         ),
       ],
     );
