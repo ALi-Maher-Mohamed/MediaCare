@@ -9,15 +9,15 @@ import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/Pharmacie_rating/data/repos/pharmacy_rating_repo_impl.dart';
 import 'package:media_care/presentation/views/Pharmacie_rating/manager/cubit/pharmacy_rating_cubit.dart';
 import 'package:media_care/presentation/views/Pharmacie_rating/widgets/rating_bottom_sheet.dart';
+import 'package:media_care/presentation/views/pharmacy_details/cubit/pharmacy_details_cubit.dart';
+import 'package:media_care/presentation/views/pharmacy_details/cubit/pharmacy_details_state.dart';
+import 'package:media_care/presentation/views/pharmacy_details/data/model/pharmacy_details.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
-import '../../../../core/utils/functins/launch_url.dart';
-import '../data/model/pharmacy_model.dart';
+import '../../../core/utils/functins/launch_url.dart';
 
 class PharmacyDetailsPage extends StatefulWidget {
-  final PharmacyModel pharmacy;
-  final int index;
-  const PharmacyDetailsPage(
-      {super.key, required this.index, required this.pharmacy});
+  final String pharmacyId;
+  const PharmacyDetailsPage({super.key, required this.pharmacyId});
 
   @override
   State<PharmacyDetailsPage> createState() => _PharmacyDetailsPageState();
@@ -54,6 +54,11 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
 
     _fadeController.forward();
     _slideController.forward();
+
+    // Fetch pharmacy details
+    context
+        .read<PharmacyDetailsCubit>()
+        .fetchPharmacyDetails(widget.pharmacyId);
   }
 
   @override
@@ -91,9 +96,18 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
           ),
         ],
         child: PharmacyRatingBottomSheet(
-          pharmacyId: widget.pharmacy.id,
-          pharmacyName: widget.pharmacy.title,
-          pharmacyLocation: '${widget.pharmacy.city}, ${widget.pharmacy.area}',
+          pharmacyId: widget.pharmacyId,
+          pharmacyName: context.read<PharmacyDetailsCubit>().state
+                  is PharmacyDetailsSuccess
+              ? (context.read<PharmacyDetailsCubit>().state
+                      as PharmacyDetailsSuccess)
+                  .pharmacy
+                  .title
+              : '',
+          pharmacyLocation: context.read<PharmacyDetailsCubit>().state
+                  is PharmacyDetailsSuccess
+              ? '${(context.read<PharmacyDetailsCubit>().state as PharmacyDetailsSuccess).pharmacy.city}, ${(context.read<PharmacyDetailsCubit>().state as PharmacyDetailsSuccess).pharmacy.area}'
+              : '',
         ),
       ),
     );
@@ -104,228 +118,250 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: isDarkMode ? AppColors.backgroundDark : Colors.grey[50],
-      body: Stack(
-        children: [
-          // Background Pattern
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: isDarkMode
-                    ? [
-                        AppColors.backgroundDark,
-                        AppColors.secondary.withOpacity(0.8),
-                        Color(0xff1C252F),
-                      ]
-                    : [
-                        Colors.blue[50]!,
-                        Colors.cyan[50]!,
-                        Colors.teal[50]!,
-                      ],
-              ),
-            ),
-          ),
-
-          CustomScrollView(
-            slivers: [
-              // Hero Section
-              SliverAppBar(
-                expandedHeight: 320.h,
-                floating: false,
-                pinned: true,
-                elevation: 0,
-                backgroundColor:
-                    isDarkMode ? AppColors.backgroundDark : Colors.transparent,
-                leading: Container(
-                  margin: EdgeInsets.all(8.w),
+      body: BlocBuilder<PharmacyDetailsCubit, PharmacyDetailsState>(
+        builder: (context, state) {
+          if (state is PharmacyDetailsLoading) {
+            return Center(child: CircularProgressIndicator());
+          } else if (state is PharmacyDetailsSuccess) {
+            final pharmacy = state.pharmacy;
+            return Stack(
+              children: [
+                // Background Pattern
+                Container(
                   decoration: BoxDecoration(
-                    color: isDarkMode
-                        ? AppColors.surfaceDark.withOpacity(0.9)
-                        : Colors.white.withOpacity(0.9),
-                    borderRadius: BorderRadius.circular(12.r),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 10,
-                        offset: Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back_ios_new,
-                      color: isDarkMode ? AppColors.textLight : Colors.black87,
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: isDarkMode
+                          ? [
+                              AppColors.backgroundDark,
+                              AppColors.secondary.withOpacity(0.8),
+                              Color(0xff1C252F),
+                            ]
+                          : [
+                              Colors.blue[50]!,
+                              Colors.cyan[50]!,
+                              Colors.teal[50]!,
+                            ],
                     ),
-                    onPressed: () => Navigator.pop(context),
                   ),
                 ),
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Stack(
-                    children: [
-                      // Hero Image
-                      Container(
+
+                CustomScrollView(
+                  slivers: [
+                    // Hero Section
+                    SliverAppBar(
+                      expandedHeight: 320.h,
+                      floating: false,
+                      pinned: true,
+                      elevation: 0,
+                      backgroundColor: isDarkMode
+                          ? AppColors.backgroundDark
+                          : Colors.transparent,
+                      leading: Container(
+                        margin: EdgeInsets.all(8.w),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(40.r),
-                            bottomRight: Radius.circular(40.r),
-                          ),
+                          color: isDarkMode
+                              ? AppColors.surfaceDark.withOpacity(0.9)
+                              : Colors.white.withOpacity(0.9),
+                          borderRadius: BorderRadius.circular(12.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 10,
+                              offset: Offset(0, 2),
+                            ),
+                          ],
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(40.r),
-                            bottomRight: Radius.circular(40.r),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.arrow_back_ios_new,
+                            color: isDarkMode
+                                ? AppColors.textLight
+                                : Colors.black87,
                           ),
-                          child: widget.pharmacy.image == null
-                              ? Image.asset(
-                                  'assets/Gifs/pharmacy.gif',
-                                  width: double.infinity,
-                                  height: 320.h,
-                                  fit: BoxFit.cover,
-                                )
-                              : Image.network(
-                                  widget.pharmacy.image!,
-                                  width: double.infinity,
-                                  height: 320.h,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Image.asset(
-                                      'assets/Gifs/pharmacy.gif',
-                                      width: double.infinity,
-                                      height: 320.h,
-                                      fit: BoxFit.cover,
-                                    );
-                                  },
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      ),
+                      flexibleSpace: FlexibleSpaceBar(
+                        background: Stack(
+                          children: [
+                            // Hero Image
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(40.r),
+                                  bottomRight: Radius.circular(40.r),
                                 ),
-                        ),
-                      ),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(40.r),
+                                  bottomRight: Radius.circular(40.r),
+                                ),
+                                child: pharmacy.image == null
+                                    ? Image.asset(
+                                        'assets/Gifs/pharmacy.gif',
+                                        width: double.infinity,
+                                        height: 320.h,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.network(
+                                        pharmacy.image!,
+                                        width: double.infinity,
+                                        height: 320.h,
+                                        fit: BoxFit.cover,
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          return Image.asset(
+                                            'assets/Gifs/pharmacy.gif',
+                                            width: double.infinity,
+                                            height: 320.h,
+                                            fit: BoxFit.cover,
+                                          );
+                                        },
+                                      ),
+                              ),
+                            ),
 
-                      // Gradient Overlay
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(40.r),
-                            bottomRight: Radius.circular(40.r),
-                          ),
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: isDarkMode
-                                ? [
-                                    Colors.transparent,
-                                    AppColors.backgroundDark.withOpacity(0.8),
-                                  ]
-                                : [
-                                    Colors.transparent,
-                                    Colors.black.withOpacity(0.8),
-                                  ],
-                          ),
-                        ),
-                      ),
+                            // Gradient Overlay
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(40.r),
+                                  bottomRight: Radius.circular(40.r),
+                                ),
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: isDarkMode
+                                      ? [
+                                          Colors.transparent,
+                                          AppColors.backgroundDark
+                                              .withOpacity(0.8),
+                                        ]
+                                      : [
+                                          Colors.transparent,
+                                          Colors.black.withOpacity(0.8),
+                                        ],
+                                ),
+                              ),
+                            ),
 
-                      // Pharmacy Name
-                      Positioned(
-                        bottom: 30.h,
-                        left: 20.w,
-                        right: 20.w,
-                        child: FadeTransition(
-                          opacity: _fadeAnimation,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                widget.pharmacy.title,
-                                style: TextStyle(
-                                  color: AppColors.textLight,
-                                  fontSize: 28.sp,
-                                  fontWeight: FontWeight.bold,
-                                  shadows: [
-                                    Shadow(
-                                      offset: Offset(0, 2),
-                                      blurRadius: 4,
-                                      color: Colors.black.withOpacity(0.5),
+                            // Pharmacy Name
+                            Positioned(
+                              bottom: 30.h,
+                              left: 20.w,
+                              right: 20.w,
+                              child: FadeTransition(
+                                opacity: _fadeAnimation,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      pharmacy.title,
+                                      style: TextStyle(
+                                        color: AppColors.textLight,
+                                        fontSize: 28.sp,
+                                        fontWeight: FontWeight.bold,
+                                        shadows: [
+                                          Shadow(
+                                            offset: Offset(0, 2),
+                                            blurRadius: 4,
+                                            color:
+                                                Colors.black.withOpacity(0.5),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 8.h),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 12.w,
+                                        vertical: 6.h,
+                                      ),
+                                      //  Classification: internal, external, both
+                                      decoration: BoxDecoration(
+                                        color: isDarkMode
+                                            ? AppColors.surfaceDark
+                                                .withOpacity(0.2)
+                                            : Colors.white.withOpacity(0.2),
+                                        borderRadius:
+                                            BorderRadius.circular(20.r),
+                                        border: Border.all(
+                                          color: AppColors.textLight
+                                              .withOpacity(0.3),
+                                        ),
+                                      ),
+                                      child: FittedBox(
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Icon(
+                                              Icons.location_on,
+                                              color: AppColors.textLight,
+                                              size: 16.sp,
+                                            ),
+                                            SizedBox(width: 4.w),
+                                            Text(
+                                              "${pharmacy.city}, ${pharmacy.area}",
+                                              style: TextStyle(
+                                                color: AppColors.textLight,
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
-                              SizedBox(height: 8.h),
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 12.w,
-                                  vertical: 6.h,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: isDarkMode
-                                      ? AppColors.surfaceDark.withOpacity(0.2)
-                                      : Colors.white.withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(20.r),
-                                  border: Border.all(
-                                    color: AppColors.textLight.withOpacity(0.3),
-                                  ),
-                                ),
-                                child: FittedBox(
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(
-                                        Icons.location_on,
-                                        color: AppColors.textLight,
-                                        size: 16.sp,
-                                      ),
-                                      SizedBox(width: 4.w),
-                                      Text(
-                                        "${widget.pharmacy.city}, ${widget.pharmacy.area}",
-                                        style: TextStyle(
-                                          color: AppColors.textLight,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    // Content
+                    SliverToBoxAdapter(
+                      child: SlideTransition(
+                        position: _slideAnimation,
+                        child: Padding(
+                          padding: EdgeInsets.all(20.w),
+                          child: Column(
+                            children: [
+                              // Rating Section
+                              _buildFloatingRatingCard(context, pharmacy),
+                              SizedBox(height: 30.h),
+
+                              // Services Grid
+                              _buildServicesGrid(context, pharmacy),
+                              SizedBox(height: 30.h),
+
+                              // Action Buttons
+                              _buildModernActionButtons(context, pharmacy),
+                              SizedBox(height: 30.h),
                             ],
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-
-              // Content
-              SliverToBoxAdapter(
-                child: SlideTransition(
-                  position: _slideAnimation,
-                  child: Padding(
-                    padding: EdgeInsets.all(20.w),
-                    child: Column(
-                      children: [
-                        // Rating Section
-                        _buildFloatingRatingCard(context),
-                        SizedBox(height: 30.h),
-
-                        // Services Grid
-                        _buildServicesGrid(context),
-                        SizedBox(height: 30.h),
-
-                        // Action Buttons
-                        _buildModernActionButtons(context),
-                        SizedBox(height: 30.h),
-                      ],
                     ),
-                  ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            );
+          } else if (state is PharmacyDetailsError) {
+            return Center(child: Text(state.message));
+          }
+          return Container();
+        },
       ),
     );
   }
 
-  Widget _buildFloatingRatingCard(BuildContext context) {
+  Widget _buildFloatingRatingCard(BuildContext context, PharmacyData pharmacy) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Container(
       transform: Matrix4.translationValues(0, -30.h, 0),
@@ -348,7 +384,7 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
             _buildRatingItem(
               context,
               icon: Icons.star_rounded,
-              value: "${widget.pharmacy.avgRate}",
+              value: "${pharmacy.avgRate}",
               label: "التقييم",
               color: Colors.amber,
               onTap: () => _showRatingBottomSheet(context),
@@ -435,7 +471,7 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
     );
   }
 
-  Widget _buildServicesGrid(BuildContext context) {
+  Widget _buildServicesGrid(BuildContext context, PharmacyData pharmacy) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -461,25 +497,23 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
               context,
               icon: Icons.medical_services,
               title: "الخدمة",
-              subtitle: widget.pharmacy.service,
+              subtitle: pharmacy.service,
               color: Colors.blue,
             ),
             _buildServiceCard(
               context,
               icon: Icons.local_shipping,
               title: "التوصيل",
-              subtitle:
-                  widget.pharmacy.deliveryOption == 1 ? "متاح" : "غير متاح",
-              color: widget.pharmacy.deliveryOption == 1
-                  ? Colors.green
-                  : Colors.orange,
+              subtitle: pharmacy.deliveryOption == 1 ? "متاح" : "غير متاح",
+              color:
+                  pharmacy.deliveryOption == 1 ? Colors.green : Colors.orange,
             ),
             _buildServiceCard(
               context,
               icon: Icons.security,
               title: "التأمين",
-              subtitle: widget.pharmacy.insurence == 1 ? "مدعوم" : "غير مدعوم",
-              color: widget.pharmacy.insurence == 1 ? Colors.teal : Colors.grey,
+              subtitle: pharmacy.insurance == 1 ? "مدعوم" : "غير مدعوم",
+              color: pharmacy.insurance == 1 ? Colors.teal : Colors.grey,
             ),
             _buildServiceCard(
               context,
@@ -546,22 +580,22 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
                   : Colors.grey[600],
             ),
           ),
-          SizedBox(height: 4.h),
           Text(
             subtitle,
-            textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 12.sp,
-              fontWeight: FontWeight.bold,
-              color: isDarkMode ? AppColors.textLight : Colors.black87,
+              color: isDarkMode
+                  ? AppColors.textLight.withOpacity(0.7)
+                  : Colors.grey[600],
             ),
-          ),
+          )
         ],
       ),
     );
   }
 
-  Widget _buildModernActionButtons(BuildContext context) {
+  Widget _buildModernActionButtons(
+      BuildContext context, PharmacyData pharmacy) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -587,7 +621,7 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
                 ? [Colors.green[700]!, Colors.green[900]!]
                 : [Colors.green[400]!, Colors.green[600]!],
           ),
-          onPressed: () => launchDialer(widget.pharmacy.phone),
+          onPressed: () => launchDialer(pharmacy.phone),
         ),
 
         SizedBox(height: 16.h),
@@ -603,8 +637,7 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
                 ? [Color(0xFF128C7E), Color(0xFF0A5F55)]
                 : [Color(0xFF25D366), Color(0xFF128C7E)],
           ),
-          onPressed: () =>
-              launchCustomUrl(context, widget.pharmacy.whatsappLink),
+          onPressed: () => launchCustomUrl(context, pharmacy.whatsappLink),
           isWhatsApp: true,
         ),
 
@@ -621,8 +654,7 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
                 ? [Colors.blue[700]!, Colors.blue[900]!]
                 : [Colors.blue[400]!, Colors.blue[600]!],
           ),
-          onPressed: () =>
-              launchCustomUrl(context, widget.pharmacy.locationUrl),
+          onPressed: () => launchCustomUrl(context, pharmacy.locationUrl),
         ),
 
         SizedBox(height: 16.h),

@@ -1,10 +1,15 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_care/core/network/api_service.dart';
 import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/core/utils/widgets/clip_path.dart';
+import 'package:media_care/presentation/views/pharmacy_details/cubit/pharmacy_details_cubit.dart';
+import 'package:media_care/presentation/views/pharmacy_details/data/repos/pharmacy_repo_impl.dart';
 import '../../../../core/utils/functins/launch_url.dart';
 import '../data/model/pharmacy_model.dart';
-import 'pharmacy_details_page.dart';
+import '../../pharmacy_details/pharmacy_details_page.dart';
 
 class PharmacyListViewItem extends StatelessWidget {
   const PharmacyListViewItem({
@@ -22,8 +27,15 @@ class PharmacyListViewItem extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>
-                  PharmacyDetailsPage(index: index, pharmacy: pharmacy),
+              builder: (context) => BlocProvider(
+                create: (context) => PharmacyDetailsCubit(
+                    PharmacyDetailsRepoImpl(
+                        apiService: ApiServiceFunctions(Dio())))
+                  ..fetchPharmacyDetails(pharmacy.id),
+                child: PharmacyDetailsPage(
+                  pharmacyId: pharmacy.id,
+                ),
+              ),
             ),
           );
         },
@@ -195,7 +207,8 @@ class CustomCardSimilarToWeb extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) => PharmacyDetailsPage(
-                                index: 0, pharmacy: pharmacy),
+                              pharmacyId: pharmacy.id,
+                            ),
                           ),
                         )),
               ],
