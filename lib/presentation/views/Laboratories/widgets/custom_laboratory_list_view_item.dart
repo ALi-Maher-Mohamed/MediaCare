@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/utils/functins/launch_url.dart';
 import '../data/model/labs_model/data.dart';
-import 'laboratory_details_page.dart';
+import '../../laboratory_details/laboratory_details_page.dart';
 
 class LaboratoryListViewItem extends StatelessWidget {
   const LaboratoryListViewItem({
@@ -20,7 +20,7 @@ class LaboratoryListViewItem extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) =>
-                  LaboratoryDetailsPage(laboratory: laboratory),
+                  LaboratoryDetailsPage(laboratoryId: laboratory.id),
             ),
           );
         },

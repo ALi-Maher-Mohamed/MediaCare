@@ -11,15 +11,14 @@ class LaboratoryRepositoryImpl implements LaboratoryRepository {
   LaboratoryRepositoryImpl(this.apiService);
 
   @override
-  Future<Either<Failure, Laboratory>> getLaboratory(String id) async {
+  Future<Either<Failure, LaboratoryResponse>> getLaboratory(String id) async {
     try {
       final response = await apiService.get(
         endpoint: '/api/Laboratories/$id',
       );
 
       if (response['success'] == true) {
-        final data = response['data'];
-        return Right(_mapToLaboratory(data));
+        return Right(LaboratoryResponse.fromJson(response));
       } else {
         return Left(ServerFailure(response['message'] ?? 'Unknown error'));
       }
@@ -28,40 +27,5 @@ class LaboratoryRepositoryImpl implements LaboratoryRepository {
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
-  }
-
-  Laboratory _mapToLaboratory(Map<String, dynamic> data) {
-    return Laboratory(
-      id: data['id'],
-      title: data['title'],
-      service: data['service'],
-      image: data['image'],
-      phone: data['phone'],
-      city: data['city'],
-      area: data['area'],
-      locationUrl: data['locationUrl'],
-      whatsappLink: data['whatsappLink'],
-      insurance: data['insurence'],
-      startAt: data['start_at'],
-      endAt: data['end_at'],
-      avgRate: data['avg_rate'],
-      chainLaboratoryId: data['chain_laboratory_id'],
-      createdAt: data['created_at'],
-      updatedAt: data['updated_at'],
-      users: (data['users'] as List<dynamic>)
-          .map((user) => User(
-                id: user['id'] ?? '',
-                name: user['name'] ?? '',
-                review: user['review'],
-                rating: user['rating'],
-              ))
-          .toList(),
-      insuranceCompanies: (data['insurance_companies'] as List<dynamic>)
-          .map((company) => InsuranceCompany(
-                id: company['id'] ?? '',
-                name: company['name'] ?? '',
-              ))
-          .toList(),
-    );
   }
 }
