@@ -495,7 +495,7 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
           crossAxisCount: 2,
           crossAxisSpacing: 16.w,
           mainAxisSpacing: 16.h,
-          childAspectRatio: .9,
+          childAspectRatio: .8,
           children: [
             _buildServiceCard(
               context,
@@ -553,47 +553,49 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
           ),
         ],
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: EdgeInsets.all(12.w),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  color.withOpacity(0.1),
-                  color.withOpacity(0.2),
-                ],
+      child: Expanded(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: EdgeInsets.all(12.w),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    color.withOpacity(0.1),
+                    color.withOpacity(0.2),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(16.r),
               ),
-              borderRadius: BorderRadius.circular(16.r),
+              child: Icon(
+                icon,
+                color: color,
+                size: 28.sp,
+              ),
             ),
-            child: Icon(
-              icon,
-              color: color,
-              size: 28.sp,
+            SizedBox(height: 12.h),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w600,
+                color: isDarkMode
+                    ? AppColors.textLight.withOpacity(0.7)
+                    : Colors.grey[600],
+              ),
             ),
-          ),
-          SizedBox(height: 12.h),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w600,
-              color: isDarkMode
-                  ? AppColors.textLight.withOpacity(0.7)
-                  : Colors.grey[600],
+            Text(
+              subtitle,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.bold,
+                color: isDarkMode ? AppColors.textLight : Colors.black87,
+              ),
             ),
-          ),
-          Text(
-            subtitle,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 12.sp,
-              fontWeight: FontWeight.bold,
-              color: isDarkMode ? AppColors.textLight : Colors.black87,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
