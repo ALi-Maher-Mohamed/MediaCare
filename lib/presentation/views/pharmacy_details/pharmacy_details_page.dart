@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -280,7 +281,6 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
                                         horizontal: 12.w,
                                         vertical: 6.h,
                                       ),
-                                      //  Classification: internal, external, both
                                       decoration: BoxDecoration(
                                         color: isDarkMode
                                             ? AppColors.surfaceDark
@@ -338,6 +338,10 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
 
                               // Services Grid
                               _buildServicesGrid(context, pharmacy),
+                              SizedBox(height: 30.h),
+
+                              // Reviews Section
+                              _buildReviewsSection(context, pharmacy),
                               SizedBox(height: 30.h),
 
                               // Action Buttons
@@ -582,15 +586,176 @@ class _PharmacyDetailsPageState extends State<PharmacyDetailsPage>
           ),
           Text(
             subtitle,
+            textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 12.sp,
-              color: isDarkMode
-                  ? AppColors.textLight.withOpacity(0.7)
-                  : Colors.grey[600],
+              fontWeight: FontWeight.bold,
+              color: isDarkMode ? AppColors.textLight : Colors.black87,
             ),
-          )
+          ),
         ],
       ),
+    );
+  }
+
+  Widget _buildReviewsSection(BuildContext context, PharmacyData pharmacy) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "مراجعات الزوار",
+          style: TextStyle(
+            fontSize: 24.sp,
+            fontWeight: FontWeight.bold,
+            color: isDarkMode ? AppColors.textLight : Colors.black87,
+          ),
+        ),
+        SizedBox(height: 16.h),
+        pharmacy.users.isEmpty
+            ? Container(
+                padding: EdgeInsets.all(16.w),
+                decoration: BoxDecoration(
+                  color: isDarkMode ? AppColors.surfaceDark : Colors.white,
+                  borderRadius: BorderRadius.circular(20.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 15,
+                      offset: Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: Text(
+                    "لا توجد مراجعات بعد",
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      color: isDarkMode
+                          ? AppColors.textLight.withOpacity(0.7)
+                          : Colors.grey[600],
+                    ),
+                  ),
+                ),
+              )
+            : Container(
+                height: 200.h,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  itemCount: pharmacy.users.length,
+                  itemBuilder: (context, index) {
+                    final user = pharmacy.users[index];
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: 16.h),
+                      child: Container(
+                        padding: EdgeInsets.all(16.w),
+                        decoration: BoxDecoration(
+                          color:
+                              isDarkMode ? AppColors.surfaceDark : Colors.white,
+                          borderRadius: BorderRadius.circular(20.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 15,
+                              offset: Offset(0, 5),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 20.r,
+                                      backgroundColor:
+                                          Colors.blue.withOpacity(0.1),
+                                      child: user.avatar == null
+                                          ? Icon(
+                                              Icons.person,
+                                              color: isDarkMode
+                                                  ? AppColors.textLight
+                                                  : Colors.black87,
+                                              size: 20.sp,
+                                            )
+                                          : ClipOval(
+                                              child: Image.network(
+                                                user.avatar!,
+                                                width: 40.r,
+                                                height: 40.r,
+                                                fit: BoxFit.cover,
+                                                errorBuilder: (context, error,
+                                                    stackTrace) {
+                                                  return Icon(
+                                                    Icons.person,
+                                                    color: isDarkMode
+                                                        ? AppColors.textLight
+                                                        : Colors.black87,
+                                                    size: 20.sp,
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                    ),
+                                    SizedBox(width: 8.w),
+                                    Text(
+                                      user.name,
+                                      style: TextStyle(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: isDarkMode
+                                            ? AppColors.textLight
+                                            : Colors.black87,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: List.generate(
+                                    5,
+                                    (starIndex) => Icon(
+                                      Icons.star_rounded,
+                                      size: 16.sp,
+                                      color: starIndex < user.pivot.ratingValue
+                                          ? Colors.amber
+                                          : Colors.grey[400],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 8.h),
+                            Text(
+                              user.pivot.review,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: isDarkMode
+                                    ? AppColors.textLight.withOpacity(0.8)
+                                    : Colors.grey[800],
+                              ),
+                            ),
+                            SizedBox(height: 8.h),
+                            Text(
+                              user.pivot.createdAt.split('T')[0],
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                color: isDarkMode
+                                    ? AppColors.textLight.withOpacity(0.6)
+                                    : Colors.grey[600],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+      ],
     );
   }
 
