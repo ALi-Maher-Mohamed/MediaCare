@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:media_care/core/SharedPref/shared_pref.dart';
 import 'package:media_care/core/network/api_service.dart';
+import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/core/utils/functins/launch_url.dart';
 import 'package:media_care/presentation/views/laboratories_rating/data/repo/laboratory_rating_repo_impl.dart';
 import 'package:media_care/presentation/views/laboratories_rating/manager/cubit/laboratory_rating_cubit.dart';
@@ -66,7 +67,7 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
 
     if (token == null || token.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text('يجب تسجيل الدخول أولاً'),
           backgroundColor: Colors.red,
           duration: Duration(seconds: 1),
@@ -99,8 +100,9 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: isDarkMode ? AppColors.backgroundDark : Colors.grey[50],
       body: Stack(
         children: [
           // Background Pattern
@@ -109,11 +111,17 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [
-                  Colors.blue[50]!,
-                  Colors.cyan[50]!,
-                  Colors.teal[50]!,
-                ],
+                colors: isDarkMode
+                    ? [
+                        AppColors.backgroundDark,
+                        AppColors.secondary.withOpacity(0.8),
+                        Color(0xff1C252F),
+                      ]
+                    : [
+                        Colors.blue[50]!,
+                        Colors.cyan[50]!,
+                        Colors.teal[50]!,
+                      ],
               ),
             ),
           ),
@@ -126,11 +134,14 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
                 floating: false,
                 pinned: true,
                 elevation: 0,
-                backgroundColor: Colors.transparent,
+                backgroundColor:
+                    isDarkMode ? AppColors.backgroundDark : Colors.transparent,
                 leading: Container(
                   margin: EdgeInsets.all(8.w),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.9),
+                    color: isDarkMode
+                        ? AppColors.surfaceDark.withOpacity(0.9)
+                        : Colors.white.withOpacity(0.9),
                     borderRadius: BorderRadius.circular(12.r),
                     boxShadow: [
                       BoxShadow(
@@ -141,7 +152,10 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
                     ],
                   ),
                   child: IconButton(
-                    icon: Icon(Icons.arrow_back_ios_new, color: Colors.black87),
+                    icon: Icon(
+                      Icons.arrow_back_ios_new,
+                      color: isDarkMode ? AppColors.textLight : Colors.black87,
+                    ),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ),
@@ -188,10 +202,15 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
                           gradient: LinearGradient(
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.transparent,
-                              Colors.black.withOpacity(0.8),
-                            ],
+                            colors: isDarkMode
+                                ? [
+                                    Colors.transparent,
+                                    AppColors.backgroundDark.withOpacity(0.8),
+                                  ]
+                                : [
+                                    Colors.transparent,
+                                    Colors.black.withOpacity(0.8),
+                                  ],
                           ),
                         ),
                       ),
@@ -211,12 +230,14 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
                                   Container(
                                     padding: EdgeInsets.all(8.w),
                                     decoration: BoxDecoration(
-                                      color: Colors.purple.withOpacity(0.2),
+                                      color: isDarkMode
+                                          ? AppColors.primary.withOpacity(0.2)
+                                          : Colors.purple.withOpacity(0.2),
                                       borderRadius: BorderRadius.circular(12.r),
                                     ),
                                     child: Icon(
                                       Icons.science,
-                                      color: Colors.white,
+                                      color: AppColors.textLight,
                                       size: 20.sp,
                                     ),
                                   ),
@@ -224,7 +245,8 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
                                   Text(
                                     "معمل تحاليل طبية",
                                     style: TextStyle(
-                                      color: Colors.white.withOpacity(0.8),
+                                      color:
+                                          AppColors.textLight.withOpacity(0.8),
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -235,7 +257,7 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
                               Text(
                                 widget.laboratory.title,
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  color: AppColors.textLight,
                                   fontSize: 28.sp,
                                   fontWeight: FontWeight.bold,
                                   shadows: [
@@ -254,30 +276,34 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
                                   vertical: 6.h,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.2),
+                                  color: isDarkMode
+                                      ? AppColors.surfaceDark.withOpacity(0.2)
+                                      : Colors.white.withOpacity(0.2),
                                   borderRadius: BorderRadius.circular(20.r),
                                   border: Border.all(
-                                    color: Colors.white.withOpacity(0.3),
+                                    color: AppColors.textLight.withOpacity(0.3),
                                   ),
                                 ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(
-                                      Icons.location_on,
-                                      color: Colors.white,
-                                      size: 16.sp,
-                                    ),
-                                    SizedBox(width: 4.w),
-                                    Text(
-                                      "${widget.laboratory.city}, ${widget.laboratory.area}",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w500,
+                                child: FittedBox(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        Icons.location_on,
+                                        color: AppColors.textLight,
+                                        size: 16.sp,
                                       ),
-                                    ),
-                                  ],
+                                      SizedBox(width: 4.w),
+                                      Text(
+                                        "${widget.laboratory.city}, ${widget.laboratory.area}",
+                                        style: TextStyle(
+                                          color: AppColors.textLight,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
@@ -321,12 +347,13 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
   }
 
   Widget _buildFloatingRatingCard(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Container(
       transform: Matrix4.translationValues(0, -30.h, 0),
       child: Container(
         padding: EdgeInsets.all(24.w),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: isDarkMode ? AppColors.surfaceDark : Colors.white,
           borderRadius: BorderRadius.circular(24.r),
           boxShadow: [
             BoxShadow(
@@ -349,7 +376,9 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
             Container(
               height: 40.h,
               width: 1,
-              color: Colors.grey[300],
+              color: isDarkMode
+                  ? AppColors.textLight.withOpacity(0.2)
+                  : Colors.grey[300],
             ),
             _buildRatingItem(
               context,
@@ -361,7 +390,9 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
             Container(
               height: 40.h,
               width: 1,
-              color: Colors.grey[300],
+              color: isDarkMode
+                  ? AppColors.textLight.withOpacity(0.2)
+                  : Colors.grey[300],
             ),
             _buildRatingItem(
               context,
@@ -383,6 +414,7 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
     required String label,
     required Color color,
   }) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Column(
       children: [
         Container(
@@ -403,14 +435,16 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
           style: TextStyle(
             fontSize: 16.sp,
             fontWeight: FontWeight.bold,
-            color: Colors.black87,
+            color: isDarkMode ? AppColors.textLight : Colors.black87,
           ),
         ),
         Text(
           label,
           style: TextStyle(
             fontSize: 12.sp,
-            color: Colors.grey[600],
+            color: isDarkMode
+                ? AppColors.textLight.withOpacity(0.7)
+                : Colors.grey[600],
           ),
         ),
       ],
@@ -418,6 +452,7 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
   }
 
   Widget _buildServicesGrid(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -426,7 +461,7 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
           style: TextStyle(
             fontSize: 24.sp,
             fontWeight: FontWeight.bold,
-            color: Colors.black87,
+            color: isDarkMode ? AppColors.textLight : Colors.black87,
           ),
         ),
         SizedBox(height: 16.h),
@@ -479,10 +514,11 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
     required String subtitle,
     required Color color,
   }) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isDarkMode ? AppColors.surfaceDark : Colors.white,
         borderRadius: BorderRadius.circular(20.r),
         boxShadow: [
           BoxShadow(
@@ -499,7 +535,10 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
             padding: EdgeInsets.all(12.w),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [color.withOpacity(0.1), color.withOpacity(0.2)],
+                colors: [
+                  color.withOpacity(0.1),
+                  color.withOpacity(0.2),
+                ],
               ),
               borderRadius: BorderRadius.circular(16.r),
             ),
@@ -515,7 +554,9 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
             style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.w600,
-              color: Colors.grey[600],
+              color: isDarkMode
+                  ? AppColors.textLight.withOpacity(0.7)
+                  : Colors.grey[600],
             ),
           ),
           SizedBox(height: 4.h),
@@ -525,7 +566,7 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
             style: TextStyle(
               fontSize: 12.sp,
               fontWeight: FontWeight.bold,
-              color: Colors.black87,
+              color: isDarkMode ? AppColors.textLight : Colors.black87,
             ),
           ),
         ],
@@ -534,6 +575,7 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
   }
 
   Widget _buildModernActionButtons(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -542,7 +584,7 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
           style: TextStyle(
             fontSize: 24.sp,
             fontWeight: FontWeight.bold,
-            color: Colors.black87,
+            color: isDarkMode ? AppColors.textLight : Colors.black87,
           ),
         ),
         SizedBox(height: 20.h),
@@ -553,8 +595,11 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
           icon: Icons.star_rate_rounded,
           label: "تقييم المعمل",
           subtitle: "شاركنا رأيك عن الخدمة",
-          gradient:
-              LinearGradient(colors: [Colors.amber[600]!, Colors.orange[600]!]),
+          gradient: LinearGradient(
+            colors: isDarkMode
+                ? [Colors.amber[700]!, Colors.orange[900]!]
+                : [Colors.amber[600]!, Colors.orange[600]!],
+          ),
           onPressed: () => _showRatingBottomSheet(context),
         ),
 
@@ -566,8 +611,11 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
           icon: Icons.phone_rounded,
           label: "اتصل بالمعمل",
           subtitle: "للاستفسارات والمواعيد",
-          gradient:
-              LinearGradient(colors: [Colors.green[400]!, Colors.green[600]!]),
+          gradient: LinearGradient(
+            colors: isDarkMode
+                ? [Colors.green[700]!, Colors.green[900]!]
+                : [Colors.green[400]!, Colors.green[600]!],
+          ),
           onPressed: () => launchDialer(widget.laboratory.phone),
         ),
 
@@ -579,8 +627,11 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
           icon: FontAwesomeIcons.whatsapp,
           label: "واتساب",
           subtitle: "للتواصل والاستشارات",
-          gradient:
-              LinearGradient(colors: [Color(0xFF25D366), Color(0xFF128C7E)]),
+          gradient: LinearGradient(
+            colors: isDarkMode
+                ? [Color(0xFF128C7E), Color(0xFF0A5F55)]
+                : [Color(0xFF25D366), Color(0xFF128C7E)],
+          ),
           onPressed: () =>
               launchCustomUrl(context, widget.laboratory.whatsappLink),
           isWhatsApp: true,
@@ -595,7 +646,10 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
           label: "عرض على الخريطة",
           subtitle: "للوصول إلى المعمل",
           gradient: LinearGradient(
-              colors: [Colors.purple[400]!, Colors.purple[600]!]),
+            colors: isDarkMode
+                ? [Colors.purple[700]!, Colors.purple[900]!]
+                : [Colors.purple[400]!, Colors.purple[600]!],
+          ),
           onPressed: () =>
               launchCustomUrl(context, widget.laboratory.locationUrl),
         ),
@@ -612,6 +666,7 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
     required VoidCallback onPressed,
     bool isWhatsApp = false,
   }) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: double.infinity,
       height: 80.h,
@@ -643,13 +698,15 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
                 width: 80.w,
                 height: 80.h,
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
+                  color: isDarkMode
+                      ? AppColors.surfaceDark.withOpacity(0.2)
+                      : Colors.white.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(20.r),
                 ),
                 child: Center(
                   child: isWhatsApp
-                      ? FaIcon(icon, color: Colors.white, size: 28.sp)
-                      : Icon(icon, color: Colors.white, size: 28.sp),
+                      ? FaIcon(icon, color: AppColors.textLight, size: 28.sp)
+                      : Icon(icon, color: AppColors.textLight, size: 28.sp),
                 ),
               ),
               Expanded(
@@ -662,7 +719,7 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
                       Text(
                         label,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.textLight,
                           fontSize: 18.sp,
                           fontWeight: FontWeight.bold,
                         ),
@@ -670,7 +727,7 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
                       Text(
                         subtitle,
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.8),
+                          color: AppColors.textLight.withOpacity(0.8),
                           fontSize: 14.sp,
                         ),
                       ),
@@ -682,7 +739,7 @@ class _LaboratoryDetailsPageState extends State<LaboratoryDetailsPage>
                 padding: EdgeInsets.only(right: 16.w),
                 child: Icon(
                   Icons.arrow_forward_ios,
-                  color: Colors.white,
+                  color: AppColors.textLight,
                   size: 20.sp,
                 ),
               ),
