@@ -11,8 +11,7 @@ class AppTheme {
       appBarTheme: AppBarTheme(
         backgroundColor: AppColors.backgroundLight,
         elevation: 0,
-        iconTheme: const IconThemeData(
-            color: AppColors.primary),   
+        iconTheme: const IconThemeData(color: AppColors.primary),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -22,26 +21,25 @@ class AppTheme {
       ),
       colorScheme: ColorScheme.light(
         primary: AppColors.primary,
-        secondary: AppColors.secondary,   
+        secondary: AppColors.secondary,
         background: AppColors.backgroundLight,
-        surface: AppColors.surfaceLight,   
+        surface: AppColors.surfaceLight,
         onPrimary: AppColors.textLight,
         onSecondary: AppColors.textLight,
-        onSurface: AppColors.primary,   
+        onSurface: AppColors.primary,
       ),
       textTheme: TextTheme(
         titleLarge: TextStyle(
-          color: AppColors.primary,   
+          color: AppColors.primary,
           fontSize: 22.sp,
           fontWeight: FontWeight.bold,
         ),
         bodyLarge: TextStyle(
-          color: AppColors.primary,   
+          color: AppColors.primary,
           fontSize: 16.sp,
         ),
       ),
-      iconTheme:
-          const IconThemeData(color: AppColors.primary),   
+      iconTheme: const IconThemeData(color: AppColors.primary),
     );
   }
 
@@ -63,21 +61,21 @@ class AppTheme {
       ),
       colorScheme: ColorScheme.dark(
         primary: AppColors.primary,
-        secondary: AppColors.secondary,   
+        secondary: AppColors.secondary,
         background: AppColors.backgroundDark,
-        surface: AppColors.surfaceDark,   
+        surface: AppColors.surfaceDark,
         onPrimary: AppColors.textLight,
         onSecondary: AppColors.textLight,
-        onSurface: AppColors.textLight,   
+        onSurface: AppColors.textLight,
       ),
       textTheme: TextTheme(
         titleLarge: TextStyle(
-          color: AppColors.primary,   
+          color: AppColors.primary,
           fontSize: 20.sp,
           fontWeight: FontWeight.bold,
         ),
         bodyLarge: TextStyle(
-          color: AppColors.textLight,   
+          color: AppColors.textLight,
           fontSize: 16.sp,
         ),
       ),
