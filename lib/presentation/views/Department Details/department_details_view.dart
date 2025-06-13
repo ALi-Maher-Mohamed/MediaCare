@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:media_care/core/network/api_service.dart';
 import 'package:media_care/core/utils/widgets/custom_circular_indicator.dart';
 import 'package:media_care/presentation/views/Department%20Details/data/models/department_details_model.dart';
@@ -71,7 +72,7 @@ class DepartmentDetailsScreen extends StatelessWidget {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 16.0),
                             child: Text(
-                              'نصائح طبية',
+                              'نصائح وإرشادات',
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge
@@ -84,10 +85,10 @@ class DepartmentDetailsScreen extends StatelessWidget {
                           const SizedBox(height: 8),
                           CarouselSlider(
                             options: CarouselOptions(
-                              height: 200,
+                              height: 100.h,
                               autoPlay: true,
                               autoPlayInterval: Duration(seconds: 5),
-                              enlargeCenterPage: true,
+                              enlargeCenterPage: false,
                               viewportFraction: 0.85,
                             ),
                             items:
