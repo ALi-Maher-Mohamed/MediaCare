@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:media_care/presentation/views/Pharmacie_rating/data/model/pharmacy_rating_model.dart';
 
 abstract class PharmacyRatingState extends Equatable {
   const PharmacyRatingState();
@@ -13,12 +12,16 @@ class PharmacyRatingInitial extends PharmacyRatingState {}
 class PharmacyRatingLoading extends PharmacyRatingState {}
 
 class PharmacyRatingSuccess extends PharmacyRatingState {
-  final PharmacyRatingModel pharmacyRatingModel;
+  final String review;
+  final int ratingValue;
 
-  const PharmacyRatingSuccess(this.pharmacyRatingModel);
+  const PharmacyRatingSuccess({
+    required this.review,
+    required this.ratingValue,
+  });
 
   @override
-  List<Object> get props => [pharmacyRatingModel];
+  List<Object> get props => [review, ratingValue];
 }
 
 class PharmacyRatingError extends PharmacyRatingState {

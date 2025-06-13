@@ -19,7 +19,7 @@ class PharmacyRatingCubit extends Cubit<PharmacyRatingState> {
   }
 
   void updateReview(String newReview) {
-    review = newReview;
+    review = newReview.isEmpty ? 'لم يكتب المستخدم مراجعة' : newReview;
     emit(PharmacyRatingReviewUpdated(review));
   }
 
@@ -58,7 +58,10 @@ class PharmacyRatingCubit extends Cubit<PharmacyRatingState> {
       },
       (success) {
         isSubmitting = false;
-        emit(PharmacyRatingSuccess(success));
+        emit(PharmacyRatingSuccess(
+          review: review,
+          ratingValue: rating,
+        ));
       },
     );
   }

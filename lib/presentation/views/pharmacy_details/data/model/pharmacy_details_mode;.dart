@@ -87,6 +87,50 @@ class PharmacyData {
       insuranceCompanies: json['insurance_companies'] ?? [],
     );
   }
+
+  PharmacyData copyWith({
+    String? id,
+    String? title,
+    String? service,
+    String? image,
+    String? phone,
+    String? city,
+    String? area,
+    String? locationUrl,
+    String? whatsappLink,
+    int? deliveryOption,
+    int? insurance,
+    String? startAt,
+    String? endAt,
+    String? avgRate,
+    String? chainPharmacyId,
+    String? createdAt,
+    String? updatedAt,
+    List<User>? users,
+    List<dynamic>? insuranceCompanies,
+  }) {
+    return PharmacyData(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      service: service ?? this.service,
+      image: image ?? this.image,
+      phone: phone ?? this.phone,
+      city: city ?? this.city,
+      area: area ?? this.area,
+      locationUrl: locationUrl ?? this.locationUrl,
+      whatsappLink: whatsappLink ?? this.whatsappLink,
+      deliveryOption: deliveryOption ?? this.deliveryOption,
+      insurance: insurance ?? this.insurance,
+      startAt: startAt ?? this.startAt,
+      endAt: endAt ?? this.endAt,
+      avgRate: avgRate ?? this.avgRate,
+      chainPharmacyId: chainPharmacyId ?? this.chainPharmacyId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      users: users ?? this.users,
+      insuranceCompanies: insuranceCompanies ?? this.insuranceCompanies,
+    );
+  }
 }
 
 class User {
@@ -152,6 +196,49 @@ class User {
       pivot: Pivot.fromJson(json['pivot'] ?? {}),
     );
   }
+
+  User copyWith({
+    String? id,
+    String? googleId,
+    String? avatar,
+    String? name,
+    String? email,
+    String? emailVerifiedAt,
+    String? verificationTokenExpiresAt,
+    String? resetToken,
+    String? resetTokenExpiresAt,
+    String? phone,
+    String? address,
+    String? birthDate,
+    String? role,
+    int? points,
+    String? lastVisit,
+    String? createdAt,
+    String? updatedAt,
+    Pivot? pivot,
+  }) {
+    return User(
+      id: id ?? this.id,
+      googleId: googleId ?? this.googleId,
+      avatar: avatar ?? this.avatar,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      emailVerifiedAt: emailVerifiedAt ?? this.emailVerifiedAt,
+      verificationTokenExpiresAt:
+          verificationTokenExpiresAt ?? this.verificationTokenExpiresAt,
+      resetToken: resetToken ?? this.resetToken,
+      resetTokenExpiresAt: resetTokenExpiresAt ?? this.resetTokenExpiresAt,
+      phone: phone ?? this.phone,
+      address: address ?? this.address,
+      birthDate: birthDate ?? this.birthDate,
+      role: role ?? this.role,
+      points: points ?? this.points,
+      lastVisit: lastVisit ?? this.lastVisit,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      pivot: pivot ?? this.pivot,
+    );
+  }
 }
 
 class Pivot {
@@ -179,6 +266,24 @@ class Pivot {
       ratingValue: json['rating_value'] ?? 0,
       createdAt: json['created_at'] ?? '',
       updatedAt: json['updated_at'] ?? '',
+    );
+  }
+
+  Pivot copyWith({
+    String? pharmacyId,
+    String? userId,
+    String? review,
+    int? ratingValue,
+    String? createdAt,
+    String? updatedAt,
+  }) {
+    return Pivot(
+      pharmacyId: pharmacyId ?? this.pharmacyId,
+      userId: userId ?? this.userId,
+      review: review ?? this.review,
+      ratingValue: ratingValue ?? this.ratingValue,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 }

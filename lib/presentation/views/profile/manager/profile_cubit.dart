@@ -8,12 +8,17 @@ import 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   final ProfileRepoImpl profileRepo;
-  // final SecureStorage secureStorage;
-  String? userId;
+  String? _userId;
+  String? _userName;
+  String? _userAvatar;
 
   ProfileCubit({
     required this.profileRepo,
   }) : super(ProfileInitial());
+
+  String? get userId => _userId;
+  String? get userName => _userName;
+  String? get userAvatar => _userAvatar;
 
   Future<void> fetchProfile() async {
     emit(ProfileLoading());
@@ -27,7 +32,9 @@ class ProfileCubit extends Cubit<ProfileState> {
       Either<Failure, UserModel> result =
           await profileRepo.getAccount(token: token);
       result.fold((failure) => emit(ProfileError(failure.errMessage)), (user) {
-        userId = user.id;
+        _userId = user.id;
+        _userName = user.name;
+        _userAvatar = user.avatar;
         emit(ProfileLoaded(user));
       });
     } catch (e) {

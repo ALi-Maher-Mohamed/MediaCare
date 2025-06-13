@@ -1,4 +1,4 @@
-import 'package:media_care/presentation/views/pharmacy_details/data/model/pharmacy_details.dart';
+import 'package:media_care/presentation/views/pharmacy_details/data/model/pharmacy_details_mode;.dart';
 
 abstract class PharmacyDetailsState {}
 

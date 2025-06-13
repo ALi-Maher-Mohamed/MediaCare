@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:media_care/core/errors/failure.dart';
 import 'package:media_care/core/network/api_service.dart';
-import 'package:media_care/presentation/views/pharmacy_details/data/model/pharmacy_details.dart';
+import 'package:media_care/presentation/views/pharmacy_details/data/model/pharmacy_details_mode;.dart';
 import 'package:media_care/presentation/views/pharmacy_details/data/repos/pharmacy_repo.dart';
 
 class PharmacyDetailsRepoImpl implements PharmacyDetailsRepo {

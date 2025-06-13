@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,10 +8,11 @@ import 'package:media_care/core/network/api_service.dart';
 import 'package:media_care/core/utils/app_color.dart';
 import 'package:media_care/presentation/views/Pharmacie_rating/data/repos/pharmacy_rating_repo_impl.dart';
 import 'package:media_care/presentation/views/Pharmacie_rating/manager/cubit/pharmacy_rating_cubit.dart';
+import 'package:media_care/presentation/views/Pharmacie_rating/manager/cubit/pharmacy_rating_state.dart';
 import 'package:media_care/presentation/views/Pharmacie_rating/widgets/rating_bottom_sheet.dart';
 import 'package:media_care/presentation/views/pharmacy_details/cubit/pharmacy_details_cubit.dart';
 import 'package:media_care/presentation/views/pharmacy_details/cubit/pharmacy_details_state.dart';
-import 'package:media_care/presentation/views/pharmacy_details/data/model/pharmacy_details.dart';
+import 'package:media_care/presentation/views/pharmacy_details/data/model/pharmacy_details_mode;.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
 import '../../../core/utils/functins/launch_url.dart';
 
