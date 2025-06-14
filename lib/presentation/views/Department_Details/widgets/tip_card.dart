@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:media_care/presentation/views/Department%20Details/data/models/department_details_model.dart';
+import 'package:media_care/presentation/views/Department_Details/data/models/department_details_model.dart';
 
 class TipCard extends StatelessWidget {
   final Tip tip;

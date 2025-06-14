@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:media_care/core/errors/failure.dart';
 import 'package:media_care/core/network/api_service.dart';
-import 'package:media_care/presentation/views/Department%20Details/data/models/department_details_model.dart';
-import 'package:media_care/presentation/views/Department%20Details/data/repo/department_details_repo.dart';
+import 'package:media_care/presentation/views/Department_Details/data/models/department_details_model.dart';
+import 'package:media_care/presentation/views/Department_Details/data/repo/department_details_repo.dart';
 
 class DepartmentDetailsRepoImpl implements DepartmentDetailsRepo {
   final ApiServiceFunctions apiService;

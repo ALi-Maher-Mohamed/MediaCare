@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:media_care/presentation/views/Department%20Details/department_details_view.dart';
+import 'package:media_care/presentation/views/Department_Details/department_details_view.dart';
 import 'package:media_care/presentation/views/Department/data/models/department_model.dart';
 import 'package:media_care/presentation/views/Department/manager/department_cubit.dart';
 import 'package:media_care/presentation/views/Department/manager/department_state.dart';

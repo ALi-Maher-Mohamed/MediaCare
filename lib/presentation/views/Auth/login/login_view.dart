@@ -28,7 +28,7 @@ class LoginView extends StatelessWidget {
           } else if (state is LoginLoading) {
             EasyLoading.show(status: 'جاري التحميل ');
           } else if (state is LoginError) {
-            EasyLoading.showError(state.error);
+            EasyLoading.showError('خطا في تسجيل الدخول: \n${state.error}');
           }
         },
         builder: (context, state) {

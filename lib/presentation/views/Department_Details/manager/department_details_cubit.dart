@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:media_care/presentation/views/Department%20Details/data/models/department_details_model.dart';
-import 'package:media_care/presentation/views/Department%20Details/data/repo/department_details_repo_impl.dart';
-import 'package:media_care/presentation/views/Department%20Details/manager/department_details_state.dart';
+import 'package:media_care/presentation/views/Department_Details/data/models/department_details_model.dart';
+import 'package:media_care/presentation/views/Department_Details/data/repo/department_details_repo_impl.dart';
+import 'package:media_care/presentation/views/Department_Details/manager/department_details_state.dart';
 
 class DepartmentDetailsCubit extends Cubit<DepartmentDetailsState> {
   final DepartmentDetailsRepoImpl departmentDetailsRepoImpl;

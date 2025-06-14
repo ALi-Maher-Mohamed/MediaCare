@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:media_care/presentation/views/Department%20Details/data/models/department_details_model.dart';
+import 'package:media_care/presentation/views/Department_Details/data/models/department_details_model.dart';
 import 'package:media_care/presentation/views/Doctor%20Details/doctor_details_view.dart';
 
 class DoctorCard extends StatelessWidget {
