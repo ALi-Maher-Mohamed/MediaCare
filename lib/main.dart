@@ -18,6 +18,7 @@ import 'package:media_care/presentation/views/Auth/login/login_view.dart';
 import 'package:media_care/presentation/views/doctors_offers/data/manager/cubit/doctor_offers_cubit.dart';
 import 'package:media_care/presentation/views/doctors_offers/data/repos/offer_group_repository.dart';
 import 'package:media_care/presentation/views/doctors_offers/offer_group_view.dart';
+import 'package:media_care/presentation/views/intro/introduction_page_view.dart';
 import 'package:media_care/presentation/views/profile/data/repo/profile_repo_impl.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
 import 'package:media_care/zoom_drawer.dart';
@@ -93,7 +94,7 @@ class MediCare extends StatelessWidget {
                 ),
               ),
               debugShowCheckedModeBanner: false,
-              home: HomeView(),
+              home: IntroView(),
             );
           },
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'custom_intro_page.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'custom_intro_page.dart';
 
 class CustomSmoothIndicator extends StatelessWidget {
   const CustomSmoothIndicator({
@@ -19,14 +20,18 @@ class CustomSmoothIndicator extends StatelessWidget {
         controller: controller,
         count: intros.length,
         effect: WormEffect(
-            spacing: 16,
-            dotColor: Theme.of(context).colorScheme.secondary,
-            dotWidth: 10,
-            dotHeight: 10,
-            activeDotColor: Theme.of(context).colorScheme.primary),
+          spacing: 16.w, // Responsive spacing
+          dotColor: Theme.of(context).colorScheme.secondary,
+          dotWidth: 10.w, // Responsive dot width
+          dotHeight: 10.h, // Responsive dot height
+          activeDotColor: Theme.of(context).colorScheme.primary,
+        ),
         onDotClicked: (index) {
-          controller.animateToPage(index,
-              duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+          controller.animateToPage(
+            index,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeIn,
+          );
         },
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/utils/app_images.dart';
 import 'custom_intro_page.dart';
 import 'custom_bottom_sheet.dart';
@@ -36,20 +37,28 @@ List<CustomIntroPage> intros = [
 class _IntroViewBodyState extends State<IntroViewBody> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.only(bottom: 50),
-        child: PageView(
-          onPageChanged: (index) => setState(() {
-            isLastPage = index == intros.length - 1;
-          }),
-          controller: controller,
-          children: intros,
-        ),
-      ),
-      bottomSheet: isLastPage
-          ? CustomLetsGoButton()
-          : CustomButomSheet(controller: controller, intros: intros),
+    return ScreenUtilInit(
+      designSize:
+          const Size(360, 690), // Standard design size for responsiveness
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return Scaffold(
+          body: Container(
+            padding: EdgeInsets.only(bottom: 50.h), // Responsive padding
+            child: PageView(
+              onPageChanged: (index) => setState(() {
+                isLastPage = index == intros.length - 1;
+              }),
+              controller: controller,
+              children: intros,
+            ),
+          ),
+          bottomSheet: isLastPage
+              ? const CustomLetsGoButton()
+              : CustomButomSheet(controller: controller, intros: intros),
+        );
+      },
     );
   }
 }
