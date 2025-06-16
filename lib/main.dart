@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -22,26 +21,36 @@ import 'package:media_care/presentation/views/intro/introduction_page_view.dart'
 import 'package:media_care/presentation/views/profile/data/repo/profile_repo_impl.dart';
 import 'package:media_care/presentation/views/profile/manager/profile_cubit.dart';
 import 'package:media_care/zoom_drawer.dart';
+import 'package:dio/dio.dart';
 import 'observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  String? token = await SharedPreference().getToken();
   Bloc.observer = MyBlocObserver();
   ErrorWidget.builder = (FlutterErrorDetails exception) => ModernErrorScreen(
         errorDetails: exception,
       );
   EasyLoadingConfig.init();
-  runApp(MediCare(
-    isLoggedIn: token != null,
-  ));
+
+  final SharedPreference sharedPreference = SharedPreference();
+  bool hasSeenOnboarding = await sharedPreference.hasSeenOnboarding();
+  bool isLoggedIn = await sharedPreference.checkLogin();
+
+  Widget initialScreen;
+  if (hasSeenOnboarding) {
+    initialScreen = isLoggedIn ? const HomeView() : const LoginView();
+  } else {
+    initialScreen = const IntroView();
+  }
+
+  runApp(MediCare(initialScreen: initialScreen));
 }
 
 class MediCare extends StatelessWidget {
-  final bool isLoggedIn;
+  final Widget initialScreen;
 
-  MediCare({required this.isLoggedIn, super.key});
+  const MediCare({required this.initialScreen, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +95,7 @@ class MediCare extends StatelessWidget {
                 '/home': (context) => const HomeView(),
               },
               theme: theme,
-              locale: Locale('ar'),
+              locale: const Locale('ar'),
               builder: EasyLoading.init(
                 builder: (context, child) => Directionality(
                   textDirection: TextDirection.rtl,

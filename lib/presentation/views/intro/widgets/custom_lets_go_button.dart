@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:media_care/core/SharedPref/shared_pref.dart';
 import 'package:media_care/zoom_drawer.dart';
-import '../../Auth/login/login_view.dart';
 
 class CustomLetsGoButton extends StatelessWidget {
   const CustomLetsGoButton({super.key});
@@ -9,8 +9,9 @@ class CustomLetsGoButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
+      onTap: () async {
+        await SharedPreference().setHasSeenOnboarding();
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const HomeView()),
         );
@@ -24,7 +25,7 @@ class CustomLetsGoButton extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            'لنبدا',
+            'لنبدأ',
             style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   fontSize: 24.sp, // Responsive font size
                   color: Theme.of(context).colorScheme.onPrimary,

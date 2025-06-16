@@ -55,7 +55,7 @@ class DoctorCard extends StatelessWidget {
                           doctor.image!,
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) =>
-                              Icon(Icons.person, size: 40.r),
+                              Icon(Icons.person, size: 60.r),
                         ),
                 ),
               ),

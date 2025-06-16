@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:media_care/core/utils/functins/launch_url.dart';
 import 'package:media_care/presentation/views/Department_Details/data/models/department_details_model.dart';
 
 class CareCenterCard extends StatelessWidget {
@@ -134,7 +135,8 @@ class CareCenterCard extends StatelessWidget {
                     minimumSize: Size(double.infinity, 40.h),
                   ),
                   onPressed: () {
-                    // Handle contact button press
+                    // Implement contact functionality
+                    launchDialer(careCenter.phone);
                   },
                   child: Text(
                     'اتصل الآن',
